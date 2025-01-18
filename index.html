@@ -3,58 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collegamento agli Orari - Fix Scroll</title>
+    <title>Collegamento agli Orari - Biblioteca Elsa Morante</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 2rem;
             background-color: #f9f9f9;
+            line-height: 1.6;
         }
         h1 {
             color: #333;
+            margin-bottom: 1.5rem;
         }
-        a {
+        .btn-link {
             display: inline-block;
             margin: 1rem 0;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             background-color: #0073e6;
             color: white;
             text-decoration: none;
             border-radius: 4px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        a:hover {
+        .btn-link:hover {
             background-color: #005bb5;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+        .note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
         }
     </style>
 </head>
 <body>
     <h1>📚 Collegamento agli Orari della Biblioteca Elsa Morante</h1>
-
-    <!-- Link diretto alla sezione degli orari -->
-    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2#where_openings" 
+    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" 
+       class="btn-link"
        target="_blank"
-       onclick="fixScroll(event, this)">
+       onclick="handleClick(event)">
         Consulta gli orari di apertura
     </a>
+    <p class="note">La pagina si aprirà in una nuova scheda e verrai indirizzato alla sezione degli orari.</p>
 
     <script>
-        function fixScroll(event, element) {
-            // Prevenire l'apertura del link immediata
+        function handleClick(event) {
             event.preventDefault();
+            const url = event.target.href;
+            const newWindow = window.open(url, '_blank');
+            
+            newWindow.addEventListener('load', function() {
+                try {
+                    // Attende che la pagina sia completamente caricata
+                    setTimeout(() => {
+                        // Cerca prima l'elemento degli orari
+                        const orariSection = newWindow.document.getElementById('where_openings');
+                        if (orariSection) {
+                            // Disabilita temporaneamente eventuali comportamenti di smooth scroll della pagina
+                            const originalStyle = newWindow.document.documentElement.style.scrollBehavior;
+                            newWindow.document.documentElement.style.scrollBehavior = 'auto';
+                            
+                            // Calcola la posizione considerando un offset per l'header fisso
+                            const headerOffset = 100; // Aggiusta questo valore in base all'altezza dell'header
+                            const elementPosition = orariSection.getBoundingClientRect().top + newWindow.window.pageYOffset;
+                            const offsetPosition = elementPosition - headerOffset;
 
-            // Aprire la pagina in una nuova scheda e scrollare alla sezione
-            const newWindow = window.open(element.href, '_blank');
+                            // Esegue lo scroll
+                            newWindow.window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'auto'
+                            });
 
-            // Aspettare che la nuova finestra sia caricata
-            newWindow.onload = function () {
-                // Forzare lo scroll all'ancora
-                const targetId = element.href.split('#')[1];
-                const targetElement = newWindow.document.getElementById(targetId);
-
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                            // Ripristina lo smooth scroll dopo un breve delay
+                            setTimeout(() => {
+                                newWindow.document.documentElement.style.scrollBehavior = originalStyle;
+                            }, 100);
+                        }
+                    }, 1000); // Attende 1 secondo per assicurarsi che la pagina sia completamente caricata
+                } catch (error) {
+                    console.error('Errore durante lo scroll:', error);
                 }
-            };
+            });
         }
     </script>
 </body>
