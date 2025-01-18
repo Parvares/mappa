@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collegamento agli Orari - Biblioteca Elsa Morante</title>
+    <title>Collegamento agli Orari - Fix Scroll</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,38 +25,37 @@
         a:hover {
             background-color: #005bb5;
         }
-        iframe {
-            margin-top: 2rem;
-            width: 100%;
-            height: 600px;
-            border: 1px solid #ccc;
-        }
-        footer {
-            margin-top: 2rem;
-            font-size: 0.9rem;
-            color: #666;
-        }
     </style>
 </head>
 <body>
     <h1>📚 Collegamento agli Orari della Biblioteca Elsa Morante</h1>
 
     <!-- Link diretto alla sezione degli orari -->
-    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2#where_openings" target="_blank">
+    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2#where_openings" 
+       target="_blank"
+       onclick="fixScroll(event, this)">
         Consulta gli orari di apertura
     </a>
 
-    <!-- Incorporare la pagina in un iframe per sperimentare -->
-    <h2>Anteprima incorporata:</h2>
-    <iframe 
-        src="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2#where_openings">
-    </iframe>
+    <script>
+        function fixScroll(event, element) {
+            // Prevenire l'apertura del link immediata
+            event.preventDefault();
 
-    <footer>
-        <p>
-            Nota: Il pulsante "Torna su" nella pagina di destinazione potrebbe influire sul comportamento
-            dello scroll. Questo è solo un esperimento per verificare il funzionamento del link.
-        </p>
-    </footer>
+            // Aprire la pagina in una nuova scheda e scrollare alla sezione
+            const newWindow = window.open(element.href, '_blank');
+
+            // Aspettare che la nuova finestra sia caricata
+            newWindow.onload = function () {
+                // Forzare lo scroll all'ancora
+                const targetId = element.href.split('#')[1];
+                const targetElement = newWindow.document.getElementById(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+        }
+    </script>
 </body>
 </html>
