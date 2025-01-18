@@ -40,7 +40,6 @@
        onclick="handleClick(event)">
         Consulta gli orari di apertura
     </a>
-
     <script>
         function handleClick(event) {
             event.preventDefault();
@@ -50,18 +49,22 @@
             newWindow.addEventListener('load', function() {
                 const script = newWindow.document.createElement('script');
                 script.textContent = `
-                    // Funzione per scrollare alla sezione
-                    function scrollToSection() {
+                    function debugAndScroll() {
                         const section = document.getElementById('where_infobib');
+                        
                         if (section) {
-                            section.scrollIntoView();
+                            const sectionTop = section.offsetTop;
+                            window.scrollTo({
+                                top: sectionTop - 100,
+                                behavior: 'smooth'
+                            });
                             
                             // Evidenzia la sezione
                             const orariDiv = document.getElementById('where_openings');
                             if (orariDiv) {
                                 orariDiv.style.backgroundColor = '#fff7e6';
                                 orariDiv.style.padding = '10px';
-                                orariDiv.style.transition = 'background-color 0.5s ease';
+                                orariDiv.style.transition = 'all 0.5s ease';
                                 
                                 setTimeout(() => {
                                     orariDiv.style.backgroundColor = '';
@@ -69,9 +72,9 @@
                             }
                         }
                     }
-
-                    // Esegui lo scroll dopo un breve delay
-                    setTimeout(scrollToSection, 1000);
+                    
+                    // Esegui lo scroll dopo un breve delay per assicurarsi che la pagina sia completamente caricata
+                    setTimeout(debugAndScroll, 1000);
                 `;
                 newWindow.document.body.appendChild(script);
             });
