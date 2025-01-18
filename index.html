@@ -50,48 +50,28 @@
             newWindow.addEventListener('load', function() {
                 const script = newWindow.document.createElement('script');
                 script.textContent = `
-                    function scrollToSchedule() {
+                    // Funzione per scrollare alla sezione
+                    function scrollToSection() {
                         const section = document.getElementById('where_infobib');
                         if (section) {
-                            // Disabilita temporaneamente lo smooth scroll
-                            const originalStyle = document.documentElement.style.scrollBehavior;
-                            document.documentElement.style.scrollBehavior = 'auto';
+                            section.scrollIntoView();
                             
-                            // Calcola la posizione corretta
-                            const headerOffset = 100;
-                            const elementPosition = section.getBoundingClientRect().top + window.pageYOffset;
-                            const offsetPosition = elementPosition - headerOffset;
-
-                            // Esegue lo scroll
-                            window.scrollTo({
-                                top: offsetPosition,
-                                behavior: 'auto'
-                            });
-
-                            // Evidenzia temporaneamente la sezione degli orari
+                            // Evidenzia la sezione
                             const orariDiv = document.getElementById('where_openings');
                             if (orariDiv) {
-                                const originalBackground = orariDiv.style.backgroundColor;
                                 orariDiv.style.backgroundColor = '#fff7e6';
                                 orariDiv.style.padding = '10px';
                                 orariDiv.style.transition = 'background-color 0.5s ease';
                                 
                                 setTimeout(() => {
-                                    orariDiv.style.backgroundColor = originalBackground;
+                                    orariDiv.style.backgroundColor = '';
                                 }, 2000);
                             }
-
-                            // Ripristina lo smooth scroll
-                            setTimeout(() => {
-                                document.documentElement.style.scrollBehavior = originalStyle;
-                            }, 100);
                         }
                     }
 
-                    // Prova a scrollare dopo diversi intervalli per assicurarsi che la pagina sia caricata
-                    setTimeout(scrollToSchedule, 1000);
-                    setTimeout(scrollToSchedule, 2000);
-                    setTimeout(scrollToSchedule, 3000);
+                    // Esegui lo scroll dopo un breve delay
+                    setTimeout(scrollToSection, 1000);
                 `;
                 newWindow.document.body.appendChild(script);
             });
