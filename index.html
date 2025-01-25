@@ -47,6 +47,16 @@
             cursor: pointer;
             font-size: 14px;
         }
+        .home-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .home-icon:hover {
+            transform: scale(1.1);
+        }
         .legend {
             background-color: rgba(255, 255, 255, 0.8);
             padding: 6px 8px;
@@ -123,6 +133,9 @@
 </head>
 <body>
     <div class="search-box">
+        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" target="_blank">
+            <img src="home.svg" alt="Home" class="home-icon">
+        </a>
         <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
         <button onclick="searchRoute()">Trova Percorso</button>
     </div>
@@ -133,6 +146,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     
     <script>
+        // The rest of the JavaScript remains the same as in the original file
         document.addEventListener('DOMContentLoaded', function() {
             const biblioCoords = [41.732522, 12.271879]; // punto di origine del percorso tratteggiato
             
@@ -168,7 +182,7 @@
                 closeButton: true
             })
                 .setLatLng(markerCoords)
-.setContent(`
+                .setContent(`
     <b>Biblioteca Elsa Morante</b><br>
     Via Adolfo Cozza, 7<br>
     <small>Lun-Ven 09:00-18:30 • Sab 09:00-13:00</small>
