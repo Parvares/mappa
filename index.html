@@ -59,7 +59,6 @@
             background-color: #ccc;
             margin: 0 10px;
         }
-        /* Rest of the existing styles remain the same */
         .legend {
             background-color: rgba(255, 255, 255, 0.8);
             padding: 6px 8px;
@@ -136,7 +135,7 @@
 </head>
 <body>
   <div class="search-box">
-        <a href="#" onclick="window.history.back(); return false;">
+        <a href="#" onclick="handleBackNavigation(); return false;">
             <img src="left.svg" alt="Pagina precedente" class="icon">
         </a>
         <div class="separator"></div>
@@ -153,6 +152,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     
     <script>
+        function handleBackNavigation() {
+            const referrer = document.referrer;
+            
+            switch (true) {
+                case referrer === 'https://bibliotecamorante.github.io/donazione/':
+                    window.location.href = 'https://bibliotecamorante.github.io/donazione/';
+                    break;
+                case referrer === 'https://bibliotecamorante.github.io/donazione/termini.html':
+                    window.location.href = 'https://bibliotecamorante.github.io/donazione/termini.html';
+                    break;
+                default:
+                    window.history.back();
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const biblioCoords = [41.732522, 12.271879]; // punto di origine del percorso tratteggiato
             
@@ -188,7 +202,7 @@
                 closeButton: true
             })
                 .setLatLng(markerCoords)
-.setContent(`
+                .setContent(`
     <b>Biblioteca Elsa Morante</b><br>
     Via Adolfo Cozza, 7<br>
     <small>Lun-Ven 09:00-18:30 • Sab 09:00-13:00</small>
