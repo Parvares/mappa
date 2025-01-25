@@ -47,19 +47,6 @@
             cursor: pointer;
             font-size: 14px;
         }
-        .home-link {
-            margin-left: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .home-link img {
-            width: 24px;
-            height: 24px;
-            transition: transform 0.3s ease;
-        }
-        .home-link img:hover {
-            transform: scale(1.1);
-        }
         .legend {
             background-color: rgba(255, 255, 255, 0.8);
             padding: 6px 8px;
@@ -132,38 +119,12 @@
             font-size: 12px;
             color: #333;
         }
-        .home-icon-container {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    z-index: 1000;
-}
-
-.home-icon-container img {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.home-icon-container img:hover {
-    transform: scale(1.1);
-}
     </style>
 </head>
 <body>
-<div class="search-box">
+    <div class="search-box">
         <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
         <button onclick="searchRoute()">Trova Percorso</button>
-        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" class="home-link" target="_blank">
-            <img src="home.svg" alt="Sito web biblioteca" title="Vai al sito web della biblioteca">
-        </a>
-    </div>
-
-        <div class="home-icon-container">
-        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" target="_blank" class="home-icon">
-            <img src="home.svg" alt="Home">
-        </a>
     </div>
     <div id="map"></div>
     
@@ -172,7 +133,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     
     <script>
-        // The rest of the JavaScript remains the same as in the original file
         document.addEventListener('DOMContentLoaded', function() {
             const biblioCoords = [41.732522, 12.271879]; // punto di origine del percorso tratteggiato
             
@@ -208,7 +168,7 @@
                 closeButton: true
             })
                 .setLatLng(markerCoords)
-                .setContent(`
+.setContent(`
     <b>Biblioteca Elsa Morante</b><br>
     Via Adolfo Cozza, 7<br>
     <small>Lun-Ven 09:00-18:30 • Sab 09:00-13:00</small>
