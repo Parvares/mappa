@@ -382,6 +382,32 @@ const popupArcipelago = L.popup({
 
 markerArcipelago.bindPopup(popupArcipelago);
 
+// Nuovo marker di colore verde (Biblioteca Joyce Lussu)
+const joyceLussuCoords = [41.856922, 12.486069];
+const markerJoyceLussu = L.marker(joyceLussuCoords, {
+    title: 'Biblioteca Joyce Lussu',
+    icon: greenIcon // Usa la stessa icona verde definita sopra
+}).addTo(map);
+
+const popupJoyceLussu = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Joyce Lussu</h3>
+        <p style="font-size: 15px;">
+            Via Costantino, 49A
+            <br>00145 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Joyce%20Lussu/RMBM2">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerJoyceLussu.bindPopup(popupJoyceLussu);
 
             
 
