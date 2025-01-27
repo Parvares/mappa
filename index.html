@@ -229,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             
 // Primo marker (Biblioteca Morante) - codice esistente
+// Primo marker (Biblioteca Morante) - codice esistente
 const markerCoords = percorso[percorso.length - 1];
 const marker = L.marker(markerCoords, {
     title: 'Biblioteca Elsa Morante'
@@ -254,7 +255,7 @@ const popup = L.popup({
 
 marker.bindPopup(popup);
 
-// Nuovo marker (Biblioteca Onofri)
+// Secondo marker (Biblioteca Onofri)
 const onofriCoords = [41.775700, 12.348255];
 const markerOnofri = L.marker(onofriCoords, {
     title: 'Biblioteca Sandro Onofri'
@@ -279,6 +280,42 @@ const popupOnofri = L.popup({
 `);
 
 markerOnofri.bindPopup(popupOnofri);
+
+// Nuovo marker di colore diverso (Biblioteca Pasolini)
+const pasoliniCoords = [41.785285, 12.440257];
+const redIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+const markerPasolini = L.marker(pasoliniCoords, {
+    title: 'Biblioteca Pier Paolo Pasolini',
+    icon: redIcon
+}).addTo(map);
+
+const popupPasolini = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Pier Paolo Pasolini</h3>
+        <p style="font-size: 15px;">
+            Viale Caduti per la Resistenza, 410/A
+            <br>00128 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Pier%20Paolo%20Pasolini/RMBN1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerPasolini.bindPopup(popupPasolini);
 
 let routingControl = null;
             
