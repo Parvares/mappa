@@ -483,10 +483,10 @@ const popupGuglielmoMarconi = L.popup({
 
 markerGuglielmoMarconi.bindPopup(popupGuglielmoMarconi);
             
-// Nuovo marker di colore arancione (Biblioteca Colli Portuensi)
+// Nuovo marker di colore viola (Biblioteca Colli Portuensi)
 const colliPortuensiCoords = [41.867787, 12.444878];
-const orangeIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png', // Usa l'icona arancione
+const purpleIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png', // Usa l'icona viola
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
     iconSize: [25, 41],
     iconAnchor: [12, 41],
@@ -496,8 +496,9 @@ const orangeIcon = new L.Icon({
 
 const markerColliPortuensi = L.marker(colliPortuensiCoords, {
     title: 'Biblioteca Colli Portuensi',
-    icon: orangeIcon // Usa l'icona arancione
+    icon: purpleIcon // Usa l'icona viola
 }).addTo(map);
+
 
 // Popup per la Biblioteca Colli Portuensi
 const popupColliPortuensi = L.popup({
