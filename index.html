@@ -449,6 +449,36 @@ const popupRenatoNicolini = L.popup({
 markerRenatoNicolini.bindPopup(popupRenatoNicolini);
 
             
+// Nuove coordinate per la Biblioteca Guglielmo Marconi
+const guglielmoMarconiCoords = [41.862264, 12.465228];
+
+// Nuovo marker con icona gialla
+const markerGuglielmoMarconi = L.marker(guglielmoMarconiCoords, {
+    title: 'Biblioteca Guglielmo Marconi',
+    icon: yellowIcon // Usa l'icona gialla
+}).addTo(map);
+
+// Popup per la Biblioteca Guglielmo Marconi
+const popupGuglielmoMarconi = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Guglielmo Marconi</h3>
+        <p style="font-size: 15px;">
+            Via Gerolamo Cardano, 135
+            <br>00146 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Guglielmo%20Marconi/RMBQ1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerGuglielmoMarconi.bindPopup(popupGuglielmoMarconi);
+            
 
 let routingControl = null;
             
