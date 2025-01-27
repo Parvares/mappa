@@ -549,6 +549,33 @@ const popupLonghena = L.popup({
 
 markerLonghena.bindPopup(popupLonghena);
 
+// Nuovo marker di colore viola (Biblioteca Villino Corsini - Villa Pamphilj)
+const villinoCorsiniCoords = [41.888458, 12.455285];
+const markerVillinoCorsini = L.marker(villinoCorsiniCoords, {
+    title: 'Biblioteca Villino Corsini - Villa Pamphilj',
+    icon: purpleIcon // Usa l'icona viola
+}).addTo(map);
+
+// Popup per la Biblioteca Villino Corsini - Villa Pamphilj
+const popupVillinoCorsini = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Villino Corsini - Villa Pamphilj</h3>
+        <p style="font-size: 15px;">
+            Largo 3 giugno 1849, snc
+            <br>00164 ROMA - Villa Doria Pamphilj (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Villino%20Corsini%20-%20Villa%20Pamphilj/RMBR3">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerVillinoCorsini.bindPopup(popupVillinoCorsini);
             
 let routingControl = null;
             
