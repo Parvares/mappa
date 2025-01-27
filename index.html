@@ -227,9 +227,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }).addTo(map);
 
 const markerCoords = percorso[percorso.length - 1];
-const marker = L.marker(markerCoords).addTo(map);
+const marker = L.marker(markerCoords, {
+    title: 'Biblioteca Elsa Morante' // Questo testo appare al passaggio del mouse
+}).addTo(map);
 
-// Create and bind the new popup (but don't open it)
+// Create and bind the popup that appears on click
 const popup = L.popup({
     className: 'custom-popup',
     offset: [0, -10],
@@ -237,7 +239,7 @@ const popup = L.popup({
 }).setContent(`
     <div class="baloon">
         <h3>Biblioteca Elsa Morante</h3>
-        <p>
+        <p style="font-size: 15px;">
             Via Adolfo Cozza 7 / (accesso disabili) Lungomare P. Toscanelli 184
             <br>00121 ROMA
         </p>
@@ -248,16 +250,7 @@ const popup = L.popup({
     </div>
 `);
 
-// Add mouseover and mouseout events
-marker.on('mouseover', function(e) {
-    this.openPopup();
-});
-
-marker.on('mouseout', function(e) {
-    this.closePopup();
-});
-
-// Bind popup to marker
+// Bind popup to marker - will open on click
 marker.bindPopup(popup);
 
 let routingControl = null;
