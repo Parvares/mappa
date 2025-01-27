@@ -409,6 +409,33 @@ const popupJoyceLussu = L.popup({
 
 markerJoyceLussu.bindPopup(popupJoyceLussu);
 
+// Nuovo marker di colore giallo (Biblioteca Renato Nicolini)
+const renatoNicoliniCoords = [41.8501037, 12.4140277];
+const markerRenatoNicolini = L.marker(renatoNicoliniCoords, {
+    title: 'Biblioteca Renato Nicolini',
+    icon: yellowIcon // Usa l'icona gialla
+}).addTo(map);
+
+// Popup per la Biblioteca Renato Nicolini
+const popupRenatoNicolini = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Renato Nicolini</h3>
+        <p style="font-size: 15px;">
+            Via M. Mazzacurati, 76
+            <br>00148 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Renato%20Nicolini/RMBM3">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+
             
 
 let routingControl = null;
