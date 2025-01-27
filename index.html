@@ -483,7 +483,44 @@ const popupGuglielmoMarconi = L.popup({
 
 markerGuglielmoMarconi.bindPopup(popupGuglielmoMarconi);
             
+// Nuovo marker di colore arancione (Biblioteca Colli Portuensi)
+const colliPortuensiCoords = [41.867787, 12.444878];
+const orangeIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png', // Usa l'icona arancione
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
 
+const markerColliPortuensi = L.marker(colliPortuensiCoords, {
+    title: 'Biblioteca Colli Portuensi',
+    icon: orangeIcon // Usa l'icona arancione
+}).addTo(map);
+
+// Popup per la Biblioteca Colli Portuensi
+const popupColliPortuensi = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Colli Portuensi</h3>
+        <p style="font-size: 15px;">
+            Viale dei Colli Portuensi, 275
+            <br>00151 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Colli%20Portuensi/RMBQ3">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerColliPortuensi.bindPopup(popupColliPortuensi);
+
+            
 let routingControl = null;
             
             window.searchRoute = async function() {
