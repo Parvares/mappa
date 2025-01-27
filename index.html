@@ -576,6 +576,43 @@ const popupVillinoCorsini = L.popup({
 `);
 
 markerVillinoCorsini.bindPopup(popupVillinoCorsini);
+
+
+// Nuovo marker di colore arancione (Biblioteca Cornelia)
+const corneliaCoords = [41.907000, 12.393447];
+const orangeIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png', // URL per l'icona arancione
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+const markerCornelia = L.marker(corneliaCoords, {
+    title: 'Biblioteca Cornelia',
+    icon: orangeIcon // Usa l'icona arancione
+}).addTo(map);
+// Popup per la Biblioteca Cornelia
+const popupCornelia = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Cornelia</h3>
+        <p style="font-size: 15px;">
+            Via Gaetano Mazzoni, 85 (presso Sala polifunzionale Ex Campari)
+            <br>00166 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Cornelia/RMBT2">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerCornelia.bindPopup(popupCornelia);
             
 let routingControl = null;
             
