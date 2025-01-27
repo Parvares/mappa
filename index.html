@@ -510,7 +510,7 @@ const popupColliPortuensi = L.popup({
         <h3>Biblioteca Colli Portuensi</h3>
         <p style="font-size: 15px;">
             Viale dei Colli Portuensi, 275
-            <br>00151 ROMA (ROMA)
+            <br>00151 Municipio ROMA XII
         </p>
         <a style="color: #bc0b34; font-size: 16px;" 
            href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Colli%20Portuensi/RMBR1">
@@ -520,6 +520,34 @@ const popupColliPortuensi = L.popup({
 `);
 
 markerColliPortuensi.bindPopup(popupColliPortuensi);
+
+// Nuovo marker di colore viola (Biblioteca Longhena)
+const longhenaCoords = [41.86939, 12.41024];
+const markerLonghena = L.marker(longhenaCoords, {
+    title: 'Biblioteca Longhena',
+    icon: purpleIcon // Usa l'icona viola
+}).addTo(map);
+
+// Popup per la Biblioteca Longhena
+const popupLonghena = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Longhena</h3>
+        <p style="font-size: 15px;">
+            Via B. Longhena, 98
+            <br>00163 Municipio ROMA XII
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Longhena/RMBR2">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerLonghena.bindPopup(popupLonghena);
 
             
 let routingControl = null;
