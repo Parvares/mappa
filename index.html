@@ -317,6 +317,45 @@ const popupPasolini = L.popup({
 
 markerPasolini.bindPopup(popupPasolini);
 
+
+// Nuovo marker di colore diverso (Biblioteca Laurentina)
+const laurentinaCoords = [41.812215, 12.469236];
+const blueIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+const markerLaurentina = L.marker(laurentinaCoords, {
+    title: 'Biblioteca Laurentina',
+    icon: blueIcon
+}).addTo(map);
+
+const popupLaurentina = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Laurentina</h3>
+        <p style="font-size: 15px;">
+            Piazzale Elsa Morante
+            <br>00143 ROMA (ROMA)
+        </p>
+        <a style="color: #2b68d6; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Laurentina/RMBN2">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerLaurentina.bindPopup(popupLaurentina);
+
+            
+
 let routingControl = null;
             
             window.searchRoute = async function() {
