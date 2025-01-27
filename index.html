@@ -133,6 +133,21 @@
             color: #333;
         }
 
+        .baloon h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.baloon p {
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+}
+
+.baloon a {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 5px;
+}
 
     </style>
 </head>
@@ -211,23 +226,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 dashArray: '10, 10'
             }).addTo(map);
 
-            const markerCoords = percorso[percorso.length - 1];
-            const marker = L.marker(markerCoords).addTo(map);
-            
-            const popup = L.popup({
-                className: 'custom-popup',
-                offset: [0, -10],
-                closeButton: true
-            })
-                .setLatLng(markerCoords)
-                .setContent(`
-    <b>Biblioteca Elsa Morante</b><br>
-    Via Adolfo Cozza, 7<br>
-    <small>Lun-Ven 09:00-18:30 • Sab 09:00-13:00</small>
-`)
-                .openOn(map);
+const markerCoords = percorso[percorso.length - 1];
+const marker = L.marker(markerCoords).addTo(map);
 
-            let routingControl = null;
+// Create and bind the new popup (but don't open it)
+const popup = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Elsa Morante</h3>
+        <p>
+            Via Adolfo Cozza 7 / (accesso disabili) Lungomare P. Toscanelli 184
+            <br>00121 ROMA
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+// Add mouseover and mouseout events
+marker.on('mouseover', function(e) {
+    this.openPopup();
+});
+
+marker.on('mouseout', function(e) {
+    this.closePopup();
+});
+
+// Bind popup to marker
+marker.bindPopup(popup);
+
+let routingControl = null;
             
             window.searchRoute = async function() {
                 const startPoint = document.getElementById('start-point').value;
