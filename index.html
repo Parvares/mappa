@@ -226,12 +226,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 dashArray: '10, 10'
             }).addTo(map);
 
+
+            
+// Primo marker (Biblioteca Morante) - codice esistente
 const markerCoords = percorso[percorso.length - 1];
 const marker = L.marker(markerCoords, {
-    title: 'Biblioteca Elsa Morante' // Questo testo appare al passaggio del mouse
+    title: 'Biblioteca Elsa Morante'
 }).addTo(map);
 
-// Create and bind the popup that appears on click
 const popup = L.popup({
     className: 'custom-popup',
     offset: [0, -10],
@@ -240,8 +242,8 @@ const popup = L.popup({
     <div class="baloon">
         <h3>Biblioteca Elsa Morante</h3>
         <p style="font-size: 15px;">
-            Via Adolfo Cozza 7
-            <br>Municipio X, 00121 Roma
+            Via Adolfo Cozza 7 / (accesso disabili) Lungomare P. Toscanelli 184
+            <br>00121 ROMA
         </p>
         <a style="color: #bc0b34; font-size: 16px;" 
            href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2">
@@ -250,8 +252,33 @@ const popup = L.popup({
     </div>
 `);
 
-// Bind popup to marker - will open on click
 marker.bindPopup(popup);
+
+// Nuovo marker (Biblioteca Onofri)
+const onofriCoords = [41.775700, 12.348255];
+const markerOnofri = L.marker(onofriCoords, {
+    title: 'Biblioteca Sandro Onofri'
+}).addTo(map);
+
+const popupOnofri = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Sandro Onofri</h3>
+        <p style="font-size: 15px;">
+            Via Umberto Lilloni, 39/45
+            <br>00125 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Sandro%20Onofri/RMBO1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerOnofri.bindPopup(popupOnofri);
 
 let routingControl = null;
             
