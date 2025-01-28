@@ -979,6 +979,37 @@ const popupBibliotecaEuropea = L.popup({
 // Associa il popup al marker
 markerBibliotecaEuropea.bindPopup(popupBibliotecaEuropea);
             
+// Nuove coordinate per la Biblioteca Flaminia
+const bibliotecaFlaminiaCoords = [41.923581, 12.470486];
+
+// Creazione del marker con l'icona ciano (o una nuova icona, se desiderato)
+const markerBibliotecaFlaminia = L.marker(bibliotecaFlaminiaCoords, {
+    title: 'Biblioteca Flaminia',
+    icon: customCyanIcon // Puoi usare la stessa icona ciano o crearne una nuova se preferisci
+}).addTo(map);
+
+// Popup per la Biblioteca Flaminia
+const popupBibliotecaFlaminia = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Flaminia</h3>
+        <p style="font-size: 15px;">
+            Via Cesare Fracassini, 9
+            <br>00196 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Flaminia/RMBB3">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+// Associa il popup al marker
+markerBibliotecaFlaminia.bindPopup(popupBibliotecaFlaminia);
+
             
 let routingControl = null;
             
