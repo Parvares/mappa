@@ -1149,6 +1149,37 @@ const popupAldoFabrizi = L.popup({
 `);
 
 markerAldoFabrizi.bindPopup(popupAldoFabrizi);
+
+// Coordinate della Biblioteca Fabrizio Giovenale
+const casaMemoriaCoords = [41.934058, 12.560290];
+
+// Creazione del marker con l'icona viola
+const markerCasaMemoria = L.marker(casaMemoriaCoords, {
+    title: 'Biblioteca Fabrizio Giovenale',
+    icon: customVioletIcon  // Riuso dell'icona viola già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Fabrizio Giovenale
+const popupCasaMemoria = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Fabrizio Giovenale</h3>
+        <p style="font-size: 15px;">
+            Via Fermo Corni - Parco di Aguzzano
+            <br>00156 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Fabrizio%20Giovenale/RMBWA">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerCasaMemoria.bindPopup(popupCasaMemoria);
+            
             
 let routingControl = null;
             
