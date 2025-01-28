@@ -1484,7 +1484,7 @@ markerCasaDeiBimbi.bindPopup(popupCasaDeiBimbi);
 // Creazione del marker con l'icona personalizzata per la Biblioteca Raffaello
 const markerRaffaello = L.marker([41.844170, 12.583459], {
     title: 'Biblioteca Raffaello',
-    icon: customOrangeIcon  // icona  già definita
+    icon: customOrangeIcon  // icona già definita
 }).addTo(map);
 
 // Popup per la Biblioteca Raffaello
@@ -1492,7 +1492,7 @@ const popupRaffaello = L.popup({
     className: 'custom-popup',
     offset: [0, -10],
     closeButton: true
-}).setContent(
+}).setContent(`
     <div class="baloon">
         <h3>Biblioteca Raffaello</h3>
         <p style="font-size: 15px;">
@@ -1504,7 +1504,7 @@ const popupRaffaello = L.popup({
            Vai alla scheda
         </a>
     </div>
-);
+`);
 
 // Associare il popup al marker
 markerRaffaello.bindPopup(popupRaffaello);
