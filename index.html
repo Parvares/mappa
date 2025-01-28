@@ -937,6 +937,47 @@ const popupCasaTraduzioni = L.popup({
 
 markerCasaTraduzioni.bindPopup(popupCasaTraduzioni);
             
+// Nuove coordinate per la Biblioteca Europea
+const bibliotecaEuropeaCoords = [41.912960, 12.498767];
+
+// Definizione dell'icona ciano personalizzata
+var customCyanIcon = L.icon({
+    iconUrl: 'marker-ciano.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png', // ombra
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+    shadowAnchor: [12, 41]
+});
+
+// Creazione del marker con l'icona ciano
+const markerBibliotecaEuropea = L.marker(bibliotecaEuropeaCoords, {
+    title: 'Biblioteca Europea',
+    icon: customCyanIcon
+}).addTo(map);
+
+// Popup per la Biblioteca Europea
+const popupBibliotecaEuropea = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Europea</h3>
+        <p style="font-size: 15px;">
+            Via Savoia, 13
+            <br>00198 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Europea/RMBA1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+// Associa il popup al marker
+markerBibliotecaEuropea.bindPopup(popupBibliotecaEuropea);
             
             
 let routingControl = null;
