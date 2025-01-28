@@ -1311,6 +1311,35 @@ const popupGianniRodari = L.popup({
 
 markerGianniRodari.bindPopup(popupGianniRodari);
             
+// Coordinate della Biblioteca Goffredo Mameli
+const goffredoMameliCoords = [41.889446, 12.524513];
+
+// Creazione del marker con l'icona personalizzata per la Biblioteca Goffredo Mameli
+const markerGoffredoMameli = L.marker(goffredoMameliCoords, {
+    title: 'Biblioteca Goffredo Mameli',
+    icon: customDarkCyanIcon  // icona scura ciano già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Goffredo Mameli
+const popupGoffredoMameli = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Goffredo Mameli</h3>
+        <p style="font-size: 15px;">
+            Via del Pigneto, 22
+            <br>00176 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Goffredo%20Mameli/RMBF1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerGoffredoMameli.bindPopup(popupGoffredoMameli);
             
 let routingControl = null;
             
