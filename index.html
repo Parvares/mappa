@@ -1108,6 +1108,47 @@ const popupEnnioFlaiano = L.popup({
 `);
 
 markerEnnioFlaiano.bindPopup(popupEnnioFlaiano);
+
+// Nuovo marker personalizzato (Biblioteca Aldo Fabrizi)
+const aldoFabriziCoords = [41.944622, 12.585136];
+
+// Definizione dell'icona viola personalizzata
+var customVioletIcon = L.icon({
+    iconUrl: 'marker-violet.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png', // ombra
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+    shadowAnchor: [12, 41]
+});
+
+// Creazione del marker con l'icona viola
+const markerAldoFabrizi = L.marker(aldoFabriziCoords, {
+    title: 'Biblioteca Aldo Fabrizi',
+    icon: customVioletIcon
+}).addTo(map);
+
+// Popup per la Biblioteca Aldo Fabrizi
+const popupAldoFabrizi = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Aldo Fabrizi</h3>
+        <p style="font-size: 15px;">
+            Via Treia, 14
+            <br>00156 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Aldo%20Fabrizi/RMBE2">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerAldoFabrizi.bindPopup(popupAldoFabrizi);
             
 let routingControl = null;
             
