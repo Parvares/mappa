@@ -1040,7 +1040,39 @@ const popupBibliotecaVillaLeopardi = L.popup({
 
 // Associa il popup al marker
 markerBibliotecaVillaLeopardi.bindPopup(popupBibliotecaVillaLeopardi);
-            
+
+// Nuove coordinate per la Biblioteca Tullio De Mauro
+const bibliotecaTullioDeMauroCoords = [41.899404, 12.514206];
+
+// Creazione del marker con l'icona ciano (puoi scegliere una nuova icona se preferisci)
+const markerBibliotecaTullioDeMauro = L.marker(bibliotecaTullioDeMauroCoords, {
+    title: 'Biblioteca Tullio De Mauro',
+    icon: customCyanIcon // Usa l'icona ciano definita precedentemente
+}).addTo(map);
+
+// Popup per la Biblioteca Tullio De Mauro
+const popupBibliotecaTullioDeMauro = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Tullio De Mauro</h3>
+        <p style="font-size: 15px;">
+            Via Tiburtina, 113
+            <br>(entrata Parco Villa Mercede)
+            <br>00185 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Tullio%20De%20Mauro/RMBC1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+// Associa il popup al marker
+markerBibliotecaTullioDeMauro.bindPopup(popupBibliotecaTullioDeMauro);
+           
 let routingControl = null;
             
             window.searchRoute = async function() {
