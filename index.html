@@ -1280,6 +1280,37 @@ const popupQuarticciolo = L.popup({
 `);
 
 markerQuarticciolo.bindPopup(popupQuarticciolo);
+
+// Coordinate della Biblioteca Gianni Rodari
+const gianniRodariCoords = [44.549754, 11.447134];
+
+// Creazione del marker con l'icona personalizzata per la Biblioteca Gianni Rodari
+const markerGianniRodari = L.marker(gianniRodariCoords, {
+    title: 'Biblioteca Gianni Rodari',
+    icon: customDarkCyanIcon  // Puoi riutilizzare l'icona scura ciano già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Gianni Rodari
+const popupGianniRodari = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Gianni Rodari</h3>
+        <p style="font-size: 15px;">
+            Via F. Tovaglieri, 237/A
+            <br>00155 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Gianni%20Rodari/RMBG1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerGianniRodari.bindPopup(popupGianniRodari);
+            
             
 let routingControl = null;
             
