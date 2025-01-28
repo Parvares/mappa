@@ -876,6 +876,37 @@ const popupCasaLetterature = L.popup({
 `);
 
 markerCasaLetterature.bindPopup(popupCasaLetterature);
+
+// Coordinate della Biblioteca Giordano Bruno
+const giordanoBrunoCoords = [41.911471, 12.452385];
+
+// Creazione del marker con l'icona marrone
+const markerGiordanoBruno = L.marker(giordanoBrunoCoords, {
+    title: 'Biblioteca Giordano Bruno',
+    icon: customBrownIcon  // Riuso dell'icona marrone già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Giordano Bruno
+const popupGiordanoBruno = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Giordano Bruno</h3>
+        <p style="font-size: 15px;">
+            Via Giordano Bruno, 47
+            <br>00195 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Giordano%20Bruno/RMBS1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerGiordanoBruno.bindPopup(popupGiordanoBruno);
+            
             
 let routingControl = null;
             
