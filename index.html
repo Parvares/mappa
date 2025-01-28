@@ -748,31 +748,21 @@ markerGallineBianche.bindPopup(popupGallineBianche);
             
 // Nuovo marker personalizzato (Biblioteca Enzo Tortora)
 const enzoTortoraCoords = [41.876553, 12.478932];
-const customIcon = L.divIcon({
-    className: 'custom-div-icon',
-    html: `
-        <div style="
-            background-color: #8B4513; // Colore marrone scuro
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 2px solid white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            text-align: center;
-            line-height: 22px;
-            color: white;
-            font-weight: bold;
-            font-size: 12px;">
-            ET
-        </div>`,
-    iconSize: [30, 30],
-    iconAnchor: [15, 15],
-    popupAnchor: [0, -15]
+
+// Definizione dell'icona marrone personalizzata
+var customBrownIcon = L.icon({
+    iconUrl: 'img/markers/marker-brown.png',  // Percorso al marker marrone personalizzato
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
 });
 
+// Creazione del marker con l'icona marrone
 const markerEnzoTortora = L.marker(enzoTortoraCoords, {
     title: 'Biblioteca Enzo Tortora',
-    icon: customIcon
+    icon: customBrownIcon
 }).addTo(map);
 
 // Popup per la Biblioteca Enzo Tortora
@@ -793,8 +783,8 @@ const popupEnzoTortora = L.popup({
         </a>
     </div>
 `);
-markerEnzoTortora.bindPopup(popupEnzoTortora);
 
+markerEnzoTortora.bindPopup(popupEnzoTortora);
 
             
             
