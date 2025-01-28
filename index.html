@@ -982,7 +982,7 @@ markerBibliotecaEuropea.bindPopup(popupBibliotecaEuropea);
 // Nuove coordinate per la Biblioteca Flaminia
 const bibliotecaFlaminiaCoords = [41.923581, 12.470486];
 
-// Creazione del marker con l'icona ciano (o una nuova icona, se desiderato)
+// Creazione del marker con l'icona ciano
 const markerBibliotecaFlaminia = L.marker(bibliotecaFlaminiaCoords, {
     title: 'Biblioteca Flaminia',
     icon: customCyanIcon // Puoi usare la stessa icona ciano o crearne una nuova se preferisci
@@ -1010,6 +1010,36 @@ const popupBibliotecaFlaminia = L.popup({
 // Associa il popup al marker
 markerBibliotecaFlaminia.bindPopup(popupBibliotecaFlaminia);
 
+// Nuove coordinate per la Biblioteca Villa Leopardi
+const bibliotecaVillaLeopardiCoords = [41.926791, 12.521807];
+
+// Creazione del marker con l'icona ciano (puoi scegliere un'icona diversa se preferisci)
+const markerBibliotecaVillaLeopardi = L.marker(bibliotecaVillaLeopardiCoords, {
+    title: 'Biblioteca Villa Leopardi',
+    icon: customCyanIcon // Usa l'icona ciano già definita o una nuova
+}).addTo(map);
+
+// Popup per la Biblioteca Villa Leopardi
+const popupBibliotecaVillaLeopardi = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Villa Leopardi</h3>
+        <p style="font-size: 15px;">
+            Via Makallè (entrata parco)
+            <br>00199 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Villa%20Leopardi/RMBB1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+// Associa il popup al marker
+markerBibliotecaVillaLeopardi.bindPopup(popupBibliotecaVillaLeopardi);
             
 let routingControl = null;
             
