@@ -1652,12 +1652,14 @@ let routingControl = null;
                     map.fitBounds(bounds);
                 }
             })
-            .catch(error => console.error('Errore nel caricamento dei confini:', error));
-        });
+  // Aggiungi la legenda delle biblioteche come elemento DOM separato
+const legendContainer = document.createElement('div');
+legendContainer.className = 'legend-container';
+legendContainer.style.cssText = 'background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 400px; font-family: Arial, sans-serif;';
 
-
-        <div class="legend-container" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 400px; font-family: Arial, sans-serif;">
-    <h3 style="margin: 0 0 15px 0; color: #333;">Legenda Biblioteche per Municipio</h3>
+// Inserisci il contenuto HTML della legenda
+legendContainer.innerHTML = `
+<h3 style="margin: 0 0 15px 0; color: #333;">Legenda Biblioteche per Municipio</h3>
     
     <div class="municipality" style="margin-bottom: 15px;">
         <div style="display: flex; align-items: center; margin-bottom: 8px;">
@@ -1822,7 +1824,9 @@ let routingControl = null;
             <li>Biblioteca Galline Bianche</li>
         </ul>
     </div>
-</div>
+
+// Aggiungi la legenda al documento
+document.body.appendChild(legendContainer);
     </script>
 </body>
 </html>
