@@ -1452,6 +1452,35 @@ const popupRugantino = L.popup({
 `);
 
 markerRugantino.bindPopup(popupRugantino);
+
+// Creazione del marker con l'icona personalizzata per la Biblioteca Casa dei Bimbi
+const markerCasaDeiBimbi = L.marker([41.852229, 12.592527], {
+    title: 'Biblioteca Casa dei Bimbi',
+    iconUrl: 'marker-arancio.png',  // icona scura ciano già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Casa dei Bimbi
+const popupCasaDeiBimbi = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Casa dei Bimbi</h3>
+        <p style="font-size: 15px;">
+            Via Libero Leonardi, 153
+            <br>00173 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Casa%20dei%20Bimbi/RMBL3">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+// Associare il popup al marker
+markerCasaDeiBimbi.bindPopup(popupCasaDeiBimbi);
+
             
 let routingControl = null;
             
