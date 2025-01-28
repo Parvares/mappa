@@ -678,7 +678,35 @@ const popupFrancoBasaglia = L.popup({
 `);
 
 markerFrancoBasaglia.bindPopup(popupFrancoBasaglia);
-            
+
+// Nuovo marker di colore grigio (Biblioteca Casa del Parco)
+const casaDelParcoCoords = [41.9104619, 12.4251951];
+const markerCasaDelParco = L.marker(casaDelParcoCoords, {
+    title: 'Biblioteca Casa del Parco',
+    icon: greyIcon // Usa l'icona grigia
+}).addTo(map);
+
+// Popup per la Biblioteca Casa del Parco
+const popupCasaDelParco = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Casa del Parco</h3>
+        <p style="font-size: 15px;">
+            Via della Pineta Sacchetti, 78
+            <br>00167 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Casa%20del%20Parco/RMBU2">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerCasaDelParco.bindPopup(popupCasaDelParco);
+
 let routingControl = null;
             
             window.searchRoute = async function() {
