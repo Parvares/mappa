@@ -1381,6 +1381,36 @@ const popupBorghesiana = L.popup({
 `);
 
 markerBorghesiana.bindPopup(popupBorghesiana);
+
+// Nuovo marker personalizzato (Biblioteca Collina della Pace)
+const collinaPaceCoords = [41.863839, 12.685332];
+
+// Creazione del marker con l'icona bianca
+const markerCollinaPace = L.marker(collinaPaceCoords, {
+    title: 'Biblioteca Collina della Pace',
+    icon: customWhiteIcon
+}).addTo(map);
+
+// Popup per la Biblioteca Collina della Pace
+const popupCollinaPace = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Collina della Pace</h3>
+        <p style="font-size: 15px;">
+            Via Bompietro, 16
+            <br>00132 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Collina%20della%20Pace/RMBH3">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerCollinaPace.bindPopup(popupCollinaPace);
             
 let routingControl = null;
             
