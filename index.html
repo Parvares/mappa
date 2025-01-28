@@ -603,7 +603,7 @@ const popupCornelia = L.popup({
         <h3>Biblioteca Cornelia</h3>
         <p style="font-size: 15px;">
             Via Gaetano Mazzoni, 85 (presso Sala polifunzionale Ex Campari)
-            <br>00166 ROMA (ROMA)
+            <br>00166 Municipio ROMA XII
         </p>
         <a style="color: #bc0b34; font-size: 16px;" 
            href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Cornelia/RMBT2">
@@ -613,7 +613,35 @@ const popupCornelia = L.popup({
 `);
 
 markerCornelia.bindPopup(popupCornelia);
-            
+
+// Nuovo marker di colore arancione (Biblioteca Valle Aurelia)
+const valleAureliaCoords = [41.904970, 12.437202];
+const markerValleAurelia = L.marker(valleAureliaCoords, {
+    title: 'Biblioteca Valle Aurelia',
+    icon: orangeIcon // Usa l'icona arancione
+}).addTo(map);
+
+// Popup per la Biblioteca Valle Aurelia
+const popupValleAurelia = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Valle Aurelia</h3>
+        <p style="font-size: 15px;">
+            Viale di Valle Aurelia, 129
+            <br>00167 Municipio ROMA XII
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Valle%20Aurelia/RMBT1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerValleAurelia.bindPopup(popupValleAurelia);
+
 let routingControl = null;
             
             window.searchRoute = async function() {
