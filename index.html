@@ -846,6 +846,36 @@ const popupCasaMemoria = L.popup({
 `);
 
 markerCasaMemoria.bindPopup(popupCasaMemoria);            
+
+// Coordinate della Biblioteca Casa delle Letterature
+const casaLetteratureCoords = [41.899150, 12.468542];
+
+// Creazione del marker con l'icona marrone
+const markerCasaLetterature = L.marker(casaLetteratureCoords, {
+    title: 'Biblioteca Casa delle Letterature',
+    icon: customBrownIcon  // Riuso dell'icona marrone già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Casa delle Letterature
+const popupCasaLetterature = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Casa delle Letterature</h3>
+        <p style="font-size: 15px;">
+            Piazza dell'Orologio, 3
+            <br>00186 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Casa%20delle%20Letterature/RMBA7">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerCasaLetterature.bindPopup(popupCasaLetterature);
             
 let routingControl = null;
             
