@@ -18,6 +18,20 @@
             height: 100vh;
             width: 100%;
         }
+         .legend-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 400px;
+            font-family: Arial, sans-serif;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
         .search-box {
             position: absolute;
             top: 10px;
@@ -1611,52 +1625,47 @@ let routingControl = null;
 
             document.getElementById('start-point').focus();
 
-fetch('https://overpass-api.de/api/interpreter', {
-    method: 'POST',
-    body: `[out:json][timeout:25]; relation(1460885); out body; >; out skel qt;`
-})
-.then(response => response.json())
-.then(data => {
-    if (data.elements.length > 0) {
-        const ways = data.elements.filter(e => e.type === "way");
-        const nodes = data.elements.filter(e => e.type === "node");
-        const boundaries = ways.map(way => {
-            return way.nodes.map(nodeId => {
-                const node = nodes.find(n => n.id === nodeId);
-                return [node.lat, node.lon];
-            });
-        });
+        // Dopo il fetch dei confini e la creazione della mappa, aggiungi:
+        fetch('https://overpass-api.de/api/interpreter', {
+            method: 'POST',
+            body: `[out:json][timeout:25]; relation(1460885); out body; >; out skel qt;`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.elements.length > 0) {
+                const ways = data.elements.filter(e => e.type === "way");
+                const nodes = data.elements.filter(e => e.type === "node");
+                const boundaries = ways.map(way => {
+                    return way.nodes.map(nodeId => {
+                        const node = nodes.find(n => n.id === nodeId);
+                        return [node.lat, node.lon];
+                    });
+                });
 
-        boundaries.forEach(boundary => {
-            L.polyline(boundary, {
-                color: '#970a2c',
-                weight: 3,
-                opacity: 0.7
-            }).addTo(map);
-        });
+                boundaries.forEach(boundary => {
+                    L.polyline(boundary, {
+                        color: '#970a2c',
+                        weight: 3,
+                        opacity: 0.7
+                    }).addTo(map);
+                });
 
-        const legend = L.control({position: 'bottomright'});
-        legend.onAdd = function() {
-            this._div = L.DomUtil.create('div', 'legend');
-            this._div.innerHTML = '<div class="legend-item"><span></span>Municipio X</div>';
-            return this._div;
-        };
-        legend.addTo(map);
+                const legend = L.control({position: 'bottomright'});
+                legend.onAdd = function() {
+                    this._div = L.DomUtil.create('div', 'legend');
+                    this._div.innerHTML = '<div class="legend-item"><span></span>Municipio X</div>';
+                    return this._div;
+                };
+                legend.addTo(map);
 
-        const bounds = L.latLngBounds(boundaries.flat());
-        map.fitBounds(bounds);
-    }
-})
-.catch(error => console.error('Errore nel caricamento dei confini:', error));
+                const bounds = L.latLngBounds(boundaries.flat());
+                map.fitBounds(bounds);
 
-// Aggiungi la legenda delle biblioteche come elemento DOM separato
-const legendContainer = document.createElement('div');
-legendContainer.className = 'legend-container';
-legendContainer.style.cssText = 'background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 400px; font-family: Arial, sans-serif;';
-
-// Inserisci il contenuto HTML della legenda
-legendContainer.innerHTML = `
-    <h3 style="margin: 0 0 15px 0; color: #333;">Legenda Biblioteche per Municipio</h3>
+                // Crea la legenda delle biblioteche
+                const legendContainer = document.createElement('div');
+                legendContainer.className = 'legend-container';
+                legendContainer.innerHTML = `
+                    <h3 style="margin: 0 0 15px 0; color: #333;">Legenda Biblioteche per Municipio</h3>
     <div class="municipality" style="margin-bottom: 15px;">
         <div style="display: flex; align-items: center; margin-bottom: 8px;">
             <div style="width: 20px; height: 20px; background: #8B4513; margin-right: 10px;"></div>
@@ -1821,8 +1830,10 @@ legendContainer.innerHTML = `
         </ul>
     </div>
 
-// Aggiungi la legenda al documento
 document.body.appendChild(legendContainer);
+            }
+        })
+        .catch(error => console.error('Errore nel caricamento dei confini:', error));
     </script>
 </body>
 </html>
