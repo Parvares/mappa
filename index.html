@@ -906,6 +906,37 @@ const popupGiordanoBruno = L.popup({
 `);
 
 markerGiordanoBruno.bindPopup(popupGiordanoBruno);
+
+// Coordinate della Casa delle Traduzioni
+const casaTraduzioniCoords = [41.903016, 12.486805];
+
+// Creazione del marker con l'icona marrone
+const markerCasaTraduzioni = L.marker(casaTraduzioniCoords, {
+    title: 'Casa delle Traduzioni',
+    icon: customBrownIcon  // Riuso dell'icona marrone già definita
+}).addTo(map);
+
+// Popup per la Casa delle Traduzioni
+const popupCasaTraduzioni = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Casa delle Traduzioni</h3>
+        <p style="font-size: 15px;">
+            Via degli Avignonesi, 32
+            <br>00187 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Casa%20delle%20Traduzioni/RMBA6">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerCasaTraduzioni.bindPopup(popupCasaTraduzioni);
+            
             
             
 let routingControl = null;
