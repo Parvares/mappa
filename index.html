@@ -1180,7 +1180,35 @@ const popupFabrizioGiovenale = L.popup({
 
 markerFabrizioGiovenale.bindPopup(popupFabrizioGiovenale);
 
-            
+// Coordinate della Biblioteca Vaccheria Nardi
+const vaccheriaNardiCoords = [41.913727, 12.564600];
+
+// Creazione del marker con l'icona viola per la Biblioteca Vaccheria Nardi
+const markerVaccheriaNardi = L.marker(vaccheriaNardiCoords, {
+    title: 'Biblioteca Vaccheria Nardi',
+    icon: customVioletIcon  // Riuso dell'icona viola già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Vaccheria Nardi
+const popupVaccheriaNardi = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Vaccheria Nardi</h3>
+        <p style="font-size: 15px;">
+            Via Grotta di Gregna, 37
+            <br>00155 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Vaccheria%20Nardi/RMBE1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerVaccheriaNardi.bindPopup(popupVaccheriaNardi);            
             
 let routingControl = null;
             
