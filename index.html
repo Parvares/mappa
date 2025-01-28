@@ -815,7 +815,37 @@ const popupCentraleRagazzi = L.popup({
     </div>
 `);
 
-markerCentraleRagazzi.bindPopup(popupCentraleRagazzi);            
+markerCentraleRagazzi.bindPopup(popupCentraleRagazzi);
+
+// Coordinate della Biblioteca Casa della Memoria e della Storia
+const casaMemoriaCoords = [41.894238, 12.463663];
+
+// Creazione del marker con l'icona marrone
+const markerCasaMemoria = L.marker(casaMemoriaCoords, {
+    title: 'Biblioteca Casa della Memoria e della Storia',
+    icon: customBrownIcon  // Riuso dell'icona marrone già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Casa della Memoria e della Storia
+const popupCasaMemoria = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Casa della Memoria e della Storia</h3>
+        <p style="font-size: 15px;">
+            Via di San Francesco di Sales, 5
+            <br>00165 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Casa%20della%20Memoria%20e%20della%20Storia/RMBA5">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerCasaMemoria.bindPopup(popupCasaMemoria);            
             
 let routingControl = null;
             
