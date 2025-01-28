@@ -1508,6 +1508,34 @@ const popupRaffaello = L.popup({
 
 // Associare il popup al marker
 markerRaffaello.bindPopup(popupRaffaello);
+
+// Creazione del marker con l'icona personalizzata per la Biblioteca Nelson Mandela
+const markerNelsonMandela = L.marker([41.886103, 12.511739], {
+    title: 'Biblioteca Nelson Mandela',
+    icon: customOrangeIcon  // icona già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Nelson Mandela
+const popupNelsonMandela = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Nelson Mandela</h3>
+        <p style="font-size: 15px;">
+            Via La Spezia, 21
+            <br>00182 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Nelson%20Mandela/RMBI1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+// Associare il popup al marker
+markerNelsonMandela.bindPopup(popupNelsonMandela);
             
 let routingControl = null;
             
