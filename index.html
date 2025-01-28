@@ -744,10 +744,10 @@ const popupGallineBianche = L.popup({
 
 markerGallineBianche.bindPopup(popupGallineBianche);
 
-// Nuovo marker di colore bianco (Biblioteca Enzo Tortora)
+// Nuovo marker di colore rosa (Biblioteca Enzo Tortora)
 const enzoTortoraCoords = [41.8769632, 12.4778925];
-const whiteIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-white.png', // Usa l'icona bianca
+const pinkIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-pink.png', // Usa l'icona rosa
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
     iconSize: [25, 41],
     iconAnchor: [12, 41],
@@ -757,7 +757,7 @@ const whiteIcon = new L.Icon({
 
 const markerEnzoTortora = L.marker(enzoTortoraCoords, {
     title: 'Biblioteca Enzo Tortora',
-    icon: whiteIcon // Usa l'icona bianca
+    icon: pinkIcon // Usa l'icona rosa
 }).addTo(map);
 
 // Popup per la Biblioteca Enzo Tortora
@@ -770,7 +770,7 @@ const popupEnzoTortora = L.popup({
         <h3>Biblioteca Enzo Tortora</h3>
         <p style="font-size: 15px;">
             Via N. Zabaglia, 27b
-            <br>00153 Municipio ROMA I
+            <br>00153 Minicipio ROMA I
         </p>
         <a style="color: #bc0b34; font-size: 16px;" 
            href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Enzo%20Tortora/RMBA3">
@@ -780,6 +780,7 @@ const popupEnzoTortora = L.popup({
 `);
 
 markerEnzoTortora.bindPopup(popupEnzoTortora);
+
             
             
 let routingControl = null;
