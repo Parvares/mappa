@@ -1251,6 +1251,35 @@ const popupPenazzato = L.popup({
 
 markerPenazzato.bindPopup(popupPenazzato);
 
+// Coordinate del Teatro Biblioteca Quarticciolo
+const quarticcioloCoords = [41.891476, 12.575938];
+
+// Creazione del marker con l'icona personalizzata per il Teatro Biblioteca Quarticciolo
+const markerQuarticciolo = L.marker(quarticcioloCoords, {
+    title: 'Teatro Biblioteca Quarticciolo',
+    icon: customDarkCyanIcon  // icona scura ciano già definita
+}).addTo(map);
+
+// Popup per il Teatro Biblioteca Quarticciolo
+const popupQuarticciolo = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Teatro Biblioteca Quarticciolo</h3>
+        <p style="font-size: 15px;">
+            Via Castellaneta, 10
+            <br>00171 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Teatro%20Biblioteca%20Quarticciolo/RMBG2">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerQuarticciolo.bindPopup(popupQuarticciolo);
             
 let routingControl = null;
             
