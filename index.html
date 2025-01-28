@@ -1072,7 +1072,43 @@ const popupBibliotecaTullioDeMauro = L.popup({
 
 // Associa il popup al marker
 markerBibliotecaTullioDeMauro.bindPopup(popupBibliotecaTullioDeMauro);
-           
+
+// Nuovo marker con icona dorata (Biblioteca Ennio Flaiano)
+const ennioFlaianoCoords = [41.952327, 12.530240];
+const goldIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+const markerEnnioFlaiano = L.marker(ennioFlaianoCoords, {
+    title: 'Biblioteca Ennio Flaiano',
+    icon: goldIcon
+}).addTo(map);
+
+const popupEnnioFlaiano = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Ennio Flaiano</h3>
+        <p style="font-size: 15px;">
+            Via Monte Ruggero, 39
+            <br>00139 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Ennio%20Flaiano/RMBD1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerEnnioFlaiano.bindPopup(popupEnnioFlaiano);
+            
 let routingControl = null;
             
             window.searchRoute = async function() {
