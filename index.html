@@ -787,7 +787,35 @@ const popupEnzoTortora = L.popup({
 
 markerEnzoTortora.bindPopup(popupEnzoTortora);
 
-            
+// Coordinate della Biblioteca Centrale Ragazzi
+const centraleBibRagazziCoords = [41.893223, 12.473114];
+
+// Creazione del marker con l'icona marrone
+const markerCentraleRagazzi = L.marker(centraleBibRagazziCoords, {
+    title: 'Biblioteca Centrale Ragazzi',
+    icon: customBrownIcon  // Riuso dell'icona marrone già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Centrale Ragazzi
+const popupCentraleRagazzi = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Centrale Ragazzi</h3>
+        <p style="font-size: 15px;">
+            Via San Paolo alla Regola, 15/18
+            <br>00186 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Centrale%20Ragazzi/RMBBR">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerCentraleRagazzi.bindPopup(popupCentraleRagazzi);            
             
 let routingControl = null;
             
