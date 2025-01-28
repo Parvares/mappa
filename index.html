@@ -707,6 +707,43 @@ const popupCasaDelParco = L.popup({
 
 markerCasaDelParco.bindPopup(popupCasaDelParco);
 
+// Nuovo marker di colore nero (Biblioteca Galline Bianche)
+const gallineBiancheCoords = [41.995762, 12.485857];
+const blackIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png', // Usa l'icona nera
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+const markerGallineBianche = L.marker(gallineBiancheCoords, {
+    title: 'Biblioteca Galline Bianche',
+    icon: blackIcon // Usa l'icona nera
+}).addTo(map);
+
+// Popup per la Biblioteca Galline Bianche
+const popupGallineBianche = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(`
+    <div class="baloon">
+        <h3>Biblioteca Galline Bianche</h3>
+        <p style="font-size: 15px;">
+            Via delle Galline Bianche, 105
+            <br>00188 Municipio ROMA XIV
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Galline%20Bianche/RMBV1">
+           Vai alla scheda
+        </a>
+    </div>
+`);
+
+markerGallineBianche.bindPopup(popupGallineBianche);
+            
 let routingControl = null;
             
             window.searchRoute = async function() {
