@@ -1643,26 +1643,156 @@ let routingControl = null;
                         }).addTo(map);
                     });
 
-const legend = L.control({position: 'bottomright'});
-legend.onAdd = function() {
+
+t.onAdd = function() {
     const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
         <h4>Biblioteche di Roma</h4>
-        <div class="legend-item"><span style="background: #6a3f3a"></span><div class="text">Municipio I</div></div>
-        <div class="legend-item"><span style="background: #00faff"></span><div class="text">Municipio II</div></div>
-        <div class="legend-item"><span style="background: #fbd51c"></span><div class="text">Municipio III</div></div>
-        <div class="legend-item"><span style="background: #473e86"></span><div class="text">Municipio IV</div></div>
-        <div class="legend-item"><span style="background: #018a87"></span><div class="text">Municipio V</div></div>
-        <div class="legend-item"><span style="background: #fefefe"></span><div class="text">Municipio VI</div></div>
-        <div class="legend-item"><span style="background: #ff7c4e"></span><div class="text">Municipio VII</div></div>
-        <div class="legend-item"><span style="background: #22a825"></span><div class="text">Municipio VIII</div></div>
-        <div class="legend-item"><span style="background: #c82937"></span><div class="text">Municipio IX</div></div>
-        <div class="legend-item"><span style="background: #287fc7"></span><div class="text">Municipio X</div></div>
-        <div class="legend-item"><span style="background: #cac12e"></span><div class="text">Municipio XI</div></div>
-        <div class="legend-item"><span style="background: #a329ca"></span><div class="text">Municipio XII</div></div>
-        <div class="legend-item"><span style="background: #c9832c"></span><div class="text">Municipio XIII</div></div>
-        <div class="legend-item"><span style="background: #7b7b79"></span><div class="text">Municipio XIV</div></div>
-        <div class="legend-item"><span style="background: #000000"></span><div class="text">Municipio XV</div></div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #6a3f3a"></span><div class="text">Municipio I</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Enzo Tortora</div>
+                    <div>Biblioteca Centrale Ragazzi</div>
+                    <div>Biblioteca Casa della Memoria e della Storia</div>
+                    <div>Biblioteca Casa delle Letterature</div>
+                    <div>Biblioteca Giordano Bruno</div>
+                    <div>Casa delle Traduzioni</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #00faff"></span><div class="text">Municipio II</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Europea</div>
+                    <div>Biblioteca Flaminia</div>
+                    <div>Biblioteca Villa Leopardi</div>
+                    <div>Biblioteca Tullio De Mauro</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #fbd51c"></span><div class="text">Municipio III</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Ennio Flaiano</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #473e86"></span><div class="text">Municipio IV</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Aldo Fabrizi</div>
+                    <div>Biblioteca Fabrizio Giovenale</div>
+                    <div>Biblioteca Vaccheria Nardi</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #018a87"></span><div class="text">Municipio V</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Penazzato</div>
+                    <div>Teatro Biblioteca Quarticciolo</div>
+                    <div>Biblioteca Gianni Rodari</div>
+                    <div>Biblioteca Goffredo Mameli</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #fefefe"></span><div class="text">Municipio VI</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Borghesiana</div>
+                    <div>Biblioteca Collina della Pace</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #ff7c4e"></span><div class="text">Municipio VII</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Rugantino</div>
+                    <div>Biblioteca Casa dei Bimbi</div>
+                    <div>Biblioteca Raffaello</div>
+                    <div>Biblioteca Nelson Mandela</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #22a825"></span><div class="text">Municipio VIII</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Arcipelago Auditorium</div>
+                    <div>Biblioteca Joyce Lussu</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #c82937"></span><div class="text">Municipio IX</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Pier Paolo Pasolini</div>
+                    <div>Biblioteca Laurentina</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #287fc7"></span><div class="text">Municipio X</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Elsa Morante</div>
+                    <div>Biblioteca Sandro Onofri</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #cac12e"></span><div class="text">Municipio XI</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Renato Nicolini</div>
+                    <div>Biblioteca Guglielmo Marconi</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #a329ca"></span><div class="text">Municipio XII</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Colli Portuensi</div>
+                    <div>Biblioteca Longhena</div>
+                    <div>Biblioteca Villino Corsini - Villa Pamphilj</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #c9832c"></span><div class="text">Municipio XIII</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Cornelia</div>
+                    <div>Biblioteca Valle Aurelia</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #7b7b79"></span><div class="text">Municipio XIV</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Franco Basaglia</div>
+                    <div>Biblioteca Casa del Parco</div>
+                </div>
+            </details>
+        </div>
+        <div class="legend-item">
+            <details>
+                <summary><span style="background: #000000"></span><div class="text">Municipio XV</div></summary>
+                <div class="library-list">
+                    <div>Biblioteca Galline Bianche</div>
+                </div>
+            </details>
+        </div>
     `;
     return div;
 };
