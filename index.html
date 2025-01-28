@@ -1456,7 +1456,7 @@ markerRugantino.bindPopup(popupRugantino);
 // Creazione del marker con l'icona personalizzata per la Biblioteca Casa dei Bimbi
 const markerCasaDeiBimbi = L.marker([41.852229, 12.592527], {
     title: 'Biblioteca Casa dei Bimbi',
-    icon: customOrangeIcon  // icona scura ciano già definita
+    icon: customOrangeIcon  // icona già definita
 }).addTo(map);
 
 // Popup per la Biblioteca Casa dei Bimbi
@@ -1481,6 +1481,33 @@ const popupCasaDeiBimbi = L.popup({
 // Associare il popup al marker
 markerCasaDeiBimbi.bindPopup(popupCasaDeiBimbi);
 
+// Creazione del marker con l'icona personalizzata per la Biblioteca Raffaello
+const markerRaffaello = L.marker([41.844170, 12.583459], {
+    title: 'Biblioteca Raffaello',
+    icon: customOrangeIcon  // icona  già definita
+}).addTo(map);
+
+// Popup per la Biblioteca Raffaello
+const popupRaffaello = L.popup({
+    className: 'custom-popup',
+    offset: [0, -10],
+    closeButton: true
+}).setContent(
+    <div class="baloon">
+        <h3>Biblioteca Raffaello</h3>
+        <p style="font-size: 15px;">
+            Via Tuscolana, 1111
+            <br>00173 ROMA (ROMA)
+        </p>
+        <a style="color: #bc0b34; font-size: 16px;" 
+           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Raffaello/RMBL1">
+           Vai alla scheda
+        </a>
+    </div>
+);
+
+// Associare il popup al marker
+markerRaffaello.bindPopup(popupRaffaello);
             
 let routingControl = null;
             
