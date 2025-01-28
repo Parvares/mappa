@@ -1151,16 +1151,16 @@ const popupAldoFabrizi = L.popup({
 markerAldoFabrizi.bindPopup(popupAldoFabrizi);
 
 // Coordinate della Biblioteca Fabrizio Giovenale
-const casaMemoriaCoords = [41.934058, 12.560290];
+const fabrizioGiovenaleCoords = [41.934058, 12.560290];
 
 // Creazione del marker con l'icona viola
-const markerCasaMemoria = L.marker(casaMemoriaCoords, {
+const markerFabrizioGiovenale = L.marker(fabrizioGiovenaleCoords, {
     title: 'Biblioteca Fabrizio Giovenale',
     icon: customVioletIcon  // Riuso dell'icona viola già definita
 }).addTo(map);
 
 // Popup per la Biblioteca Fabrizio Giovenale
-const popupCasaMemoria = L.popup({
+const popupFabrizioGiovenale = L.popup({
     className: 'custom-popup',
     offset: [0, -10],
     closeButton: true
@@ -1178,7 +1178,8 @@ const popupCasaMemoria = L.popup({
     </div>
 `);
 
-markerCasaMemoria.bindPopup(popupCasaMemoria);
+markerFabrizioGiovenale.bindPopup(popupFabrizioGiovenale);
+
             
             
 let routingControl = null;
