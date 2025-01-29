@@ -112,6 +112,7 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     
     <script>
+let currentMunicipioLayer = null;
 function handleBackNavigation() {
     // Use localStorage to store and retrieve the previous page
     const previousPage = localStorage.getItem('previousPage');
@@ -169,8 +170,32 @@ document.addEventListener('DOMContentLoaded', function() {
             }).addTo(map);
 
 
+ // Aggiungi questa funzione prima della creazione dei marker
+async function showMunicipioConfini(municipioNum) {
+    // Rimuovi il layer precedente se esiste
+    if (currentMunicipioLayer) {
+        map.removeLayer(currentMunicipioLayer);
+    }
+
+    try {
+        const response = await fetch(`municipio${municipioNum}.geojson`);
+        const data = await response.json();
+        
+        currentMunicipioLayer = L.geoJSON(data, {
+            style: {
+                color: "#FF0000",
+                weight: 3,
+                opacity: 0.7,
+                fillColor: "#FF0000",
+                fillOpacity: 0.1
+            }
+        }).addTo(map);
+        
+    } catch (error) {
+        console.error(`Errore nel caricamento del municipio ${municipioNum}:`, error);
+    }
+}           
             
-// Primo marker (Biblioteca Morante) - codice esistente
 // Primo marker (Biblioteca Morante) - codice esistente
 const markerCoords = percorso[percorso.length - 1];
 const marker = L.marker(markerCoords, {
@@ -685,45 +710,7 @@ markerGallineBianche.bindPopup(popupGallineBianche);
 
             
 // Nuovo marker personalizzato (Biblioteca Enzo Tortora)
-const enzoTortoraCoords = [41.876553, 12.478932];
-
-// Definizione dell'icona marrone personalizzata
-var customBrownIcon = L.icon({
-    iconUrl: 'marker-brown.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png', // ombra
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
-    shadowAnchor: [12, 41]
-});
-
-// Creazione del marker con l'icona marrone
-const markerEnzoTortora = L.marker(enzoTortoraCoords, {
-    title: 'Biblioteca Enzo Tortora',
-    icon: customBrownIcon
-}).addTo(map);
-
-// Popup per la Biblioteca Enzo Tortora
-const popupEnzoTortora = L.popup({
-    className: 'custom-popup',
-    offset: [0, -10],
-    closeButton: true
-}).setContent(`
-    <div class="baloon">
-        <h3>Biblioteca Enzo Tortora</h3>
-        <p style="font-size: 15px;">
-            Via N. Zabaglia, 27b
-            <br>00153 Municipio ROMA I
-        </p>
-        <a style="color: #bc0b34; font-size: 16px;" 
-           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Enzo%20Tortora/RMBA3">
-           Vai alla scheda
-        </a>
-    </div>
-`);
-
-markerEnzoTortora.bindPopup(popupEnzoTortora);
+const W = L.popup({className:"custom-popup",offset:[0,-10],closeButton:!0}).setContent('\n    <div class="baloon" onclick="showMunicipioConfini(1)">\n        <h3>Biblioteca Enzo Tortora</h3>\n        <p style="font-size: 15px;">\n            Via N. Zabaglia, 27b\n            <br>00153 Municipio ROMA I\n        </p>\n        <a style="color: #bc0b34; font-size: 16px;" \n           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Enzo%20Tortora/RMBA3">\n           Vai alla scheda\n        </a>\n    </div>\n');
 
 // Coordinate della Biblioteca Centrale Ragazzi
 const centraleBibRagazziCoords = [41.893223, 12.473114];
