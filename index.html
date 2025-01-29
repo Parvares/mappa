@@ -221,7 +221,18 @@ document.addEventListener("DOMContentLoaded", (function() {
     // Punto finale del percorso
     const endPoint = pathPoints[pathPoints.length - 1];
 
-    // Creazione del marker della biblioteca
+    // Creazione del marker della biblioteca Morante
+    // Creazione di un'icona personalizzata per il marker
+    const libraryIcon = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png', // URL dell'icona
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png', // URL dell'ombra
+    iconSize: [25, 41], // Dimensioni dell'icona
+    iconAnchor: [12, 41], // Punto di ancoraggio dell'icona
+    popupAnchor: [1, -34], // Punto di ancoraggio del popup
+    shadowSize: [41, 41] // Dimensioni dell'ombra
+});
+
+    
     const libraryMarker = L.marker(endPoint, {
         title: "Biblioteca Elsa Morante"
     }).addTo(map);
@@ -1632,7 +1643,7 @@ fetch('municipio10.geojson')
             const municipalityColors = {
                 1: "#6a3f3a", 2: "#00faff", 3: "#fbd51c", 4: "#473e86",
                 5: "#018a87", 6: "#d33682", 7: "#ff7c4e", 8: "#22a825",
-                9: "#c82937", 10: "#287fc7", 11: "#cac12e", 12: "#a329ca",
+                9: "#c82937", 10: "#cb283c", 11: "#cac12e", 12: "#a329ca",
                 13: "#c9832c", 14: "#7b7b79", 15: "#000000"
             };
 
@@ -1661,7 +1672,7 @@ fetch('municipio10.geojson')
                     <div class="legend-item"><span style="background: #ff7c4e"></span><div class="text">Municipio VII</div></div>
                     <div class="legend-item"><span style="background: #22a825"></span><div class="text">Municipio VIII</div></div>
                     <div class="legend-item"><span style="background: #c82937"></span><div class="text">Municipio IX</div></div>
-                    <div class="legend-item"><span style="background: #287fc7"></span><div class="text">Municipio X</div></div>
+                    <div class="legend-item"><span style="background: #cb283c"></span><div class="text">Municipio X</div></div>
                     <div class="legend-item"><span style="background: #cac12e"></span><div class="text">Municipio XI</div></div>
                     <div class="legend-item"><span style="background: #a329ca"></span><div class="text">Municipio XII</div></div>
                     <div class="legend-item"><span style="background: #c9832c"></span><div class="text">Municipio XIII</div></div>
