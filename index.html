@@ -781,7 +781,7 @@ const centraleBibRagazziCoords = [41.893223, 12.473114];
 const markerCentraleRagazzi = L.marker(centraleBibRagazziCoords, {
     title: 'Biblioteca Centrale Ragazzi',
     icon: customBrownIcon  // Riuso dell'icona marrone già definita
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(1, map));
 
 // Popup per la Biblioteca Centrale Ragazzi
 const popupCentraleRagazzi = L.popup({
@@ -811,7 +811,7 @@ const casaMemoriaCoords = [41.894238, 12.463663];
 const markerCasaMemoria = L.marker(casaMemoriaCoords, {
     title: 'Biblioteca Casa della Memoria e della Storia',
     icon: customBrownIcon  // Riuso dell'icona marrone già definita
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(1, map));
 
 // Popup per la Biblioteca Casa della Memoria e della Storia
 const popupCasaMemoria = L.popup({
@@ -841,7 +841,7 @@ const casaLetteratureCoords = [41.899150, 12.468542];
 const markerCasaLetterature = L.marker(casaLetteratureCoords, {
     title: 'Biblioteca Casa delle Letterature',
     icon: customBrownIcon  // Riuso dell'icona marrone già definita
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(1, map));
 
 // Popup per la Biblioteca Casa delle Letterature
 const popupCasaLetterature = L.popup({
@@ -871,7 +871,7 @@ const giordanoBrunoCoords = [41.911471, 12.452385];
 const markerGiordanoBruno = L.marker(giordanoBrunoCoords, {
     title: 'Biblioteca Giordano Bruno',
     icon: customBrownIcon  // Riuso dell'icona marrone già definita
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(1, map));
 
 // Popup per la Biblioteca Giordano Bruno
 const popupGiordanoBruno = L.popup({
@@ -901,7 +901,7 @@ const casaTraduzioniCoords = [41.903016, 12.486805];
 const markerCasaTraduzioni = L.marker(casaTraduzioniCoords, {
     title: 'Casa delle Traduzioni',
     icon: customBrownIcon  // Riuso dell'icona marrone già definita
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(1, map));
 
 // Popup per la Casa delle Traduzioni
 const popupCasaTraduzioni = L.popup({
@@ -973,7 +973,7 @@ const bibliotecaFlaminiaCoords = [41.923581, 12.470486];
 const markerBibliotecaFlaminia = L.marker(bibliotecaFlaminiaCoords, {
     title: 'Biblioteca Flaminia',
     icon: customCyanIcon // Puoi usare la stessa icona ciano o crearne una nuova se preferisci
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(2, map));
 
 // Popup per la Biblioteca Flaminia
 const popupBibliotecaFlaminia = L.popup({
@@ -1004,7 +1004,7 @@ const bibliotecaVillaLeopardiCoords = [41.926791, 12.521807];
 const markerBibliotecaVillaLeopardi = L.marker(bibliotecaVillaLeopardiCoords, {
     title: 'Biblioteca Villa Leopardi',
     icon: customCyanIcon // Usa l'icona ciano già definita o una nuova
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(2, map));
 
 // Popup per la Biblioteca Villa Leopardi
 const popupBibliotecaVillaLeopardi = L.popup({
@@ -1035,7 +1035,7 @@ const bibliotecaTullioDeMauroCoords = [41.899404, 12.514206];
 const markerBibliotecaTullioDeMauro = L.marker(bibliotecaTullioDeMauroCoords, {
     title: 'Biblioteca Tullio De Mauro',
     icon: customCyanIcon // Usa l'icona ciano definita precedentemente
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(2, map));
 
 // Popup per la Biblioteca Tullio De Mauro
 const popupBibliotecaTullioDeMauro = L.popup({
@@ -1074,7 +1074,7 @@ const goldIcon = new L.Icon({
 const markerEnnioFlaiano = L.marker(ennioFlaianoCoords, {
     title: 'Biblioteca Ennio Flaiano',
     icon: goldIcon
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(3, map));
 
 const popupEnnioFlaiano = L.popup({
     className: 'custom-popup',
@@ -1114,7 +1114,7 @@ var customVioletIcon = L.icon({
 const markerAldoFabrizi = L.marker(aldoFabriziCoords, {
     title: 'Biblioteca Aldo Fabrizi',
     icon: customVioletIcon
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(4, map));
 
 // Popup per la Biblioteca Aldo Fabrizi
 const popupAldoFabrizi = L.popup({
@@ -1144,7 +1144,7 @@ const fabrizioGiovenaleCoords = [41.934058, 12.560290];
 const markerFabrizioGiovenale = L.marker(fabrizioGiovenaleCoords, {
     title: 'Biblioteca Fabrizio Giovenale',
     icon: customVioletIcon  // Riuso dell'icona viola già definita
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(4, map));
 
 // Popup per la Biblioteca Fabrizio Giovenale
 const popupFabrizioGiovenale = L.popup({
@@ -1174,7 +1174,7 @@ const vaccheriaNardiCoords = [41.913727, 12.564600];
 const markerVaccheriaNardi = L.marker(vaccheriaNardiCoords, {
     title: 'Biblioteca Vaccheria Nardi',
     icon: customVioletIcon  // Riuso dell'icona viola già definita
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(4, map));
 
 // Popup per la Biblioteca Vaccheria Nardi
 const popupVaccheriaNardi = L.popup({
@@ -1215,7 +1215,7 @@ var customDarkCyanIcon = L.icon({
 const markerPenazzato = L.marker(penazzatoCoords, {
     title: 'Biblioteca Penazzato',
     icon: customDarkCyanIcon
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(5, map));
 
 // Popup per la Biblioteca Penazzato
 const popupPenazzato = L.popup({
@@ -1245,7 +1245,7 @@ const quarticcioloCoords = [41.891476, 12.575938];
 const markerQuarticciolo = L.marker(quarticcioloCoords, {
     title: 'Teatro Biblioteca Quarticciolo',
     icon: customDarkCyanIcon  // icona scura ciano già definita
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(5, map));
 
 // Popup per il Teatro Biblioteca Quarticciolo
 const popupQuarticciolo = L.popup({
@@ -1275,7 +1275,7 @@ const gianniRodariCoords = [41.881422, 12.589056];
 const markerGianniRodari = L.marker(gianniRodariCoords, {
     title: 'Biblioteca Gianni Rodari',
     icon: customDarkCyanIcon  // Puoi riutilizzare l'icona scura ciano già definita
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(5, map));
 
 // Popup per la Biblioteca Gianni Rodari
 const popupGianniRodari = L.popup({
@@ -1305,7 +1305,7 @@ const goffredoMameliCoords = [41.889446, 12.524513];
 const markerGoffredoMameli = L.marker(goffredoMameliCoords, {
     title: 'Biblioteca Goffredo Mameli',
     icon: customDarkCyanIcon  // icona scura ciano già definita
-}).addTo(map);
+}).addTo(map).on('click', () => loadAndShowBorder(5, map));
 
 // Popup per la Biblioteca Goffredo Mameli
 const popupGoffredoMameli = L.popup({
