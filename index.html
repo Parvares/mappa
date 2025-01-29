@@ -702,7 +702,7 @@ var customBrownIcon = L.icon({
 const markerEnzoTortora = L.marker(enzoTortoraCoords, {
     title: 'Biblioteca Enzo Tortora',
     icon: customBrownIcon
-}).addTo(map);
+}).addTo(map).on('click', showMunicipioI);
 
 // Popup per la Biblioteca Enzo Tortora
 const popupEnzoTortora = L.popup({
@@ -1476,6 +1476,32 @@ const popupNelsonMandela = L.popup({
 markerNelsonMandela.bindPopup(popupNelsonMandela);
             
 let routingControl = null;
+let municipioLayer = null;
+
+   async function showMunicipioI() {
+  // Rimuovi il layer precedente se esiste
+  if (municipioLayer) {
+    map.removeLayer(municipioLayer);
+  }
+  
+  try {
+    const response = await fetch('municipio1.geojson');
+    const data = await response.json();
+    
+    municipioLayer = L.geoJSON(data, {
+      style: {
+        color: '#6a3f3a',
+        weight: 3,
+        opacity: 0.65,
+        fillOpacity: 0.2
+      }
+    }).addTo(map);
+    
+    map.fitBounds(municipioLayer.getBounds());
+  } catch (error) {
+    console.error('Errore nel caricamento del confine:', error);
+  }
+}
             
             window.searchRoute = async function() {
                 const startPoint = document.getElementById('start-point').value;
