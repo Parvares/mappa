@@ -740,6 +740,7 @@ const popupEnzoTortora = L.popup({
     className: 'custom-popup',
     offset: [0, -10],
     closeButton: true
+    closeOnClick: false // Aggiungi questa riga
 }).setContent(`
 <div class="baloon" onclick="loadAndShowMunicipio(1)">
         <h3>Biblioteca Enzo Tortora</h3>
