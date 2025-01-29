@@ -191,59 +191,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
         
-        document.addEventListener('DOMContentLoaded', function() {
-            const biblioCoords = [41.732522, 12.271879]; // punto di origine del percorso tratteggiato
-            
-            const map = L.map('map').setView(biblioCoords, 14);
-            
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
+document.addEventListener("DOMContentLoaded", (function() {
+    const center = [41.732522, 12.271879];
+    const map = L.map("map").setView(center, 14);
+    
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "© OpenStreetMap contributors"
+    }).addTo(map);
 
-            const percorso = [
-                biblioCoords,
-                [41.732154, 12.271675],
-                [41.732282, 12.271254],
-                [41.732240, 12.271230],
-                [41.732276, 12.271090],
-                [41.732092, 12.270980],
-            ];
+    // Definizione del percorso
+    const pathPoints = [
+        center,
+        [41.732154, 12.271675],
+        [41.732282, 12.271254],
+        [41.73224, 12.27123],
+        [41.732276, 12.27109],
+        [41.732092, 12.27098]
+    ];
 
-            const dashedPath = L.polyline(percorso, {
-                color: '#0000FF',
-                weight: 4,
-                opacity: 0.8,
-                dashArray: '10, 10'
-            }).addTo(map);
+    // Creazione della linea tratteggiata
+    const dottedLine = L.polyline(pathPoints, {
+        color: "#0000FF",
+        weight: 4,
+        opacity: 0.8,
+        dashArray: "10, 10"
+    }).addTo(map);
 
+    // Punto finale del percorso
+    const endPoint = pathPoints[pathPoints.length - 1];
 
-            
-// Primo marker (Biblioteca Morante) - codice esistente
-const markerCoords = percorso[percorso.length - 1];
-const marker = L.marker(markerCoords, {
-    title: 'Biblioteca Elsa Morante'
-}).addTo(map);
+    // Creazione del marker della biblioteca
+    const libraryMarker = L.marker(endPoint, {
+        title: "Biblioteca Elsa Morante"
+    }).addTo(map);
 
-const popup = L.popup({
-    className: 'custom-popup',
-    offset: [0, -10],
-    closeButton: true
-}).setContent(`
-    <div class="baloon">
-        <h3>Biblioteca Elsa Morante</h3>
-        <p style="font-size: 15px;">
-            Via Adolfo Cozza 7
-            <br>00121 Municipio ROMA X
-        </p>
-        <a style="color: #bc0b34; font-size: 16px;" 
-           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2">
-           Vai alla scheda
-        </a>
-    </div>
-`);
+    // Popup per la biblioteca
+    const popup = L.popup({
+        className: "custom-popup",
+        offset: [0, -10],
+        closeButton: true
+    }).setContent(`
+        <div class="baloon">
+            <h3>Biblioteca Elsa Morante</h3>
+            <p style="font-size: 15px;">
+                Via Adolfo Cozza 7
+                <br>00121 Municipio ROMA X
+            </p>
+            <a style="color: #bc0b34; font-size: 16px;" 
+               href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2">
+               Vai alla scheda
+            </a>
+        </div>
+    `);
 
-marker.bindPopup(popup);
+    libraryMarker.bindPopup(popup);
 
 // Secondo marker (Biblioteca Onofri)
 const onofriCoords = [41.775700, 12.348255];
