@@ -112,7 +112,6 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     
     <script>
-let currentMunicipioLayer = null;
 function handleBackNavigation() {
     // Use localStorage to store and retrieve the previous page
     const previousPage = localStorage.getItem('previousPage');
@@ -170,31 +169,27 @@ document.addEventListener('DOMContentLoaded', function() {
             }).addTo(map);
 
 
- // Aggiungi questa funzione prima della creazione dei marker
-async function showMunicipioConfini(municipioNum) {
-    // Rimuovi il layer precedente se esiste
-    if (currentMunicipioLayer) {
-        map.removeLayer(currentMunicipioLayer);
-    }
+let currentMunicipioLayer = null;
 
-    try {
-        const response = await fetch(`municipio${municipioNum}.geojson`);
-        const data = await response.json();
-        
-        currentMunicipioLayer = L.geoJSON(data, {
-            style: {
-                color: "#FF0000",
-                weight: 3,
-                opacity: 0.7,
-                fillColor: "#FF0000",
-                fillOpacity: 0.1
-            }
-        }).addTo(map);
-        
-    } catch (error) {
-        console.error(`Errore nel caricamento del municipio ${municipioNum}:`, error);
+function loadMunicipioI() {
+    if (currentMunicipioLayer) {
+        i.removeLayer(currentMunicipioLayer);
     }
-}           
+    
+    fetch('municipio1.geojson')
+        .then(response => response.json())
+        .then(data => {
+            currentMunicipioLayer = L.geoJSON(data, {
+                style: {
+                    color: '#6a3f3a',
+                    weight: 3,
+                    opacity: 0.7,
+                    fillOpacity: 0.2
+                }
+            }).addTo(i);
+        })
+        .catch(error => console.error('Errore nel caricamento del GeoJSON:', error));
+}            
             
 // Primo marker (Biblioteca Morante) - codice esistente
 const markerCoords = percorso[percorso.length - 1];
@@ -710,7 +705,12 @@ markerGallineBianche.bindPopup(popupGallineBianche);
 
             
 // Nuovo marker personalizzato (Biblioteca Enzo Tortora)
-const W = L.popup({className:"custom-popup",offset:[0,-10],closeButton:!0}).setContent('\n    <div class="baloon" onclick="showMunicipioConfini(1)">\n        <h3>Biblioteca Enzo Tortora</h3>\n        <p style="font-size: 15px;">\n            Via N. Zabaglia, 27b\n            <br>00153 Municipio ROMA I\n        </p>\n        <a style="color: #bc0b34; font-size: 16px;" \n           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Enzo%20Tortora/RMBA3">\n           Vai alla scheda\n        </a>\n    </div>\n');
+const Q=L.marker([41.876553,12.478932],{title:"Biblioteca Enzo Tortora",icon:H}).addTo(i);
+Q.on('click', function() {
+    loadMunicipioI();
+});
+const W=L.popup({className:"custom-popup",offset:[0,-10],closeButton:!0}).setContent('\n    <div class="baloon">\n        <h3>Biblioteca Enzo Tortora</h3>\n        <p style="font-size: 15px;">\n            Via N. Zabaglia, 27b\n            <br>00153 Municipio ROMA I\n        </p>\n        <a style="color: #bc0b34; font-size: 16px;" \n           href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Enzo%20Tortora/RMBA3">\n           Vai alla scheda\n        </a>\n    </div>\n');
+Q.bindPopup(W);
 
 // Coordinate della Biblioteca Centrale Ragazzi
 const centraleBibRagazziCoords = [41.893223, 12.473114];
@@ -1599,5 +1599,3 @@ legend.addTo(map);
     </script>
 </body>
 </html>
-
-        
