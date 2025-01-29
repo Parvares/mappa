@@ -75,6 +75,10 @@ body,html{margin:0;padding:0;height:100%;width:100%}
             color: #333;
         }
 
+.baloon {
+    cursor: pointer;
+}
+        
         .baloon h3 {
     margin: 0 0 10px 0;
     color: #333;
@@ -146,6 +150,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const biblioCoords = [41.732522, 12.271879]; // punto di origine del percorso tratteggiato
             
             const map = L.map('map').setView(biblioCoords, 14);
+            let currentBoundary = null;
+
+// Aggiungi questa funzione dopo la dichiarazione della variabile currentBoundary
+async function loadAndShowMunicipio(municipioNumber) {
+    // Rimuovi il confine precedente se esiste
+    if (currentBoundary) {
+        map.removeLayer(currentBoundary);
+    }
+    
+    try {
+        const response = await fetch(`municipio${municipioNumber}.geojson`);
+        const data = await response.json();
+        
+        currentBoundary = L.geoJSON(data, {
+            style: {
+                color: "#FF0000",
+                weight: 3,
+                opacity: 0.7,
+                fillOpacity: 0.1
+            }
+        }).addTo(map);
+        
+        map.fitBounds(currentBoundary.getBounds());
+    } catch (error) {
+        console.error(`Errore nel caricamento del municipio ${municipioNumber}:`, error);
+    }
+}
             
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
@@ -710,7 +741,7 @@ const popupEnzoTortora = L.popup({
     offset: [0, -10],
     closeButton: true
 }).setContent(`
-    <div class="baloon">
+<div class="baloon" onclick="loadAndShowMunicipio(1)">
         <h3>Biblioteca Enzo Tortora</h3>
         <p style="font-size: 15px;">
             Via N. Zabaglia, 27b
