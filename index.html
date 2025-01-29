@@ -942,8 +942,8 @@ var customCyanIcon = L.icon({
 const markerBibliotecaEuropea = L.marker(bibliotecaEuropeaCoords, {
     title: 'Biblioteca Europea',
     icon: customCyanIcon
-}).addTo(map);
-
+}).addTo(map).on('click', () => loadAndShowBorder(2, map));
+            
 // Popup per la Biblioteca Europea
 const popupBibliotecaEuropea = L.popup({
     className: 'custom-popup',
