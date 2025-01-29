@@ -1646,37 +1646,34 @@ fetch('municipio10.geojson')
             }).addTo(map);
                     });
 
-const legend = L.control({position: 'bottomright'});
-legend.onAdd = function() {
-    const div = L.DomUtil.create('div', 'legend');
-    div.innerHTML = `
-        <h4>Biblioteche di Roma</h4>
-        <div class="legend-item"><span style="background: #6a3f3a"></span><div class="text">Municipio I</div></div>
-        <div class="legend-item"><span style="background: #00faff"></span><div class="text">Municipio II</div></div>
-        <div class="legend-item"><span style="background: #fbd51c"></span><div class="text">Municipio III</div></div>
-        <div class="legend-item"><span style="background: #473e86"></span><div class="text">Municipio IV</div></div>
-        <div class="legend-item"><span style="background: #018a87"></span><div class="text">Municipio V</div></div>
-        <div class="legend-item"><span style="background: #d33682"></span><div class="text">Municipio VI</div></div>
-        <div class="legend-item"><span style="background: #ff7c4e"></span><div class="text">Municipio VII</div></div>
-        <div class="legend-item"><span style="background: #22a825"></span><div class="text">Municipio VIII</div></div>
-        <div class="legend-item"><span style="background: #c82937"></span><div class="text">Municipio IX</div></div>
-        <div class="legend-item"><span style="background: #287fc7"></span><div class="text">Municipio X</div></div>
-        <div class="legend-item"><span style="background: #cac12e"></span><div class="text">Municipio XI</div></div>
-        <div class="legend-item"><span style="background: #a329ca"></span><div class="text">Municipio XII</div></div>
-        <div class="legend-item"><span style="background: #c9832c"></span><div class="text">Municipio XIII</div></div>
-        <div class="legend-item"><span style="background: #7b7b79"></span><div class="text">Municipio XIV</div></div>
-        <div class="legend-item"><span style="background: #000000"></span><div class="text">Municipio XV</div></div>
-    `;
-    return div;
-};
-legend.addTo(map);
-
-                    const bounds = L.latLngBounds(boundaries.flat());
-                    map.fitBounds(bounds);
-                }
-            )
-            .catch(error => console.error('Errore nel caricamento dei confini:', error));
-        });
+            // Aggiungi la legenda
+            const legend = L.control({ position: 'bottomright' });
+            legend.onAdd = function() {
+                const div = L.DomUtil.create('div', 'legend');
+                div.innerHTML = `
+                    <h4>Biblioteche di Roma</h4>
+                    <div class="legend-item"><span style="background: #6a3f3a"></span><div class="text">Municipio I</div></div>
+                    <div class="legend-item"><span style="background: #00faff"></span><div class="text">Municipio II</div></div>
+                    <div class="legend-item"><span style="background: #fbd51c"></span><div class="text">Municipio III</div></div>
+                    <div class="legend-item"><span style="background: #473e86"></span><div class="text">Municipio IV</div></div>
+                    <div class="legend-item"><span style="background: #018a87"></span><div class="text">Municipio V</div></div>
+                    <div class="legend-item"><span style="background: #d33682"></span><div class="text">Municipio VI</div></div>
+                    <div class="legend-item"><span style="background: #ff7c4e"></span><div class="text">Municipio VII</div></div>
+                    <div class="legend-item"><span style="background: #22a825"></span><div class="text">Municipio VIII</div></div>
+                    <div class="legend-item"><span style="background: #c82937"></span><div class="text">Municipio IX</div></div>
+                    <div class="legend-item"><span style="background: #287fc7"></span><div class="text">Municipio X</div></div>
+                    <div class="legend-item"><span style="background: #cac12e"></span><div class="text">Municipio XI</div></div>
+                    <div class="legend-item"><span style="background: #a329ca"></span><div class="text">Municipio XII</div></div>
+                    <div class="legend-item"><span style="background: #c9832c"></span><div class="text">Municipio XIII</div></div>
+                    <div class="legend-item"><span style="background: #7b7b79"></span><div class="text">Municipio XIV</div></div>
+                    <div class="legend-item"><span style="background: #000000"></span><div class="text">Municipio XV</div></div>
+                `;
+                return div;
+            };
+            legend.addTo(map);
+        })
+        .catch(error => console.error('Errore nel caricamento dei confini:', error));
+}));
     </script>
 </body>
 </html>
