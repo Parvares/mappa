@@ -1429,104 +1429,114 @@ fetch('municipio10.geojson')
 
         // Gestore hover sulla legenda
 // Funzione per gestire l'hover sulla legenda
-window.handleLegendHover = async function(municipioNumber) {
-                // Non mostrare l'hover se il municipio è già selezionato
-                if (municipioNumber === selectedMunicipio) return;
+window.handleLegendHover = async function(i) {
+    // Se è il municipio X (10), non fare nulla
+    if (i === 10) return;
+    
+    // Se è lo stesso del municipio selezionato, non fare nulla
+    if (i === currentSelectedMunicipio) return;
 
-                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-                item.classList.add('highlighted');
+    document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.add("highlighted");
 
-                if (!municipioLayers[municipioNumber]) {
-                    try {
-                        const response = await fetch(`municipio${municipioNumber}.geojson`);
-                        const data = await response.json();
-                        municipioLayers[municipioNumber] = L.geoJSON(data, {
-                            style: {
-                                color: municipalityColors[municipioNumber],
-                                weight: 4,
-                                opacity: 0.9,
-                                fillOpacity: 0.1
-                            }
-                        });
-                    } catch (error) {
-                        console.error(`Error loading municipality ${municipioNumber}:`, error);
-                        return;
-                    }
+    if (!municipiLayers[i]) {
+        try {
+            const response = await fetch(`municipio${i}.geojson`);
+            const data = await response.json();
+            municipiLayers[i] = L.geoJSON(data, {
+                style: {
+                    color: municipiColors[i],
+                    weight: 4,
+                    opacity: 0.9,
+                    fillOpacity: 0.1
                 }
+            });
+        } catch (error) {
+            console.error(`Error loading municipality ${i}:`, error);
+            return;
+        }
+    }
 
-                if (currentHighlight && currentHighlight !== currentBorder) {
-                    map.removeLayer(currentHighlight);
+    if (currentHoverLayer && currentHoverLayer !== currentSelectedLayer) {
+        map.removeLayer(currentHoverLayer);
+    }
+
+    currentHoverLayer = municipiLayers[i].addTo(map).bringToFront();
+};
+
+window.handleLegendOut = function(i) {
+    // Se è il municipio X (10), non fare nulla
+    if (i === 10) return;
+    
+    // Se è lo stesso del municipio selezionato, non fare nulla
+    if (i === currentSelectedMunicipio) return;
+
+    document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.remove("highlighted");
+
+    if (currentHoverLayer && currentHoverLayer !== currentSelectedLayer) {
+        map.removeLayer(currentHoverLayer);
+        currentHoverLayer = null;
+    }
+
+    if (currentSelectedMunicipio && currentSelectedLayer) {
+        currentSelectedLayer.bringToFront();
+    }
+};
+
+window.handleLegendClick = async function(i) {
+    // Se è il municipio X (10), non fare nulla
+    if (i === 10) return;
+
+    // Rimuovi l'evidenziazione da tutti gli elementi della legenda
+    document.querySelectorAll(".legend-item").forEach(item => 
+        item.classList.remove("highlighted")
+    );
+
+    // Se clicchiamo sullo stesso municipio già selezionato, lo deseleziona
+    if (currentSelectedMunicipio === i) {
+        if (currentSelectedLayer) {
+            map.removeLayer(currentSelectedLayer);
+            currentSelectedLayer = null;
+        }
+        currentSelectedMunicipio = null;
+        return;
+    }
+
+    // Carica il layer del municipio se non è già stato caricato
+    if (!municipiLayers[i]) {
+        try {
+            const response = await fetch(`municipio${i}.geojson`);
+            const data = await response.json();
+            municipiLayers[i] = L.geoJSON(data, {
+                style: {
+                    color: municipiColors[i],
+                    weight: 4,
+                    opacity: 0.9,
+                    fillOpacity: 0.2
                 }
-                
-                currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
-            };
+            });
+        } catch (error) {
+            console.error(`Error loading municipality ${i}:`, error);
+            return;
+        }
+    }
 
-            // Funzione per gestire l'uscita del mouse dalla legenda
-            window.handleLegendOut = function(municipioNumber) {
-                if (municipioNumber === selectedMunicipio) return;
+    // Rimuovi il layer precedentemente selezionato
+    if (currentSelectedLayer) {
+        map.removeLayer(currentSelectedLayer);
+    }
 
-                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-                item.classList.remove('highlighted');
+    // Aggiorna il municipio corrente
+    currentSelectedMunicipio = i;
 
-                if (currentHighlight && currentHighlight !== currentBorder) {
-                    map.removeLayer(currentHighlight);
-                    currentHighlight = null;
-                }
+    // Evidenzia l'elemento della legenda
+    document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.add("highlighted");
 
-                // Se c'è un municipio selezionato, assicurati che rimanga visibile
-                if (selectedMunicipio && currentBorder) {
-                    currentBorder.bringToFront();
-                }
-            };
+    // Aggiungi e porta in primo piano il nuovo layer
+    currentSelectedLayer = municipiLayers[i].addTo(map).bringToFront();
 
-            // Funzione per gestire il click sulla legenda
-            window.handleLegendClick = async function(municipioNumber) {
-                const allItems = document.querySelectorAll('.legend-item');
-                allItems.forEach(item => item.classList.remove('highlighted'));
-
-                // Se clicchiamo sullo stesso municipio, lo deselezioniamo
-                if (selectedMunicipio === municipioNumber) {
-                    if (currentBorder) {
-                        map.removeLayer(currentBorder);
-                        currentBorder = null;
-                    }
-                    selectedMunicipio = null;
-                    return;
-                }
-
-                // Carica il nuovo municipio se non è già stato caricato
-                if (!municipioLayers[municipioNumber]) {
-                    try {
-                        const response = await fetch(`municipio${municipioNumber}.geojson`);
-                        const data = await response.json();
-                        municipioLayers[municipioNumber] = L.geoJSON(data, {
-                            style: {
-                                color: municipalityColors[municipioNumber],
-                                weight: 4,
-                                opacity: 0.9,
-                                fillOpacity: 0.2
-                            }
-                        });
-                    } catch (error) {
-                        console.error(`Error loading municipality ${municipioNumber}:`, error);
-                        return;
-                    }
-                }
-
-                // Rimuovi il bordo precedente se esiste
-                if (currentBorder) {
-                    map.removeLayer(currentBorder);
-                }
-
-                // Imposta il nuovo municipio selezionato
-                selectedMunicipio = municipioNumber;
-                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-                item.classList.add('highlighted');
-
-                // Aggiungi il nuovo bordo
-                currentBorder = municipioLayers[municipioNumber].addTo(map).bringToFront();
-                map.fitBounds(currentBorder.getBounds());
-            };
+    // Centra la mappa sul municipio selezionato
+    map.fitBounds(currentSelectedLayer.getBounds());
+};
         })
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
