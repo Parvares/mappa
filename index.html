@@ -1493,6 +1493,9 @@ window.handleLegendClick = function (municipioNumber) {
     // Seleziona il nuovo municipio
     selectedMunicipio = municipioNumber;
     currentBorder = municipioLayers[municipioNumber].addTo(map);
+    currentBorder.setStyle({
+        className: 'municipio-selected'
+    });
     map.fitBounds(currentBorder.getBounds());
 };
     })
