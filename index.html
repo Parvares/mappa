@@ -15,81 +15,116 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 .search-box button{background-color:#4285f4;color:#fff;border:none;padding:5px 10px;border-radius:3px;cursor:pointer;font-size:14px}
 .search-box .icon{width:24px;height:24px;margin-right:10px;cursor:pointer}
 .search-box .separator{width:1px;height:24px;background-color:#ccc;margin:0 10px}
+/* LEGENDA STYLES */
 .legend {
-    background-color: rgba(255, 255, 255, 0.98);
-    padding: 15px 20px;
-    font: 13px/15px 'Arial', sans-serif;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 18px 22px;
+    font: 13px/15px 'Segoe UI', system-ui, sans-serif;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    border-radius: 12px;
     position: absolute;
-    bottom: 20px;
-    right: 10px;
+    bottom: 25px;
+    right: 15px;
     z-index: 1000;
-    max-height: 70vh;
+    max-height: 65vh;
     overflow-y: auto;
-    width: 280px;
-    border: 1px solid #ddd;
+    width: 300px;
+    border: 1px solid rgba(0,0,0,0.1);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+}
+
+.legend:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
 }
 
 .legend h4 {
-    margin: 0 0 12px 0;
-    font-size: 15px;
+    margin: 0 0 15px;
+    font-size: 16px;
     font-weight: 600;
-    color: #333;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #eee;
+    color: #2c3e50;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ecf0f1;
 }
 
 .legend-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px 15px;
+    gap: 10px 20px;
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    margin: 3px 0;
-    padding: 4px 8px;
-    border-radius: 5px;
-    transition: background-color 0.2s;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255,255,255,0.7);
+    border: 1px solid transparent;
 }
 
 .legend-item:hover {
-    background-color: rgba(0,0,0,0.03);
+    background: rgba(241, 242, 246,0.6);
+    transform: translateX(3px);
+    border-color: #dfe4ea;
+}
+
+.legend-item.highlighted {
+    background: #f8f9fa;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    border-color: #ced6e0;
 }
 
 .legend-item span {
-    width: 18px;
-    height: 18px;
-    margin-right: 10px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.legend-item:hover span {
+    transform: scale(1.1);
 }
 
 .legend-item .text {
-    font-size: 12.5px;
-    color: #444;
-    white-space: nowrap;
+    font-size: 13px;
+    color: #4a5568;
+    font-weight: 500;
+    letter-spacing: 0.03em;
 }
 
 /* Scrollbar personalizzata */
 .legend::-webkit-scrollbar {
     width: 8px;
-}
-
-.legend::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
+    background: rgba(245,245,245,0.8);
 }
 
 .legend::-webkit-scrollbar-thumb {
-    background: #ccc;
+    background: #d1d8e0;
     border-radius: 4px;
+    border: 2px solid rgba(255,255,255,0.2);
 }
 
 .legend::-webkit-scrollbar-thumb:hover {
-    background: #999;
+    background: #a5b1c2;
+}
+
+/* Effetto per il municipio evidenziato */
+.municipio-highlight {
+    stroke-width: 4px !important;
+    stroke-opacity: 0.9 !important;
+    filter: drop-shadow(0 0 12px rgba(0,0,0,0.15));
+    animation: pulseBorder 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseBorder {
+    0% { stroke-width: 4px; }
+    50% { stroke-width: 5px; }
+    100% { stroke-width: 4px; }
 }
 .leaflet-routing-container{position:relative}
 .routing-close-btn {
@@ -1387,56 +1422,96 @@ let municipioLayer = null;
 
             document.getElementById('start-point').focus();
 
-    // Fetch and display the municipality border
-    fetch('municipio10.geojson')
-        .then(response => response.json())
-        .then(data => {
-            const municipalityColors = {
-                1: "#6a3f3a", 2: "#00faff", 3: "#fbd51c", 4: "#473e86",
-                5: "#018a87", 6: "#d33682", 7: "#ff7c4e", 8: "#22a825",
-                9: "#2b83cb", 10: "#cb283c", 11: "#cac12e", 12: "#a329ca",
-                13: "#c9832c", 14: "#7b7b79", 15: "#000000"
-            };
+// Variabili globali per gestire i layer
+let municipioLayers = {};
+let currentHighlight = null;
+let currentBorder = null;
 
-            const border = L.geoJSON(data, {
-                style: {
-                    color: municipalityColors[10],
-                    weight: 3,
-                    opacity: 0.65,
-                    fillOpacity: 0
-                }
-            }).addTo(map);
-
- // Aggiungi la legenda
+// Aggiungi la legenda interattiva
 const legend = L.control({ position: 'bottomright' });
 legend.onAdd = function() {
     const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
         <h4>Mappa Biblioteche per Municipi</h4>
         <div class="legend-grid">
-            <div class="legend-item"><span style="background: #6a3f3a"></span><div class="text">Municipio I</div></div>
-            <div class="legend-item"><span style="background: #00faff"></span><div class="text">Municipio II</div></div>
-            <div class="legend-item"><span style="background: #fbd51c"></span><div class="text">Municipio III</div></div>
-            <div class="legend-item"><span style="background: #473e86"></span><div class="text">Municipio IV</div></div>
-            <div class="legend-item"><span style="background: #018a87"></span><div class="text">Municipio V</div></div>
-            <div class="legend-item"><span style="background: #d33682"></span><div class="text">Municipio VI</div></div>
-            <div class="legend-item"><span style="background: #ff7c4e"></span><div class="text">Municipio VII</div></div>
-            <div class="legend-item"><span style="background: #22a825"></span><div class="text">Municipio VIII</div></div>
-            <div class="legend-item"><span style="background: #2b83cb"></span><div class="text">Municipio IX</div></div>
-            <div class="legend-item"><span style="background: #cb283c"></span><div class="text">Municipio X</div></div>
-            <div class="legend-item"><span style="background: #cac12e"></span><div class="text">Municipio XI</div></div>
-            <div class="legend-item"><span style="background: #a329ca"></span><div class="text">Municipio XII</div></div>
-            <div class="legend-item"><span style="background: #c9832c"></span><div class="text">Municipio XIII</div></div>
-            <div class="legend-item"><span style="background: #7b7b79"></span><div class="text">Municipio XIV</div></div>
-            <div class="legend-item"><span style="background: #000000"></span><div class="text">Municipio XV</div></div>
+            ${Object.entries(municipalityColors).map(([num, color]) => `
+                <div class="legend-item" 
+                     data-municipio="${num}"
+                     onmouseover="handleLegendHover(${num})" 
+                     onmouseout="handleLegendOut(${num})"
+                     onclick="handleLegendClick(${num})">
+                    <span style="background: ${color}"></span>
+                    <div class="text">Municipio ${romanize(num)}</div>
+                </div>
+            `).join('')}
         </div>
     `;
     return div;
 };
 legend.addTo(map);
-        })
-        .catch(error => console.error('Errore nel caricamento dei confini:', error));
-});
+
+// Funzione per convertire numeri in numeri romani
+function romanize(num) {
+    const roman = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV'];
+    return roman[num - 1] || num;
+}
+
+// Gestore hover sulla legenda
+async function handleLegendHover(municipioNumber) {
+    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+    item.classList.add('highlighted');
+
+    if (!municipioLayers[municipioNumber]) {
+        const response = await fetch(`municipio${municipioNumber}.geojson`);
+        const data = await response.json();
+
+        municipioLayers[municipioNumber] = L.geoJSON(data, {
+            style: {
+                color: municipalityColors[municipioNumber],
+                weight: 4,
+                opacity: 0.9,
+                fillOpacity: 0.1
+            },
+            className: `municipio-highlight municipio-${municipioNumber}`
+        });
+    }
+
+    if (currentHighlight) map.removeLayer(currentHighlight);
+    currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
+}
+
+// Gestore uscita hover dalla legenda
+function handleLegendOut(municipioNumber) {
+    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+    item.classList.remove('highlighted');
+
+    if (currentHighlight) {
+        map.removeLayer(currentHighlight);
+        currentHighlight = null;
+    }
+}
+
+// Gestore click sulla legenda
+function handleLegendClick(municipioNumber) {
+    if (currentBorder) map.removeLayer(currentBorder);
+    currentBorder = municipioLayers[municipioNumber].addTo(map);
+    map.fitBounds(currentBorder.getBounds());
+}
+
+// Carica il municipio X di default
+fetch('municipio10.geojson')
+    .then(response => response.json())
+    .then(data => {
+        municipioLayers[10] = L.geoJSON(data, {
+            style: {
+                color: municipalityColors[10],
+                weight: 3,
+                opacity: 0.65,
+                fillOpacity: 0
+            }
+        }).addTo(map);
+    })
+    .catch(error => console.error('Errore nel caricamento dei confini:', error));
     </script>
 </body>
 </html>
