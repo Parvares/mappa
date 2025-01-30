@@ -1434,17 +1434,17 @@ window.handleLegendHover = async function(i) {
     if (i === 10) return;
     
     // Se è lo stesso municipio già selezionato, non fare nulla
-    if (i === selectedMunicipio) return;
+    if (i === t) return;
 
     document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.add("highlighted");
 
-    if (!municipalities[i]) {
+    if (!n[i]) {
         try {
             const response = await fetch(`municipio${i}.geojson`);
             const data = await response.json();
-            municipalities[i] = L.geoJSON(data, {
+            n[i] = L.geoJSON(data, {
                 style: {
-                    color: colors[i],
+                    color: a[i],
                     weight: 4,
                     opacity: 0.9,
                     fillOpacity: 0.1
@@ -1456,27 +1456,27 @@ window.handleLegendHover = async function(i) {
         }
     }
 
-    if (currentHoverLayer && currentHoverLayer !== selectedLayer) {
-        map.removeLayer(currentHoverLayer);
+    if (e && e !== l) {
+        map.removeLayer(e);
     }
-    currentHoverLayer = municipalities[i].addTo(map).bringToFront();
+    e = n[i].addTo(o).bringToFront();
 };
 
 window.handleLegendOut = function(i) {
     // Se è il municipio X (10), non fare nulla
     if (i === 10) return;
     
-    if (i === selectedMunicipio) return;
+    if (i === t) return;
 
     document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.remove("highlighted");
     
-    if (currentHoverLayer && currentHoverLayer !== selectedLayer) {
-        map.removeLayer(currentHoverLayer);
-        currentHoverLayer = null;
+    if (e && e !== l) {
+        o.removeLayer(e);
+        e = null;
     }
     
-    if (selectedMunicipio && selectedLayer) {
-        selectedLayer.bringToFront();
+    if (t && l) {
+        l.bringToFront();
     }
 };
 
@@ -1488,22 +1488,22 @@ window.handleLegendClick = async function(i) {
         item.classList.remove("highlighted")
     );
 
-    if (selectedMunicipio === i) {
-        if (selectedLayer) {
-            map.removeLayer(selectedLayer);
-            selectedLayer = null;
+    if (t === i) {
+        if (l) {
+            o.removeLayer(l);
+            l = null;
         }
-        selectedMunicipio = null;
+        t = null;
         return;
     }
 
-    if (!municipalities[i]) {
+    if (!n[i]) {
         try {
             const response = await fetch(`municipio${i}.geojson`);
             const data = await response.json();
-            municipalities[i] = L.geoJSON(data, {
+            n[i] = L.geoJSON(data, {
                 style: {
-                    color: colors[i],
+                    color: a[i],
                     weight: 4,
                     opacity: 0.9,
                     fillOpacity: 0.2
@@ -1515,14 +1515,14 @@ window.handleLegendClick = async function(i) {
         }
     }
 
-    if (selectedLayer) {
-        map.removeLayer(selectedLayer);
+    if (l) {
+        o.removeLayer(l);
     }
 
-    selectedMunicipio = i;
+    t = i;
     document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.add("highlighted");
-    selectedLayer = municipalities[i].addTo(map).bringToFront();
-    map.fitBounds(selectedLayer.getBounds());
+    l = n[i].addTo(o).bringToFront();
+    o.fitBounds(l.getBounds());
 };
         })
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
