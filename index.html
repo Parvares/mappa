@@ -1399,131 +1399,72 @@ fetch('municipio10.geojson')
         }).addTo(map);
 
         // Aggiungi la legenda interattiva
-         const legend = L.control({ position: 'bottomright' });
-    legend.onAdd = function() {
-        const div = L.DomUtil.create('div', 'legend');
-        div.innerHTML = `
+        const c = L.control({ position: "bottomright" });
+    c.onAdd = function() {
+        const i = L.DomUtil.create("div", "legend");
+        i.innerHTML = `
             <h4>Mappa Biblioteche di Roma per Municipi</h4>
             <div class="legend-grid">
-                ${Object.entries(municipalityColors).map(([num, color]) => `
+                ${Object.entries(a).map(([i, o]) => `
                     <div class="legend-item" 
-                         data-municipio="${num}" 
-                         onmouseover="handleLegendHover(${num})" 
-                         onmouseout="handleLegendOut(${num})" 
-                         onclick="handleLegendClick(${num})">
-                        <span style="background: ${color}"></span>
-                        <div class="text">Municipio ${romanize(num)}</div>
+                         data-municipio="${i}" 
+                         ${i !== 10 ? `onmouseover="handleLegendHover(${i})" 
+                                     onmouseout="handleLegendOut(${i})" 
+                                     onclick="handleLegendClick(${i})"` : ''}>
+                        <span style="background: ${o}"></span>
+                        <div class="text">Municipio ${function(i) {
+                            return ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV"][i - 1] || i
+                        }(i)}</div>
                     </div>
-                `).join('')}
+                `).join("")}
             </div>
         `;
-        return div;
+        return i;
     };
-    legend.addTo(map);
+    c.addTo(o);
 
-        // Funzione per convertire numeri in numeri romani
-        function romanize(num) {
-            const roman = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV'];
-            return roman[num - 1] || num;
+    window.handleLegendHover = async function(i) {
+        if (i === t || i === 10) return; // Ignora il municipio X
+        document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.add("highlighted");
+        if (!n[i]) {
+            try {
+                const o = await fetch(`municipio${i}.geojson`),
+                    e = await o.json();
+                n[i] = L.geoJSON(e, { style: { color: a[i], weight: 4, opacity: .9, fillOpacity: .1 } });
+            } catch (o) {
+                return void console.error(`Error loading municipality ${i}:`, o);
+            }
         }
+        e && e !== l && o.removeLayer(e);
+        e = n[i].addTo(o).bringToFront();
+    };
 
-        // Gestore hover sulla legenda
-// Funzione per gestire l'hover sulla legenda
-window.handleLegendHover = async function(i) {
-    // Se è il municipio X (10), non fare nulla
-    if (i === 10) return;
-    
-    // Se è lo stesso municipio già selezionato, non fare nulla
-    if (i === t) return;
+    window.handleLegendOut = function(i) {
+        if (i === t || i === 10) return; // Ignora il municipio X
+        document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.remove("highlighted");
+        e && e !== l && (o.removeLayer(e), e = null);
+        t && l && l.bringToFront();
+    };
 
-    document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.add("highlighted");
-
-    if (!n[i]) {
-        try {
-            const response = await fetch(`municipio${i}.geojson`);
-            const data = await response.json();
-            n[i] = L.geoJSON(data, {
-                style: {
-                    color: a[i],
-                    weight: 4,
-                    opacity: 0.9,
-                    fillOpacity: 0.1
-                }
-            });
-        } catch (error) {
-            console.error(`Error loading municipality ${i}:`, error);
-            return;
+    window.handleLegendClick = async function(i) {
+        if (i === 10) return; // Ignora il municipio X
+        document.querySelectorAll(".legend-item").forEach(i => i.classList.remove("highlighted"));
+        if (t === i) return l && (o.removeLayer(l), l = null), void (t = null);
+        if (!n[i]) {
+            try {
+                const o = await fetch(`municipio${i}.geojson`),
+                    e = await o.json();
+                n[i] = L.geoJSON(e, { style: { color: a[i], weight: 4, opacity: .9, fillOpacity: .2 } });
+            } catch (o) {
+                return void console.error(`Error loading municipality ${i}:`, o);
+            }
         }
-    }
-
-    if (e && e !== l) {
-        map.removeLayer(e);
-    }
-    e = n[i].addTo(o).bringToFront();
-};
-
-window.handleLegendOut = function(i) {
-    // Se è il municipio X (10), non fare nulla
-    if (i === 10) return;
-    
-    if (i === t) return;
-
-    document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.remove("highlighted");
-    
-    if (e && e !== l) {
-        o.removeLayer(e);
-        e = null;
-    }
-    
-    if (t && l) {
-        l.bringToFront();
-    }
-};
-
-window.handleLegendClick = async function(i) {
-    // Se è il municipio X (10), non fare nulla
-    if (i === 10) return;
-    
-    document.querySelectorAll('.legend-item').forEach(item => 
-        item.classList.remove("highlighted")
-    );
-
-    if (t === i) {
-        if (l) {
-            o.removeLayer(l);
-            l = null;
-        }
-        t = null;
-        return;
-    }
-
-    if (!n[i]) {
-        try {
-            const response = await fetch(`municipio${i}.geojson`);
-            const data = await response.json();
-            n[i] = L.geoJSON(data, {
-                style: {
-                    color: a[i],
-                    weight: 4,
-                    opacity: 0.9,
-                    fillOpacity: 0.2
-                }
-            });
-        } catch (error) {
-            console.error(`Error loading municipality ${i}:`, error);
-            return;
-        }
-    }
-
-    if (l) {
-        o.removeLayer(l);
-    }
-
-    t = i;
-    document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.add("highlighted");
-    l = n[i].addTo(o).bringToFront();
-    o.fitBounds(l.getBounds());
-};
+        l && o.removeLayer(l);
+        t = i;
+        document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.add("highlighted");
+        l = n[i].addTo(o).bringToFront();
+        o.fitBounds(l.getBounds());
+    };
         })
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
