@@ -1386,6 +1386,7 @@ fetch('municipio10.geojson')
         let municipioLayers = {};
         let currentHighlight = null;
         let currentBorder = null;
+        let selectedMunicipio = null;
 
         // Carica il municipio X di default
         municipioLayers[10] = L.geoJSON(data, {
