@@ -1386,13 +1386,7 @@ let municipioLayer = null;
 fetch('municipio10.geojson')
     .then(response => response.json())
     .then(data => {
-        const municipalityColors = {
-            1: "#6a3f3a", 2: "#00faff", 3: "#fbd51c", 4: "#473e86",
-            5: "#018a87", 6: "#d33682", 7: "#ff7c4e", 8: "#22a825",
-            9: "#2b83cb", 10: "#cb283c", 11: "#cac12e", 12: "#a329ca",
-            13: "#c9832c", 14: "#7b7b79", 15: "#000000"
-        };
-
+        
         // Variabili globali per gestire i layer
         let municipioLayers = {};
         let currentHighlight = null;
@@ -1411,26 +1405,46 @@ fetch('municipio10.geojson')
 
 // Aggiungi la legenda interattiva
   
+// Replace the legend.onAdd function with this corrected version
 legend.onAdd = function() {
-    const i = L.DomUtil.create("div", "legend");
-    i.innerHTML = `
+    const div = L.DomUtil.create("div", "legend");
+    
+    // Define municipality colors (moved from earlier in the code)
+    const municipalityColors = {
+        1: "#6a3f3a",
+        2: "#00faff", 
+        3: "#fbd51c",
+        4: "#473e86",
+        5: "#018a87",
+        6: "#d33682",
+        7: "#ff7c4e",
+        8: "#22a825",
+        9: "#2b83cb",
+        10: "#cb283c",
+        11: "#cac12e",
+        12: "#a329ca",
+        13: "#c9832c",
+        14: "#7b7b79",
+        15: "#000000"
+    };
+
+    div.innerHTML = `
         <h4>Mappa Biblioteche di Roma per Municipi</h4>
         <div class="legend-grid">
-            ${Object.entries(a).map(([i, o]) => `
-                <div class="legend-item ${i === '10' ? 'disabled' : ''}" 
-                     data-municipio="${i}" 
-                     ${i !== '10' ? `onmouseover="handleLegendHover(${i})" 
-                     onmouseout="handleLegendOut(${i})" 
-                     onclick="handleLegendClick(${i})"` : ''}>
-                    <span style="background: ${o}"></span>
-                    <div class="text">Municipio ${function(i){
-                        return ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV"][i-1]||i
-                    }(i)}</div>
+            ${Object.entries(municipalityColors).map(([num, color]) => `
+                <div class="legend-item ${num === '10' ? 'disabled' : ''}" 
+                     data-municipio="${num}" 
+                     ${num !== '10' ? `onmouseover="handleLegendHover(${num})" 
+                     onmouseout="handleLegendOut(${num})" 
+                     onclick="handleLegendClick(${num})"` : ''}>
+                    <span style="background: ${color}"></span>
+                    <div class="text">Municipio ${romanize(parseInt(num))}</div>
                 </div>
-            `)).join("")}
+            `).join("")}
         </div>
     `;
-    return i;
+    
+    return div;
 };
 
 
