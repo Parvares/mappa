@@ -191,10 +191,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
         
-document.addEventListener("DOMContentLoaded", (function() {
-    const center = [41.732522, 12.271879]; // punto di origine del percorso tratteggiato
+document.addEventListener("DOMContentLoaded", function() {
+    const center = [41.732522, 12.271879];
     const map = L.map("map").setView(center, 14);
-    
+
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "© OpenStreetMap contributors"
@@ -220,7 +220,6 @@ document.addEventListener("DOMContentLoaded", (function() {
 
     // Punto finale del percorso
     const endPoint = pathPoints[pathPoints.length - 1];
-
 
     // Definizione della funzione createMarker
     function createMarker(coords, title, icon, popupContent, municipioNumber, map) {
@@ -1317,25 +1316,15 @@ let municipioLayer = null;
 
             document.getElementById('start-point').focus();
 
-fetch('municipio10.geojson')
+    // Fetch and display the municipality border
+    fetch('municipio10.geojson')
         .then(response => response.json())
         .then(data => {
             const municipalityColors = {
-                1: "#6a3f3a",
-                2: "#00faff",
-                3: "#fbd51c",
-                4: "#473e86",
-                5: "#018a87",
-                6: "#d33682",
-                7: "#ff7c4e",
-                8: "#22a825",
-                9: "#2b83cb",
-                10: "#cb283c",
-                11: "#cac12e",
-                12: "#a329ca",
-                13: "#c9832c",
-                14: "#7b7b79",
-                15: "#000000"
+                1: "#6a3f3a", 2: "#00faff", 3: "#fbd51c", 4: "#473e86",
+                5: "#018a87", 6: "#d33682", 7: "#ff7c4e", 8: "#22a825",
+                9: "#2b83cb", 10: "#cb283c", 11: "#cac12e", 12: "#a329ca",
+                13: "#c9832c", 14: "#7b7b79", 15: "#000000"
             };
 
             const border = L.geoJSON(data, {
@@ -1347,7 +1336,7 @@ fetch('municipio10.geojson')
                 }
             }).addTo(map);
 
-            // Add legend
+            // Aggiungi la legenda
             const legend = L.control({ position: 'bottomright' });
             legend.onAdd = function() {
                 const div = L.DomUtil.create('div', 'legend');
@@ -1378,3 +1367,5 @@ fetch('municipio10.geojson')
     </script>
 </body>
 </html>
+
+        
