@@ -1382,11 +1382,7 @@ fetch('municipio10.geojson')
             13: "#c9832c", 14: "#7b7b79", 15: "#000000"
         };
 
-        // Variabili globali per gestire i layer
-        let municipioLayers = {};
-        let currentHighlight = null;
-        let currentBorder = null;
-        let selectedMunicipio = null;
+
 
         // Carica il municipio X di default
         municipioLayers[10] = L.geoJSON(data, {
@@ -1427,6 +1423,12 @@ fetch('municipio10.geojson')
             return roman[num - 1] || num;
         }
 
+        // Variabili globali per gestire i layer
+        let municipioLayers = {};
+        let currentHighlight = null;
+        let currentBorder = null;
+        let selectedMunicipio = null;
+        
         // Gestore hover sulla legenda
 // Funzione per gestire l'hover sulla legenda
 window.handleLegendHover = async function(i) {
