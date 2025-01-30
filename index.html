@@ -228,39 +228,7 @@ async function loadAndShowBorder(municipalityNumber, map) {
         const response = await fetch(`municipio${municipalityNumber}.geojson`);
         const data = await response.json();
         
-        // Colori per i diversi municipi
-        const municipalityColors = {
-            1: '#6a3f3a',  // marrone
-            2: '#00faff',  // ciano
-            3: '#fbd51c',  // oro
-            4: '#473e86',  // viola
-            5: '#018a87',  // verde acqua scuro
-            6: '#d33682',  // magenta
-            7: '#ff7c4e',  // arancione
-            8: '#22a825',  // verde
-            9: '#2b83cb',  // blue
-            10: '#287fc7', // blu
-            11: '#cac12e', // giallo
-            12: '#a329ca', // viola
-            13: '#c9832c', // arancione
-            14: '#7b7b79', // grigio
-            15: '#000000'  // nero
-        };
 
-        currentBorder = L.geoJSON(data, {
-            style: {
-                color: municipalityColors[municipalityNumber],
-                weight: 3,
-                opacity: 0.65,
-                fillOpacity: 0.2  
-            }
-        }).addTo(map);
-
-        map.fitBounds(currentBorder.getBounds());
-    } catch (error) {
-        console.error(`Errore nel caricamento del confine del municipio ${municipalityNumber}:`, error);
-    }
-}
         
 function handleBackNavigation() {
     // Use localStorage to store and retrieve the previous page
