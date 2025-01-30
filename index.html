@@ -1399,7 +1399,7 @@ fetch('municipio10.geojson')
         }).addTo(map);
 
         // Aggiungi la legenda interattiva
-        const legend = L.control({ position: 'bottomright' });
+         const legend = L.control({ position: 'bottomright' });
     legend.onAdd = function() {
         const div = L.DomUtil.create('div', 'legend');
         div.innerHTML = `
@@ -1429,78 +1429,106 @@ fetch('municipio10.geojson')
 
         // Gestore hover sulla legenda
 // Funzione per gestire l'hover sulla legenda
-window.handleLegendHover = async function (municipioNumber) {
-    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-    item.classList.add('highlighted');
+window.handleLegendHover = async function(municipioNumber) {
+                // Non mostrare l'hover se il municipio è già selezionato
+                if (municipioNumber === selectedMunicipio) return;
 
-    // Se il municipio non è già caricato, caricalo
-    if (!municipioLayers[municipioNumber]) {
-        try {
-            const response = await fetch(`municipio${municipioNumber}.geojson`);
-            const data = await response.json();
-            municipioLayers[municipioNumber] = L.geoJSON(data, {
-                style: {
-                    color: municipalityColors[municipioNumber],
-                    weight: 4,
-                    opacity: 0.9,
-                    fillOpacity: 0.1
-                },
-                className: `municipio-highlight municipio-${municipioNumber}`
-            });
-        } catch (error) {
-            console.error(`Error loading municipality ${municipioNumber}:`, error);
-            return;
-        }
-    }
+                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+                item.classList.add('highlighted');
 
-    // Evidenzia il municipio solo se non è già selezionato
-    if (currentHighlight && municipioNumber !== selectedMunicipio) {
-        map.removeLayer(currentHighlight);
-    }
-    if (municipioNumber !== selectedMunicipio) {
-        currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
-    }
-};
+                if (!municipioLayers[municipioNumber]) {
+                    try {
+                        const response = await fetch(`municipio${municipioNumber}.geojson`);
+                        const data = await response.json();
+                        municipioLayers[municipioNumber] = L.geoJSON(data, {
+                            style: {
+                                color: municipalityColors[municipioNumber],
+                                weight: 4,
+                                opacity: 0.9,
+                                fillOpacity: 0.1
+                            }
+                        });
+                    } catch (error) {
+                        console.error(`Error loading municipality ${municipioNumber}:`, error);
+                        return;
+                    }
+                }
 
-// Funzione per gestire l'uscita del mouse dalla legenda
-window.handleLegendOut = function (municipioNumber) {
-    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-    item.classList.remove('highlighted');
+                if (currentHighlight && currentHighlight !== currentBorder) {
+                    map.removeLayer(currentHighlight);
+                }
+                
+                currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
+            };
 
-    // Rimuovi l'evidenziazione temporanea solo se non è selezionato
-    if (currentHighlight && municipioNumber !== selectedMunicipio) {
-        map.removeLayer(currentHighlight);
-        currentHighlight = null;
-    }
-};
+            // Funzione per gestire l'uscita del mouse dalla legenda
+            window.handleLegendOut = function(municipioNumber) {
+                if (municipioNumber === selectedMunicipio) return;
 
-// Funzione per gestire il click sulla legenda
-window.handleLegendClick = function (municipioNumber) {
-    // Se il municipio cliccato è già selezionato, deselezionalo
-    if (selectedMunicipio === municipioNumber) {
-        if (currentBorder) {
-            map.removeLayer(currentBorder);
-            currentBorder = null;
-        }
-        selectedMunicipio = null;
-        return;
-    }
+                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+                item.classList.remove('highlighted');
 
-    // Rimuovi il precedente municipio selezionato
-    if (currentBorder) {
-        map.removeLayer(currentBorder);
-    }
+                if (currentHighlight && currentHighlight !== currentBorder) {
+                    map.removeLayer(currentHighlight);
+                    currentHighlight = null;
+                }
 
-    // Seleziona il nuovo municipio
-    selectedMunicipio = municipioNumber;
-    currentBorder = municipioLayers[municipioNumber].addTo(map);
-    currentBorder.setStyle({
-        className: 'municipio-selected'
-    });
-    map.fitBounds(currentBorder.getBounds());
-};
-    })
-    .catch(error => console.error('Errore nel caricamento dei confini:', error));
+                // Se c'è un municipio selezionato, assicurati che rimanga visibile
+                if (selectedMunicipio && currentBorder) {
+                    currentBorder.bringToFront();
+                }
+            };
+
+            // Funzione per gestire il click sulla legenda
+            window.handleLegendClick = async function(municipioNumber) {
+                const allItems = document.querySelectorAll('.legend-item');
+                allItems.forEach(item => item.classList.remove('highlighted'));
+
+                // Se clicchiamo sullo stesso municipio, lo deselezioniamo
+                if (selectedMunicipio === municipioNumber) {
+                    if (currentBorder) {
+                        map.removeLayer(currentBorder);
+                        currentBorder = null;
+                    }
+                    selectedMunicipio = null;
+                    return;
+                }
+
+                // Carica il nuovo municipio se non è già stato caricato
+                if (!municipioLayers[municipioNumber]) {
+                    try {
+                        const response = await fetch(`municipio${municipioNumber}.geojson`);
+                        const data = await response.json();
+                        municipioLayers[municipioNumber] = L.geoJSON(data, {
+                            style: {
+                                color: municipalityColors[municipioNumber],
+                                weight: 4,
+                                opacity: 0.9,
+                                fillOpacity: 0.2
+                            }
+                        });
+                    } catch (error) {
+                        console.error(`Error loading municipality ${municipioNumber}:`, error);
+                        return;
+                    }
+                }
+
+                // Rimuovi il bordo precedente se esiste
+                if (currentBorder) {
+                    map.removeLayer(currentBorder);
+                }
+
+                // Imposta il nuovo municipio selezionato
+                selectedMunicipio = municipioNumber;
+                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+                item.classList.add('highlighted');
+
+                // Aggiungi il nuovo bordo
+                currentBorder = municipioLayers[municipioNumber].addTo(map).bringToFront();
+                map.fitBounds(currentBorder.getBounds());
+            };
+        })
+        .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
     </script>
 </body>
