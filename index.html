@@ -82,17 +82,6 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     letter-spacing: 0.03em;
 }
 
-.legend-item.disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-    background: rgba(240, 240, 240, 0.7);
-}
-.legend-item.disabled:hover {
-    background: rgba(240, 240, 240, 0.7);
-    transform: none;
-    border-color: transparent;
-}        
-
 .municipio-highlight {
     stroke-width: 4px !important;
     stroke-opacity: 0.9 !important;
@@ -1386,7 +1375,13 @@ let municipioLayer = null;
 fetch('municipio10.geojson')
     .then(response => response.json())
     .then(data => {
-        
+        const municipalityColors = {
+            1: "#6a3f3a", 2: "#00faff", 3: "#fbd51c", 4: "#473e86",
+            5: "#018a87", 6: "#d33682", 7: "#ff7c4e", 8: "#22a825",
+            9: "#2b83cb", 10: "#cb283c", 11: "#cac12e", 12: "#a329ca",
+            13: "#c9832c", 14: "#7b7b79", 15: "#000000"
+        };
+
         // Variabili globali per gestire i layer
         let municipioLayers = {};
         let currentHighlight = null;
@@ -1403,9 +1398,9 @@ fetch('municipio10.geojson')
             }
         }).addTo(map);
 
-// Aggiungi la legenda interattiva
-  
-// Replace the legend.onAdd function with this corrected version
+        // Aggiungi la legenda interattiva
+         const legend = L.control({ position: 'bottomright' });
+   // Replace the legend.onAdd function with this corrected version
 legend.onAdd = function() {
     const div = L.DomUtil.create("div", "legend");
     
@@ -1446,10 +1441,6 @@ legend.onAdd = function() {
     
     return div;
 };
-
-
-
-     
     legend.addTo(map);
 
         // Funzione per convertire numeri in numeri romani
@@ -1461,7 +1452,6 @@ legend.onAdd = function() {
         // Gestore hover sulla legenda
 // Funzione per gestire l'hover sulla legenda
 window.handleLegendHover = async function(municipioNumber) {
-    if (i === 10 || i === t) return;
                 // Non mostrare l'hover se il municipio è già selezionato
                 if (municipioNumber === selectedMunicipio) return;
 
@@ -1495,7 +1485,6 @@ window.handleLegendHover = async function(municipioNumber) {
 
             // Funzione per gestire l'uscita del mouse dalla legenda
             window.handleLegendOut = function(municipioNumber) {
-                if (i === 10 || i === t) return;
                 if (municipioNumber === selectedMunicipio) return;
 
                 const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
@@ -1514,7 +1503,6 @@ window.handleLegendHover = async function(municipioNumber) {
 
             // Funzione per gestire il click sulla legenda
             window.handleLegendClick = async function(municipioNumber) {
-                if (i === 10 || i === t) return;
                 const allItems = document.querySelectorAll('.legend-item');
                 allItems.forEach(item => item.classList.remove('highlighted'));
 
