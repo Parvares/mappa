@@ -1378,6 +1378,8 @@ fetch('municipio10.geojson')
         let municipioLayers = {};
         let currentHighlight = null;
         let currentBorder = null;
+        let currentFill = null;  // New variable to track the currently filled municipality
+
 
         // Carica il municipio X di default
         municipioLayers[10] = L.geoJSON(data, {
@@ -1420,9 +1422,14 @@ fetch('municipio10.geojson')
 
         // Gestore hover sulla legenda
 window.handleLegendHover = async function(municipioNumber) {
+    // Don't show hover effect if this municipality is currently filled
+    if (currentFill && currentFill.municipioNumber === municipioNumber) {
+        return;
+    }
+
     const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
     item.classList.add('highlighted');
-    
+
     if (!municipioLayers[municipioNumber]) {
         try {
             const response = await fetch(`municipio${municipioNumber}.geojson`);
@@ -1441,30 +1448,64 @@ window.handleLegendHover = async function(municipioNumber) {
             return;
         }
     }
-    
-    if (currentHighlight) {
+
+    if (currentHighlight && currentHighlight !== currentFill) {
         map.removeLayer(currentHighlight);
     }
-    currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
+
+    // Only show hover highlight if this isn't the currently filled municipality
+    if (!currentFill || currentFill.municipioNumber !== municipioNumber) {
+        currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
+    }
 };
 
 window.handleLegendOut = function(municipioNumber) {
     const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
     item.classList.remove('highlighted');
-    
-    if (currentHighlight) {
+
+    // Only remove highlight if this isn't the currently filled municipality
+    if (currentHighlight && (!currentFill || currentFill.municipioNumber !== municipioNumber)) {
         map.removeLayer(currentHighlight);
         currentHighlight = null;
     }
 };
 
 window.handleLegendClick = function(municipioNumber) {
+    // Remove previous fill if exists
+    if (currentFill) {
+        map.removeLayer(currentFill);
+        currentFill = null;
+    }
+
     if (currentBorder) {
         map.removeLayer(currentBorder);
     }
-    currentBorder = municipioLayers[municipioNumber].addTo(map);
+
+    // Create new layer with higher fillOpacity for clicked state
+    const fillLayer = L.geoJSON(municipioLayers[municipioNumber].toGeoJSON(), {
+        style: {
+            color: municipalityColors[municipioNumber],
+            weight: 4,
+            opacity: 0.9,
+            fillOpacity: 0.3  // Higher opacity for clicked state
+        }
+    });
+
+    currentBorder = fillLayer.addTo(map);
+    currentFill = {
+        layer: fillLayer,
+        municipioNumber: municipioNumber
+    };
+
     map.fitBounds(currentBorder.getBounds());
-}
+};
+
+// Add this to your marker click handler
+function onMarkerClick() {
+    if (currentFill) {
+        map.removeLayer(currentFill.layer);
+        currentFill = null;
+    }
     })
     .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
