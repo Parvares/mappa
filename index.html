@@ -1263,6 +1263,7 @@ createMarker(
             
 let routingControl = null;
 let municipioLayer = null;
+let selectedMunicipio = null;
 
    async function showMunicipioI() {
   // Rimuovi il layer precedente se esiste
@@ -1378,8 +1379,6 @@ fetch('municipio10.geojson')
         let municipioLayers = {};
         let currentHighlight = null;
         let currentBorder = null;
-        let currentFill = null;  // New variable to track the currently filled municipality
-
 
         // Carica il municipio X di default
         municipioLayers[10] = L.geoJSON(data, {
@@ -1421,15 +1420,12 @@ fetch('municipio10.geojson')
         }
 
         // Gestore hover sulla legenda
-window.handleLegendHover = async function(municipioNumber) {
-    // Don't show hover effect if this municipality is currently filled
-    if (currentFill && currentFill.municipioNumber === municipioNumber) {
-        return;
-    }
-
+// Funzione per gestire l'hover sulla legenda
+window.handleLegendHover = async function (municipioNumber) {
     const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
     item.classList.add('highlighted');
 
+    // Se il municipio non è già caricato, caricalo
     if (!municipioLayers[municipioNumber]) {
         try {
             const response = await fetch(`municipio${municipioNumber}.geojson`);
@@ -1449,68 +1445,52 @@ window.handleLegendHover = async function(municipioNumber) {
         }
     }
 
-    if (currentHighlight && currentHighlight !== currentFill) {
+    // Evidenzia il municipio solo se non è già selezionato
+    if (currentHighlight && municipioNumber !== selectedMunicipio) {
         map.removeLayer(currentHighlight);
     }
-
-    // Only show hover highlight if this isn't the currently filled municipality
-    if (!currentFill || currentFill.municipioNumber !== municipioNumber) {
+    if (municipioNumber !== selectedMunicipio) {
         currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
     }
 };
 
-window.handleLegendOut = function(municipioNumber) {
+// Funzione per gestire l'uscita del mouse dalla legenda
+window.handleLegendOut = function (municipioNumber) {
     const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
     item.classList.remove('highlighted');
 
-    // Only remove highlight if this isn't the currently filled municipality
-    if (currentHighlight && (!currentFill || currentFill.municipioNumber !== municipioNumber)) {
+    // Rimuovi l'evidenziazione temporanea solo se non è selezionato
+    if (currentHighlight && municipioNumber !== selectedMunicipio) {
         map.removeLayer(currentHighlight);
         currentHighlight = null;
     }
 };
 
-window.handleLegendClick = function(municipioNumber) {
-    // Remove previous fill if exists
-    if (currentFill) {
-        map.removeLayer(currentFill);
-        currentFill = null;
+// Funzione per gestire il click sulla legenda
+window.handleLegendClick = function (municipioNumber) {
+    // Se il municipio cliccato è già selezionato, deselezionalo
+    if (selectedMunicipio === municipioNumber) {
+        if (currentBorder) {
+            map.removeLayer(currentBorder);
+            currentBorder = null;
+        }
+        selectedMunicipio = null;
+        return;
     }
 
+    // Rimuovi il precedente municipio selezionato
     if (currentBorder) {
         map.removeLayer(currentBorder);
     }
 
-    // Create new layer with higher fillOpacity for clicked state
-    const fillLayer = L.geoJSON(municipioLayers[municipioNumber].toGeoJSON(), {
-        style: {
-            color: municipalityColors[municipioNumber],
-            weight: 4,
-            opacity: 0.9,
-            fillOpacity: 0.3  // Higher opacity for clicked state
-        }
-    });
-
-    currentBorder = fillLayer.addTo(map);
-    currentFill = {
-        layer: fillLayer,
-        municipioNumber: municipioNumber
-    };
-
+    // Seleziona il nuovo municipio
+    selectedMunicipio = municipioNumber;
+    currentBorder = municipioLayers[municipioNumber].addTo(map);
     map.fitBounds(currentBorder.getBounds());
 };
-
-// Add this to your marker click handler
-function onMarkerClick() {
-    if (currentFill) {
-        map.removeLayer(currentFill.layer);
-        currentFill = null;
-    
-    
+    })
     .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
     </script>
 </body>
 </html>
-
-        
