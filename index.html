@@ -1435,42 +1435,85 @@ fetch('municipio10.geojson')
         };
 
         // Variabili globali per gestire i layer
-        let municipioLayers = {};
-        let currentHighlight = null;
-        let currentBorder = null;
+// Declare these variables in the global scope
+let municipioLayers = {};
+let currentHighlight = null;
+let currentBorder = null;
 
-        // Carica il municipio X di default
-        municipioLayers[10] = L.geoJSON(data, {
-            style: {
-                color: municipalityColors[10],
-                weight: 3,
-                opacity: 0.65,
-                fillOpacity: 0
-            }
-        }).addTo(map);
+// Define the functions in the global scope
+window.handleLegendHover = async function(municipioNumber) {
+    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+    item.classList.add('highlighted');
+    
+    if (!municipioLayers[municipioNumber]) {
+        try {
+            const response = await fetch(`municipio${municipioNumber}.geojson`);
+            const data = await response.json();
+            municipioLayers[municipioNumber] = L.geoJSON(data, {
+                style: {
+                    color: municipalityColors[municipioNumber],
+                    weight: 4,
+                    opacity: 0.9,
+                    fillOpacity: 0.1
+                },
+                className: `municipio-highlight municipio-${municipioNumber}`
+            });
+        } catch (error) {
+            console.error(`Error loading municipality ${municipioNumber}:`, error);
+            return;
+        }
+    }
+    
+    if (currentHighlight) {
+        map.removeLayer(currentHighlight);
+    }
+    currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
+};
 
-        // Aggiungi la legenda interattiva
-        const legend = L.control({ position: 'bottomright' });
-        legend.onAdd = function() {
-            const div = L.DomUtil.create('div', 'legend');
-            div.innerHTML = `
-                <h4>Mappa Biblioteche per Municipi</h4>
-                <div class="legend-grid">
-                    ${Object.entries(municipalityColors).map(([num, color]) => `
-                        <div class="legend-item" 
-                             data-municipio="${num}"
-                             onmouseover="handleLegendHover(${num})" 
-                             onmouseout="handleLegendOut(${num})"
-                             onclick="handleLegendClick(${num})">
-                            <span style="background: ${color}"></span>
-                            <div class="text">Municipio ${romanize(num)}</div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            return div;
-        };
-        legend.addTo(map);
+window.handleLegendOut = function(municipioNumber) {
+    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+    item.classList.remove('highlighted');
+    
+    if (currentHighlight) {
+        map.removeLayer(currentHighlight);
+        currentHighlight = null;
+    }
+};
+
+window.handleLegendClick = function(municipioNumber) {
+    if (currentBorder) {
+        map.removeLayer(currentBorder);
+    }
+    currentBorder = municipioLayers[municipioNumber].addTo(map);
+    map.fitBounds(currentBorder.getBounds());
+};
+
+// Modify the legend creation to use these global functions
+document.addEventListener("DOMContentLoaded", function() {
+    // ... rest of your initialization code ...
+
+    const legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function() {
+        const div = L.DomUtil.create('div', 'legend');
+        div.innerHTML = `
+            <h4>Mappa Biblioteche per Municipi</h4>
+            <div class="legend-grid">
+                ${Object.entries(municipalityColors).map(([num, color]) => `
+                    <div class="legend-item" 
+                         data-municipio="${num}" 
+                         onmouseover="handleLegendHover(${num})" 
+                         onmouseout="handleLegendOut(${num})" 
+                         onclick="handleLegendClick(${num})">
+                        <span style="background: ${color}"></span>
+                        <div class="text">Municipio ${romanize(num)}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        return div;
+    };
+    legend.addTo(map);
+
 
         // Funzione per convertire numeri in numeri romani
         function romanize(num) {
