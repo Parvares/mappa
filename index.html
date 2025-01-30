@@ -81,7 +81,16 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     font-weight: 500;
     letter-spacing: 0.03em;
 }
-
+.legend-item.disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: rgba(240, 240, 240, 0.7);
+}
+.legend-item.disabled:hover {
+    transform: none;
+    background: rgba(240, 240, 240, 0.7);
+    border-color: transparent;
+}
 .municipio-highlight {
     stroke-width: 4px !important;
     stroke-opacity: 0.9 !important;
@@ -1382,7 +1391,11 @@ fetch('municipio10.geojson')
             13: "#c9832c", 14: "#7b7b79", 15: "#000000"
         };
 
-
+        // Variabili globali per gestire i layer
+        let municipioLayers = {};
+        let currentHighlight = null;
+        let currentBorder = null;
+        let selectedMunicipio = null;
 
         // Carica il municipio X di default
         municipioLayers[10] = L.geoJSON(data, {
@@ -1395,26 +1408,27 @@ fetch('municipio10.geojson')
         }).addTo(map);
 
         // Aggiungi la legenda interattiva
-         const legend = L.control({ position: 'bottomright' });
-    legend.onAdd = function() {
-        const div = L.DomUtil.create('div', 'legend');
-        div.innerHTML = `
-            <h4>Mappa Biblioteche di Roma per Municipi</h4>
-            <div class="legend-grid">
-                ${Object.entries(municipalityColors).map(([num, color]) => `
-                    <div class="legend-item" 
-                         data-municipio="${num}" 
-                         onmouseover="handleLegendHover(${num})" 
-                         onmouseout="handleLegendOut(${num})" 
-                         onclick="handleLegendClick(${num})">
-                        <span style="background: ${color}"></span>
-                        <div class="text">Municipio ${romanize(num)}</div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        return div;
-    };
+const legend = L.control({ position: 'bottomright' });
+legend.onAdd = function(map) {
+    const div = L.DomUtil.create('div', 'legend');
+    div.innerHTML = `
+        <h4>Mappa Biblioteche di Roma per Municipi</h4>
+        <div class="legend-grid">
+            ${Object.entries(colors).map(([i, color]) => `
+                <div class="legend-item ${i === '10' ? 'disabled' : ''}" 
+                     data-municipio="${i}" 
+                     ${i !== '10' ? `onmouseover="handleLegendHover(${i})" 
+                     onmouseout="handleLegendOut(${i})" 
+                     onclick="handleLegendClick(${i})"` : ''}
+                >
+                    <span style="background: ${color}"></span>
+                    <div class="text">Municipio ${getRomanNumeral(i)}</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+    return div;
+};
     legend.addTo(map);
 
         // Funzione per convertire numeri in numeri romani
@@ -1423,30 +1437,23 @@ fetch('municipio10.geojson')
             return roman[num - 1] || num;
         }
 
-        // Variabili globali per gestire i layer
-        let municipioLayers = {};
-        let currentHighlight = null;
-        let currentBorder = null;
-        let selectedMunicipio = null;
-        
         // Gestore hover sulla legenda
 // Funzione per gestire l'hover sulla legenda
 window.handleLegendHover = async function(i) {
-    // Se è il municipio X (10), non fare nulla
+    // Skip if it's Municipio X
     if (i === 10) return;
     
-    // Se è lo stesso del municipio selezionato, non fare nulla
-    if (i === currentSelectedMunicipio) return;
-
+    if (i === selectedMunicipio) return;
+    
     document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.add("highlighted");
-
+    
     if (!municipiLayers[i]) {
         try {
             const response = await fetch(`municipio${i}.geojson`);
             const data = await response.json();
             municipiLayers[i] = L.geoJSON(data, {
                 style: {
-                    color: municipiColors[i],
+                    color: colors[i],
                     weight: 4,
                     opacity: 0.9,
                     fillOpacity: 0.1
@@ -1457,60 +1464,55 @@ window.handleLegendHover = async function(i) {
             return;
         }
     }
-
-    if (currentHoverLayer && currentHoverLayer !== currentSelectedLayer) {
-        map.removeLayer(currentHoverLayer);
+    
+    if (hoveredLayer && hoveredLayer !== selectedLayer) {
+        map.removeLayer(hoveredLayer);
     }
-
-    currentHoverLayer = municipiLayers[i].addTo(map).bringToFront();
+    hoveredLayer = municipiLayers[i].addTo(map).bringToFront();
 };
 
 window.handleLegendOut = function(i) {
-    // Se è il municipio X (10), non fare nulla
+    // Skip if it's Municipio X
     if (i === 10) return;
     
-    // Se è lo stesso del municipio selezionato, non fare nulla
-    if (i === currentSelectedMunicipio) return;
-
+    if (i === selectedMunicipio) return;
+    
     document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.remove("highlighted");
-
-    if (currentHoverLayer && currentHoverLayer !== currentSelectedLayer) {
-        map.removeLayer(currentHoverLayer);
-        currentHoverLayer = null;
+    
+    if (hoveredLayer && hoveredLayer !== selectedLayer) {
+        map.removeLayer(hoveredLayer);
+        hoveredLayer = null;
     }
-
-    if (currentSelectedMunicipio && currentSelectedLayer) {
-        currentSelectedLayer.bringToFront();
+    
+    if (selectedMunicipio && selectedLayer) {
+        selectedLayer.bringToFront();
     }
 };
 
 window.handleLegendClick = async function(i) {
-    // Se è il municipio X (10), non fare nulla
+    // Skip if it's Municipio X
     if (i === 10) return;
-
-    // Rimuovi l'evidenziazione da tutti gli elementi della legenda
+    
     document.querySelectorAll(".legend-item").forEach(item => 
         item.classList.remove("highlighted")
     );
-
-    // Se clicchiamo sullo stesso municipio già selezionato, lo deseleziona
-    if (currentSelectedMunicipio === i) {
-        if (currentSelectedLayer) {
-            map.removeLayer(currentSelectedLayer);
-            currentSelectedLayer = null;
+    
+    if (selectedMunicipio === i) {
+        if (selectedLayer) {
+            map.removeLayer(selectedLayer);
+            selectedLayer = null;
         }
-        currentSelectedMunicipio = null;
+        selectedMunicipio = null;
         return;
     }
-
-    // Carica il layer del municipio se non è già stato caricato
+    
     if (!municipiLayers[i]) {
         try {
             const response = await fetch(`municipio${i}.geojson`);
             const data = await response.json();
             municipiLayers[i] = L.geoJSON(data, {
                 style: {
-                    color: municipiColors[i],
+                    color: colors[i],
                     weight: 4,
                     opacity: 0.9,
                     fillOpacity: 0.2
@@ -1521,23 +1523,15 @@ window.handleLegendClick = async function(i) {
             return;
         }
     }
-
-    // Rimuovi il layer precedentemente selezionato
-    if (currentSelectedLayer) {
-        map.removeLayer(currentSelectedLayer);
+    
+    if (selectedLayer) {
+        map.removeLayer(selectedLayer);
     }
-
-    // Aggiorna il municipio corrente
-    currentSelectedMunicipio = i;
-
-    // Evidenzia l'elemento della legenda
+    
+    selectedMunicipio = i;
     document.querySelector(`.legend-item[data-municipio="${i}"]`).classList.add("highlighted");
-
-    // Aggiungi e porta in primo piano il nuovo layer
-    currentSelectedLayer = municipiLayers[i].addTo(map).bringToFront();
-
-    // Centra la mappa sul municipio selezionato
-    map.fitBounds(currentSelectedLayer.getBounds());
+    selectedLayer = municipiLayers[i].addTo(map).bringToFront();
+    map.fitBounds(selectedLayer.getBounds());
 };
         })
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
