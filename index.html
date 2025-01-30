@@ -1442,8 +1442,10 @@ let municipioLayer = null;
 
 
 // Funzione per inizializzare la legenda
+// Funzione per inizializzare la legenda
 function initLegend() {
   const legend = L.control({ position: 'bottomright' });
+
   legend.onAdd = function(map) {
     const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
@@ -1459,6 +1461,7 @@ function initLegend() {
     `;
     return div;
   };
+
   legend.addTo(map);
 }
 
