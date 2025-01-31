@@ -330,41 +330,7 @@ body, html {
     
     <script>
 
-document.addEventListener("DOMContentLoaded", function() {
-    const sidebar = document.getElementById('sidebar');
-    const toggleSidebar = document.getElementById('toggle-sidebar');
-    const searchRoute = document.getElementById('search-route');
-    const searchLibrary = document.getElementById('search-library');
-    const toggleLegend = document.getElementById('toggle-legend');
-    const routeSearch = document.getElementById('route-search');
-    const librarySearch = document.getElementById('library-search');
-    const legend = document.getElementById('legend');
 
-    toggleSidebar.addEventListener('click', function() {
-        sidebar.classList.toggle('expanded');
-    });
-
-    searchRoute.addEventListener('click', function() {
-        sidebar.classList.add('expanded');
-        routeSearch.classList.add('active');
-        librarySearch.classList.remove('active');
-        legend.classList.remove('active');
-    });
-
-    searchLibrary.addEventListener('click', function() {
-        sidebar.classList.add('expanded');
-        librarySearch.classList.add('active');
-        routeSearch.classList.remove('active');
-        legend.classList.remove('active');
-    });
-
-    toggleLegend.addEventListener('click', function() {
-        sidebar.classList.add('expanded');
-        legend.classList.add('active');
-        routeSearch.classList.remove('active');
-        librarySearch.classList.remove('active');
-    });
-});
         
  // Colori per i diversi municipi
 const municipalityColors = {
@@ -435,14 +401,54 @@ async function loadAndShowBorder(municipalityNumber, map) {
 
         
 document.addEventListener("DOMContentLoaded", async function() {
+
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebar = document.getElementById('sidebar');
+    const toggleSidebar = document.getElementById('toggle-sidebar');
+    const searchRoute = document.getElementById('search-route');
+    const searchLibrary = document.getElementById('search-library');
+    const toggleLegend = document.getElementById('toggle-legend');
+    const routeSearch = document.getElementById('route-search');
+    const librarySearch = document.getElementById('library-search');
+    const legend = document.getElementById('legend');
+
+    toggleSidebar.addEventListener('click', function() {
+        sidebar.classList.toggle('expanded');
+    });
+
+    searchRoute.addEventListener('click', function() {
+        sidebar.classList.add('expanded');
+        routeSearch.classList.add('active');
+        librarySearch.classList.remove('active');
+        legend.classList.remove('active');
+    });
+
+    searchLibrary.addEventListener('click', function() {
+        sidebar.classList.add('expanded');
+        librarySearch.classList.add('active');
+        routeSearch.classList.remove('active');
+        legend.classList.remove('active');
+    });
+
+    toggleLegend.addEventListener('click', function() {
+        sidebar.classList.add('expanded');
+        legend.classList.add('active');
+        routeSearch.classList.remove('active');
+        librarySearch.classList.remove('active');
+    });
+});
+
+ // Codice originale per la mappa
     const center = [41.732522, 12.271879];
     const map = L.map("map").setView(center, 14);
-    let libraryMarkers = {}; // Oggetto per memorizzare i marker
+    let libraryMarkers = {};
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "© OpenStreetMap contributors"
     }).addTo(map);
+
+    
 
     // Definizione del percorso
     const pathPoints = [
