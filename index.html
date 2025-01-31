@@ -180,16 +180,16 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     </style>
 </head>
 <body>
-<div class="search-box">
-    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
-        <img src="home.svg" alt="Biblioteca Home" class="icon">
-    </a>
-    <select id="library-select">
-        <option value="">Seleziona una biblioteca</option>
-    </select>
-    <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-    <button onclick="searchRoute()" title="Trova percorso fino alla Biblioteca Morante">Trova Percorso</button>
-</div>
+    <div class="search-box">
+        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
+            <img src="home.svg" alt="Biblioteca Home" class="icon">
+        </a>
+        <select id="library-select">
+            <option value="">Seleziona una biblioteca</option>
+        </select>
+        <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+        <button onclick="searchRoute()" title="Trova percorso fino alla Biblioteca Morante">Trova Percorso</button>
+    </div>
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -245,53 +245,53 @@ async function loadAndShowBorder(municipalityNumber, map) {
     
 
     // Carica le biblioteche dal file JSON
-    try {
-        const response = await fetch('libraries.json');
-        const data = await response.json();
-        const librarySelect = document.getElementById('library-select');
+            try {
+                const response = await fetch('libraries.json');
+                const data = await response.json();
+                const librarySelect = document.getElementById('library-select');
 
-        // Popola il dropdown menu con le biblioteche
-        data.libraries.forEach(library => {
-            const option = document.createElement('option');
-            option.value = library.coords.join(',');
-            option.textContent = library.name;
-            librarySelect.appendChild(option);
-        });
+                // Popola il dropdown menu con le biblioteche
+                data.libraries.forEach(library => {
+                    const option = document.createElement('option');
+                    option.value = library.coords.join(',');
+                    option.textContent = library.name;
+                    librarySelect.appendChild(option);
+                });
 
-        // Aggiungi un gestore di eventi per la selezione di una biblioteca
-        librarySelect.addEventListener('change', function() {
-            const selectedCoords = this.value.split(',').map(Number);
-            if (selectedCoords.length === 2 && !isNaN(selectedCoords[0]) && !isNaN(selectedCoords[1])) {
-                map.setView(selectedCoords, 14);
+                // Aggiungi un gestore di eventi per la selezione di una biblioteca
+                librarySelect.addEventListener('change', function() {
+                    const selectedCoords = this.value.split(',').map(Number);
+                    if (selectedCoords.length === 2 && !isNaN(selectedCoords[0]) && !isNaN(selectedCoords[1])) {
+                        map.setView(selectedCoords, 14);
+                    }
+                });
+
+                // Crea i marker per ogni biblioteca
+                data.libraries.forEach(library => {
+                    const popupContent = `
+                        <div class="baloon">
+                            <h3>${library.name}</h3>
+                            <p style="font-size: 15px;">
+                                ${library.address} <br>
+                                ${library.cap} Municipio ${library.municipalityName}
+                            </p>
+                            <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
+                                Vai alla scheda
+                            </a>
+                        </div>
+                    `;
+                    createMarker(
+                        library.coords,
+                        library.name,
+                        icons[`municipio${library.municipality}`],
+                        popupContent,
+                        library.municipality,
+                        map
+                    );
+                });
+            } catch (error) {
+                console.error('Errore nel caricamento delle biblioteche:', error);
             }
-        });
-
-        // Crea i marker per ogni biblioteca
-        data.libraries.forEach(library => {
-            const popupContent = `
-                <div class="baloon">
-                    <h3>${library.name}</h3>
-                    <p style="font-size: 15px;">
-                        ${library.address} <br>
-                        ${library.cap} Municipio ${library.municipalityName}
-                    </p>
-                    <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
-                        Vai alla scheda
-                    </a>
-                </div>
-            `;
-            createMarker(
-                library.coords,
-                library.name,
-                icons[`municipio${library.municipality}`],
-                popupContent,
-                library.municipality,
-                map
-            );
-        });
-    } catch (error) {
-        console.error('Errore nel caricamento delle biblioteche:', error);
-    }
         
 
 
