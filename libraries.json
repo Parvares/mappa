@@ -1,6 +1,5 @@
 {
     "libraries": [
-        // MUNICIPIO I (6 biblioteche)
         {
             "coords": [41.876553, 12.478932],
             "title": "Biblioteca Enzo Tortora",
@@ -62,7 +61,6 @@
             "hours": "Lun-Ven 9-17"
         },
 
-        // MUNICIPIO II (4 biblioteche)
         {
             "coords": [41.912960, 12.498767],
             "title": "Biblioteca Europea",
@@ -104,7 +102,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO III (3 biblioteche)
         {
             "coords": [41.952327, 12.530240],
             "title": "Biblioteca Ennio Flaiano",
@@ -136,7 +133,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-// MUNICIPIO IV (3 biblioteche)
         {
             "coords": [41.944622, 12.585136],
             "title": "Biblioteca Aldo Fabrizi",
@@ -168,7 +164,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO V (4 biblioteche)
         {
             "coords": [41.898611, 12.566118],
             "title": "Biblioteca Penazzato",
@@ -210,7 +205,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO VI (3 biblioteche)
         {
             "coords": [41.869678, 12.670410],
             "title": "Biblioteca Borghesiana",
@@ -242,7 +236,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO VII (4 biblioteche)
         {
             "coords": [41.852229, 12.592527],
             "title": "Biblioteca Casa dei Bimbi",
@@ -284,7 +277,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO VIII (3 biblioteche)
         {
             "coords": [41.840736, 12.484340],
             "title": "Biblioteca Arcipelago Auditorium",
@@ -316,7 +308,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO IX (3 biblioteche)
         {
             "coords": [41.785285, 12.440257],
             "title": "Biblioteca Pier Paolo Pasolini",
@@ -348,7 +339,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO X (2 biblioteche)
         {
             "coords": [41.732522, 12.271879],
             "title": "Biblioteca Elsa Morante",
@@ -370,7 +360,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO XI (3 biblioteche)
         {
             "coords": [41.8501037, 12.4140277],
             "title": "Biblioteca Renato Nicolini",
@@ -402,7 +391,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO XII (3 biblioteche)
         {
             "coords": [41.867787, 12.444878],
             "title": "Biblioteca Colli Portuensi",
@@ -434,7 +422,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO XIII (3 biblioteche)
         {
             "coords": [41.907000, 12.393447],
             "title": "Biblioteca Cornelia",
@@ -468,7 +455,6 @@
 
 
 
-        // MUNICIPIO XIV (3 biblioteche)
         {
             "coords": [41.9181766, 12.4144799],
             "title": "Biblioteca Franco Basaglia",
@@ -500,7 +486,6 @@
             "hours": "Lun-Ven 9-19"
         },
 
-        // MUNICIPIO XV (3 biblioteche)
         {
             "coords": [41.995762, 12.485857],
             "title": "Biblioteca Galline Bianche",
