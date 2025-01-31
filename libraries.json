@@ -3,7 +3,7 @@
         {
             "coords": [41.876553, 12.478932],
             "title": "Biblioteca Enzo Tortora",
-            "municipio": 1,
+            "municipio": "municipio1",
             "address": "Via N. Zabaglia, 27b",
             "zip": "00153",
             "phone": "06 45460305",
@@ -13,7 +13,7 @@
         {
             "coords": [41.893223, 12.473114],
             "title": "Biblioteca Centrale Ragazzi",
-            "municipio": 1,
+            "municipio": "municipio1",
             "address": "Via San Paolo alla Regola, 15/18",
             "zip": "00186",
             "phone": "06 45460341",
@@ -23,7 +23,7 @@
         {
             "coords": [41.894238, 12.463663],
             "title": "Casa della Memoria e della Storia",
-            "municipio": 1,
+            "municipio": "municipio1",
             "address": "Via di San Francesco di Sales, 5",
             "zip": "00165",
             "phone": "06 45460528",
@@ -33,7 +33,7 @@
         {
             "coords": [41.899150, 12.468542],
             "title": "Casa delle Letterature",
-            "municipio": 1,
+            "municipio": "municipio1",
             "address": "Piazza dell'Orologio, 3",
             "zip": "00186",
             "phone": "06 45460528",
@@ -43,7 +43,7 @@
         {
             "coords": [41.911471, 12.452385],
             "title": "Biblioteca Giordano Bruno",
-            "municipio": 1,
+            "municipio": "municipio1",
             "address": "Via Giordano Bruno, 47",
             "zip": "00195",
             "phone": "06 45460321",
@@ -53,18 +53,17 @@
         {
             "coords": [41.903016, 12.486805],
             "title": "Casa delle Traduzioni",
-            "municipio": 1,
+            "municipio": "municipio1",
             "address": "Via degli Avignonesi, 32",
             "zip": "00187",
             "phone": "06 45460690",
             "link": "https://www.bibliotechediroma.it/opac/library/Casa-delle-Traduzioni/RMBA6",
             "hours": "Lun-Ven 9-17"
         },
-
         {
             "coords": [41.912960, 12.498767],
             "title": "Biblioteca Europea",
-            "municipio": 2,
+            "municipio": "municipio2",
             "address": "Via Savoia, 13",
             "zip": "00198",
             "phone": "06 45460671",
@@ -74,7 +73,7 @@
         {
             "coords": [41.923581, 12.470486],
             "title": "Biblioteca Flaminia",
-            "municipio": 2,
+            "municipio": "municipio2",
             "address": "Via Cesare Fracassini, 9",
             "zip": "00196",
             "phone": "06 45460381",
@@ -84,7 +83,7 @@
         {
             "coords": [41.926791, 12.521807],
             "title": "Biblioteca Villa Leopardi",
-            "municipio": 2,
+            "municipio": "municipio2",
             "address": "Via Makallè (entrata parco)",
             "zip": "00199",
             "phone": "06 45460441",
@@ -94,18 +93,17 @@
         {
             "coords": [41.899404, 12.514206],
             "title": "Biblioteca Tullio De Mauro",
-            "municipio": 2,
+            "municipio": "municipio2",
             "address": "Via Tiburtina, 113",
             "zip": "00185",
             "phone": "06 45460481",
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Tullio-De-Mauro/RMBC1",
             "hours": "Lun-Ven 9-19"
         },
-
         {
             "coords": [41.952327, 12.530240],
             "title": "Biblioteca Ennio Flaiano",
-            "municipio": 3,
+            "municipio": "municipio3",
             "address": "Via Monte Ruggero, 39",
             "zip": "00139",
             "phone": "06 45460361",
@@ -115,7 +113,7 @@
         {
             "coords": [41.937894, 12.541872],
             "title": "Biblioteca Fabrizio Giovenale",
-            "municipio": 3,
+            "municipio": "municipio3",
             "address": "Via Fermo Corni - Parco di Aguzzano",
             "zip": "00156",
             "phone": "06 45460421",
@@ -125,18 +123,17 @@
         {
             "coords": [41.913727, 12.564600],
             "title": "Biblioteca Vaccheria Nardi",
-            "municipio": 3,
+            "municipio": "municipio3",
             "address": "Via Grotta di Gregna, 37",
             "zip": "00155",
             "phone": "06 45460431",
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Vaccheria-Nardi/RMBE1",
             "hours": "Lun-Ven 9-19"
         },
-
         {
             "coords": [41.944622, 12.585136],
             "title": "Biblioteca Aldo Fabrizi",
-            "municipio": 4,
+            "municipio": "municipio4",
             "address": "Via Treia, 14",
             "zip": "00156",
             "phone": "06 45460401",
@@ -146,7 +143,7 @@
         {
             "coords": [41.934058, 12.560290],
             "title": "Biblioteca Fabrizio Giovenale",
-            "municipio": 4,
+            "municipio": "municipio4",
             "address": "Via Fermo Corni - Parco di Aguzzano",
             "zip": "00156",
             "phone": "06 45460421",
@@ -156,7 +153,7 @@
         {
             "coords": [41.913727, 12.564600],
             "title": "Biblioteca Vaccheria Nardi",
-            "municipio": 4,
+            "municipio": "municipio4",
             "address": "Via Grotta di Gregna, 37",
             "zip": "00155",
             "phone": "06 45460431",
@@ -167,7 +164,7 @@
         {
             "coords": [41.898611, 12.566118],
             "title": "Biblioteca Penazzato",
-            "municipio": 5,
+            "municipio": "municipio5",
             "address": "Via D. Penazzato, 112",
             "zip": "00177",
             "phone": "06 45460461",
@@ -177,7 +174,7 @@
         {
             "coords": [41.891476, 12.575938],
             "title": "Teatro Biblioteca Quarticciolo",
-            "municipio": 5,
+            "municipio": "municipio5",
             "address": "Via Castellaneta, 10",
             "zip": "00171",
             "phone": "06 45460481",
@@ -187,7 +184,7 @@
         {
             "coords": [41.881422, 12.589056],
             "title": "Biblioteca Gianni Rodari",
-            "municipio": 5,
+            "municipio": "municipio5",
             "address": "Via F. Tovaglieri, 237/A",
             "zip": "00155",
             "phone": "06 45460501",
@@ -197,7 +194,7 @@
         {
             "coords": [41.889446, 12.524513],
             "title": "Biblioteca Goffredo Mameli",
-            "municipio": 5,
+            "municipio": "municipio5",
             "address": "Via del Pigneto, 22",
             "zip": "00176",
             "phone": "06 45460521",
@@ -208,7 +205,7 @@
         {
             "coords": [41.869678, 12.670410],
             "title": "Biblioteca Borghesiana",
-            "municipio": 6,
+            "municipio": "municipio6",
             "address": "Largo Monreale snc",
             "zip": "00133",
             "phone": "06 45460541",
@@ -218,7 +215,7 @@
         {
             "coords": [41.863839, 12.685332],
             "title": "Biblioteca Collina della Pace",
-            "municipio": 6,
+            "municipio": "municipio6",
             "address": "Via Bompietro, 16",
             "zip": "00132",
             "phone": "06 45460561",
@@ -228,7 +225,7 @@
         {
             "coords": [41.870675, 12.577259],
             "title": "Biblioteca Rugantino",
-            "municipio": 6,
+            "municipio": "municipio6",
             "address": "Via Rugantino, 113",
             "zip": "00169",
             "phone": "06 45460581",
@@ -239,7 +236,7 @@
         {
             "coords": [41.852229, 12.592527],
             "title": "Biblioteca Casa dei Bimbi",
-            "municipio": 7,
+            "municipio": "municipio7",
             "address": "Via Libero Leonardi, 153",
             "zip": "00173",
             "phone": "06 45460601",
@@ -249,7 +246,7 @@
         {
             "coords": [41.844170, 12.583459],
             "title": "Biblioteca Raffaello",
-            "municipio": 7,
+            "municipio": "municipio7",
             "address": "Via Tuscolana, 1111",
             "zip": "00173",
             "phone": "06 45460621",
@@ -259,7 +256,7 @@
         {
             "coords": [41.886103, 12.511739],
             "title": "Biblioteca Nelson Mandela",
-            "municipio": 7,
+            "municipio": "municipio7",
             "address": "Via La Spezia, 21",
             "zip": "00182",
             "phone": "06 45460641",
@@ -269,7 +266,7 @@
         {
             "coords": [41.838901, 12.575632],
             "title": "Biblioteca Longhena",
-            "municipio": 7,
+            "municipio": "municipio7",
             "address": "Via Longhena, 98",
             "zip": "00178",
             "phone": "06 45460661",
@@ -280,7 +277,7 @@
         {
             "coords": [41.840736, 12.484340],
             "title": "Biblioteca Arcipelago Auditorium",
-            "municipio": 8,
+            "municipio": "municipio8",
             "address": "Via B. Croce, 50",
             "zip": "00142",
             "phone": "06 45460681",
@@ -290,7 +287,7 @@
         {
             "coords": [41.856922, 12.486069],
             "title": "Biblioteca Joyce Lussu",
-            "municipio": 8,
+            "municipio": "municipio8",
             "address": "Via Costantino, 49A",
             "zip": "00145",
             "phone": "06 45460701",
@@ -300,7 +297,7 @@
         {
             "coords": [41.847215, 12.472893],
             "title": "Biblioteca Elsa Morante",
-            "municipio": 8,
+            "municipio": "municipio8",
             "address": "Via A. Cozza, 7",
             "zip": "00121",
             "phone": "06 45460721",
@@ -311,7 +308,7 @@
         {
             "coords": [41.785285, 12.440257],
             "title": "Biblioteca Pier Paolo Pasolini",
-            "municipio": 9,
+            "municipio": "municipio9",
             "address": "Viale Caduti per la Resistenza, 410/A",
             "zip": "00128",
             "phone": "06 45460741",
@@ -321,7 +318,7 @@
         {
             "coords": [41.812215, 12.469236],
             "title": "Biblioteca Laurentina",
-            "municipio": 9,
+            "municipio": "municipio9",
             "address": "Piazzale Elsa Morante",
             "zip": "00143",
             "phone": "06 45460761",
@@ -331,7 +328,7 @@
         {
             "coords": [41.798654, 12.452187],
             "title": "Biblioteca Colli Aniene",
-            "municipio": 9,
+            "municipio": "municipio9",
             "address": "Via D. Sante, 30",
             "zip": "00132",
             "phone": "06 45460781",
@@ -342,7 +339,7 @@
         {
             "coords": [41.732522, 12.271879],
             "title": "Biblioteca Elsa Morante",
-            "municipio": 10,
+            "municipio": "municipio10",
             "address": "Via Adolfo Cozza 7",
             "zip": "00121",
             "phone": "06 45460801",
@@ -352,7 +349,7 @@
         {
             "coords": [41.775700, 12.348255],
             "title": "Biblioteca Sandro Onofri",
-            "municipio": 10,
+            "municipio": "municipio10",
             "address": "Via Umberto Lilloni, 39/45",
             "zip": "00125",
             "phone": "06 45460821",
@@ -363,7 +360,7 @@
         {
             "coords": [41.8501037, 12.4140277],
             "title": "Biblioteca Renato Nicolini",
-            "municipio": 11,
+            "municipio": "municipio11",
             "address": "Via M. Mazzacurati, 76",
             "zip": "00148",
             "phone": "06 45460841",
@@ -373,7 +370,7 @@
         {
             "coords": [41.862264, 12.465228],
             "title": "Biblioteca Guglielmo Marconi",
-            "municipio": 11,
+            "municipio": "municipio11",
             "address": "Via Gerolamo Cardano, 135",
             "zip": "00146",
             "phone": "06 45460861",
@@ -383,7 +380,7 @@
         {
             "coords": [41.857893, 12.443215],
             "title": "Biblioteca Giovenale",
-            "municipio": 11,
+            "municipio": "municipio11",
             "address": "Via F. Giovenale, 56",
             "zip": "00151",
             "phone": "06 45460881",
@@ -394,7 +391,7 @@
         {
             "coords": [41.867787, 12.444878],
             "title": "Biblioteca Colli Portuensi",
-            "municipio": 12,
+            "municipio": "municipio12",
             "address": "Viale Colli Portuensi, 275",
             "zip": "00151",
             "phone": "06 45460901",
@@ -404,7 +401,7 @@
         {
             "coords": [41.86939, 12.41024],
             "title": "Biblioteca Longhena",
-            "municipio": 12,
+            "municipio": "municipio12",
             "address": "Via B. Longhena, 98",
             "zip": "00163",
             "phone": "06 45460921",
@@ -414,7 +411,7 @@
         {
             "coords": [41.888458, 12.455285],
             "title": "Biblioteca Villino Corsini",
-            "municipio": 12,
+            "municipio": "municipio12",
             "address": "Villa Pamphilj",
             "zip": "00164",
             "phone": "06 45460941",
@@ -425,7 +422,7 @@
         {
             "coords": [41.907000, 12.393447],
             "title": "Biblioteca Cornelia",
-            "municipio": 13,
+            "municipio": "municipio13",
             "address": "Via G. Mazzoni, 85",
             "zip": "00166",
             "phone": "06 45460961",
@@ -435,7 +432,7 @@
         {
             "coords": [41.904970, 12.437202],
             "title": "Biblioteca Valle Aurelia",
-            "municipio": 13,
+            "municipio": "municipio13",
             "address": "Viale Valle Aurelia, 129",
             "zip": "00167",
             "phone": "06 45460981",
@@ -445,7 +442,7 @@
         {
             "coords": [41.912345, 12.418765],
             "title": "Biblioteca Aurelio",
-            "municipio": 13,
+            "municipio": "municipio13",
             "address": "Via M. Aurelio, 19",
             "zip": "00168",
             "phone": "06 45461001",
@@ -458,7 +455,7 @@
         {
             "coords": [41.9181766, 12.4144799],
             "title": "Biblioteca Franco Basaglia",
-            "municipio": 14,
+            "municipio": "municipio14",
             "address": "Via Federico Borromeo, 67",
             "zip": "00168",
             "phone": "06 45461021",
@@ -468,7 +465,7 @@
         {
             "coords": [41.9104619, 12.4251951],
             "title": "Biblioteca Casa del Parco",
-            "municipio": 14,
+            "municipio": "municipio14",
             "address": "Via della Pineta Sacchetti, 78",
             "zip": "00167",
             "phone": "06 45461041",
@@ -478,7 +475,7 @@
         {
             "coords": [41.905432, 12.407819],
             "title": "Biblioteca Andrea Pazienza",
-            "municipio": 14,
+            "municipio": "municipio14",
             "address": "Via Vittorio Brancati, 45",
             "zip": "00144",
             "phone": "06 45461061",
@@ -489,7 +486,7 @@
         {
             "coords": [41.995762, 12.485857],
             "title": "Biblioteca Galline Bianche",
-            "municipio": 15,
+            "municipio": "municipio15",
             "address": "Via delle Galline Bianche, 105",
             "zip": "00188",
             "phone": "06 45461081",
@@ -499,7 +496,7 @@
         {
             "coords": [41.982345, 12.498765],
             "title": "Biblioteca Labaro",
-            "municipio": 15,
+            "municipio": "municipio15",
             "address": "Via Ferruccio Tosi, 12",
             "zip": "00189",
             "phone": "06 45461101",
@@ -509,7 +506,7 @@
         {
             "coords": [41.991234, 12.467891],
             "title": "Biblioteca Prima Porta",
-            "municipio": 15,
+            "municipio": "municipio15",
             "address": "Via della Giustiniana, 813",
             "zip": "00188",
             "phone": "06 45461121",
