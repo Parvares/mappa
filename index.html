@@ -180,24 +180,14 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     </style>
 </head>
 <body>
-<div class="search-box">
-    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
-        <img src="home.svg" alt="Biblioteca Home" class="icon">
-    </a>
-    <select id="search-type" style="padding: 5px; margin-right: 10px; border: 1px solid #ccc; border-radius: 3px;">
-        <option value="route">Cerca percorso</option>
-        <option value="library">Cerca biblioteca</option>
-    </select>
-    <div id="route-search" style="display: flex; flex-grow: 1;">
-        <input type="text" id="start-point" placeholder="Inserisci punto di partenza" style="flex-grow: 1;">
+  <div class="search-box">
+        
+        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
+            <img src="home.svg" alt="Biblioteca Home" class="icon">
+        </a>
+        <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+        <button onclick="searchRoute()" title="Trova percorso fino alla Biblioteca Morante">Trova Percorso</button>
     </div>
-    <div id="library-search" style="display: none; flex-grow: 1;">
-        <select id="library-select" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 3px;">
-            <option value="">Seleziona una biblioteca</option>
-        </select>
-    </div>
-    <button onclick="handleSearch()" title="Cerca">Cerca</button>
-</div>
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -484,89 +474,14 @@ const icons = getIconsConfig();
                 }
             }
 
-document.getElementById('start-point').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        handleSearch();
-    }
-});
+            document.getElementById('start-point').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    searchRoute();
+                }
+            });
 
             document.getElementById('start-point').focus();
-// Funzione per popolare il dropdown delle biblioteche
-async function loadLibraries() {
-    try {
-        const response = await fetch('libraries.json');
-        const data = await response.json();
-        const selectElement = document.getElementById('library-select');
-        
-        data.libraries.forEach(library => {
-            const option = document.createElement('option');
-            option.value = JSON.stringify(library);
-            option.textContent = library.name;
-            selectElement.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Errore nel caricamento delle biblioteche:', error);
-    }
-}
 
-// Funzione per gestire il cambio di tipo di ricerca
-document.getElementById('search-type').addEventListener('change', function(e) {
-    const routeSearch = document.getElementById('route-search');
-    const librarySearch = document.getElementById('library-search');
-    
-    if (e.target.value === 'route') {
-        routeSearch.style.display = 'flex';
-        librarySearch.style.display = 'none';
-    } else {
-        routeSearch.style.display = 'none';
-        librarySearch.style.display = 'flex';
-    }
-});
-
-// Funzione per gestire la ricerca
-function handleSearch() {
-    const searchType = document.getElementById('search-type').value;
-    
-    if (searchType === 'route') {
-        searchRoute();
-    } else {
-        const librarySelect = document.getElementById('library-select');
-        if (librarySelect.value) {
-            const library = JSON.parse(librarySelect.value);
-            
-            if (library.municipality) {
-                handleLegendClick(library.municipality);
-            }
-            
-            const popupContent = `
-                <div class="baloon">
-                    <h3>${library.name}</h3>
-                    <p style="font-size: 15px;">
-                        ${library.address}<br>
-                        ${library.cap} Municipio ${library.municipalityName}
-                    </p>
-                    <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
-                        Vai alla scheda
-                    </a>
-                </div>
-            `;
-            
-            const tempMarker = L.marker(library.coords)
-                .addTo(map)
-                .bindPopup(popupContent)
-                .openPopup();
-            
-            map.setView(library.coords, 15);
-            
-            tempMarker.on('popupclose', function() {
-                map.removeLayer(tempMarker);
-            });
-        }
-    }
-}
-
-// Carica le biblioteche quando il documento è pronto
-document.addEventListener('DOMContentLoaded', loadLibraries);
 
 
 // Fetch and display the municipality border
