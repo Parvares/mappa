@@ -413,16 +413,7 @@ const icons = {
 };
 
 // Spazio dove erano i marker per le biblioteche...
-document.addEventListener("DOMContentLoaded", async function() {
-  const center = [41.732522, 12.271879];
-  const map = L.map("map").setView(center, 14);
-  
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: "© OpenStreetMap contributors"
-  }).addTo(map);
-
-  // Carica le biblioteche dal file JSON
+// Carica le biblioteche dal file JSON
   try {
     const response = await fetch('libraries.json');
     const data = await response.json();
@@ -454,7 +445,6 @@ document.addEventListener("DOMContentLoaded", async function() {
   } catch (error) {
     console.error('Errore nel caricamento delle biblioteche:', error);
   }
-           
     
 
 
