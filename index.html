@@ -223,9 +223,14 @@ body,html{margin:0;padding:0;height:100%;width:100%}
             return roman[num - 1] || num;
         }
 
-        
-// Prima di tutto, aggiungiamo una variabile per tenere traccia del confine attualmente visualizzato
-let currentBorder = null;
+   // Variabili globali 
+        let municipioLayers = {};
+        let currentHighlight = null;
+        let currentBorder = null;
+        let selectedMunicipio = null;
+        let routingControl = null;
+
+
 
 // Funzione helper per caricare e visualizzare il confine di un municipio
 async function loadAndShowBorder(municipalityNumber, map) {
@@ -348,7 +353,6 @@ const icons = getIconsConfig();
     
   
             
-let routingControl = null;
 let municipioLayer = null;
 
 
@@ -457,11 +461,7 @@ fetch('municipio10.geojson')
     .then(data => {
 
 
-        // Variabili globali per gestire i layer
-        let municipioLayers = {};
-        let currentHighlight = null;
-        let currentBorder = null;
-        let selectedMunicipio = null;
+
 
         // Carica il municipio X di default
         municipioLayers[10] = L.geoJSON(data, {
