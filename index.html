@@ -179,18 +179,148 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     text-decoration: none;
     margin-top: 5px;
 }
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
 
+#map {
+    height: 100vh;
+    width: 100%;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+#sidebar.expanded {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+}
+
+.sidebar-button {
+    margin: 5px 0;
+    padding: 10px;
+    background: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.sidebar-button:hover {
+    background: #357abd;
+}
+
+.sidebar-content {
+    padding: 10px;
+    overflow-y: auto;
+    height: calc(100% - 60px);
+}
+
+.sidebar-section {
+    display: none;
+}
+
+.sidebar-section.active {
+    display: block;
+}
+
+#route-search, #library-search {
+    margin-bottom: 20px;
+}
+
+#route-input, #library-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#route-submit {
+    width: 100%;
+    padding: 10px;
+    background: #34a853;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#route-submit:hover {
+    background: #2d8a4a;
+}
+
+.legend-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.legend-item span {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.legend-item .text {
+    font-size: 14px;
+    color: #333;
+}
     </style>
 </head>
 <body>
-<div class="search-box">
-    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
-        <img src="home.svg" alt="Biblioteca Home" class="icon">
-    </a>
-    <div class="separator"></div>
-    <input type="text" id="library-search" list="libraries-list" placeholder="Cerca biblioteca o inserisci partenza...">
-    <datalist id="libraries-list"></datalist>
-</div>
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <button id="toggle-sidebar" class="sidebar-button">☰</button>
+            <button id="search-route" class="sidebar-button">🔍 Percorsi</button>
+            <button id="search-library" class="sidebar-button">📚 Biblioteche</button>
+            <button id="toggle-legend" class="sidebar-button">🗺️ Legenda</button>
+        </div>
+        <div class="sidebar-content">
+            <div id="route-search" class="sidebar-section">
+                <input type="text" id="route-input" placeholder="Inserisci partenza...">
+                <button id="route-submit">Cerca</button>
+            </div>
+            <div id="library-search" class="sidebar-section">
+                <input type="text" id="library-input" placeholder="Cerca biblioteca..." list="libraries-list">
+                <datalist id="libraries-list"></datalist>
+            </div>
+            <div id="legend" class="sidebar-section">
+                <h4>Mappa Biblioteche di Roma per Municipi</h4>
+                <div class="legend-grid"></div>
+            </div>
+        </div>
+    </div>
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -200,6 +330,42 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     
     <script>
 
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebar = document.getElementById('sidebar');
+    const toggleSidebar = document.getElementById('toggle-sidebar');
+    const searchRoute = document.getElementById('search-route');
+    const searchLibrary = document.getElementById('search-library');
+    const toggleLegend = document.getElementById('toggle-legend');
+    const routeSearch = document.getElementById('route-search');
+    const librarySearch = document.getElementById('library-search');
+    const legend = document.getElementById('legend');
+
+    toggleSidebar.addEventListener('click', function() {
+        sidebar.classList.toggle('expanded');
+    });
+
+    searchRoute.addEventListener('click', function() {
+        sidebar.classList.add('expanded');
+        routeSearch.classList.add('active');
+        librarySearch.classList.remove('active');
+        legend.classList.remove('active');
+    });
+
+    searchLibrary.addEventListener('click', function() {
+        sidebar.classList.add('expanded');
+        librarySearch.classList.add('active');
+        routeSearch.classList.remove('active');
+        legend.classList.remove('active');
+    });
+
+    toggleLegend.addEventListener('click', function() {
+        sidebar.classList.add('expanded');
+        legend.classList.add('active');
+        routeSearch.classList.remove('active');
+        librarySearch.classList.remove('active');
+    });
+
+        
  // Colori per i diversi municipi
 const municipalityColors = {
     1: "#6a3f3a", // Marrone
