@@ -444,14 +444,10 @@ let municipioLayer = null;
 fetch('municipio10.geojson')
     .then(response => response.json())
     .then(data => {
-        const municipalityColors 
-
-
-
-        // Carica il municipio X di default
+        // Utilizza direttamente la costante municipalityColors già dichiarata
         municipioLayers[10] = L.geoJSON(data, {
             style: {
-                color: municipalityColors[10],
+                color: municipalityColors[10], // Usa il colore definito nella costante
                 weight: 3,
                 opacity: 0.65,
                 fillOpacity: 0
