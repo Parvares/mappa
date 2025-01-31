@@ -416,7 +416,23 @@ const icons = getIconsConfig();
         console.error('Errore nel caricamento delle biblioteche:', error);
     }
 
-    
+        // Gestione eventi per la ricerca
+    document.getElementById('library-search').addEventListener('change', function(e) {
+        const value = e.target.value;
+        if (libraryMarkers[value]) {
+            libraryMarkers[value].fire('click');
+            e.target.value = '';
+        }
+    });
+
+    document.getElementById('library-search').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const startPoint = e.target.value;
+            if (startPoint.trim()) {
+                searchRoute(startPoint);
+            }
+        }
+    });
 
 
     
