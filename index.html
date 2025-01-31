@@ -15,6 +15,106 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 .search-box button{background-color:#4285f4;color:#fff;border:none;padding:5px 10px;border-radius:3px;cursor:pointer;font-size:14px}
 .search-box .icon{width:24px;height:24px;margin-right:10px;cursor:pointer}
 .search-box .separator{width:1px;height:24px;background-color:#ccc;margin:0 10px}
+
+/* Stile per la barra laterale */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+#sidebar.expanded {
+    left: 0;
+}
+
+.sidebar-toggle {
+    position: absolute;
+    top: 10px;
+    right: -50px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.sidebar-content {
+    padding: 20px;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.sidebar-body {
+    margin-top: 20px;
+}
+
+.search-route, .search-library {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: #f5f5f5;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.search-route:hover, .search-library:hover {
+    background: #e0e0e0;
+}
+
+.search-route img, .search-library img {
+    margin-right: 10px;
+}
+
+.search-box {
+    display: none;
+    margin-top: 10px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-box button {
+    width: 100%;
+    padding: 8px;
+    background: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background: #357abd;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #sidebar {
+        width: 250px;
+        left: -250px;
+    }
+
+    .sidebar-toggle {
+        right: -40px;
+    }
+}        
 .legend {
     background: rgba(255, 255, 255, 0.95);
     padding: 18px 22px;
@@ -180,13 +280,34 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     </style>
 </head>
 <body>
-  <div class="search-box">
-        
-        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
-            <img src="home.svg" alt="Biblioteca Home" class="icon">
-        </a>
-        <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-        <button onclick="searchRoute()" title="Trova percorso fino alla Biblioteca Morante">Trova Percorso</button>
+ <!-- Barra laterale -->
+    <div id="sidebar">
+        <div class="sidebar-toggle" onclick="toggleSidebar()">
+            <img src="menu-icon.svg" alt="Menu" class="icon">
+        </div>
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h3>Mappa Biblioteche</h3>
+            </div>
+            <div class="sidebar-body">
+                <div class="search-route" onclick="expandSidebar('route')">
+                    <img src="route-icon.svg" alt="Cerca percorso" class="icon">
+                    <span>Cerca Percorso</span>
+                </div>
+                <div class="search-library" onclick="expandSidebar('library')">
+                    <img src="library-icon.svg" alt="Cerca biblioteca" class="icon">
+                    <span>Cerca Biblioteca</span>
+                </div>
+                <div id="route-search" class="search-box">
+                    <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+                    <button onclick="searchRoute()">Trova Percorso</button>
+                </div>
+                <div id="library-search" class="search-box">
+                    <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
+                    <button onclick="searchLibrary()">Cerca Biblioteca</button>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="map"></div>
     
@@ -262,7 +383,95 @@ async function loadAndShowBorder(municipalityNumber, map) {
 }
         
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Funzione per espandere la barra laterale
+    window.toggleSidebar = function() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('expanded');
+    };
 
+    // Funzione per espandere la barra laterale e mostrare il form di ricerca
+    window.expandSidebar = function(type) {
+        const sidebar = document.getElementById('sidebar');
+        const routeSearch = document.getElementById('route-search');
+        const librarySearch = document.getElementById('library-search');
+
+        if (type === 'route') {
+            routeSearch.style.display = 'block';
+            librarySearch.style.display = 'none';
+        } else if (type === 'library') {
+            routeSearch.style.display = 'none';
+            librarySearch.style.display = 'block';
+        }
+
+        sidebar.classList.add('expanded');
+    };
+
+    // Funzione per cercare il percorso
+    window.searchRoute = async function() {
+        const startPoint = document.getElementById('start-point').value;
+        if (routingControl) {
+            map.removeControl(routingControl);
+        }
+        try {
+            const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+                params: {
+                    q: startPoint,
+                    format: 'json',
+                    limit: 1
+                }
+            });
+            if (response.data.length > 0) {
+                const startCoords = [
+                    parseFloat(response.data[0].lat),
+                    parseFloat(response.data[0].lon)
+                ];
+                routingControl = L.Routing.control({
+                    waypoints: [
+                        L.latLng(startCoords[0], startCoords[1]),
+                        L.latLng(center[0], center[1])
+                    ],
+                    routeWhileDragging: true,
+                    language: 'it',
+                    show: true,
+                    addWaypoints: false,
+                    draggableWaypoints: false,
+                    fitSelectedRoutes: true,
+                    lineOptions: {
+                        styles: [{ color: '#0000FF', opacity: 0.8, weight: 5 }]
+                    },
+                    createMarker: function(i, waypoint, n) {
+                        const closeBtn = document.createElement('button');
+                        closeBtn.innerHTML = '✕';
+                        closeBtn.className = 'routing-close-btn';
+                        closeBtn.onclick = function() {
+                            map.removeControl(routingControl);
+                        };
+                        setTimeout(() => {
+                            const container = document.querySelector('.leaflet-routing-container');
+                            if (container) {
+                                container.appendChild(closeBtn);
+                            }
+                        }, 100);
+                        return null;
+                    }
+                }).addTo(map);
+            } else {
+                alert('Indirizzo non trovato. Riprova.');
+            }
+        } catch (error) {
+            console.error('Errore nella ricerca del percorso:', error);
+            alert('Errore nel trovare il percorso. Riprova.');
+        }
+    };
+
+    // Funzione per cercare la biblioteca
+    window.searchLibrary = function() {
+        const libraryName = document.getElementById('library-name').value;
+        // Implementa la logica per cercare la biblioteca
+        alert('Funzione di ricerca biblioteca non ancora implementata.');
+    };
+});
 
         
 document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi async qui
