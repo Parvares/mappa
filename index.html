@@ -20,67 +20,6 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 #sidebar {
     position: fixed;
     top: 0;
-    left: -300px;
-    width: 300px;
-    height: 100%;
-    background: #fff;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    transition: left 0.3s ease;
-    z-index: 1000;
-}
-
-#sidebar.expanded {
-    left: 0;
-}
-
-.sidebar-toggle {
-    position: absolute;
-    top: 10px;
-    right: -50px;
-    background: #fff;
-    padding: 10px;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-}
-
-.sidebar-content {
-    padding: 20px;
-}
-
-.sidebar-header h3 {
-    margin: 0;
-    font-size: 18px;
-    color: #333;
-}
-
-.sidebar-body {
-    margin-top: 20px;
-}
-
-.search-route, .search-library {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    background: #f5f5f5;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-}
-
-.search-route:hover, .search-library:hover {
-    background: #e0e0e0;
-}
-
-.search-route img, .search-library img {
-    margin-right: 10px;
-}
-
-/* Stile per la barra laterale */
-#sidebar {
-    position: fixed;
-    top: 0;
     left: -80px; /* Mostra solo il pulsante del menu inizialmente */
     width: 80px; /* Larghezza iniziale della barra laterale */
     height: 100%;
@@ -174,6 +113,25 @@ body,html{margin:0;padding:0;height:100%;width:100%}
         right: -40px;
     }
 }
+.search-route, .search-library {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: #f5f5f5;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.search-route:hover, .search-library:hover {
+    background: #e0e0e0;
+}
+
+.search-route img, .search-library img {
+    margin-right: 10px;
+}
+
         
 .legend {
     background: rgba(255, 255, 255, 0.95);
