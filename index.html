@@ -352,6 +352,7 @@ const icons = getIconsConfig();
   try {
     const response = await fetch('libraries.json');
     const data = await response.json();
+    const datalist = document.getElementById('libraries-list');
     
     // Crea i marker per ogni biblioteca
     data.libraries.forEach(library => {
