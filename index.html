@@ -82,6 +82,11 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     letter-spacing: 0.03em;
 }
 
+ .legend-item.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
 .municipio-highlight {
     stroke-width: 4px !important;
     stroke-opacity: 0.9 !important;
@@ -175,8 +180,7 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     </style>
 </head>
 <body>
-  <div class="search-box">
-        
+    <div class="search-box">
         <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
             <img src="home.svg" alt="Biblioteca Home" class="icon">
         </a>
@@ -184,66 +188,30 @@ body,html{margin:0;padding:0;height:100%;width:100%}
         <button onclick="searchRoute()" title="Trova percorso fino alla Biblioteca Morante">Trova Percorso</button>
     </div>
     <div id="map"></div>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
-    <script src="icons-config.js"></script> <!-- Aggiungi questa riga -->
+    <script src="icons-config.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-    
     <script>
 
-// Prima di tutto, aggiungiamo una variabile per tenere traccia del confine attualmente visualizzato
-let currentBorder = null;
-
-// Funzione helper per caricare e visualizzare il confine di un municipio
-async function loadAndShowBorder(municipalityNumber, map) {
-    // Se c'è già un confine visualizzato, rimuovilo
-    if (currentBorder) {
-        map.removeLayer(currentBorder);
-    }
-
-    try {
-        const response = await fetch(`municipio${municipalityNumber}.geojson`);
-        const data = await response.json();
         
-        // Colori per i diversi municipi
+
+// Prima di tutto, aggiungiamo una variabile per tenere traccia del confine attualmente visualizzato
+        // Definizione centrale del colore per i municipi
         const municipalityColors = {
-            1: '#6a3f3a',  // marrone
-            2: '#00faff',  // ciano
-            3: '#fbd51c',  // oro
-            4: '#473e86',  // viola
-            5: '#018a87',  // verde acqua scuro
-            6: '#d33682',  // magenta
-            7: '#ff7c4e',  // arancione
-            8: '#22a825',  // verde
-            9: '#2b83cb',  // blue
-            10: '#287fc7', // blu
-            11: '#cac12e', // giallo
-            12: '#a329ca', // viola
-            13: '#c9832c', // arancione
-            14: '#7b7b79', // grigio
-            15: '#000000'  // nero
+            1: '#6a3f3a', 2: '#00faff', 3: '#fbd51c', 4: '#473e86',
+            5: '#018a87', 6: '#d33682', 7: '#ff7c4e', 8: '#22a825',
+            9: '#2b83cb', 10: '#cb283c', 11: '#cac12e', 12: '#a329ca',
+            13: '#c9832c', 14: '#7b7b79', 15: '#000000'
         };
 
-        currentBorder = L.geoJSON(data, {
-            style: {
-                color: municipalityColors[municipalityNumber],
-                weight: 3,
-                opacity: 0.65,
-                fillOpacity: 0.2  
-            }
-        }).addTo(map);
+        // Funzione per convertire numeri in romani
+        function romanize(num) {
+            const roman = ['I','II','III','IV','V','VI','VII','VIII','IX','X',
+                          'XI','XII','XIII','XIV','XV'];
+            return roman[num - 1] || num;
+        }
 
-        map.fitBounds(currentBorder.getBounds());
-    } catch (error) {
-        console.error(`Errore nel caricamento del confine del municipio ${municipalityNumber}:`, error);
-    }
-}
-        
-
-
-
-        
 document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi async qui
 
     const center = [41.732522, 12.271879];
@@ -253,6 +221,42 @@ document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi
         maxZoom: 19,
         attribution: "© OpenStreetMap contributors"
     }).addTo(map);
+
+      // Variabili di stato
+            let municipioLayers = {};
+            let currentHighlight = null;
+            let currentBorder = null;
+            let selectedMunicipio = null;
+            let routingControl = null;
+        
+        
+// Funzione helper per caricare e visualizzare il confine di un municipio
+            // Funzione per caricare i confini del municipio
+            async function loadMunicipioBorder(municipioNumber) {
+                try {
+                    const response = await fetch(`municipio${municipioNumber}.geojson`);
+                    if (!response.ok) throw new Error('Errore nel caricamento del file');
+                    const data = await response.json();
+                    return L.geoJSON(data, {
+                        style: {
+                            color: municipalityColors[municipioNumber],
+                            weight: 3,
+                            opacity: 0.65,
+                            fillOpacity: 0.2
+                        }
+                    });
+                } catch (error) {
+                    console.error(`Errore nel caricamento del municipio ${municipioNumber}:`, error);
+                    alert(`Impossibile caricare i dati del municipio ${romanize(municipioNumber)}`);
+                    return null;
+                }
+            }
+        
+
+
+
+        
+
 
     // Definizione del percorso
     const pathPoints = [
@@ -440,18 +444,9 @@ let municipioLayer = null;
 fetch('municipio10.geojson')
     .then(response => response.json())
     .then(data => {
-        const municipalityColors = {
-            1: "#6a3f3a", 2: "#00faff", 3: "#fbd51c", 4: "#473e86",
-            5: "#018a87", 6: "#d33682", 7: "#ff7c4e", 8: "#22a825",
-            9: "#2b83cb", 10: "#cb283c", 11: "#cac12e", 12: "#a329ca",
-            13: "#c9832c", 14: "#7b7b79", 15: "#000000"
-        };
+        const municipalityColors 
 
-        // Variabili globali per gestire i layer
-        let municipioLayers = {};
-        let currentHighlight = null;
-        let currentBorder = null;
-        let selectedMunicipio = null;
+
 
         // Carica il municipio X di default
         municipioLayers[10] = L.geoJSON(data, {
@@ -508,11 +503,7 @@ legend.onAdd = function() {
 };
     legend.addTo(map);
 
-        // Funzione per convertire numeri in numeri romani
-        function romanize(num) {
-            const roman = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV'];
-            return roman[num - 1] || num;
-        }
+
 
         // Gestore hover sulla legenda
 // Funzione per gestire l'hover sulla legenda
