@@ -110,27 +110,8 @@
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Ennio-Flaiano/RMBD1",
             "hours": "Lun-Ven 9-19"
         },
-        {
-            "coords": [41.937894, 12.541872],
-            "title": "Biblioteca Fabrizio Giovenale",
-            "municipio": "municipio3",
-            "address": "Via Fermo Corni - Parco di Aguzzano",
-            "zip": "00156",
-            "phone": "06 45460421",
-            "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Fabrizio-Giovenale/RMBWA",
-            "hours": "Lun-Ven 9-19"
-        },
-        {
-            "coords": [41.913727, 12.564600],
-            "title": "Biblioteca Vaccheria Nardi",
-            "municipio": "municipio3",
-            "address": "Via Grotta di Gregna, 37",
-            "zip": "00155",
-            "phone": "06 45460431",
-            "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Vaccheria-Nardi/RMBE1",
-            "hours": "Lun-Ven 9-19"
-        },
-        {
+
+       {
             "coords": [41.944622, 12.585136],
             "title": "Biblioteca Aldo Fabrizi",
             "municipio": "municipio4",
@@ -140,7 +121,8 @@
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Aldo-Fabrizi/RMBE2",
             "hours": "Lun-Ven 9-19, Sab 9-13"
         },
-        {
+        
+       {
             "coords": [41.934058, 12.560290],
             "title": "Biblioteca Fabrizio Giovenale",
             "municipio": "municipio4",
@@ -150,17 +132,18 @@
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Fabrizio-Giovenale/RMBWA",
             "hours": "Lun-Ven 9-19"
         },
+        
         {
             "coords": [41.913727, 12.564600],
             "title": "Biblioteca Vaccheria Nardi",
-            "municipio": "municipio4",
+            "municipio": "municipio3",
             "address": "Via Grotta di Gregna, 37",
             "zip": "00155",
             "phone": "06 45460431",
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Vaccheria-Nardi/RMBE1",
             "hours": "Lun-Ven 9-19"
         },
-
+ 
         {
             "coords": [41.898611, 12.566118],
             "title": "Biblioteca Penazzato",
@@ -263,16 +246,7 @@
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Nelson-Mandela/RMBI1",
             "hours": "Lun-Ven 9-19"
         },
-        {
-            "coords": [41.838901, 12.575632],
-            "title": "Biblioteca Longhena",
-            "municipio": "municipio7",
-            "address": "Via Longhena, 98",
-            "zip": "00178",
-            "phone": "06 45460661",
-            "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Longhena/RMBL2",
-            "hours": "Lun-Ven 9-19"
-        },
+
 
         {
             "coords": [41.840736, 12.484340],
@@ -292,16 +266,6 @@
             "zip": "00145",
             "phone": "06 45460701",
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Joyce-Lussu/RMBM2",
-            "hours": "Lun-Ven 9-19"
-        },
-        {
-            "coords": [41.847215, 12.472893],
-            "title": "Biblioteca Elsa Morante",
-            "municipio": "municipio8",
-            "address": "Via A. Cozza, 7",
-            "zip": "00121",
-            "phone": "06 45460721",
-            "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Elsa-Morante/RMBO2",
             "hours": "Lun-Ven 9-19"
         },
 
@@ -325,16 +289,7 @@
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Laurentina/RMBN2",
             "hours": "Lun-Ven 9-19"
         },
-        {
-            "coords": [41.798654, 12.452187],
-            "title": "Biblioteca Colli Aniene",
-            "municipio": "municipio9",
-            "address": "Via D. Sante, 30",
-            "zip": "00132",
-            "phone": "06 45460781",
-            "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Colli-Aniene/RMBN3",
-            "hours": "Lun-Ven 9-19"
-        },
+        
 
         {
             "coords": [41.732522, 12.271879],
@@ -377,16 +332,7 @@
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Guglielmo-Marconi/RMBQ1",
             "hours": "Lun-Ven 9-19"
         },
-        {
-            "coords": [41.857893, 12.443215],
-            "title": "Biblioteca Giovenale",
-            "municipio": "municipio11",
-            "address": "Via F. Giovenale, 56",
-            "zip": "00151",
-            "phone": "06 45460881",
-            "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Giovenale/RMBQ3",
-            "hours": "Lun-Ven 9-19"
-        },
+       
 
         {
             "coords": [41.867787, 12.444878],
@@ -429,7 +375,8 @@
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Cornelia/RMBT2",
             "hours": "Lun-Ven 9-19"
         },
-        {
+
+                {
             "coords": [41.904970, 12.437202],
             "title": "Biblioteca Valle Aurelia",
             "municipio": "municipio13",
@@ -439,20 +386,8 @@
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Valle-Aurelia/RMBT1",
             "hours": "Lun-Ven 9-19"
         },
-        {
-            "coords": [41.912345, 12.418765],
-            "title": "Biblioteca Aurelio",
-            "municipio": "municipio13",
-            "address": "Via M. Aurelio, 19",
-            "zip": "00168",
-            "phone": "06 45461001",
-            "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Aurelio/RMBT3",
-            "hours": "Lun-Ven 9-19"
-        },
 
-
-
-        {
+                {
             "coords": [41.9181766, 12.4144799],
             "title": "Biblioteca Franco Basaglia",
             "municipio": "municipio14",
@@ -462,6 +397,10 @@
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Franco-Basaglia/RMBU1",
             "hours": "Lun-Ven 9-19, Sab 9-13"
         },
+        
+
+
+
         {
             "coords": [41.9104619, 12.4251951],
             "title": "Biblioteca Casa del Parco",
@@ -472,16 +411,7 @@
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Casa-del-Parco/RMBU2",
             "hours": "Lun-Ven 9-19"
         },
-        {
-            "coords": [41.905432, 12.407819],
-            "title": "Biblioteca Andrea Pazienza",
-            "municipio": "municipio14",
-            "address": "Via Vittorio Brancati, 45",
-            "zip": "00144",
-            "phone": "06 45461061",
-            "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Andrea-Pazienza/RMBU3",
-            "hours": "Lun-Ven 9-19"
-        },
+
 
         {
             "coords": [41.995762, 12.485857],
@@ -492,26 +422,7 @@
             "phone": "06 45461081",
             "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Galline-Bianche/RMBV1",
             "hours": "Lun-Ven 9-19"
-        },
-        {
-            "coords": [41.982345, 12.498765],
-            "title": "Biblioteca Labaro",
-            "municipio": "municipio15",
-            "address": "Via Ferruccio Tosi, 12",
-            "zip": "00189",
-            "phone": "06 45461101",
-            "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Labaro/RMBV2",
-            "hours": "Lun-Ven 9-19"
-        },
-        {
-            "coords": [41.991234, 12.467891],
-            "title": "Biblioteca Prima Porta",
-            "municipio": "municipio15",
-            "address": "Via della Giustiniana, 813",
-            "zip": "00188",
-            "phone": "06 45461121",
-            "link": "https://www.bibliotechediroma.it/opac/library/Biblioteca-Prima-Porta/RMBV3",
-            "hours": "Lun-Ven 9-19"
         }
+        
     ]
 }
