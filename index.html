@@ -180,14 +180,16 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     </style>
 </head>
 <body>
-  <div class="search-box">
-        
-        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
-            <img src="home.svg" alt="Biblioteca Home" class="icon">
-        </a>
-        <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-        <button onclick="searchRoute()" title="Trova percorso fino alla Biblioteca Morante">Trova Percorso</button>
-    </div>
+ <div class="search-box">
+    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
+        <img src="home.svg" alt="Biblioteca Home" class="icon">
+    </a>
+    <input type="text" id="search-input" list="library-options" placeholder="Cerca biblioteca o indirizzo...">
+    <datalist id="library-options">
+        <option value="Cerca percorso verso Biblioteca Morante">
+    </datalist>
+    <button onclick="handleSearch()" title="Cerca">Trova Percorso</button>
+</div>
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -346,38 +348,38 @@ const icons = getIconsConfig();
 
 // Spazio dove erano i marker per le biblioteche...
 // Carica le biblioteche dal file JSON
-  try {
-    const response = await fetch('libraries.json');
-    const data = await response.json();
-    
-    // Crea i marker per ogni biblioteca
-    data.libraries.forEach(library => {
-      const popupContent = `
-        <div class="baloon">
-          <h3>${library.name}</h3>
-          <p style="font-size: 15px;">
-            ${library.address} <br>
-            ${library.cap} Municipio ${library.municipalityName}
-          </p>
-          <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
-            Vai alla scheda
-          </a>
-        </div>
-      `;
+  let libraryMarkers = {}; // Oggetto per memorizzare i marker delle biblioteche
 
-      createMarker(
-        library.coords,
-        library.name,
-        icons[`municipio${library.municipality}`],
-        popupContent,
-        library.municipality,
-        map
-      );
-    });
-  } catch (error) {
-    console.error('Errore nel caricamento delle biblioteche:', error);
-  }
-    
+// Carica le biblioteche dal file JSON
+fetch('libraries.json')
+    .then(response => response.json())
+    .then(data => {
+        const libraries = data.libraries;
+        const datalist = document.getElementById('library-options');
+
+        // Popola il dropdown delle biblioteche
+        libraries.forEach(lib => {
+            const option = document.createElement('option');
+            option.value = lib.name;
+            datalist.appendChild(option);
+
+            // Crea i marker per le biblioteche
+            const marker = L.marker(lib.coords)
+                .bindPopup(`
+                    <b>${lib.name}</b><br>
+                    ${lib.address}<br>
+                    CAP: ${lib.cap}<br>
+                    Municipio: ${lib.municipalityName}
+                `);
+            
+            libraryMarkers[lib.name] = {
+                marker: marker,
+                municipality: lib.municipality
+            };
+            marker.addTo(map);
+        });
+    })
+    .catch(error => console.error('Errore nel caricamento delle biblioteche:', error));
 
 
     
@@ -410,69 +412,38 @@ const icons = getIconsConfig();
   }
 }
             
-            window.searchRoute = async function() {
-                const startPoint = document.getElementById('start-point').value;
+            function handleSearch() {
+    const inputVal = document.getElementById('search-input').value;
+
+    // Caso 1: Se è selezionata una biblioteca
+    if (libraryMarkers[inputVal]) {
+        const { marker, municipality } = libraryMarkers[inputVal];
+        map.panTo(marker.getLatLng());
+        marker.openPopup();
+        highlightArea(municipality);
+        return;
+    }
+
+    // Caso 2: Se è inserito un indirizzo (geocoding)
+    axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(inputVal)}`)
+        .then(response => {
+            const data = response.data[0];
+            if (data) {
+                const startCoords = [data.lat, data.lon];
+                const moranteCoords = [41.8643, 12.5607]; // Controlla coordinate esatte!
                 
-                if (routingControl) {
-                    map.removeControl(routingControl);
-                }
-
-                try {
-                    const response = await axios.get('https://nominatim.openstreetmap.org/search', {
-                        params: {
-                            q: startPoint,
-                            format: 'json',
-                            limit: 1
-                        }
-                    });
-
-                    if (response.data.length > 0) {
-                        const startCoords = [
-                            parseFloat(response.data[0].lat), 
-                            parseFloat(response.data[0].lon)
-                        ];
-
-                        routingControl = L.Routing.control({
-                            waypoints: [
-                                L.latLng(startCoords[0], startCoords[1]),
-                                L.latLng(center[0], center[1])
-                            ],
-                            routeWhileDragging: true,
-                            language: 'it',
-                            show: true,
-                            addWaypoints: false,
-                            draggableWaypoints: false,
-                            fitSelectedRoutes: true,
-                            lineOptions: {
-                                styles: [{color: '#0000FF', opacity: 0.8, weight: 5}]
-                            },
-                            createMarker: function(i, waypoint, n) {
-                                const closeBtn = document.createElement('button');
-                                closeBtn.innerHTML = '✕';
-                                closeBtn.className = 'routing-close-btn';
-                                closeBtn.onclick = function() {
-                                    map.removeControl(routingControl);
-                                };
-
-                                // Append close button to routing container
-                                setTimeout(() => {
-                                    const container = document.querySelector('.leaflet-routing-container');
-                                    if (container) {
-                                        container.appendChild(closeBtn);
-                                    }
-                                }, 100);
-
-                                return null; // No markers for waypoints
-                            }
-                        }).addTo(map);
-                    } else {
-                        alert('Indirizzo non trovato. Riprova.');
-                    }
-                } catch (error) {
-                    console.error('Errore nella ricerca del percorso:', error);
-                    alert('Errore nel trovare il percorso. Riprova.');
-                }
+                // Aggiungi il percorso
+                L.Routing.control({
+                    waypoints: [
+                        L.latLng(startCoords),
+                        L.latLng(moranteCoords)
+                    ],
+                    routeWhileDragging: true
+                }).addTo(map);
             }
+        })
+        .catch(error => console.error('Errore nel geocoding:', error));
+}
 
             document.getElementById('start-point').addEventListener('keypress', function(event) {
                 if (event.key === 'Enter') {
