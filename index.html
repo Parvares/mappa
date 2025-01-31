@@ -283,7 +283,7 @@ document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi
     function createMarker(coords, title, icon, popupContent, municipioNumber, map) {
         const marker = L.marker(coords, { title, icon })
             .addTo(map)
-            .on('click', () => loadAndShowBorder(municipioNumber, map));
+            .on('click', () => loadMunicipioBorder(municipioNumber, map));
 
         const popup = L.popup({
             className: 'custom-popup',
