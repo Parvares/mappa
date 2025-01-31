@@ -1,4 +1,3 @@
-// icons-config.js
 function getIconsConfig() {
   return {
 municipio1: L.icon({
