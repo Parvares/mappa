@@ -177,19 +177,22 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     margin-top: 5px;
 }
 
+.search-box input {
+    width: 350px; /* Allarga la barra di ricerca */
+}
+    
     </style>
 </head>
 <body>
- <div class="search-box">
+  <div class="search-box">
     <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
         <img src="home.svg" alt="Biblioteca Home" class="icon">
     </a>
-    <input type="text" id="search-input" list="library-options" placeholder="Cerca biblioteca o indirizzo...">
-    <datalist id="library-options">
-        <option value="Cerca percorso verso Biblioteca Morante">
-    </datalist>
-    <button onclick="handleSearch()" title="Cerca">Trova Percorso</button>
+    <div class="separator"></div>
+    <input type="text" id="library-search" list="libraries-list" placeholder="Cerca biblioteca o inserisci partenza...">
+    <datalist id="libraries-list"></datalist>
 </div>
+    
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -267,10 +270,10 @@ async function loadAndShowBorder(municipalityNumber, map) {
 
 
         
-document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi async qui
-
+document.addEventListener("DOMContentLoaded", async function() {
     const center = [41.732522, 12.271879];
     const map = L.map("map").setView(center, 14);
+    let libraryMarkers = {}; // Oggetto per memorizzare i marker
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
@@ -348,38 +351,92 @@ const icons = getIconsConfig();
 
 // Spazio dove erano i marker per le biblioteche...
 // Carica le biblioteche dal file JSON
-  let libraryMarkers = {}; // Oggetto per memorizzare i marker delle biblioteche
+  // Popola il datalist e crea i marker
+    try {
+        const response = await fetch('libraries.json');
+        const data = await response.json();
+        const datalist = document.getElementById('libraries-list');
 
-// Carica le biblioteche dal file JSON
-fetch('libraries.json')
-    .then(response => response.json())
-    .then(data => {
-        const libraries = data.libraries;
-        const datalist = document.getElementById('library-options');
+        // Aggiungi Elsa Morante al datalist
+        const moranteOption = document.createElement('option');
+        moranteOption.value = "Biblioteca Elsa Morante";
+        datalist.appendChild(moranteOption);
 
-        // Popola il dropdown delle biblioteche
-        libraries.forEach(lib => {
+        // Crea marker e popola datalist
+        data.libraries.forEach(library => {
+            // Aggiungi opzione al datalist
             const option = document.createElement('option');
-            option.value = lib.name;
+            option.value = library.name;
             datalist.appendChild(option);
 
-            // Crea i marker per le biblioteche
-            const marker = L.marker(lib.coords)
-                .bindPopup(`
-                    <b>${lib.name}</b><br>
-                    ${lib.address}<br>
-                    CAP: ${lib.cap}<br>
-                    Municipio: ${lib.municipalityName}
-                `);
-            
-            libraryMarkers[lib.name] = {
-                marker: marker,
-                municipality: lib.municipality
-            };
-            marker.addTo(map);
+            // Crea marker
+            const popupContent = `
+                <div class="baloon">
+                    <h3>${library.name}</h3>
+                    <p style="font-size: 15px;">
+                        ${library.address} <br>
+                        ${library.cap} Municipio ${library.municipalityName}
+                    </p>
+                    <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
+                        Vai alla scheda
+                    </a>
+                </div>
+            `;
+
+            const marker = createMarker(
+                library.coords,
+                library.name,
+                icons[`municipio${library.municipality}`],
+                popupContent,
+                library.municipality,
+                map
+            );
+            libraryMarkers[library.name] = marker;
         });
-    })
-    .catch(error => console.error('Errore nel caricamento delle biblioteche:', error));
+
+        // Crea marker per Elsa Morante (non presente nel JSON)
+        const moranteMarker = createMarker(
+            center,
+            "Biblioteca Elsa Morante",
+            icons.municipio10,
+            `<div class="baloon">
+                <h3>Biblioteca Elsa Morante</h3>
+                <p style="font-size: 15px;">
+                    Via Adolfo Cozza, 7, 00121 Lido di Ostia RM<br>
+                    00121 Municipio X
+                </p>
+                <a style="color: #bc0b34; font-size: 16px;" 
+                   href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2">
+                    Vai alla scheda
+                </a>
+            </div>`,
+            10,
+            map
+        );
+        libraryMarkers["Biblioteca Elsa Morante"] = moranteMarker;
+
+    } catch (error) {
+        console.error('Errore nel caricamento delle biblioteche:', error);
+    }
+
+    // Gestione eventi per la ricerca
+    document.getElementById('library-search').addEventListener('change', function(e) {
+        const value = e.target.value;
+        if (libraryMarkers[value]) {
+            libraryMarkers[value].fire('click');
+            e.target.value = '';
+        }
+    });
+
+    document.getElementById('library-search').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const startPoint = e.target.value;
+            if (startPoint.trim()) {
+                searchRoute(startPoint);
+            }
+        }
+    });
+    
 
 
     
@@ -412,38 +469,42 @@ fetch('libraries.json')
   }
 }
             
-            function handleSearch() {
-    const inputVal = document.getElementById('search-input').value;
-
-    // Caso 1: Se è selezionata una biblioteca
-    if (libraryMarkers[inputVal]) {
-        const { marker, municipality } = libraryMarkers[inputVal];
-        map.panTo(marker.getLatLng());
-        marker.openPopup();
-        highlightArea(municipality);
-        return;
+            window.searchRoute = async function(startPoint) {
+    if (routingControl) {
+        map.removeControl(routingControl);
+        routingControl = null;
     }
 
-    // Caso 2: Se è inserito un indirizzo (geocoding)
-    axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(inputVal)}`)
-        .then(response => {
-            const data = response.data[0];
-            if (data) {
-                const startCoords = [data.lat, data.lon];
-                const moranteCoords = [41.8643, 12.5607]; // Controlla coordinate esatte!
-                
-                // Aggiungi il percorso
-                L.Routing.control({
-                    waypoints: [
-                        L.latLng(startCoords),
-                        L.latLng(moranteCoords)
-                    ],
-                    routeWhileDragging: true
-                }).addTo(map);
+    try {
+        const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+            params: {
+                q: startPoint,
+                format: 'json',
+                limit: 1
             }
-        })
-        .catch(error => console.error('Errore nel geocoding:', error));
-}
+        });
+
+        if (response.data.length > 0) {
+            const startCoords = [
+                parseFloat(response.data[0].lat), 
+                parseFloat(response.data[0].lon)
+            ];
+
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(startCoords[0], startCoords[1]),
+                    L.latLng(center[0], center[1])
+                ],
+                // ... resto della configurazione originale
+                        }).addTo(map);
+                    } else {
+                        alert('Indirizzo non trovato. Riprova.');
+                    }
+                } catch (error) {
+                    console.error('Errore nella ricerca del percorso:', error);
+                    alert('Errore nel trovare il percorso. Riprova.');
+                }
+            }
 
             document.getElementById('start-point').addEventListener('keypress', function(event) {
                 if (event.key === 'Enter') {
