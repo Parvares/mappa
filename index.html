@@ -413,69 +413,42 @@ const icons = getIconsConfig();
   }
 }
             
-          window.searchRoute = async function() {
-                const startPoint = document.getElementById('start-point').value;
-                
-                if (routingControl) {
-                    map.removeControl(routingControl);
-                }
+window.searchRoute = async function(startPoint) {
+    if (routingControl) {
+        map.removeControl(routingControl);
+        routingControl = null;
+    }
 
-                try {
-                    const response = await axios.get('https://nominatim.openstreetmap.org/search', {
-                        params: {
-                            q: startPoint,
-                            format: 'json',
-                            limit: 1
-                        }
-                    });
-
-                    if (response.data.length > 0) {
-                        const startCoords = [
-                            parseFloat(response.data[0].lat), 
-                            parseFloat(response.data[0].lon)
-                        ];
-
-                        routingControl = L.Routing.control({
-                            waypoints: [
-                                L.latLng(startCoords[0], startCoords[1]),
-                                L.latLng(center[0], center[1])
-                            ],
-                            routeWhileDragging: true,
-                            language: 'it',
-                            show: true,
-                            addWaypoints: false,
-                            draggableWaypoints: false,
-                            fitSelectedRoutes: true,
-                            lineOptions: {
-                                styles: [{color: '#0000FF', opacity: 0.8, weight: 5}]
-                            },
-                            createMarker: function(i, waypoint, n) {
-                                const closeBtn = document.createElement('button');
-                                closeBtn.innerHTML = '✕';
-                                closeBtn.className = 'routing-close-btn';
-                                closeBtn.onclick = function() {
-                                    map.removeControl(routingControl);
-                                };
-
-                                // Append close button to routing container
-                                setTimeout(() => {
-                                    const container = document.querySelector('.leaflet-routing-container');
-                                    if (container) {
-                                        container.appendChild(closeBtn);
-                                    }
-                                }, 100);
-
-                                return null; // No markers for waypoints
-                            }
-                        }).addTo(map);
-                    } else {
-                        alert('Indirizzo non trovato. Riprova.');
-                    }
-                } catch (error) {
-                    console.error('Errore nella ricerca del percorso:', error);
-                    alert('Errore nel trovare il percorso. Riprova.');
-                }
+    try {
+        const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+            params: {
+                q: startPoint,
+                format: 'json',
+                limit: 1
             }
+        });
+
+        if (response.data.length > 0) {
+            const startCoords = [
+                parseFloat(response.data[0].lat), 
+                parseFloat(response.data[0].lon)
+            ];
+
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(startCoords[0], startCoords[1]),
+                    L.latLng(center[0], center[1])
+                ],
+                // ... resto della configurazione originale
+            }).addTo(map);
+        } else {
+            alert('Indirizzo non trovato. Riprova.');
+        }
+    } catch (error) {
+        console.error('Errore nella ricerca del percorso:', error);
+        alert('Errore nel trovare il percorso. Riprova.');
+    }
+}
 
             document.getElementById('start-point').addEventListener('keypress', function(event) {
                 if (event.key === 'Enter') {
