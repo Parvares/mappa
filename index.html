@@ -698,7 +698,19 @@ body, html {
     if (!municipioLayers[municipioNumber]) {
         try {
             const response = await fetch(`municipio${municipioNumber}.geojson`);
+            if (!response.ok) {
+                throw new Error(`Errore nel caricamento del file municipio${municipioNumber}.geojson`);
+            }
+
             const data = await response.json();
+            console.log("GeoJSON Data:", data); // Debug: log the GeoJSON data
+
+            // Verifica che i dati GeoJSON siano validi
+            if (!data || !data.type || data.type !== "FeatureCollection") {
+                throw new Error(`Dati GeoJSON non validi per il municipio ${municipioNumber}`);
+            }
+
+            // Crea il layer GeoJSON
             municipioLayers[municipioNumber] = L.geoJSON(data, {
                 style: {
                     color: municipalityColors[municipioNumber],
@@ -719,9 +731,12 @@ body, html {
     }
 
     // Aggiungi il layer del municipio alla mappa e portalo in primo piano
-    currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
+    if (municipioLayers[municipioNumber]) {
+        currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
+    } else {
+        console.error(`Layer per il municipio ${municipioNumber} non valido.`);
+    }
 };
-
                 // Funzione per gestire l'uscita del mouse dalla legenda
                 window.handleLegendOut = function(municipioNumber) {
                     if (municipioNumber === selectedMunicipio) return;
