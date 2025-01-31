@@ -413,99 +413,77 @@ const icons = getIconsConfig();
   }
 }
             
-            window.searchRoute = async function() {
+          window.searchRoute = async function() {
                 const startPoint = document.getElementById('start-point').value;
                 
                 if (routingControl) {
                     map.removeControl(routingControl);
                 }
 
-// Popola il datalist e crea i marker
-    try {
-        const response = await fetch('libraries.json');
-        const data = await response.json();
-        const datalist = document.getElementById('libraries-list');
+                try {
+                    const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+                        params: {
+                            q: startPoint,
+                            format: 'json',
+                            limit: 1
+                        }
+                    });
 
-        // Aggiungi Elsa Morante al datalist
-        const moranteOption = document.createElement('option');
-        moranteOption.value = "Biblioteca Elsa Morante";
-        datalist.appendChild(moranteOption);
+                    if (response.data.length > 0) {
+                        const startCoords = [
+                            parseFloat(response.data[0].lat), 
+                            parseFloat(response.data[0].lon)
+                        ];
 
-        // Crea marker e popola datalist
-        data.libraries.forEach(library => {
-            // Aggiungi opzione al datalist
-            const option = document.createElement('option');
-            option.value = library.name;
-            datalist.appendChild(option);
+                        routingControl = L.Routing.control({
+                            waypoints: [
+                                L.latLng(startCoords[0], startCoords[1]),
+                                L.latLng(center[0], center[1])
+                            ],
+                            routeWhileDragging: true,
+                            language: 'it',
+                            show: true,
+                            addWaypoints: false,
+                            draggableWaypoints: false,
+                            fitSelectedRoutes: true,
+                            lineOptions: {
+                                styles: [{color: '#0000FF', opacity: 0.8, weight: 5}]
+                            },
+                            createMarker: function(i, waypoint, n) {
+                                const closeBtn = document.createElement('button');
+                                closeBtn.innerHTML = '✕';
+                                closeBtn.className = 'routing-close-btn';
+                                closeBtn.onclick = function() {
+                                    map.removeControl(routingControl);
+                                };
 
-            // Crea marker
-            const popupContent = `
-                <div class="baloon">
-                    <h3>${library.name}</h3>
-                    <p style="font-size: 15px;">
-                        ${library.address} <br>
-                        ${library.cap} Municipio ${library.municipalityName}
-                    </p>
-                    <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
-                        Vai alla scheda
-                    </a>
-                </div>
-            `;
+                                // Append close button to routing container
+                                setTimeout(() => {
+                                    const container = document.querySelector('.leaflet-routing-container');
+                                    if (container) {
+                                        container.appendChild(closeBtn);
+                                    }
+                                }, 100);
 
-            const marker = createMarker(
-                library.coords,
-                library.name,
-                icons[`municipio${library.municipality}`],
-                popupContent,
-                library.municipality,
-                map
-            );
-            libraryMarkers[library.name] = marker;
-        });
-
-        // Crea marker per Elsa Morante (non presente nel JSON)
-        const moranteMarker = createMarker(
-            center,
-            "Biblioteca Elsa Morante",
-            icons.municipio10,
-            `<div class="baloon">
-                <h3>Biblioteca Elsa Morante</h3>
-                <p style="font-size: 15px;">
-                    Via Adolfo Cozza, 7, 00121 Lido di Ostia RM<br>
-                    00121 Municipio X
-                </p>
-                <a style="color: #bc0b34; font-size: 16px;" 
-                   href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2">
-                    Vai alla scheda
-                </a>
-            </div>`,
-            10,
-            map
-        );
-        libraryMarkers["Biblioteca Elsa Morante"] = moranteMarker;
-
-    } catch (error) {
-        console.error('Errore nel caricamento delle biblioteche:', error);
-    }
-
-    // Gestione eventi per la ricerca
-    document.getElementById('library-search').addEventListener('change', function(e) {
-        const value = e.target.value;
-        if (libraryMarkers[value]) {
-            libraryMarkers[value].fire('click');
-            e.target.value = '';
-        }
-    });
-
-    document.getElementById('library-search').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            const startPoint = e.target.value;
-            if (startPoint.trim()) {
-                searchRoute(startPoint);
+                                return null; // No markers for waypoints
+                            }
+                        }).addTo(map);
+                    } else {
+                        alert('Indirizzo non trovato. Riprova.');
+                    }
+                } catch (error) {
+                    console.error('Errore nella ricerca del percorso:', error);
+                    alert('Errore nel trovare il percorso. Riprova.');
+                }
             }
-        }
-    });
-};
+
+            document.getElementById('start-point').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    searchRoute();
+                }
+            });
+
+            document.getElementById('start-point').focus();
 
 
 
