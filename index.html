@@ -232,25 +232,16 @@ document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi
         
 // Funzione helper per caricare e visualizzare il confine di un municipio
             // Funzione per caricare i confini del municipio
-            async function loadMunicipioBorder(municipioNumber) {
-                try {
-                    const response = await fetch(`municipio${municipioNumber}.geojson`);
-                    if (!response.ok) throw new Error('Errore nel caricamento del file');
-                    const data = await response.json();
-                    return L.geoJSON(data, {
-                        style: {
-                            color: municipalityColors[municipioNumber],
-                            weight: 3,
-                            opacity: 0.65,
-                            fillOpacity: 0.2
-                        }
-                    });
-                } catch (error) {
-                    console.error(`Errore nel caricamento del municipio ${municipioNumber}:`, error);
-                    alert(`Impossibile caricare i dati del municipio ${romanize(municipioNumber)}`);
-                    return null;
-                }
-            }
+// Funzione helper per caricare e visualizzare il confine di un municipio
+async function loadAndShowBorder(municipalityNumber, map) {
+    // Se c'è già un confine visualizzato, rimuovilo
+    if (currentBorder) {
+        map.removeLayer(currentBorder);
+    }
+
+    try {
+        const response = await fetch(`municipio${municipalityNumber}.geojson`);
+        const data = await response.json();
         
 
 
@@ -283,7 +274,7 @@ document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi
     function createMarker(coords, title, icon, popupContent, municipioNumber, map) {
         const marker = L.marker(coords, { title, icon })
             .addTo(map)
-            .on('click', () => loadMunicipioBorder(municipioNumber, map));
+            .on('click', () => loadAndShowBorder(municipioNumber, map));
 
         const popup = L.popup({
             className: 'custom-popup',
