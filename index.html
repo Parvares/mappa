@@ -15,9 +15,6 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 .search-box button{background-color:#4285f4;color:#fff;border:none;padding:5px 10px;border-radius:3px;cursor:pointer;font-size:14px}
 .search-box .icon{width:24px;height:24px;margin-right:10px;cursor:pointer}
 .search-box .separator{width:1px;height:24px;background-color:#ccc;margin:0 10px}
-.search-box input {
-    width: 350px; /* Allarga la barra di ricerca */
-}
 .legend {
     background: rgba(255, 255, 255, 0.95);
     padding: 18px 22px;
@@ -179,147 +176,17 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     text-decoration: none;
     margin-top: 5px;
 }
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-}
 
-#map {
-    height: 100vh;
-    width: 100%;
-}
-
-#sidebar {
-    position: fixed;
-    top: 0;
-    left: -300px;
-    width: 300px;
-    height: 100%;
-    background: #fff;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    transition: left 0.3s ease;
-    z-index: 1000;
-}
-
-#sidebar.expanded {
-    left: 0;
-}
-
-.sidebar-header {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    background: #f8f9fa;
-    border-bottom: 1px solid #ddd;
-}
-
-.sidebar-button {
-    margin: 5px 0;
-    padding: 10px;
-    background: #4285f4;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: left;
-}
-
-.sidebar-button:hover {
-    background: #357abd;
-}
-
-.sidebar-content {
-    padding: 10px;
-    overflow-y: auto;
-    height: calc(100% - 60px);
-}
-
-.sidebar-section {
-    display: none;
-}
-
-.sidebar-section.active {
-    display: block;
-}
-
-#route-search, #library-search {
-    margin-bottom: 20px;
-}
-
-#route-input, #library-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#route-submit {
-    width: 100%;
-    padding: 10px;
-    background: #34a853;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#route-submit:hover {
-    background: #2d8a4a;
-}
-
-.legend-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.legend-item span {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    border-radius: 5px;
-}
-
-.legend-item .text {
-    font-size: 14px;
-    color: #333;
-}
     </style>
 </head>
 <body>
-        <div id="sidebar">
-        <div class="sidebar-header">
-            <button id="toggle-sidebar" class="sidebar-button">☰</button>
-            <button id="search-route" class="sidebar-button">🔍 Percorsi</button>
-            <button id="search-library" class="sidebar-button">📚 Biblioteche</button>
-            <button id="toggle-legend" class="sidebar-button">🗺️ Legenda</button>
-        </div>
-        <div class="sidebar-content">
-            <div id="route-search" class="sidebar-section">
-                <input type="text" id="route-input" placeholder="Inserisci partenza...">
-                <button id="route-submit">Cerca</button>
-            </div>
-            <div id="library-search" class="sidebar-section">
-                <input type="text" id="library-input" placeholder="Cerca biblioteca..." list="libraries-list">
-                <datalist id="libraries-list"></datalist>
-            </div>
-            <div id="legend" class="sidebar-section">
-                <h4>Mappa Biblioteche di Roma per Municipi</h4>
-                <div class="legend-grid"></div>
-            </div>
-        </div>
+  <div class="search-box">
+        
+        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
+            <img src="home.svg" alt="Biblioteca Home" class="icon">
+        </a>
+        <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+        <button onclick="searchRoute()" title="Trova percorso fino alla Biblioteca Morante">Trova Percorso</button>
     </div>
     <div id="map"></div>
     
@@ -330,35 +197,34 @@ body, html {
     
     <script>
 
-
-        
  // Colori per i diversi municipi
-// Colori per i diversi municipi
-        const municipalityColors = {
-            1: "#6a3f3a", // Marrone
-            2: "#00faff", // Turchese
-            3: "#fbd51c", // Giallo
-            4: "#473e86", // Blu scuro
-            5: "#018a87", // Verde acqua
-            6: "#d33682", // Rosa
-            7: "#ff7c4e", // Arancione
-            8: "#22a825", // Verde erba
-            9: "#2b83cb", // Blu cielo
-            10: "#cb283c", // Rosso
-            11: "#cac12e", // Giallo oliva
-            12: "#a329ca", // Viola
-            13: "#c9832c", // Arancione-marrone
-            14: "#7b7b79", // Grigio
-            15: "#000000" // Nero
-        };
+const municipalityColors = {
+    1: "#6a3f3a", // Marrone
+    2: "#00faff", // Turchese
+    3: "#fbd51c", // Giallo
+    4: "#473e86", // Blu scuro
+    5: "#018a87", // Verde acqua
+    6: "#d33682", // Rosa
+    7: "#ff7c4e", // Arancione
+    8: "#22a825", // Verde erba
+    9: "#2b83cb", // Blu cielo
+    10: "#cb283c", // Rosso
+    11: "#cac12e", // Giallo oliva
+    12: "#a329ca", // Viola
+    13: "#c9832c", // Arancione-marrone
+    14: "#7b7b79", // Grigio
+    15: "#000000"  // Nero
+};
 
-        // Funzione per convertire numeri in numeri romani
+
+
+              // Funzione per convertire numeri in numeri romani
         function romanize(num) {
             const roman = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV'];
             return roman[num - 1] || num;
         }
 
-        // Variabili globali
+        // Variabili globali 
         let currentBorder = null;
         let routingControl = null;
         let municipioLayer = null;
@@ -366,442 +232,406 @@ body, html {
         let currentHighlight = null;
         let selectedMunicipio = null;
 
-        // Funzione helper per caricare e visualizzare il confine di un municipio
-        async function loadAndShowBorder(municipalityNumber, map) {
-            // Se c'è già un confine visualizzato, rimuovilo
-            if (currentBorder) {
-                map.removeLayer(currentBorder);
+
+// Funzione helper per caricare e visualizzare il confine di un municipio
+async function loadAndShowBorder(municipalityNumber, map) {
+    // Se c'è già un confine visualizzato, rimuovilo
+    if (currentBorder) {
+        map.removeLayer(currentBorder);
+    }
+
+    try {
+        const response = await fetch(`municipio${municipalityNumber}.geojson`);
+        const data = await response.json();
+        
+       
+
+        currentBorder = L.geoJSON(data, {
+            style: {
+                color: municipalityColors[municipalityNumber],
+                weight: 3,
+                opacity: 0.65,
+                fillOpacity: 0.2  
             }
-            try {
-                const response = await fetch(`municipio${municipalityNumber}.geojson`);
-                if (!response.ok) {
-                    throw new Error(`Errore nel caricamento del file municipio${municipalityNumber}.geojson`);
-                }
-                const data = await response.json();
-                currentBorder = L.geoJSON(data, {
-                    style: {
-                        color: municipalityColors[municipalityNumber],
-                        weight: 3,
-                        opacity: 0.65,
-                        fillOpacity: 0.2
-                    }
-                }).addTo(map);
-                map.fitBounds(currentBorder.getBounds());
-            } catch (error) {
-                console.error(`Errore nel caricamento del confine del municipio ${municipalityNumber}:`, error);
-            }
-        }
+        }).addTo(map);
 
-        document.addEventListener("DOMContentLoaded", async function() {
-            const sidebar = document.getElementById('sidebar');
-            const toggleSidebar = document.getElementById('toggle-sidebar');
-            const searchRoute = document.getElementById('search-route');
-            const searchLibrary = document.getElementById('search-library');
-            const toggleLegend = document.getElementById('toggle-legend');
-            const routeSearch = document.getElementById('route-search');
-            const librarySearch = document.getElementById('library-search');
-            const legend = document.getElementById('legend');
+        map.fitBounds(currentBorder.getBounds());
+    } catch (error) {
+        console.error(`Errore nel caricamento del confine del municipio ${municipalityNumber}:`, error);
+    }
+}
+        
 
-            toggleSidebar.addEventListener('click', function() {
-                sidebar.classList.toggle('expanded');
-            });
 
-            searchRoute.addEventListener('click', function() {
-                sidebar.classList.add('expanded');
-                routeSearch.classList.add('active');
-                librarySearch.classList.remove('active');
-                legend.classList.remove('active');
-            });
 
-            searchLibrary.addEventListener('click', function() {
-                sidebar.classList.add('expanded');
-                librarySearch.classList.add('active');
-                routeSearch.classList.remove('active');
-                legend.classList.remove('active');
-            });
+        
+document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi async qui
 
-            toggleLegend.addEventListener('click', function() {
-                sidebar.classList.add('expanded');
-                legend.classList.add('active');
-                routeSearch.classList.remove('active');
-                librarySearch.classList.remove('active');
-            });
+    const center = [41.732522, 12.271879];
+    const map = L.map("map").setView(center, 14);
 
-            // Codice originale per la mappa
-            const center = [41.732522, 12.271879];
-            const map = L.map("map").setView(center, 14);
-            let libraryMarkers = {};
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "© OpenStreetMap contributors"
+    }).addTo(map);
 
-            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                maxZoom: 19,
-                attribution: "© OpenStreetMap contributors"
-            }).addTo(map);
+    // Definizione del percorso
+    const pathPoints = [
+        center,
+        [41.732154, 12.271675],
+        [41.732282, 12.271254],
+        [41.73224, 12.27123],
+        [41.732276, 12.27109],
+        [41.732092, 12.27098]
+    ];
 
-            // Definizione del percorso
-            const pathPoints = [
-                center,
-                [41.732154, 12.271675],
-                [41.732282, 12.271254],
-                [41.73224, 12.27123],
-                [41.732276, 12.27109],
-                [41.732092, 12.27098]
-            ];
+    // Creazione della linea tratteggiata
+    const dottedLine = L.polyline(pathPoints, {
+        color: "#0000FF",
+        weight: 4,
+        opacity: 0.8,
+        dashArray: "10, 10"
+    }).addTo(map);
 
-            // Creazione della linea tratteggiata
-            const dottedLine = L.polyline(pathPoints, {
-                color: "#0000FF",
-                weight: 4,
-                opacity: 0.8,
-                dashArray: "10, 10"
-            }).addTo(map);
+    // Punto finale del percorso
+    const endPoint = pathPoints[pathPoints.length - 1];
 
-            // Punto finale del percorso
-            const endPoint = pathPoints[pathPoints.length - 1];
-
-            // Funzione per evidenziare la voce della legenda
-            function highlightLegendItem(municipioNumber) {
-                const allItems = document.querySelectorAll('.legend-item');
-                allItems.forEach(item => item.classList.remove('highlighted'));
-                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-                if (item) {
-                    item.classList.add('highlighted');
-                }
-            }
-
-            // Definizione della funzione createMarker
-            function createMarker(coords, title, icon, popupContent, municipioNumber, map) {
-                const marker = L.marker(coords, { title, icon })
-                    .addTo(map)
-                    .on('click', () => {
-                        if (selectedMunicipio === municipioNumber) {
-                            // Deseleziona se cliccato nuovamente
-                            if (currentBorder) {
-                                map.removeLayer(currentBorder);
-                                currentBorder = null;
-                            }
-                            selectedMunicipio = null;
-                            const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-                            if (item) {
-                                item.classList.remove('highlighted');
-                            }
-                        } else {
-                            // Seleziona il municipio
-                            loadAndShowBorder(municipioNumber, map);
-                            highlightLegendItem(municipioNumber);
-                            selectedMunicipio = municipioNumber;
-                        }
-                    });
-
-                const popup = L.popup({
-                    className: 'custom-popup',
-                    offset: [0, -10],
-                    closeButton: true
-                }).setContent(popupContent);
-                marker.bindPopup(popup);
-                return marker;
-            }
-
-            const icons = getIconsConfig();
-
-            // Popola il datalist e crea i marker
-            try {
-                const response = await fetch('libraries.json');
-                const data = await response.json();
-                const datalist = document.getElementById('libraries-list');
-
-                // Aggiungi Elsa Morante al datalist
-                const moranteOption = document.createElement('option');
-                moranteOption.value = "Biblioteca Elsa Morante";
-                datalist.appendChild(moranteOption);
-
-                // Crea marker e popola datalist
-                data.libraries.forEach(library => {
-                    // Aggiungi opzione al datalist
-                    const option = document.createElement('option');
-                    option.value = library.name;
-                    datalist.appendChild(option);
-
-                    // Crea marker
-                    const popupContent = `
-                        <div class="baloon">
-                            <h3>${library.name}</h3>
-                            <p style="font-size: 15px;">
-                                ${library.address} <br>
-                                ${library.cap} Municipio ${library.municipalityName}
-                            </p>
-                            <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
-                                Vai alla scheda
-                            </a>
-                        </div>
-                    `;
-                    const marker = createMarker(
-                        library.coords,
-                        library.name,
-                        icons[`municipio${library.municipality}`],
-                        popupContent,
-                        library.municipality,
-                        map
-                    );
-                    libraryMarkers[library.name] = marker;
-                });
-
-                // Crea marker per Elsa Morante (non presente nel JSON)
-                const moranteMarker = createMarker(
-                    center,
-                    "Biblioteca Elsa Morante",
-                    icons.municipio10,
-                    `<div class="baloon">
-                        <h3>Biblioteca Elsa Morante</h3>
-                        <p style="font-size: 15px;">
-                            Via Adolfo Cozza, 7, 00121 Lido di Ostia RM<br>
-                            00121 Municipio X
-                        </p>
-                        <a style="color: #bc0b34; font-size: 16px;" href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2">
-                            Vai alla scheda
-                        </a>
-                    </div>`,
-                    10,
-                    map
-                );
-                libraryMarkers["Biblioteca Elsa Morante"] = moranteMarker;
-            } catch (error) {
-                console.error('Errore nel caricamento delle biblioteche:', error);
-            }
-
-            // Gestione eventi per la ricerca
-            document.getElementById('library-search').addEventListener('change', function(e) {
-                const value = e.target.value;
-                if (libraryMarkers[value]) {
-                    libraryMarkers[value].fire('click');
-                    e.target.value = '';
-                }
-            });
-
-            document.getElementById('library-search').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    const startPoint = e.target.value;
-                    if (startPoint.trim()) {
-                        searchRoute(startPoint);
-                    }
-                }
-            });
-        });
-
-        async function showMunicipioI() {
-            // Rimuovi il layer precedente se esiste
-            if (municipioLayer) {
-                map.removeLayer(municipioLayer);
-            }
-            try {
-                const response = await fetch('municipio1.geojson');
-                const data = await response.json();
-                municipioLayer = L.geoJSON(data, {
-                    style: {
-                        color: '#6a3f3a',
-                        weight: 3,
-                        opacity: 0.65,
-                        fillOpacity: 0.2
-                    }
-                }).addTo(map);
-                map.fitBounds(municipioLayer.getBounds());
-            } catch (error) {
-                console.error('Errore nel caricamento del confine:', error);
-            }
-        }
-
-        window.searchRoute = async function(startPoint) {
-            if (routingControl) {
-                map.removeControl(routingControl);
-                routingControl = null;
-            }
-            try {
-                const response = await axios.get('https://nominatim.openstreetmap.org/search', {
-                    params: {
-                        q: startPoint,
-                        format: 'json',
-                        limit: 1
-                    }
-                });
-                if (response.data.length > 0) {
-                    const startCoords = [
-                        parseFloat(response.data[0].lat),
-                        parseFloat(response.data[0].lon)
-                    ];
-                    routingControl = L.Routing.control({
-                        waypoints: [
-                            L.latLng(startCoords[0], startCoords[1]),
-                            L.latLng(center[0], center[1])
-                        ],
-                        // ... resto della configurazione originale
-                    }).addTo(map);
-                } else {
-                    alert('Indirizzo non trovato. Riprova.');
-                }
-            } catch (error) {
-                console.error('Errore nella ricerca del percorso:', error);
-                alert('Errore nel trovare il percorso. Riprova.');
-            }
-        }
-
-        // Fetch and display the municipality border
-        fetch('municipio10.geojson')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nel caricamento del file municipio10.geojson');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Carica il municipio X di default
-                municipioLayers[10] = L.geoJSON(data, {
-                    style: {
-                        color: municipalityColors[10],
-                        weight: 3,
-                        opacity: 0.65,
-                        fillOpacity: 0
-                    }
-                }).addTo(map);
-
-                // Aggiungi la legenda interattiva
-                const legend = L.control({ position: 'bottomright' });
-
-                // Replace the legend.onAdd function with this corrected version
-                legend.onAdd = function() {
-                    const div = L.DomUtil.create("div", "legend");
-                    div.innerHTML = `
-                        <h4>Mappa Biblioteche di Roma per Municipi</h4>
-                        <div class="legend-grid">
-                            ${Object.entries(municipalityColors).map(([num, color]) => `
-                                <div class="legend-item ${num === '10' ? 'disabled' : ''}" data-municipio="${num}" ${num !== '10' ? `onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})"` : ''}>
-                                    <span style="background: ${color}"></span>
-                                    <div class="text">Municipio ${romanize(parseInt(num))}</div>
-                                </div>
-                            `).join("")}
-                        </div>
-                    `;
-                    return div;
-                };
-                legend.addTo(map);
-
-                // Gestore hover sulla legenda
-  window.handleLegendHover = async function(municipioNumber) {
-    // Non mostrare l'hover se il municipio è già selezionato
-    if (municipioNumber === selectedMunicipio) return;
-
-    // Trova l'elemento della legenda corrispondente
+// Funzione per evidenziare la voce della legenda
+function highlightLegendItem(municipioNumber) {
+    const allItems = document.querySelectorAll('.legend-item');
+    allItems.forEach(item => item.classList.remove('highlighted'));
     const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
     if (item) {
         item.classList.add('highlighted');
     }
+}
 
-    // Carica il layer del municipio se non è già caricato
+    
+    // Definizione della funzione createMarker
+function createMarker(coords, title, icon, popupContent, municipioNumber, map) {
+    const marker = L.marker(coords, { title, icon })
+        .addTo(map)
+        .on('click', () => {
+            if (selectedMunicipio === municipioNumber) {
+                // Deseleziona se cliccato nuovamente
+                if (currentBorder) {
+                    map.removeLayer(currentBorder);
+                    currentBorder = null;
+                }
+                selectedMunicipio = null;
+                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+                if (item) {
+                    item.classList.remove('highlighted');
+                }
+            } else {
+                // Seleziona il municipio
+                loadAndShowBorder(municipioNumber, map);
+                highlightLegendItem(municipioNumber);
+                selectedMunicipio = municipioNumber;
+            }
+        });
+
+        const popup = L.popup({
+            className: 'custom-popup',
+            offset: [0, -10],
+            closeButton: true
+        }).setContent(popupContent);
+
+        marker.bindPopup(popup);
+        return marker;
+    }
+
+const icons = getIconsConfig();
+  
+
+// Spazio dove erano i marker per le biblioteche...
+// Carica le biblioteche dal file JSON
+  try {
+    const response = await fetch('libraries.json');
+    const data = await response.json();
+    
+    // Crea i marker per ogni biblioteca
+    data.libraries.forEach(library => {
+      const popupContent = `
+        <div class="baloon">
+          <h3>${library.name}</h3>
+          <p style="font-size: 15px;">
+            ${library.address} <br>
+            ${library.cap} Municipio ${library.municipalityName}
+          </p>
+          <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
+            Vai alla scheda
+          </a>
+        </div>
+      `;
+
+      createMarker(
+        library.coords,
+        library.name,
+        icons[`municipio${library.municipality}`],
+        popupContent,
+        library.municipality,
+        map
+      );
+    });
+  } catch (error) {
+    console.error('Errore nel caricamento delle biblioteche:', error);
+  }
+    
+
+
+    
+  
+
+
+
+   async function showMunicipioI() {
+  // Rimuovi il layer precedente se esiste
+  if (municipioLayer) {
+    map.removeLayer(municipioLayer);
+  }
+  
+  try {
+    const response = await fetch('municipio1.geojson');
+    const data = await response.json();
+    
+    municipioLayer = L.geoJSON(data, {
+      style: {
+        color: '#6a3f3a',
+        weight: 3,
+        opacity: 0.65,
+        fillOpacity: 0.2
+      }
+    }).addTo(map);
+    
+    map.fitBounds(municipioLayer.getBounds());
+  } catch (error) {
+    console.error('Errore nel caricamento del confine:', error);
+  }
+}
+            
+            window.searchRoute = async function() {
+                const startPoint = document.getElementById('start-point').value;
+                
+                if (routingControl) {
+                    map.removeControl(routingControl);
+                }
+
+                try {
+                    const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+                        params: {
+                            q: startPoint,
+                            format: 'json',
+                            limit: 1
+                        }
+                    });
+
+                    if (response.data.length > 0) {
+                        const startCoords = [
+                            parseFloat(response.data[0].lat), 
+                            parseFloat(response.data[0].lon)
+                        ];
+
+                        routingControl = L.Routing.control({
+                            waypoints: [
+                                L.latLng(startCoords[0], startCoords[1]),
+                                L.latLng(center[0], center[1])
+                            ],
+                            routeWhileDragging: true,
+                            language: 'it',
+                            show: true,
+                            addWaypoints: false,
+                            draggableWaypoints: false,
+                            fitSelectedRoutes: true,
+                            lineOptions: {
+                                styles: [{color: '#0000FF', opacity: 0.8, weight: 5}]
+                            },
+                            createMarker: function(i, waypoint, n) {
+                                const closeBtn = document.createElement('button');
+                                closeBtn.innerHTML = '✕';
+                                closeBtn.className = 'routing-close-btn';
+                                closeBtn.onclick = function() {
+                                    map.removeControl(routingControl);
+                                };
+
+                                // Append close button to routing container
+                                setTimeout(() => {
+                                    const container = document.querySelector('.leaflet-routing-container');
+                                    if (container) {
+                                        container.appendChild(closeBtn);
+                                    }
+                                }, 100);
+
+                                return null; // No markers for waypoints
+                            }
+                        }).addTo(map);
+                    } else {
+                        alert('Indirizzo non trovato. Riprova.');
+                    }
+                } catch (error) {
+                    console.error('Errore nella ricerca del percorso:', error);
+                    alert('Errore nel trovare il percorso. Riprova.');
+                }
+            }
+
+            document.getElementById('start-point').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    searchRoute();
+                }
+            });
+
+            document.getElementById('start-point').focus();
+
+
+
+// Fetch and display the municipality border
+fetch('municipio10.geojson')
+    .then(response => response.json())
+    .then(data => {
+
+
+       
+
+        // Carica il municipio X di default
+        municipioLayers[10] = L.geoJSON(data, {
+            style: {
+                color: municipalityColors[10],
+                weight: 3,
+                opacity: 0.65,
+                fillOpacity: 0
+            }
+        }).addTo(map);
+
+        // Aggiungi la legenda interattiva
+         const legend = L.control({ position: 'bottomright' });
+   // Replace the legend.onAdd function with this corrected version
+legend.onAdd = function() {
+    const div = L.DomUtil.create("div", "legend");
+    
+
+
+    div.innerHTML = `
+        <h4>Mappa Biblioteche di Roma per Municipi</h4>
+        <div class="legend-grid">
+            ${Object.entries(municipalityColors).map(([num, color]) => `
+                <div class="legend-item ${num === '10' ? 'disabled' : ''}" 
+                     data-municipio="${num}" 
+                     ${num !== '10' ? `onmouseover="handleLegendHover(${num})" 
+                     onmouseout="handleLegendOut(${num})" 
+                     onclick="handleLegendClick(${num})"` : ''}>
+                    <span style="background: ${color}"></span>
+                    <div class="text">Municipio ${romanize(parseInt(num))}</div>
+                </div>
+            `).join("")}
+        </div>
+    `;
+    
+    return div;
+};
+    legend.addTo(map);
+
+  
+
+        // Gestore hover sulla legenda
+// Funzione per gestire l'hover sulla legenda
+window.handleLegendHover = async function(municipioNumber) {
+                // Non mostrare l'hover se il municipio è già selezionato
+                if (municipioNumber === selectedMunicipio) return;
+
+                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+                item.classList.add('highlighted');
+
+                if (!municipioLayers[municipioNumber]) {
+                    try {
+                        const response = await fetch(`municipio${municipioNumber}.geojson`);
+                        const data = await response.json();
+                        municipioLayers[municipioNumber] = L.geoJSON(data, {
+                            style: {
+                                color: municipalityColors[municipioNumber],
+                                weight: 4,
+                                opacity: 0.9,
+                                fillOpacity: 0.1
+                            }
+                        });
+                    } catch (error) {
+                        console.error(`Error loading municipality ${municipioNumber}:`, error);
+                        return;
+                    }
+                }
+
+                if (currentHighlight && currentHighlight !== currentBorder) {
+                    map.removeLayer(currentHighlight);
+                }
+                
+                currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
+            };
+
+            // Funzione per gestire l'uscita del mouse dalla legenda
+            window.handleLegendOut = function(municipioNumber) {
+                if (municipioNumber === selectedMunicipio) return;
+
+                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+                item.classList.remove('highlighted');
+
+                if (currentHighlight && currentHighlight !== currentBorder) {
+                    map.removeLayer(currentHighlight);
+                    currentHighlight = null;
+                }
+
+                // Se c'è un municipio selezionato, assicurati che rimanga visibile
+                if (selectedMunicipio && currentBorder) {
+                    currentBorder.bringToFront();
+                }
+            };
+
+            // Funzione per gestire il click sulla legenda
+window.handleLegendClick = async function(municipioNumber) {
+    const allItems = document.querySelectorAll('.legend-item');
+    allItems.forEach(item => item.classList.remove('highlighted'));
+
+    if (selectedMunicipio === municipioNumber) {
+        if (currentBorder) {
+            map.removeLayer(currentBorder);
+            currentBorder = null;
+        }
+        selectedMunicipio = null;
+        return;
+    }
+
     if (!municipioLayers[municipioNumber]) {
         try {
             const response = await fetch(`municipio${municipioNumber}.geojson`);
-            if (!response.ok) {
-                throw new Error(`Errore nel caricamento del file municipio${municipioNumber}.geojson`);
-            }
-
             const data = await response.json();
-            console.log("GeoJSON Data:", data); // Debug: log the GeoJSON data
-
-            // Verifica che i dati GeoJSON siano validi
-            if (!data || !data.type || data.type !== "FeatureCollection") {
-                throw new Error(`Dati GeoJSON non validi per il municipio ${municipioNumber}`);
-            }
-
-            // Crea il layer GeoJSON
             municipioLayers[municipioNumber] = L.geoJSON(data, {
                 style: {
                     color: municipalityColors[municipioNumber],
                     weight: 4,
                     opacity: 0.9,
-                    fillOpacity: 0.1
+                    fillOpacity: 0.2
                 }
             });
         } catch (error) {
-            console.error(`Errore nel caricamento del municipio ${municipioNumber}:`, error);
+            console.error(`Error loading municipality ${municipioNumber}:`, error);
             return;
         }
     }
 
-    // Rimuovi l'highlight precedente (se presente)
-    if (currentHighlight && currentHighlight !== currentBorder) {
-        map.removeLayer(currentHighlight);
+    if (currentBorder) {
+        map.removeLayer(currentBorder);
     }
 
-    // Aggiungi il layer del municipio alla mappa e portalo in primo piano
-    if (municipioLayers[municipioNumber]) {
-        currentHighlight = municipioLayers[municipioNumber].addTo(map).bringToFront();
-    } else {
-        console.error(`Layer per il municipio ${municipioNumber} non valido.`);
+    selectedMunicipio = municipioNumber;
+    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+    if (item) {
+        item.classList.add('highlighted');
     }
+
+    currentBorder = municipioLayers[municipioNumber].addTo(map).bringToFront();
+    map.fitBounds(currentBorder.getBounds());
 };
-                // Funzione per gestire l'uscita del mouse dalla legenda
-                window.handleLegendOut = function(municipioNumber) {
-                    if (municipioNumber === selectedMunicipio) return;
-                    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-                    item.classList.remove('highlighted');
-                    if (currentHighlight && currentHighlight !== currentBorder) {
-                        map.removeLayer(currentHighlight);
-                        currentHighlight = null;
-                    }
-                    // Se c'è un municipio selezionato, assicurati che rimanga visibile
-                    if (selectedMunicipio && currentBorder) {
-                        currentBorder.bringToFront();
-                    }
-                };
-
-                // Funzione per gestire il click sulla legenda
-                window.handleLegendClick = async function(municipioNumber) {
-                    const allItems = document.querySelectorAll('.legend-item');
-                    allItems.forEach(item => item.classList.remove('highlighted'));
-
-                    if (selectedMunicipio === municipioNumber) {
-                        if (currentBorder) {
-                            map.removeLayer(currentBorder);
-                            currentBorder = null;
-                        }
-                        selectedMunicipio = null;
-                        return;
-                    }
-
-                    if (!municipioLayers[municipioNumber]) {
-                        try {
-                            const response = await fetch(`municipio${municipioNumber}.geojson`);
-                            const data = await response.json();
-                            municipioLayers[municipioNumber] = L.geoJSON(data, {
-                                style: {
-                                    color: municipalityColors[municipioNumber],
-                                    weight: 4,
-                                    opacity: 0.9,
-                                    fillOpacity: 0.2
-                                }
-                            });
-                        } catch (error) {
-                            console.error(`Errore nel caricamento del municipio ${municipioNumber}:`, error);
-                            return;
-                        }
-                    }
-
-                    if (currentBorder) {
-                        map.removeLayer(currentBorder);
-                    }
-
-                    selectedMunicipio = municipioNumber;
-                    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-                    if (item) {
-                        item.classList.add('highlighted');
-                    }
-
-                    currentBorder = municipioLayers[municipioNumber].addTo(map).bringToFront();
-                    map.fitBounds(currentBorder.getBounds());
-                };
-            })
-            .catch(error => {
-                console.error('Errore nel caricamento dei confini:', error);
-                alert('Errore nel caricamento del file GeoJSON. Controlla la console per ulteriori dettagli.');
-            });
+        })
+        .catch(error => console.error('Errore nel caricamento dei confini:', error));
+});
     </script>
 </body>
 </html>
