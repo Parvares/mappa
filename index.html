@@ -77,9 +77,64 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     margin-right: 10px;
 }
 
+/* Stile per la barra laterale */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -80px; /* Mostra solo il pulsante del menu inizialmente */
+    width: 80px; /* Larghezza iniziale della barra laterale */
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+#sidebar.expanded {
+    left: 0;
+    width: 300px; /* Larghezza della barra espansa */
+}
+
+.sidebar-toggle {
+    position: absolute;
+    top: 10px;
+    right: -50px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.sidebar-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar-icon {
+    margin-bottom: 20px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    transition: background 0.3s ease;
+}
+
+.sidebar-icon:hover {
+    background: #e0e0e0;
+}
+
+.sidebar-icon img {
+    width: 24px;
+    height: 24px;
+}
+
 .search-box {
     display: none;
-    margin-top: 10px;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .search-box input {
@@ -107,14 +162,19 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 /* Responsive design */
 @media (max-width: 768px) {
     #sidebar {
+        left: -60px;
+        width: 60px;
+    }
+
+    #sidebar.expanded {
         width: 250px;
-        left: -250px;
     }
 
     .sidebar-toggle {
         right: -40px;
     }
-}        
+}
+        
 .legend {
     background: rgba(255, 255, 255, 0.95);
     padding: 18px 22px;
@@ -280,35 +340,38 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     </style>
 </head>
 <body>
- <!-- Barra laterale -->
-    <div id="sidebar">
-        <div class="sidebar-toggle" onclick="toggleSidebar()">
-            <img src="menu-icon.svg" alt="Menu" class="icon">
+<!-- Barra laterale -->
+<div id="sidebar">
+    <!-- Pulsante per aprire/chiudere la barra laterale -->
+    <div class="sidebar-toggle" onclick="toggleSidebar()">
+        <img src="menu-icon.svg" alt="Menu" class="icon">
+    </div>
+
+    <!-- Contenuto della barra laterale -->
+    <div class="sidebar-content">
+        <!-- Icona per Cerca percorso -->
+        <div class="sidebar-icon" onclick="expandSidebar('route')">
+            <img src="route-icon.svg" alt="Cerca percorso" class="icon">
         </div>
-        <div class="sidebar-content">
-            <div class="sidebar-header">
-                <h3>Mappa Biblioteche</h3>
-            </div>
-            <div class="sidebar-body">
-                <div class="search-route" onclick="expandSidebar('route')">
-                    <img src="route-icon.svg" alt="Cerca percorso" class="icon">
-                    <span>Cerca Percorso</span>
-                </div>
-                <div class="search-library" onclick="expandSidebar('library')">
-                    <img src="library-icon.svg" alt="Cerca biblioteca" class="icon">
-                    <span>Cerca Biblioteca</span>
-                </div>
-                <div id="route-search" class="search-box">
-                    <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-                    <button onclick="searchRoute()">Trova Percorso</button>
-                </div>
-                <div id="library-search" class="search-box">
-                    <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
-                    <button onclick="searchLibrary()">Cerca Biblioteca</button>
-                </div>
-            </div>
+
+        <!-- Icona per Cerca biblioteca -->
+        <div class="sidebar-icon" onclick="expandSidebar('library')">
+            <img src="library-icon.svg" alt="Cerca biblioteca" class="icon">
+        </div>
+
+        <!-- Form per Cerca percorso -->
+        <div id="route-search" class="search-box">
+            <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+            <button onclick="searchRoute()">Trova Percorso</button>
+        </div>
+
+        <!-- Form per Cerca biblioteca -->
+        <div id="library-search" class="search-box">
+            <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
+            <button onclick="searchLibrary()">Cerca Biblioteca</button>
         </div>
     </div>
+</div>
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -384,7 +447,7 @@ async function loadAndShowBorder(municipalityNumber, map) {
         
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Funzione per espandere la barra laterale
+    // Funzione per aprire/chiudere la barra laterale
     window.toggleSidebar = function() {
         const sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('expanded');
@@ -396,15 +459,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const routeSearch = document.getElementById('route-search');
         const librarySearch = document.getElementById('library-search');
 
+        // Espandi la barra laterale
+        sidebar.classList.add('expanded');
+
+        // Nascondi tutti i form di ricerca
+        routeSearch.style.display = 'none';
+        librarySearch.style.display = 'none';
+
+        // Mostra il form di ricerca corrispondente
         if (type === 'route') {
             routeSearch.style.display = 'block';
-            librarySearch.style.display = 'none';
         } else if (type === 'library') {
-            routeSearch.style.display = 'none';
             librarySearch.style.display = 'block';
         }
-
-        sidebar.classList.add('expanded');
     };
 
     // Funzione per cercare il percorso
