@@ -243,7 +243,8 @@ async function loadAndShowBorder(municipalityNumber, map) {
 
 
         
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi async qui
+
     const center = [41.732522, 12.271879];
     const map = L.map("map").setView(center, 14);
 
