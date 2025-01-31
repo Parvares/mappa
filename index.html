@@ -446,7 +446,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         maxZoom: 19,
         attribution: "© OpenStreetMap contributors"
     }).addTo(map);
-});
+
     
 
     // Definizione del percorso
@@ -470,6 +470,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     // Punto finale del percorso
     const endPoint = pathPoints[pathPoints.length - 1];
 
+});
+        
 // Funzione per evidenziare la voce della legenda
 function highlightLegendItem(municipioNumber) {
     const allItems = document.querySelectorAll('.legend-item');
