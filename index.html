@@ -279,7 +279,14 @@ body,html{margin:0;padding:0;height:100%;width:100%}
                 <img src="library-icon.svg" alt="Cerca biblioteca" class="icon">
                 <span>Cerca Biblioteca</span>
             </div>
-            
+            <div id="route-search" class="search-box">
+                <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+                <img src="search-icon.svg" alt="Cerca" class="search-icon" onclick="searchRoute()">
+            </div>
+            <div id="library-search" class="search-box">
+                <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
+                <img src="search-icon.svg" alt="Cerca" class="search-icon" onclick="searchLibrary()">
+            </div>
         </div>
     </div>
 </div>
@@ -361,10 +368,16 @@ document.addEventListener("DOMContentLoaded", function() {
     // Funzione per espandere la barra laterale e mostrare il form di ricerca
     window.expandSidebar = function(type) {
         const sidebar = document.getElementById('sidebar');
-        
+        const routeSearch = document.getElementById('route-search');
         const librarySearch = document.getElementById('library-search');
 
-
+        if (type === 'route') {
+            routeSearch.style.display = 'flex';
+            librarySearch.style.display = 'none';
+        } else if (type === 'library') {
+            routeSearch.style.display = 'none';
+            librarySearch.style.display = 'flex';
+        }
 
         sidebar.classList.add('expanded');
     };
