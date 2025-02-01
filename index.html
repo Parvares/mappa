@@ -15,110 +15,6 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 .search-box button{background-color:#4285f4;color:#fff;border:none;padding:5px 10px;border-radius:3px;cursor:pointer;font-size:14px}
 .search-box .icon{width:24px;height:24px;margin-right:10px;cursor:pointer}
 .search-box .separator{width:1px;height:24px;background-color:#ccc;margin:0 10px}
-
-/* Stile per la barra laterale */
-/* Stile per la barra laterale stretta */
-#sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 60px; /* Larghezza stretta */
-    height: 100%;
-    background: #fff;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    transition: width 0.3s ease;
-    z-index: 1000;
-    overflow: hidden;
-}
-
-#sidebar.expanded {
-    width: 300px; /* Larghezza espansa */
-}
-
-.sidebar-content {
-    padding: 20px;
-    width: 300px; /* Larghezza del contenuto espanso */
-}
-
-.sidebar-header h3 {
-    margin: 0;
-    font-size: 18px;
-    color: #333;
-    display: none; /* Nascondi il titolo nella barra stretta */
-}
-
-#sidebar.expanded .sidebar-header h3 {
-    display: block; /* Mostra il titolo quando espanso */
-}
-
-.sidebar-body {
-    margin-top: 20px;
-}
-
-  .sidebar-toggle {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  background: #f5f5f5;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-}
-
-.sidebar-toggle:hover {
-  background: #e0e0e0;
-}
-
-.sidebar-toggle img {
-  margin-right: 10px;
-  width: 24px;
-  height: 24px;
-}
-
-
-        
-.search-route, .search-library {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    background: #f5f5f5;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-}
-
-.search-route:hover, .search-library:hover {
-    background: #e0e0e0;
-}
-
-.search-route img, .search-library img {
-    margin-right: 10px;
-    width: 24px;
-    height: 24px;
-}
-
-.search-box {
-    display: none;
-    margin-top: 10px;
-    width: 100%; /* Assicurati che il campo di ricerca occupi tutta la larghezza disponibile */
-}
-
-.search-box input {
-    width: calc(100% - 20px); /* Larghezza del campo di input, considerando il padding */
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    margin: 0 10px; /* Aggiungi un margine laterale per allineare il campo di ricerca */
-}
-
-#sidebar.expanded .search-box {
-    display: block;
-}
-
-        
 .legend {
     background: rgba(255, 255, 255, 0.95);
     padding: 18px 22px;
@@ -284,35 +180,14 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     </style>
 </head>
 <body>
- <!-- Barra laterale -->
-<div id="sidebar">
-    <div class="sidebar-content">
-        <div class="sidebar-header">
-            <h3>Mappa Biblioteche</h3>
-        </div>
-        <div class="sidebar-body">
-            <!-- Pulsante per aprire/chiudere la sidebar -->
-            <div class="sidebar-toggle" onclick="toggleSidebar()">
-                <img src="sidebar.svg" alt="Toggle Sidebar" class="icon">
-            </div>
-
-            <!-- Pulsanti esistenti -->
-            <div class="search-route" onclick="expandSidebar('route')">
-                <img src="street-search.svg" alt="Cerca percorso" class="icon">
-                <span>Cerca Percorso</span>
-            </div>
-            <div class="search-library" onclick="expandSidebar('library')">
-                <img src="search-icon.svg" alt="Cerca biblioteca" class="icon">
-                <span>Cerca Biblioteca</span>
-            </div>
-
-            <!-- Campo di ricerca unico -->
-            <div id="dynamic-search" class="search-box" style="display: none;">
-                <input type="text" id="search-input" placeholder="Inserisci punto di partenza">
-            </div>
-        </div>
+  <div class="search-box">
+        
+        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
+            <img src="home.svg" alt="Biblioteca Home" class="icon">
+        </a>
+        <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+        <button onclick="searchRoute()" title="Trova percorso fino alla Biblioteca Morante">Trova Percorso</button>
     </div>
-</div>
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -358,12 +233,6 @@ const municipalityColors = {
         let selectedMunicipio = null;
 
 
-// Funzione per il toggle della sidebar
-function toggleSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  sidebar.classList.toggle('expanded');
-}
-        
 // Funzione helper per caricare e visualizzare il confine di un municipio
 async function loadAndShowBorder(municipalityNumber, map) {
     // Se c'è già un confine visualizzato, rimuovilo
@@ -393,150 +262,7 @@ async function loadAndShowBorder(municipalityNumber, map) {
 }
         
 
-document.addEventListener("DOMContentLoaded", function() {
-// Funzione per espandere la barra laterale e mostrare il form di ricerca
-// Funzione per espandere la barra laterale e mostrare il campo di ricerca appropriato
-window.expandSidebar = function(type) {
-    const sidebar = document.getElementById('sidebar');
-    const searchRoute = document.querySelector('.search-route');
-    const searchLibrary = document.querySelector('.search-library');
-    const dynamicSearch = document.getElementById('dynamic-search');
-    const searchInput = document.getElementById('search-input');
 
-    // Nascondi i pulsanti "Cerca percorso" e "Cerca biblioteca"
-    searchRoute.style.display = 'none';
-    searchLibrary.style.display = 'none';
-
-    // Mostra il campo di ricerca dinamico
-    dynamicSearch.style.display = 'flex';
-
-    // Imposta il placeholder e il comportamento in base al tipo di ricerca
-    if (type === 'route') {
-        searchInput.placeholder = 'Inserisci punto di partenza';
-        searchInput.onkeypress = function(event) {
-            if (event.key === 'Enter') {
-                searchRoute();
-            }
-        };
-    } else if (type === 'library') {
-        searchInput.placeholder = 'Inserisci nome biblioteca';
-        searchInput.onkeypress = function(event) {
-            if (event.key === 'Enter') {
-                searchLibrary();
-            }
-        };
-    }
-
-    // Espandi la sidebar
-    sidebar.classList.add('expanded');
-};
-
-// Funzione per ripristinare la sidebar allo stato iniziale
-function resetSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const searchRoute = document.querySelector('.search-route');
-    const searchLibrary = document.querySelector('.search-library');
-    const dynamicSearch = document.getElementById('dynamic-search');
-
-    // Ripristina la visibilità dei pulsanti
-    searchRoute.style.display = 'flex';
-    searchLibrary.style.display = 'flex';
-
-    // Nascondi il campo di ricerca dinamico
-    dynamicSearch.style.display = 'none';
-
-    // Chiudi la sidebar
-    sidebar.classList.remove('expanded');
-}
-
-// Aggiungi un listener per il pulsante di chiusura della sidebar
-document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-    resetSidebar();
-});
-
-
-
-
-
-    
-    // Funzione per cercare il percorso
-    window.searchRoute = async function() {
-        const startPoint = document.getElementById('start-point').value;
-        if (routingControl) {
-            map.removeControl(routingControl);
-        }
-        try {
-            const response = await axios.get('https://nominatim.openstreetmap.org/search', {
-                params: {
-                    q: startPoint,
-                    format: 'json',
-                    limit: 1
-                }
-            });
-            if (response.data.length > 0) {
-                const startCoords = [
-                    parseFloat(response.data[0].lat),
-                    parseFloat(response.data[0].lon)
-                ];
-                routingControl = L.Routing.control({
-                    waypoints: [
-                        L.latLng(startCoords[0], startCoords[1]),
-                        L.latLng(center[0], center[1])
-                    ],
-                    routeWhileDragging: true,
-                    language: 'it',
-                    show: true,
-                    addWaypoints: false,
-                    draggableWaypoints: false,
-                    fitSelectedRoutes: true,
-                    lineOptions: {
-                        styles: [{ color: '#0000FF', opacity: 0.8, weight: 5 }]
-                    },
-                    createMarker: function(i, waypoint, n) {
-                        const closeBtn = document.createElement('button');
-                        closeBtn.innerHTML = '✕';
-                        closeBtn.className = 'routing-close-btn';
-                        closeBtn.onclick = function() {
-                            map.removeControl(routingControl);
-                        };
-                        setTimeout(() => {
-                            const container = document.querySelector('.leaflet-routing-container');
-                            if (container) {
-                                container.appendChild(closeBtn);
-                            }
-                        }, 100);
-                        return null;
-                    }
-                }).addTo(map);
-            } else {
-                alert('Indirizzo non trovato. Riprova.');
-            }
-        } catch (error) {
-            console.error('Errore nella ricerca del percorso:', error);
-            alert('Errore nel trovare il percorso. Riprova.');
-        }
-    };
-
-    // Funzione per cercare la biblioteca
-    window.searchLibrary = function() {
-        const libraryName = document.getElementById('library-name').value;
-        // Implementa la logica per cercare la biblioteca
-        alert('Funzione di ricerca biblioteca non ancora implementata.');
-    };
-
-    // Aggiungi event listener per la pressione del tasto Invio nei campi di ricerca
-    document.getElementById('start-point').addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            searchRoute();
-        }
-    });
-
-    document.getElementById('library-name').addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            searchLibrary();
-        }
-    });
-});
 
         
 document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi async qui
