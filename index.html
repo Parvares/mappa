@@ -108,9 +108,10 @@
     position: fixed;
     top: 0;
     right: -350px; /* Aumentato per nascondere completamente */
-    height: 100vh;
+    height: auto; /* Cambiato da 100vh a auto */
+    max-height: 90vh; /* Imposta un'altezza massima */
     z-index: 1000;
-    overflow-y: auto;
+    overflow-y: hidden; /* Rimuove la scrollbar verticale */
     width: 250px; /* Ridotto per un pannello più stretto */
     border: 1px solid rgba(0,0,0,0.1);
     backdrop-filter: blur(4px);
@@ -125,6 +126,8 @@
     display: grid;
     grid-template-columns: 1fr; /* Cambiato da repeat(2, 1fr) a 1fr */
     gap: 10px; /* Rimosso il gap orizzontale */
+    max-height: 80vh; /* Imposta un'altezza massima per il contenuto */
+    overflow-y: auto; /* Aggiungi scrollbar solo se necessario */
 }
 
 .legend-item {
