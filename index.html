@@ -117,7 +117,12 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 #sidebar.expanded .search-box {
     display: block;
 }
-
+        
+/* Nascondi il testo nelle icone quando la barra è ristretta */
+#sidebar:not(.expanded) .search-route span,
+#sidebar:not(.expanded) .search-library span {
+  display: none;
+}
         
 .legend {
     background: rgba(255, 255, 255, 0.95);
@@ -297,14 +302,14 @@ body,html{margin:0;padding:0;height:100%;width:100%}
             </div>
 
             <!-- Pulsanti esistenti -->
-            <div class="search-route" onclick="expandSidebar('route')">
-                <img src="street-search.svg" alt="Cerca percorso" class="icon">
-                <span>Cerca Percorso</span>
-            </div>
-            <div class="search-library" onclick="expandSidebar('library')">
-                <img src="search-icon.svg" alt="Cerca biblioteca" class="icon">
-                <span>Cerca Biblioteca</span>
-            </div>
+           <div class="search-route" onclick="expandSidebar('route')" title="Cerca Percorso">
+  <img src="street-search.svg" alt="Cerca percorso" class="icon">
+  <span>Cerca Percorso</span>
+</div>
+<div class="search-library" onclick="expandSidebar('library')" title="Cerca Biblioteca">
+  <img src="search-icon.svg" alt="Cerca biblioteca" class="icon">
+  <span>Cerca Biblioteca</span>
+</div>
 
             <!-- Campo di ricerca unico -->
             <div id="dynamic-search" class="search-box" style="display: none;">
