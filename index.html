@@ -263,24 +263,27 @@
 </head>
 <body>
     <!-- Barra laterale fissa -->
-    <div class="sidebar">
-        <button onclick="toggleExpandedSidebar()">
-            <img src="sidebar.svg" alt="Menu">
-        </button>
-        <button onclick="toggleSearch()">
-            <img src="search-icon.svg" alt="Cerca">
-        </button>
-        <button onclick="toggleStreetSearch()">
-            <img src="street-search.svg" alt="Cerca indirizzo">
-        </button>
-    </div>
+  <div class="sidebar">
+    <button onclick="toggleExpandedSidebar()">
+      <img src="sidebar.svg" alt="Menu">
+    </button>
+    <button onclick="toggleLibrarySearch()">
+      <img src="search-icon.svg" alt="Cerca biblioteca">
+    </button>
+    <button onclick="toggleStreetSearch()">
+      <img src="street-search.svg" alt="Cerca indirizzo">
+    </button>
+  </div>
 
-    <!-- Seconda barra laterale (espansione) -->
-    <div class="sidebar-expanded" id="expandedSidebar">
-        <div class="search-container" id="searchContainer">
-            <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-            <button onclick="searchRoute()">Trova Percorso</button>
-        </div>
+  <!-- Seconda barra laterale (espansione) -->
+  <div class="sidebar-expanded" id="expandedSidebar">
+    <div class="search-container" id="searchContainer">
+      <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+      <button onclick="searchRoute()">Trova Percorso</button>
+    </div>
+    <div class="search-container" id="librarySearchContainer" style="display: none;">
+      <input type="text" id="library-search" placeholder="Cerca una biblioteca">
+      <button onclick="searchLibrary()">Trova Biblioteca</button>
     </div>
 
     <div id="map"></div>
@@ -338,13 +341,50 @@ const municipalityColors = {
             alert("Funzione di ricerca non ancora implementata.");
         }
 
-        // Funzione per attivare la ricerca indirizzo
-        function toggleStreetSearch() {
-            const expandedSidebar = document.getElementById('expandedSidebar');
-            const searchContainer = document.getElementById('searchContainer');
-            expandedSidebar.classList.add('open');
-            searchContainer.style.display = 'block';
+    // Funzione per attivare la ricerca della biblioteca
+    function toggleLibrarySearch() {
+      const expandedSidebar = document.getElementById('expandedSidebar');
+      const searchContainer = document.getElementById('searchContainer');
+      const librarySearchContainer = document.getElementById('librarySearchContainer');
+      
+      expandedSidebar.classList.add('open');
+      searchContainer.style.display = 'none';
+      librarySearchContainer.style.display = 'block';
+    }
+
+    // Funzione per attivare la ricerca indirizzo
+    function toggleStreetSearch() {
+      const expandedSidebar = document.getElementById('expandedSidebar');
+      const searchContainer = document.getElementById('searchContainer');
+      const librarySearchContainer = document.getElementById('librarySearchContainer');
+      
+      expandedSidebar.classList.add('open');
+      searchContainer.style.display = 'block';
+      librarySearchContainer.style.display = 'none';
+    }
+
+    // Funzione per cercare una biblioteca
+    function searchLibrary() {
+      const searchTerm = document.getElementById('library-search').value.toLowerCase();
+      
+      // Ottieni tutti i marker delle biblioteche
+      map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+          const popupContent = layer.getPopup().getContent();
+          if (popupContent.toLowerCase().includes(searchTerm)) {
+            layer.openPopup();
+            map.setView(layer.getLatLng(), 16);
+          }
         }
+      });
+    }
+
+    // Aggiungi l'evento keypress per la ricerca della biblioteca
+    document.getElementById('library-search').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        searchLibrary();
+      }
+    });
 
         
 // Funzione helper per caricare e visualizzare il confine di un municipio
