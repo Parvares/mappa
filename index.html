@@ -312,9 +312,10 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 </div>
 
             <!-- Campo di ricerca unico -->
-            <div id="dynamic-search" class="search-box" style="display: none;">
-                <input type="text" id="search-input" placeholder="Inserisci punto di partenza">
-            </div>
+           <!-- Replace your existing dynamic-search div with this -->
+<div id="dynamic-search" class="search-box" style="display: none;">
+    <input type="text" id="search-input" placeholder="Inserisci punto di partenza">
+</div>
         </div>
     </div>
 </div>
@@ -408,31 +409,31 @@ window.expandSidebar = function(type) {
     const dynamicSearch = document.getElementById('dynamic-search');
     const searchInput = document.getElementById('search-input');
 
-    // Nascondi i pulsanti "Cerca percorso" e "Cerca biblioteca"
+    // Hide search buttons
     searchRoute.style.display = 'none';
     searchLibrary.style.display = 'none';
 
-    // Mostra il campo di ricerca dinamico
+    // Show search input
     dynamicSearch.style.display = 'flex';
 
-    // Imposta il placeholder e il comportamento in base al tipo di ricerca
+    // Configure search based on type
     if (type === 'route') {
         searchInput.placeholder = 'Inserisci punto di partenza';
         searchInput.onkeypress = function(event) {
             if (event.key === 'Enter') {
-                searchRoute();
+                window.searchRoute();
             }
         };
     } else if (type === 'library') {
         searchInput.placeholder = 'Inserisci nome biblioteca';
         searchInput.onkeypress = function(event) {
             if (event.key === 'Enter') {
-                searchLibrary();
+                window.searchLibrary();
             }
         };
     }
 
-    // Espandi la sidebar
+    // Expand sidebar
     sidebar.classList.add('expanded');
 };
 
@@ -466,61 +467,66 @@ document.querySelector('.sidebar-toggle').addEventListener('click', function() {
     
     // Funzione per cercare il percorso
     window.searchRoute = async function() {
-        const startPoint = document.getElementById('start-point').value;
-        if (routingControl) {
-            map.removeControl(routingControl);
-        }
-        try {
-            const response = await axios.get('https://nominatim.openstreetmap.org/search', {
-                params: {
-                    q: startPoint,
-                    format: 'json',
-                    limit: 1
-                }
-            });
-            if (response.data.length > 0) {
-                const startCoords = [
-                    parseFloat(response.data[0].lat),
-                    parseFloat(response.data[0].lon)
-                ];
-                routingControl = L.Routing.control({
-                    waypoints: [
-                        L.latLng(startCoords[0], startCoords[1]),
-                        L.latLng(center[0], center[1])
-                    ],
-                    routeWhileDragging: true,
-                    language: 'it',
-                    show: true,
-                    addWaypoints: false,
-                    draggableWaypoints: false,
-                    fitSelectedRoutes: true,
-                    lineOptions: {
-                        styles: [{ color: '#0000FF', opacity: 0.8, weight: 5 }]
-                    },
-                    createMarker: function(i, waypoint, n) {
-                        const closeBtn = document.createElement('button');
-                        closeBtn.innerHTML = '✕';
-                        closeBtn.className = 'routing-close-btn';
-                        closeBtn.onclick = function() {
-                            map.removeControl(routingControl);
-                        };
-                        setTimeout(() => {
-                            const container = document.querySelector('.leaflet-routing-container');
-                            if (container) {
-                                container.appendChild(closeBtn);
-                            }
-                        }, 100);
-                        return null;
-                    }
-                }).addTo(map);
-            } else {
-                alert('Indirizzo non trovato. Riprova.');
+    const startPoint = document.getElementById('search-input').value; // Changed from 'start-point' to 'search-input'
+    if (routingControl) {
+        map.removeControl(routingControl);
+    }
+    
+    try {
+        const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+            params: {
+                q: startPoint,
+                format: 'json',
+                limit: 1
             }
-        } catch (error) {
-            console.error('Errore nella ricerca del percorso:', error);
-            alert('Errore nel trovare il percorso. Riprova.');
+        });
+        
+        if (response.data.length > 0) {
+            const startCoords = [
+                parseFloat(response.data[0].lat),
+                parseFloat(response.data[0].lon)
+            ];
+            
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(startCoords[0], startCoords[1]),
+                    L.latLng(center[0], center[1])
+                ],
+                routeWhileDragging: true,
+                language: 'it',
+                show: true,
+                addWaypoints: false,
+                draggableWaypoints: false,
+                fitSelectedRoutes: true,
+                lineOptions: {
+                    styles: [{color: '#0000FF', opacity: 0.8, weight: 5}]
+                },
+                createMarker: function(i, waypoint, n) {
+                    const closeBtn = document.createElement('button');
+                    closeBtn.innerHTML = '✕';
+                    closeBtn.className = 'routing-close-btn';
+                    closeBtn.onclick = function() {
+                        map.removeControl(routingControl);
+                    };
+                    
+                    setTimeout(() => {
+                        const container = document.querySelector('.leaflet-routing-container');
+                        if (container) {
+                            container.appendChild(closeBtn);
+                        }
+                    }, 100);
+                    
+                    return null;
+                }
+            }).addTo(map);
+        } else {
+            alert('Indirizzo non trovato. Riprova.');
         }
-    };
+    } catch (error) {
+        console.error('Errore nella ricerca del percorso:', error);
+        alert('Errore nel trovare il percorso. Riprova.');
+    }
+};
 
     // Funzione per cercare la biblioteca
     window.searchLibrary = function() {
