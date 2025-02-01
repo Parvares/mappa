@@ -359,21 +359,19 @@ function toggleLegend() {
 
 
 // Funzione per cercare una biblioteca e aprire il popup corrispondente
-// Place these functions before they are referenced
 async function searchLibrary() {
     const searchTerm = document.getElementById('start-point').value.toLowerCase();
     if (!searchTerm) return;
-    
+
     try {
         const response = await fetch('libraries.json');
         const data = await response.json();
-        
         const foundLibrary = data.libraries.find(library => 
             library.name.toLowerCase().includes(searchTerm)
         );
-        
+
         if (foundLibrary) {
-            // Find the marker by iterating through map layers
+            // Trova il marker corrispondente
             let foundMarker = null;
             map.eachLayer((layer) => {
                 if (layer instanceof L.Marker) {
@@ -383,10 +381,19 @@ async function searchLibrary() {
                     }
                 }
             });
-            
+
             if (foundMarker) {
+                // Apri il popup del marker
                 foundMarker.openPopup();
                 map.setView(foundMarker.getLatLng(), 14);
+
+                // Evidenzia l'area del municipio
+                const municipioNumber = foundLibrary.municipality;
+                loadAndShowBorder(municipioNumber, map);
+
+                // Evidenzia la voce della legenda
+                highlightLegendItem(municipioNumber);
+                selectedMunicipio = municipioNumber;
             } else {
                 console.log('Marker not found for library:', foundLibrary);
             }
