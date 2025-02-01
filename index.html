@@ -356,6 +356,42 @@ function toggleLegend() {
         legend.classList.toggle('visible');
     }
 }
+
+
+// Funzione per cercare una biblioteca e aprire il popup corrispondente
+async function searchLibrary() {
+    const searchTerm = document.getElementById('start-point').value.toLowerCase();
+    if (!searchTerm) return;
+
+    try {
+        const response = await fetch('libraries.json');
+        const data = await response.json();
+        const foundLibrary = data.libraries.find(library => 
+            library.name.toLowerCase().includes(searchTerm)
+        );
+
+        if (foundLibrary) {
+            // Trova il marker corrispondente e apri il popup
+            const marker = Object.values(map._layers).find(layer => 
+                layer instanceof L.Marker && 
+                layer.getLatLng().lat === foundLibrary.coords[0] &&
+                layer.getLatLng().lng === foundLibrary.coords[1]
+            );
+
+            if (marker) {
+                marker.openPopup();
+                map.setView(marker.getLatLng(), 14); // Zoom e centra sulla biblioteca
+            }
+        } else {
+            alert('Biblioteca non trovata. Riprova.');
+        }
+    } catch (error) {
+        console.error('Errore nella ricerca della biblioteca:', error);
+        alert('Errore nella ricerca. Riprova.');
+    }
+}
+
+
         
         // Funzione per attivare la ricerca
  function toggleLibrarySearch() {
@@ -582,38 +618,7 @@ const icons = getIconsConfig();
 }
 
 
-// Funzione per cercare una biblioteca e aprire il popup corrispondente
-async function searchLibrary() {
-    const searchTerm = document.getElementById('start-point').value.toLowerCase();
-    if (!searchTerm) return;
 
-    try {
-        const response = await fetch('libraries.json');
-        const data = await response.json();
-        const foundLibrary = data.libraries.find(library => 
-            library.name.toLowerCase().includes(searchTerm)
-        );
-
-        if (foundLibrary) {
-            // Trova il marker corrispondente e apri il popup
-            const marker = Object.values(map._layers).find(layer => 
-                layer instanceof L.Marker && 
-                layer.getLatLng().lat === foundLibrary.coords[0] &&
-                layer.getLatLng().lng === foundLibrary.coords[1]
-            );
-
-            if (marker) {
-                marker.openPopup();
-                map.setView(marker.getLatLng(), 14); // Zoom e centra sulla biblioteca
-            }
-        } else {
-            alert('Biblioteca non trovata. Riprova.');
-        }
-    } catch (error) {
-        console.error('Errore nella ricerca della biblioteca:', error);
-        alert('Errore nella ricerca. Riprova.');
-    }
-}
 
 
     
