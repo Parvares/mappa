@@ -277,13 +277,16 @@
     display: none; /* Il datalist è gestito dal browser, quindi non ha bisogno di stili */
 }
 
+/* Nascondi la freccia predefinita del dropdown */
 #start-point {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #4285f4;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
+    -webkit-appearance: none; /* Rimuove la freccia predefinita su Chrome/Safari */
+    -moz-appearance: none;    /* Rimuove la freccia predefinita su Firefox */
+    appearance: none;         /* Rimuove la freccia predefinita su altri browser */
+    background-image: url('down-arrow.svg'); /* Aggiungi la tua icona personalizzata */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Posiziona l'icona a destra */
+    background-size: 12px 12px; /* Dimensione dell'icona */
+    padding-right: 30px; /* Aggiungi spazio per l'icona */
 }
 
         
