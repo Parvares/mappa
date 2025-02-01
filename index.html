@@ -339,47 +339,6 @@ const municipalityColors = {
             return roman[num - 1] || num;
         }
 
-async function showAllMunicipi() {
-    try {
-        const response = await fetch('libraries.json');
-        const data = await response.json();
-
-        // Rimuovi i risultati precedenti
-        const existingResults = document.getElementById('search-results');
-        if (existingResults) {
-            existingResults.remove();
-        }
-
-        // Mostra i 15 municipi
-        const resultsContainer = document.createElement('div');
-        resultsContainer.id = 'search-results';
-        resultsContainer.style.position = 'absolute';
-        resultsContainer.style.top = '60px';
-        resultsContainer.style.left = '50px';
-        resultsContainer.style.backgroundColor = '#fff';
-        resultsContainer.style.padding = '10px';
-        resultsContainer.style.borderRadius = '5px';
-        resultsContainer.style.boxShadow = '0 0 15px rgba(0,0,0,.2)';
-        resultsContainer.style.zIndex = '1000';
-
-        for (let i = 1; i <= 15; i++) {
-            const municipioDiv = document.createElement('div');
-            municipioDiv.textContent = `Municipio ${romanize(i)}`;
-            municipioDiv.style.cursor = 'pointer';
-            municipioDiv.style.padding = '5px';
-            municipioDiv.style.borderBottom = '1px solid #ccc';
-            municipioDiv.onmouseover = () => showLibrariesForMunicipio(i, data.libraries, municipioDiv);
-            municipioDiv.onclick = () => selectMunicipio(i, data.libraries);
-            resultsContainer.appendChild(municipioDiv);
-        }
-
-        document.body.appendChild(resultsContainer);
-    } catch (error) {
-        console.error('Errore nel caricamento delle biblioteche:', error);
-    }
-}
-
-        
         // Variabili globali 
         let currentBorder = null;
         let routingControl = null;
@@ -412,17 +371,42 @@ async function searchLibrary() {
         const response = await fetch('libraries.json');
         const data = await response.json();
 
-        // Filtra le biblioteche in base al termine di ricerca
-        const filteredLibraries = data.libraries.filter(library =>
+
+
+        
+        const foundLibrary = data.libraries.find(library => 
             library.name.toLowerCase().includes(searchTerm)
         );
 
-        // Se c'è una sola biblioteca, selezionala direttamente
-        if (filteredLibraries.length === 1) {
-            selectLibrary(filteredLibraries[0]);
+        if (foundLibrary) {
+            // Trova il marker corrispondente
+            let foundMarker = null;
+            map.eachLayer((layer) => {
+                if (layer instanceof L.Marker) {
+                    const pos = layer.getLatLng();
+                    if (pos.lat === foundLibrary.coords[0] && pos.lng === foundLibrary.coords[1]) {
+                        foundMarker = layer;
+                    }
+                }
+            });
+
+            if (foundMarker) {
+                // Apri il popup del marker
+                foundMarker.openPopup();
+                map.setView(foundMarker.getLatLng(), 14);
+
+                // Evidenzia l'area del municipio
+                const municipioNumber = foundLibrary.municipality;
+                loadAndShowBorder(municipioNumber, map);
+
+                // Evidenzia la voce della legenda
+                highlightLegendItem(municipioNumber);
+                selectedMunicipio = municipioNumber;
+            } else {
+                console.log('Marker not found for library:', foundLibrary);
+            }
         } else {
-            // Altrimenti, mostra i municipi con le biblioteche corrispondenti
-            showAllMunicipi();
+            alert('Biblioteca non trovata. Riprova.');
         }
     } catch (error) {
         console.error('Errore nella ricerca della biblioteca:', error);
@@ -430,65 +414,6 @@ async function searchLibrary() {
     }
 }
 
-
-// Mostra le biblioteche di un municipio al passaggio del mouse
-function showLibrariesForMunicipio(municipio, libraries, municipioDiv) {
-    const librariesForMunicipio = libraries.filter(library => library.municipality === municipio);
-    const librariesContainer = document.createElement('div');
-    librariesContainer.style.marginLeft = '20px';
-    librariesContainer.style.marginTop = '5px';
-
-    librariesForMunicipio.forEach(library => {
-        const libraryDiv = document.createElement('div');
-        libraryDiv.textContent = library.name;
-        libraryDiv.style.cursor = 'pointer';
-        libraryDiv.style.padding = '5px';
-        libraryDiv.style.borderBottom = '1px solid #eee';
-        libraryDiv.onclick = () => selectLibrary(library);
-        librariesContainer.appendChild(libraryDiv);
-    });
-
-    municipioDiv.appendChild(librariesContainer);
-}
-
-// Seleziona una biblioteca e mostra il marker corrispondente
-function selectLibrary(library) {
-    let foundMarker = null;
-    map.eachLayer((layer) => {
-        if (layer instanceof L.Marker) {
-            const pos = layer.getLatLng();
-            if (pos.lat === library.coords[0] && pos.lng === library.coords[1]) {
-                foundMarker = layer;
-            }
-        }
-    });
-
-    if (foundMarker) {
-        foundMarker.openPopup();
-        map.setView(foundMarker.getLatLng(), 14);
-        loadAndShowBorder(library.municipality, map);
-        highlightLegendItem(library.municipality);
-        selectedMunicipio = library.municipality;
-    } else {
-        console.log('Marker not found for library:', library);
-    }
-
-    // Rimuovi i risultati della ricerca
-    const resultsContainer = document.getElementById('search-results');
-    if (resultsContainer) {
-        resultsContainer.remove();
-    }
-}
-
-// Seleziona un municipio e mostra la prima biblioteca
-function selectMunicipio(municipio, libraries) {
-    const librariesForMunicipio = libraries.filter(library => library.municipality === municipio);
-    if (librariesForMunicipio.length > 0) {
-        selectLibrary(librariesForMunicipio[0]);
-    }
-}
-
-        
 function toggleLibrarySearch() {
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
@@ -805,8 +730,7 @@ document.getElementById('start-point').addEventListener('keypress', function(eve
         }
     }
 });
-document.getElementById('start-point').addEventListener('focus', showAllMunicipi);
-document.getElementById('start-point').addEventListener('input', showAllMunicipi);
+
             document.getElementById('start-point').focus();
 
 
