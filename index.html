@@ -107,11 +107,11 @@
     border-radius: 12px 0 0 12px;
     position: fixed;
     top: 0;
-    right: -320px; /* Inizialmente nascosta fuori dallo schermo */
+    right: -350px; /* Aumentato per nascondere completamente */
     height: 100vh;
     z-index: 1000;
     overflow-y: auto;
-    width: 300px;
+    width: 250px; /* Ridotto per un pannello più stretto */
     border: 1px solid rgba(0,0,0,0.1);
     backdrop-filter: blur(4px);
     transition: right 0.3s ease;
@@ -123,8 +123,8 @@
 
 .legend-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px 20px;
+    grid-template-columns: 1fr; /* Cambiato da repeat(2, 1fr) a 1fr */
+    gap: 10px; /* Rimosso il gap orizzontale */
 }
 
 .legend-item {
