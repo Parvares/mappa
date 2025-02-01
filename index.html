@@ -361,62 +361,66 @@ function toggleLegend() {
 // Funzione per cercare una biblioteca e aprire il popup corrispondente
 // Place these functions before they are referenced
 async function searchLibrary() {
-  const searchTerm = document.getElementById('start-point').value.toLowerCase();
-  if (!searchTerm) return;
-  
-  try {
-    const response = await fetch('libraries.json');
-    const data = await response.json();
+    const searchTerm = document.getElementById('start-point').value.toLowerCase();
+    if (!searchTerm) return;
     
-    const foundLibrary = data.libraries.find(library => 
-      library.name.toLowerCase().includes(searchTerm)
-    );
-    
-    if (foundLibrary) {
-      // Find corresponding marker and open popup
-      const marker = Object.values(map._layers).find(layer => 
-        layer instanceof L.Marker && 
-        layer.getLatLng().lat === foundLibrary.coords[0] && 
-        layer.getLatLng().lng === foundLibrary.coords[1]
-      );
-      
-      if (marker) {
-        marker.openPopup();
-        map.setView(marker.getLatLng(), 14);
-      }
-    } else {
-      alert('Biblioteca non trovata. Riprova.');
+    try {
+        const response = await fetch('libraries.json');
+        const data = await response.json();
+        
+        const foundLibrary = data.libraries.find(library => 
+            library.name.toLowerCase().includes(searchTerm)
+        );
+        
+        if (foundLibrary) {
+            // Find the marker by iterating through map layers
+            let foundMarker = null;
+            map.eachLayer((layer) => {
+                if (layer instanceof L.Marker) {
+                    const pos = layer.getLatLng();
+                    if (pos.lat === foundLibrary.coords[0] && pos.lng === foundLibrary.coords[1]) {
+                        foundMarker = layer;
+                    }
+                }
+            });
+            
+            if (foundMarker) {
+                foundMarker.openPopup();
+                map.setView(foundMarker.getLatLng(), 14);
+            } else {
+                console.log('Marker not found for library:', foundLibrary);
+            }
+        } else {
+            alert('Biblioteca non trovata. Riprova.');
+        }
+    } catch (error) {
+        console.error('Errore nella ricerca della biblioteca:', error);
+        alert('Errore nella ricerca. Riprova.');
     }
-  } catch (error) {
-    console.error('Errore nella ricerca della biblioteca:', error);
-    alert('Errore nella ricerca. Riprova.');
-  }
 }
 
 function toggleLibrarySearch() {
-  const expandedSidebar = document.getElementById('expandedSidebar');
-  const searchContainer = document.getElementById('searchContainer');
-  
-  // Open the sidebar
-  expandedSidebar.classList.add('open');
-  
-  // Modify placeholder and button text
-  const startPointInput = document.getElementById('start-point');
-  const searchButton = searchContainer.querySelector('button');
-  startPointInput.placeholder = "Cerca una biblioteca...";
-  searchButton.textContent = "Cerca Biblioteca";
-  
-  // Set the search event handler
-  searchButton.onclick = searchLibrary;
-  
-  // Show the search container
-  searchContainer.style.display = 'block';
+    const expandedSidebar = document.getElementById('expandedSidebar');
+    const searchContainer = document.getElementById('searchContainer');
+    
+    expandedSidebar.classList.add('open');
+    
+    const startPointInput = document.getElementById('start-point');
+    const searchButton = searchContainer.querySelector('button');
+    startPointInput.placeholder = "Cerca una biblioteca...";
+    searchButton.textContent = "Cerca Biblioteca";
+    
+    searchButton.onclick = searchLibrary;
+    
+    searchContainer.style.display = 'block';
 }
 
-// Make sure these functions are accessible globally
+// Make functions globally accessible
 window.searchLibrary = searchLibrary;
 window.toggleLibrarySearch = toggleLibrarySearch;
 
+
+        
         // Funzione per attivare la ricerca indirizzo
 function toggleStreetSearch() {
     const expandedSidebar = document.getElementById('expandedSidebar');
@@ -467,13 +471,14 @@ async function loadAndShowBorder(municipalityNumber, map) {
 
 
 
-        
-document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi async qui
+let map;
 
+document.addEventListener("DOMContentLoaded", async function() {
+    // Initialize map
     const center = [41.732522, 12.271879];
-                const map = L.map("map", {
-                zoomControl: false  // Disable default zoom control
-            }).setView(center, 14);
+    map = L.map("map", {
+        zoomControl: false
+    }).setView(center, 14);
             
             // Add zoom control to the right side
             L.control.zoom({
