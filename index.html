@@ -83,18 +83,16 @@
     padding: 10px; /* Riduci il padding su schermi piccoli */
   }
 
-  .search-container {
-    width: calc(100% - 20px); /* Riduci la larghezza su schermi piccoli */
-    margin: 10px auto; /* Riduci il margine su schermi piccoli */
-  }
-}
+
 
         
 
         /* Casella di ricerca */
         /* Stile per il pannello di ricerca */
 .search-container {
-  position: relative; /* Mantieni il posizionamento relativo */
+  display: flex; /* Abilita flexbox */
+  align-items: center; /* Allinea gli elementi verticalmente al centro */
+  justify-content: space-between; /* Distribuisce lo spazio tra gli elementi */
   width: calc(100% - 40px); /* Larghezza piena meno un po' di padding */
   margin: 20px auto; /* Centra orizzontalmente e aggiunge margine superiore */
   padding: 15px;
@@ -104,6 +102,7 @@
   border: 1px solid #e0e0e0;
   z-index: 1; /* Assicurati che sia sopra altri elementi */
 }
+    
         .sidebar-expanded.open .search-container {
             display: block; /* Mostra la casella di ricerca */
         }
