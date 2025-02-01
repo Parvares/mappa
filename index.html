@@ -263,17 +263,17 @@
 </head>
 <body>
     <!-- Barra laterale fissa -->
-    <div class="sidebar">
-        <button onclick="toggleExpandedSidebar()">
-            <img src="sidebar.svg" alt="Menu">
-        </button>
-        <button onclick="toggleSearch()">
-            <img src="search-icon.svg" alt="Cerca">
-        </button>
-        <button onclick="toggleStreetSearch()">
-            <img src="street-search.svg" alt="Cerca indirizzo">
-        </button>
-    </div>
+<div class="sidebar">
+    <button onclick="toggleExpandedSidebar()">
+        <img src="sidebar.svg" alt="Menu">
+    </button>
+    <button onclick="toggleLibrarySearch()">
+        <img src="search-icon.svg" alt="Cerca biblioteca">
+    </button>
+    <button onclick="toggleStreetSearch()">
+        <img src="street-search.svg" alt="Cerca indirizzo">
+    </button>
+</div>
 
     <!-- Seconda barra laterale (espansione) -->
     <div class="sidebar-expanded" id="expandedSidebar">
@@ -334,18 +334,42 @@ const municipalityColors = {
         }
 
         // Funzione per attivare la ricerca
-        function toggleSearch() {
-            alert("Funzione di ricerca non ancora implementata.");
-        }
+  function toggleLibrarySearch() {
+    const expandedSidebar = document.getElementById('expandedSidebar');
+    const searchContainer = document.getElementById('searchContainer');
+    
+    // Apri la barra laterale
+    expandedSidebar.classList.add('open');
+    
+    // Modifica il placeholder e il testo del pulsante
+    const startPointInput = document.getElementById('start-point');
+    const searchButton = searchContainer.querySelector('button');
+    
+    startPointInput.placeholder = "Cerca una biblioteca...";
+    searchButton.textContent = "Cerca Biblioteca";
+    
+    // Mostra la casella di ricerca
+    searchContainer.style.display = 'block';
+}
 
         // Funzione per attivare la ricerca indirizzo
-        function toggleStreetSearch() {
-            const expandedSidebar = document.getElementById('expandedSidebar');
-            const searchContainer = document.getElementById('searchContainer');
-            expandedSidebar.classList.add('open');
-            searchContainer.style.display = 'block';
-        }
-
+function toggleStreetSearch() {
+    const expandedSidebar = document.getElementById('expandedSidebar');
+    const searchContainer = document.getElementById('searchContainer');
+    
+    // Apri la barra laterale
+    expandedSidebar.classList.add('open');
+    
+    // Modifica il placeholder e il testo del pulsante
+    const startPointInput = document.getElementById('start-point');
+    const searchButton = searchContainer.querySelector('button');
+    
+    startPointInput.placeholder = "Inserisci punto di partenza";
+    searchButton.textContent = "Trova Percorso";
+    
+    // Mostra la casella di ricerca
+    searchContainer.style.display = 'block';
+}
         
 // Funzione helper per caricare e visualizzare il confine di un municipio
 async function loadAndShowBorder(municipalityNumber, map) {
