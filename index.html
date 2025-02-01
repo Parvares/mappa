@@ -358,20 +358,22 @@ function toggleLegend() {
 }
         
         // Funzione per attivare la ricerca
-  function toggleLibrarySearch() {
+ function toggleLibrarySearch() {
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
-    
+
     // Apri la barra laterale
     expandedSidebar.classList.add('open');
-    
+
     // Modifica il placeholder e il testo del pulsante
     const startPointInput = document.getElementById('start-point');
     const searchButton = searchContainer.querySelector('button');
-    
     startPointInput.placeholder = "Cerca una biblioteca...";
     searchButton.textContent = "Cerca Biblioteca";
-    
+
+    // Imposta l'evento di ricerca sulla funzione searchLibrary
+    searchButton.onclick = searchLibrary;
+
     // Mostra la casella di ricerca
     searchContainer.style.display = 'block';
 }
@@ -578,7 +580,43 @@ const icons = getIconsConfig();
     console.error('Errore nel caricamento del confine:', error);
   }
 }
-            
+
+
+// Funzione per cercare una biblioteca e aprire il popup corrispondente
+async function searchLibrary() {
+    const searchTerm = document.getElementById('start-point').value.toLowerCase();
+    if (!searchTerm) return;
+
+    try {
+        const response = await fetch('libraries.json');
+        const data = await response.json();
+        const foundLibrary = data.libraries.find(library => 
+            library.name.toLowerCase().includes(searchTerm)
+        );
+
+        if (foundLibrary) {
+            // Trova il marker corrispondente e apri il popup
+            const marker = Object.values(map._layers).find(layer => 
+                layer instanceof L.Marker && 
+                layer.getLatLng().lat === foundLibrary.coords[0] &&
+                layer.getLatLng().lng === foundLibrary.coords[1]
+            );
+
+            if (marker) {
+                marker.openPopup();
+                map.setView(marker.getLatLng(), 14); // Zoom e centra sulla biblioteca
+            }
+        } else {
+            alert('Biblioteca non trovata. Riprova.');
+        }
+    } catch (error) {
+        console.error('Errore nella ricerca della biblioteca:', error);
+        alert('Errore nella ricerca. Riprova.');
+    }
+}
+
+
+    
             window.searchRoute = async function() {
                 const startPoint = document.getElementById('start-point').value;
                 
@@ -643,11 +681,16 @@ const icons = getIconsConfig();
                 }
             }
 
-            document.getElementById('start-point').addEventListener('keypress', function(event) {
-                if (event.key === 'Enter') {
-                    searchRoute();
-                }
-            });
+document.getElementById('start-point').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        const searchButton = document.querySelector('#searchContainer button');
+        if (searchButton.textContent === "Cerca Biblioteca") {
+            searchLibrary();
+        } else {
+            searchRoute();
+        }
+    }
+});
 
             document.getElementById('start-point').focus();
 
