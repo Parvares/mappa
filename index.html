@@ -371,7 +371,7 @@ const municipalityColors = {
             return roman[num - 1] || num;
         }
 
-// Funzione per cercare una biblioteca e mostrare i risultati
+// Modifica della funzione searchLibrary
 async function searchLibrary() {
     const searchTerm = document.getElementById('start-point').value.toLowerCase();
     if (!searchTerm) return;
@@ -380,25 +380,104 @@ async function searchLibrary() {
         const response = await fetch('libraries.json');
         const data = await response.json();
 
-        // Raggruppa le biblioteche per municipio
-        const resultsByMunicipio = {};
+        // Filtra i municipi che contengono biblioteche con il termine di ricerca
+        const municipi = new Set();
         data.libraries.forEach(library => {
             if (library.name.toLowerCase().includes(searchTerm)) {
-                if (!resultsByMunicipio[library.municipality]) {
-                    resultsByMunicipio[library.municipality] = [];
-                }
-                resultsByMunicipio[library.municipality].push(library);
+                municipi.add(library.municipality);
             }
         });
 
-        // Mostra i risultati
-        showSearchResults(resultsByMunicipio);
+        // Mostra i municipi trovati
+        const resultsContainer = document.createElement('div');
+        resultsContainer.id = 'search-results';
+        resultsContainer.style.position = 'absolute';
+        resultsContainer.style.top = '60px';
+        resultsContainer.style.left = '50px';
+        resultsContainer.style.backgroundColor = '#fff';
+        resultsContainer.style.padding = '10px';
+        resultsContainer.style.borderRadius = '5px';
+        resultsContainer.style.boxShadow = '0 0 15px rgba(0,0,0,.2)';
+        resultsContainer.style.zIndex = '1000';
+
+        Array.from(municipi).forEach(municipio => {
+            const municipioDiv = document.createElement('div');
+            municipioDiv.textContent = `Municipio ${romanize(municipio)}`;
+            municipioDiv.style.cursor = 'pointer';
+            municipioDiv.style.padding = '5px';
+            municipioDiv.style.borderBottom = '1px solid #ccc';
+            municipioDiv.onmouseover = () => showLibrariesForMunicipio(municipio, data.libraries, municipioDiv);
+            municipioDiv.onclick = () => selectMunicipio(municipio, data.libraries);
+            resultsContainer.appendChild(municipioDiv);
+        });
+
+        document.body.appendChild(resultsContainer);
     } catch (error) {
         console.error('Errore nella ricerca della biblioteca:', error);
         alert('Errore nella ricerca. Riprova.');
     }
 }
 
+// Nuova funzione per mostrare le biblioteche al passaggio del mouse
+function showLibrariesForMunicipio(municipio, libraries, municipioDiv) {
+    const librariesForMunicipio = libraries.filter(library => library.municipality === municipio);
+    const librariesContainer = document.createElement('div');
+    librariesContainer.style.marginLeft = '20px';
+    librariesContainer.style.marginTop = '5px';
+
+    librariesForMunicipio.forEach(library => {
+        const libraryDiv = document.createElement('div');
+        libraryDiv.textContent = library.name;
+        libraryDiv.style.cursor = 'pointer';
+        libraryDiv.style.padding = '5px';
+        libraryDiv.style.borderBottom = '1px solid #eee';
+        libraryDiv.onclick = () => selectLibrary(library);
+        librariesContainer.appendChild(libraryDiv);
+    });
+
+    municipioDiv.appendChild(librariesContainer);
+}
+
+// Nuova funzione per selezionare una biblioteca
+function selectLibrary(library) {
+    // Trova il marker corrispondente
+    let foundMarker = null;
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            const pos = layer.getLatLng();
+            if (pos.lat === library.coords[0] && pos.lng === library.coords[1]) {
+                foundMarker = layer;
+            }
+        }
+    });
+
+    if (foundMarker) {
+        // Apri il popup del marker
+        foundMarker.openPopup();
+        map.setView(foundMarker.getLatLng(), 14);
+        // Evidenzia l'area del municipio
+        loadAndShowBorder(library.municipality, map);
+        // Evidenzia la voce della legenda
+        highlightLegendItem(library.municipality);
+        selectedMunicipio = library.municipality;
+    } else {
+        console.log('Marker not found for library:', library);
+    }
+
+    // Rimuovi i risultati della ricerca
+    const resultsContainer = document.getElementById('search-results');
+    if (resultsContainer) {
+        resultsContainer.remove();
+    }
+}
+
+// Nuova funzione per selezionare un municipio
+function selectMunicipio(municipio, libraries) {
+    const librariesForMunicipio = libraries.filter(library => library.municipality === municipio);
+    if (librariesForMunicipio.length > 0) {
+        selectLibrary(librariesForMunicipio[0]);
+    }
+}
 // Funzione per mostrare i risultati della ricerca
 function showSearchResults(resultsByMunicipio) {
     const resultsContainer = document.createElement('div');
