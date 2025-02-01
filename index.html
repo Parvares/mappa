@@ -353,7 +353,37 @@
     width: calc(100% - 20px); /* Riduci la larghezza su schermi piccoli */
     margin: 10px auto; /* Riduci il margine su schermi piccoli */
   }
-}        
+}      
+
+.input-wrapper {
+    position: relative;
+    width: 100%; /* Occupa tutta la larghezza disponibile */
+    margin-bottom: 10px; /* Spazio tra il campo di ricerca e il pulsante "Trova Percorso" */
+}
+
+.reset-button {
+    position: absolute;
+    right: 10px; /* Posizione rispetto al bordo destro */
+    top: 50%; /* Centrato verticalmente */
+    transform: translateY(-50%); /* Centrato verticalmente */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ccc; /* Colore grigio chiaro */
+    font-size: 16px;
+    display: none; /* Nascondi inizialmente */
+}
+
+.reset-button:hover {
+    color: #999; /* Cambia colore al passaggio del mouse */
+}
+
+/* Mostra il pulsante di reset quando il campo di ricerca ha del testo */
+input:not(:placeholder-shown) + .reset-button {
+    display: block;
+}
+
+        
     </style>
 </head>
 <body>
@@ -373,11 +403,14 @@
         </button>
     </div>
 
-    <!-- Seconda barra laterale (espansione) -->
 <!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
   <div class="search-container" id="searchContainer">
-    <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+    <!-- Aggiungi un wrapper per il campo di input e il pulsante di reset -->
+    <div class="input-wrapper">
+      <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+      <button id="reset-search" class="reset-button">✕</button>
+    </div>
     <datalist id="library-suggestions">
       <!-- Opzioni verranno aggiunte via JavaScript -->
     </datalist>
@@ -645,6 +678,28 @@ document.addEventListener("DOMContentLoaded", async function() {
                 position: 'topright'
             }).addTo(map);
 
+ // Aggiungi qui il codice del pulsante di reset
+    const searchInput = document.getElementById('start-point');
+    const resetButton = document.getElementById('reset-search');
+
+    // Mostra/nascondi il pulsante di reset in base al contenuto del campo di ricerca
+    searchInput.addEventListener('input', function() {
+        if (searchInput.value.trim() !== '') {
+            resetButton.style.display = 'block'; // Mostra la "x"
+        } else {
+            resetButton.style.display = 'none'; // Nascondi la "x"
+        }
+    });
+
+    // Resetta il campo di ricerca quando l'utente clicca sulla "x"
+    resetButton.addEventListener('click', function() {
+        searchInput.value = ''; // Cancella il contenuto
+        resetButton.style.display = 'none'; // Nascondi la "x"
+        searchInput.focus(); // Riporta il focus al campo di ricerca
+    });
+
+
+    
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "© OpenStreetMap contributors"
