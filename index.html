@@ -272,6 +272,38 @@
     margin-top: 5px;
 }
 
+.search-results {
+            position: absolute;
+            top: 60px;
+            left: 50px;
+            z-index: 1000;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,.2);
+            max-height: 300px;
+            overflow-y: auto;
+            width: 300px;
+        }
+        .municipio-result {
+            margin-bottom: 10px;
+        }
+        .municipio-result h4 {
+            margin: 0 0 5px 0;
+            cursor: pointer;
+        }
+        .library-list {
+            margin-left: 20px;
+        }
+        .library-list div {
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .library-list div:hover {
+            background-color: #f0f0f0;
+        }
+        
     </style>
 </head>
 <body>
@@ -339,6 +371,115 @@ const municipalityColors = {
             return roman[num - 1] || num;
         }
 
+// Funzione per cercare una biblioteca e mostrare i risultati
+async function searchLibrary() {
+    const searchTerm = document.getElementById('start-point').value.toLowerCase();
+    if (!searchTerm) return;
+
+    try {
+        const response = await fetch('libraries.json');
+        const data = await response.json();
+
+        // Raggruppa le biblioteche per municipio
+        const resultsByMunicipio = {};
+        data.libraries.forEach(library => {
+            if (library.name.toLowerCase().includes(searchTerm)) {
+                if (!resultsByMunicipio[library.municipality]) {
+                    resultsByMunicipio[library.municipality] = [];
+                }
+                resultsByMunicipio[library.municipality].push(library);
+            }
+        });
+
+        // Mostra i risultati
+        showSearchResults(resultsByMunicipio);
+    } catch (error) {
+        console.error('Errore nella ricerca della biblioteca:', error);
+        alert('Errore nella ricerca. Riprova.');
+    }
+}
+
+// Funzione per mostrare i risultati della ricerca
+function showSearchResults(resultsByMunicipio) {
+    const resultsContainer = document.createElement('div');
+    resultsContainer.className = 'search-results';
+
+    Object.keys(resultsByMunicipio).forEach(municipio => {
+        const municipioDiv = document.createElement('div');
+        municipioDiv.className = 'municipio-result';
+
+        const municipioHeader = document.createElement('h4');
+        municipioHeader.textContent = `Municipio ${romanize(parseInt(municipio))}`;
+        municipioHeader.onmouseover = () => highlightMunicipio(municipio);
+        municipioHeader.onmouseout = () => unhighlightMunicipio(municipio);
+        municipioDiv.appendChild(municipioHeader);
+
+        const libraryList = document.createElement('div');
+        libraryList.className = 'library-list';
+
+        resultsByMunicipio[municipio].forEach(library => {
+            const libraryDiv = document.createElement('div');
+            libraryDiv.textContent = library.name;
+            libraryDiv.onclick = () => focusLibrary(library);
+            libraryList.appendChild(libraryDiv);
+        });
+
+        municipioDiv.appendChild(libraryList);
+        resultsContainer.appendChild(municipioDiv);
+    });
+
+    // Rimuovi i risultati precedenti
+    const existingResults = document.querySelector('.search-results');
+    if (existingResults) {
+        existingResults.remove();
+    }
+
+    document.body.appendChild(resultsContainer);
+}
+
+// Funzione per evidenziare un municipio
+function highlightMunicipio(municipioNumber) {
+    if (!municipioLayers[municipioNumber]) {
+        loadAndShowBorder(municipioNumber, map);
+    } else {
+        municipioLayers[municipioNumber].addTo(map).bringToFront();
+    }
+}
+
+// Funzione per rimuovere l'evidenziazione di un municipio
+function unhighlightMunicipio(municipioNumber) {
+    if (municipioLayers[municipioNumber] && municipioLayers[municipioNumber] !== currentBorder) {
+        map.removeLayer(municipioLayers[municipioNumber]);
+    }
+}
+
+// Funzione per focalizzare una biblioteca
+function focusLibrary(library) {
+    const marker = findMarkerByLibrary(library);
+    if (marker) {
+        marker.openPopup();
+        map.setView(marker.getLatLng(), 14);
+        loadAndShowBorder(library.municipality, map);
+        highlightLegendItem(library.municipality);
+        selectedMunicipio = library.municipality;
+    }
+}
+
+// Funzione per trovare un marker basato sulla biblioteca
+function findMarkerByLibrary(library) {
+    let foundMarker = null;
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            const pos = layer.getLatLng();
+            if (pos.lat === library.coords[0] && pos.lng === library.coords[1]) {
+                foundMarker = layer;
+            }
+        }
+    });
+    return foundMarker;
+}
+
+        
         // Variabili globali 
         let currentBorder = null;
         let routingControl = null;
@@ -417,19 +558,17 @@ async function searchLibrary() {
 function toggleLibrarySearch() {
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
-    
     expandedSidebar.classList.add('open');
-    
     const startPointInput = document.getElementById('start-point');
     const searchButton = searchContainer.querySelector('button');
     startPointInput.placeholder = "Cerca una biblioteca...";
     searchButton.textContent = "Cerca Biblioteca";
-    
-    searchButton.onclick = searchLibrary;
-    
+    searchButton.onclick = searchLibrary; // Usa la nuova funzione searchLibrary
     searchContainer.style.display = 'block';
 }
 
+
+        
 // Make functions globally accessible
 window.searchLibrary = searchLibrary;
 window.toggleLibrarySearch = toggleLibrarySearch;
@@ -657,6 +796,12 @@ try {
 
     
             window.searchRoute = async function() {
+
+                   // Rimuovi i risultati di ricerca precedenti
+    const existingResults = document.querySelector('.search-results');
+    if (existingResults) {
+        existingResults.remove();
+    }
                 const startPoint = document.getElementById('start-point').value;
                 
                 if (routingControl) {
@@ -724,7 +869,7 @@ document.getElementById('start-point').addEventListener('keypress', function(eve
     if (event.key === 'Enter') {
         const searchButton = document.querySelector('#searchContainer button');
         if (searchButton.textContent === "Cerca Biblioteca") {
-            searchLibrary();
+            searchLibrary(); // Usa la nuova funzione searchLibrary
         } else {
             searchRoute();
         }
