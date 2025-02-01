@@ -363,28 +363,6 @@ const municipalityColors = {
       librarySearchContainer.style.display = 'none';
     }
 
-    // Funzione per cercare una biblioteca
-    function searchLibrary() {
-      const searchTerm = document.getElementById('library-search').value.toLowerCase();
-      
-      // Ottieni tutti i marker delle biblioteche
-      map.eachLayer((layer) => {
-        if (layer instanceof L.Marker) {
-          const popupContent = layer.getPopup().getContent();
-          if (popupContent.toLowerCase().includes(searchTerm)) {
-            layer.openPopup();
-            map.setView(layer.getLatLng(), 16);
-          }
-        }
-      });
-    }
-
-    // Aggiungi l'evento keypress per la ricerca della biblioteca
-    document.getElementById('library-search').addEventListener('keypress', function(event) {
-      if (event.key === 'Enter') {
-        searchLibrary();
-      }
-    });
 
         
 // Funzione helper per caricare e visualizzare il confine di un municipio
