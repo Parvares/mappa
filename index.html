@@ -71,10 +71,12 @@
         }
 
         /* Casella di ricerca */
-        .search-container {
-            padding: 20px;
-            display: none; /* Inizialmente nascosta */
-        }
+        /* Stile per il pannello di ricerca */
+.search-container {
+    position: relative; /* Permette di posizionare il riquadro dei risultati relativamente a questo contenitore */
+    padding: 20px;
+    display: none;
+}
         .sidebar-expanded.open .search-container {
             display: block; /* Mostra la casella di ricerca */
         }
@@ -272,6 +274,72 @@
     margin-top: 5px;
 }
 
+
+/* Stile per il riquadro dei risultati */
+#search-results {
+    position: absolute;
+    top: 70px; /* Posizione sotto la casella di ricerca */
+    left: 20px; /* Allineato con il pannello laterale */
+    width: 280px; /* Larghezza coerente con il pannello */
+    max-height: 400px; /* Altezza massima con scroll */
+    overflow-y: auto; /* Abilita lo scroll se necessario */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    z-index: 1000;
+    border: 1px solid #e0e0e0;
+}
+
+/* Stile per il titolo del municipio */
+#search-results .municipio-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Stile per ogni voce di biblioteca */
+#search-results .library-item {
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-size: 14px;
+    color: #555;
+    border: 1px solid #e0e0e0;
+}
+
+/* Effetto hover sulle voci di biblioteca */
+#search-results .library-item:hover {
+    background-color: #f1f1f1;
+    transform: translateX(5px);
+    border-color: #4285f4;
+}
+
+/* Scrollbar personalizzata */
+#search-results::-webkit-scrollbar {
+    width: 8px;
+}
+
+#search-results::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#search-results::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+#search-results::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+        
     </style>
 </head>
 <body>
@@ -403,29 +471,18 @@ function showMunicipioAndLibraries(municipioNumber, libraries) {
     // Crea il contenitore per i risultati
     const resultsContainer = document.createElement('div');
     resultsContainer.id = 'search-results';
-    resultsContainer.style.position = 'absolute';
-    resultsContainer.style.top = '60px';
-    resultsContainer.style.left = '50px';
-    resultsContainer.style.backgroundColor = '#fff';
-    resultsContainer.style.padding = '10px';
-    resultsContainer.style.borderRadius = '5px';
-    resultsContainer.style.boxShadow = '0 0 15px rgba(0,0,0,.2)';
-    resultsContainer.style.zIndex = '1000';
 
-    // Mostra il municipio
+    // Aggiungi il titolo del municipio
     const municipioDiv = document.createElement('div');
+    municipioDiv.className = 'municipio-title';
     municipioDiv.textContent = `Municipio ${romanize(municipioNumber)}`;
-    municipioDiv.style.fontWeight = 'bold';
-    municipioDiv.style.marginBottom = '10px';
     resultsContainer.appendChild(municipioDiv);
 
-    // Mostra le biblioteche del municipio
+    // Aggiungi le biblioteche del municipio
     libraries.forEach(library => {
         const libraryDiv = document.createElement('div');
+        libraryDiv.className = 'library-item';
         libraryDiv.textContent = library.name;
-        libraryDiv.style.cursor = 'pointer';
-        libraryDiv.style.padding = '5px';
-        libraryDiv.style.borderBottom = '1px solid #eee';
         libraryDiv.onclick = () => selectLibrary(library);
         resultsContainer.appendChild(libraryDiv);
     });
