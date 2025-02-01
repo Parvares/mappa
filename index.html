@@ -263,27 +263,24 @@
 </head>
 <body>
     <!-- Barra laterale fissa -->
-  <div class="sidebar">
-    <button onclick="toggleExpandedSidebar()">
-      <img src="sidebar.svg" alt="Menu">
-    </button>
-    <button onclick="toggleLibrarySearch()">
-      <img src="search-icon.svg" alt="Cerca biblioteca">
-    </button>
-    <button onclick="toggleStreetSearch()">
-      <img src="street-search.svg" alt="Cerca indirizzo">
-    </button>
-  </div>
-
-  <!-- Seconda barra laterale (espansione) -->
-  <div class="sidebar-expanded" id="expandedSidebar">
-    <div class="search-container" id="searchContainer">
-      <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-      <button onclick="searchRoute()">Trova Percorso</button>
+    <div class="sidebar">
+        <button onclick="toggleExpandedSidebar()">
+            <img src="sidebar.svg" alt="Menu">
+        </button>
+        <button onclick="toggleSearch()">
+            <img src="search-icon.svg" alt="Cerca">
+        </button>
+        <button onclick="toggleStreetSearch()">
+            <img src="street-search.svg" alt="Cerca indirizzo">
+        </button>
     </div>
-    <div class="search-container" id="librarySearchContainer" style="display: none;">
-      <input type="text" id="library-search" placeholder="Cerca una biblioteca">
-      <button onclick="searchLibrary()">Trova Biblioteca</button>
+
+    <!-- Seconda barra laterale (espansione) -->
+    <div class="sidebar-expanded" id="expandedSidebar">
+        <div class="search-container" id="searchContainer">
+            <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+            <button onclick="searchRoute()">Trova Percorso</button>
+        </div>
     </div>
 
     <div id="map"></div>
@@ -336,30 +333,18 @@ const municipalityColors = {
             expandedSidebar.classList.toggle('open');
         }
 
-    
+        // Funzione per attivare la ricerca
+        function toggleSearch() {
+            alert("Funzione di ricerca non ancora implementata.");
+        }
 
-    // Funzione per attivare la ricerca della biblioteca
-    function toggleLibrarySearch() {
-      const expandedSidebar = document.getElementById('expandedSidebar');
-      const searchContainer = document.getElementById('searchContainer');
-      const librarySearchContainer = document.getElementById('librarySearchContainer');
-      
-      expandedSidebar.classList.add('open');
-      searchContainer.style.display = 'none';
-      librarySearchContainer.style.display = 'block';
-    }
-
-    // Funzione per attivare la ricerca indirizzo
-    function toggleStreetSearch() {
-      const expandedSidebar = document.getElementById('expandedSidebar');
-      const searchContainer = document.getElementById('searchContainer');
-      const librarySearchContainer = document.getElementById('librarySearchContainer');
-      
-      expandedSidebar.classList.add('open');
-      searchContainer.style.display = 'block';
-      librarySearchContainer.style.display = 'none';
-    }
-
+        // Funzione per attivare la ricerca indirizzo
+        function toggleStreetSearch() {
+            const expandedSidebar = document.getElementById('expandedSidebar');
+            const searchContainer = document.getElementById('searchContainer');
+            expandedSidebar.classList.add('open');
+            searchContainer.style.display = 'block';
+        }
 
         
 // Funzione helper per caricare e visualizzare il confine di un municipio
