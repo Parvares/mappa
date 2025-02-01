@@ -26,74 +26,108 @@
 
         
         /* Barra laterale fissa */
+    /* Barra laterale fissa */
         .sidebar {
             position: absolute;
             top: 0;
             left: 0;
             height: 100%;
-            width: 60px; /* Larghezza fissa */
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            width: 68px; /* Larghezza leggermente aumentata */
+            background: var(--sidebar-bg);
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.08);
             z-index: 1000;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 20px;
+            padding-top: 25px;
+            backdrop-filter: blur(2px); /* Effetto vetro smerigliato */
         }
+
         .sidebar button {
             background: none;
             border: none;
             cursor: pointer;
-            margin-bottom: 20px;
-        }
-        .sidebar button img {
-            width: 24px;
-            height: 24px;
+            margin-bottom: 28px;
+            transition: transform 0.2s ease;
         }
 
-        /* Seconda barra laterale (espansione) */
+        .sidebar button:hover {
+            transform: scale(1.1);
+        }
+
+        .sidebar button img {
+            width: 26px;
+            height: 26px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        /* Seconda barra laterale */
         .sidebar-expanded {
             position: absolute;
             top: 0;
-            left: 60px; /* Parte dalla fine della barra fissa */
+            left: 68px;
             height: 100%;
-            width: 0; /* Inizialmente nascosta */
-            background: #f4f7f0; /* Colore di sfondo */
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            width: 0;
+            background: var(--expanded-bg);
+            box-shadow: 3px 0 20px rgba(0, 0, 0, 0.05);
             z-index: 999;
-            transition: width 0.3s ease;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
-        }
-        .sidebar-expanded.open {
-            width: 300px; /* Larghezza espansa */
+            backdrop-filter: blur(3px);
+            border-left: 1px solid var(--border-color);
         }
 
-        /* Casella di ricerca */
+        .sidebar-expanded.open {
+            width: 320px; /* Larghezza più generosa */
+        }
+
+        /* Casella di ricerca raffinata */
         .search-container {
-            padding: 20px;
-            display: none; /* Inizialmente nascosta */
+            padding: 30px 25px 0;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s 0.1s;
         }
+
         .sidebar-expanded.open .search-container {
-            display: block; /* Mostra la casella di ricerca */
+            display: block;
+            opacity: 1;
         }
+
         .search-container input {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #4285f4; /* Contorno blu */
-            border-radius: 4px; /* Bordi arrotondati */
-            font-size: 14px;
-            outline: none; /* Rimuove il bordo predefinito */
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+            color: #4a5568;
+            transition: all 0.2s;
+            background: rgba(255, 255, 255, 0.6);
         }
+
+        .search-container input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 2px 8px rgba(91, 124, 255, 0.12);
+        }
+
         .search-container button {
             width: 100%;
-            padding: 8px;
-            margin-top: 10px;
-            background-color: #4285f4;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: var(--accent-blue);
             color: #fff;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            transition: all 0.2s;
+        }
+
+        .search-container button:hover {
+            background-color: #4769e6;
+            transform: translateY(-1px);
         }
 
         
@@ -263,7 +297,7 @@
 </head>
 <body>
     <!-- Barra laterale fissa -->
-    <div class="sidebar">
+   <div class="sidebar">
         <button onclick="toggleExpandedSidebar()">
             <img src="sidebar.svg" alt="Menu">
         </button>
@@ -275,14 +309,13 @@
         </button>
     </div>
 
-    <!-- Seconda barra laterale (espansione) -->
+    <!-- Seconda barra laterale -->
     <div class="sidebar-expanded" id="expandedSidebar">
         <div class="search-container" id="searchContainer">
             <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
             <button onclick="searchRoute()">Trova Percorso</button>
         </div>
     </div>
-
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -333,10 +366,11 @@ const municipalityColors = {
             expandedSidebar.classList.toggle('open');
         }
 
-        // Funzione per attivare la ricerca
-        function toggleSearch() {
-            alert("Funzione di ricerca non ancora implementata.");
-        }
+        function toggleStreetSearch() {
+            const expandedSidebar = document.getElementById('expandedSidebar');
+            if(!expandedSidebar.classList.contains('open')) {
+                expandedSidebar.classList.add('open');
+            }
 
         // Funzione per attivare la ricerca indirizzo
         function toggleStreetSearch() {
