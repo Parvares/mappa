@@ -396,9 +396,6 @@ function toggleStreetSearch() {
     // Mostra la casella di ricerca
     searchContainer.style.display = 'block';
 }
-
-let librariesData = [];
-
         
 // Funzione helper per caricare e visualizzare il confine di un municipio
 async function loadAndShowBorder(municipalityNumber, map) {
@@ -407,34 +404,10 @@ async function loadAndShowBorder(municipalityNumber, map) {
         map.removeLayer(currentBorder);
     }
 
-    // Carica i dati una sola volta
     try {
-        const response = await fetch('libraries.json');
-        librariesData = await response.json();
-    } catch (error) {
-        console.error('Errore nel caricamento delle biblioteche:', error);
-    }
-
-    // Aggiungi un datalist per i suggerimenti
-    const datalist = document.createElement('datalist');
-    datalist.id = 'library-suggestions';
-    document.body.appendChild(datalist);
-
-    // Funzione per aggiornare i suggerimenti
-    function updateSuggestions() {
-        const searchTerm = document.getElementById('start-point').value.toLowerCase();
-        if (!searchTerm) return;
-
-        const suggestions = librariesData.libraries
-            .filter(library => library.name.toLowerCase().includes(searchTerm))
-            .map(library => `<option value="${library.name}">`);
-
-        datalist.innerHTML = suggestions.join('');
-    }
-
-    // Aggiorna i suggerimenti durante la digitazione
-    document.getElementById('start-point').addEventListener('input', updateSuggestions);
-
+        const response = await fetch(`municipio${municipalityNumber}.geojson`);
+        const data = await response.json();
+        
        
 
         currentBorder = L.geoJSON(data, {
