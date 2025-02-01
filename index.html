@@ -96,9 +96,59 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     margin-left: 10px;
 }
 
-#sidebar.expanded .search-box {
-    display: block;
+/* Allarga la barra laterale */
+#sidebar {
+  width: 80px; /* Larghezza stretta aumentata */
 }
+
+#sidebar.expanded {
+  width: 320px; /* Larghezza espansa aumentata */
+}
+
+/* Centra i pulsanti verticalmente e spostali verso il basso */
+.sidebar-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-top: 50%; /* Sposta i pulsanti più in basso */
+}
+
+/* Stile per il nuovo pulsante sidebar.svg */
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 20px; /* Spaziatura tra i pulsanti */
+  cursor: pointer;
+  background: #f5f5f5;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  background: #e0e0e0;
+}
+
+.sidebar-toggle img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Nascondi il titolo nella barra stretta */
+.sidebar-header h3 {
+  display: none;
+}
+
+#sidebar.expanded .sidebar-header h3 {
+  display: block;
+}
+
+
+
+
+        
 .legend {
     background: rgba(255, 255, 255, 0.95);
     padding: 18px 22px;
@@ -269,27 +319,38 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     <div class="sidebar-content">
         <div class="sidebar-header">
             <h3>Mappa Biblioteche</h3>
+  <!-- Barra laterale -->
+  <div id="sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <h3>Mappa Biblioteche</h3>
+      </div>
+      <div class="sidebar-body">
+        <!-- Nuovo pulsante sidebar.svg -->
+        <div class="sidebar-toggle" onclick="toggleSidebar()">
+          <img src="sidebar.svg" alt="Menu" class="icon">
         </div>
-        <div class="sidebar-body">
-            <div class="search-route" onclick="expandSidebar('route')">
-                <img src="street-search.svg" alt="Cerca percorso" class="icon">
-                <span>Cerca Percorso</span>
-            </div>
-            <div class="search-library" onclick="expandSidebar('library')">
-                <img src="library-search.svg" alt="Cerca biblioteca" class="icon">
-                <span>Cerca Biblioteca</span>
-            </div>
-            <div id="route-search" class="search-box">
-                <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-                <img src="search-icon.svg" alt="Cerca" class="search-icon" onclick="searchRoute()">
-            </div>
-            <div id="library-search" class="search-box">
-                <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
-                <img src="search-icon.svg" alt="Cerca" class="search-icon" onclick="searchLibrary()">
-            </div>
+        <!-- Pulsanti esistenti -->
+        <div class="search-route" onclick="expandSidebar('route')">
+          <img src="street-search.svg" alt="Cerca percorso" class="icon">
+          <span>Cerca Percorso</span>
         </div>
+        <div class="search-library" onclick="expandSidebar('library')">
+          <img src="library-search.svg" alt="Cerca biblioteca" class="icon">
+          <span>Cerca Biblioteca</span>
+        </div>
+        <!-- Form di ricerca -->
+        <div id="route-search" class="search-box">
+          <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+          <img src="search-icon.svg" alt="Cerca" class="search-icon" onclick="searchRoute()">
+        </div>
+        <div id="library-search" class="search-box">
+          <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
+          <img src="search-icon.svg" alt="Cerca" class="search-icon" onclick="searchLibrary()">
+        </div>
+      </div>
     </div>
-</div>
+  </div>
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -460,6 +521,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+
+ // nuova funzione
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('expanded');
+  }
 
         
 document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi async qui
