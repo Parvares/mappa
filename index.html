@@ -108,10 +108,9 @@
     position: fixed;
     top: 0;
     right: -350px; /* Aumentato per nascondere completamente */
-    height: auto; /* Cambiato da 100vh a auto */
-    max-height: 90vh; /* Imposta un'altezza massima */
+    height: 100vh;
     z-index: 1000;
-    overflow-y: hidden; /* Rimuove la scrollbar verticale */
+    overflow-y: auto;
     width: 250px; /* Ridotto per un pannello più stretto */
     border: 1px solid rgba(0,0,0,0.1);
     backdrop-filter: blur(4px);
@@ -126,19 +125,8 @@
     display: grid;
     grid-template-columns: 1fr; /* Cambiato da repeat(2, 1fr) a 1fr */
     gap: 10px; /* Rimosso il gap orizzontale */
-    max-height: 80vh; /* Imposta un'altezza massima per il contenuto */
-    overflow-y: auto; /* Aggiungi scrollbar solo se necessario */
 }
 
-.legend-grid::-webkit-scrollbar {
-    display: none; /* Nasconde la scrollbar su WebKit browsers (Chrome, Safari) */
-}
-
-.legend-grid {
-    -ms-overflow-style: none;  /* Nasconde la scrollbar su IE e Edge */
-    scrollbar-width: none;  /* Nasconde la scrollbar su Firefox */
-}
-        
 .legend-item {
     display: flex;
     align-items: center;
@@ -684,17 +672,22 @@ legend.onAdd = function() {
     
 
 
-div.innerHTML = `
+    div.innerHTML = `
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
         <div class="legend-grid">
             ${Object.entries(municipalityColors).map(([num, color]) => `
-                <div class="legend-item ${num === '10' ? 'disabled' : ''}" data-municipio="${num}" ${num !== '10' ? `onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})"` : ''}>
+                <div class="legend-item ${num === '10' ? 'disabled' : ''}" 
+                     data-municipio="${num}" 
+                     ${num !== '10' ? `onmouseover="handleLegendHover(${num})" 
+                     onmouseout="handleLegendOut(${num})" 
+                     onclick="handleLegendClick(${num})"` : ''}>
                     <span style="background: ${color}"></span>
                     <div class="text">Municipio ${romanize(parseInt(num))}</div>
                 </div>
             `).join("")}
         </div>
     `;
+    
     return div;
 };
     legend.addTo(map);
