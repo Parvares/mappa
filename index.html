@@ -279,17 +279,18 @@
 
 /* Stile per il riquadro dei risultati */
 #search-results {
-  position: relative; /* Mantieni il posizionamento relativo */
-  width: calc(100% - 40px); /* Larghezza piena meno un po' di padding */
-  max-height: 400px; /* Altezza massima con scroll */
-  overflow-y: auto; /* Abilita lo scroll se necessario */
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 15px;
-  margin: 20px auto; /* Centra orizzontalmente e aggiunge margine superiore */
-  border: 1px solid #e0e0e0;
-  z-index: 1; /* Assicurati che sia sopra altri elementi */
+    display: none; /* Nascondi di default */
+    position: relative;
+    width: calc(100% - 40px);
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    margin: 20px auto;
+    border: 1px solid #e0e0e0;
+    z-index: 1;
 }
         
 /* Stile per il titolo del municipio */
@@ -477,40 +478,38 @@ async function searchLibrary() {
 }
 
 function showMunicipioAndLibraries(municipioNumber, libraries) {
-  // Rimuovi i risultati precedenti
-  const existingResults = document.getElementById('search-results');
-  let resultsContainer; // Dichiarazione della variabile all'inizio della funzione
+    const resultsContainer = document.getElementById('search-results');
+    
+    // Svuota il contenuto precedente
+    resultsContainer.innerHTML = '';
 
-  if (existingResults) {
-    existingResults.innerHTML = ''; // Svuota il contenuto invece di rimuoverlo
-    resultsContainer = existingResults; // Assegna il contenitore esistente alla variabile
-  } else {
-    resultsContainer = document.createElement('div'); // Crea un nuovo contenitore
-    resultsContainer.id = 'search-results';
-    document.getElementById('expandedSidebar').appendChild(resultsContainer);
-  }
+    // Aggiungi il titolo del municipio
+    const municipioDiv = document.createElement('div');
+    municipioDiv.className = 'municipio-title';
+    municipioDiv.textContent = `Municipio ${romanize(municipioNumber)}`;
+    resultsContainer.appendChild(municipioDiv);
 
-  // Aggiungi il titolo del municipio
-  const municipioDiv = document.createElement('div');
-  municipioDiv.className = 'municipio-title';
-  municipioDiv.textContent = `Municipio ${romanize(municipioNumber)}`;
-  resultsContainer.appendChild(municipioDiv); // Ora resultsContainer è definito
+    // Aggiungi le biblioteche del municipio
+    libraries.forEach(library => {
+        const libraryDiv = document.createElement('div');
+        libraryDiv.className = 'library-item';
+        libraryDiv.textContent = library.name;
+        libraryDiv.onclick = () => selectLibrary(library);
+        resultsContainer.appendChild(libraryDiv);
+    });
 
-  // Aggiungi le biblioteche del municipio
-  libraries.forEach(library => {
-    const libraryDiv = document.createElement('div');
-    libraryDiv.className = 'library-item';
-    libraryDiv.textContent = library.name;
-    libraryDiv.onclick = () => selectLibrary(library);
-    resultsContainer.appendChild(libraryDiv);
-  });
+    // Mostra il riquadro dei risultati solo se ci sono biblioteche
+    if (libraries.length > 0) {
+        resultsContainer.style.display = 'block';
+    } else {
+        resultsContainer.style.display = 'none';
+    }
 
-  // Evidenzia il municipio sulla mappa
-  loadAndShowBorder(municipioNumber, map);
-  highlightLegendItem(municipioNumber);
-  selectedMunicipio = municipioNumber;
+    // Evidenzia il municipio sulla mappa
+    loadAndShowBorder(municipioNumber, map);
+    highlightLegendItem(municipioNumber);
+    selectedMunicipio = municipioNumber;
 }
-
 
 function selectLibrary(library) {
     let foundMarker = null;
@@ -533,10 +532,10 @@ function selectLibrary(library) {
         console.log('Marker not found for library:', library);
     }
 
-    // Rimuovi i risultati della ricerca
+    // Nascondi il riquadro dei risultati
     const resultsContainer = document.getElementById('search-results');
     if (resultsContainer) {
-        resultsContainer.remove();
+        resultsContainer.style.display = 'none';
     }
 }
 
@@ -544,19 +543,26 @@ function selectLibrary(library) {
 function toggleLibrarySearch() {
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
-    
+    const resultsContainer = document.getElementById('search-results');
+
     expandedSidebar.classList.add('open');
-    
     const startPointInput = document.getElementById('start-point');
     const searchButton = searchContainer.querySelector('button');
+
     startPointInput.placeholder = "Cerca una biblioteca...";
     searchButton.textContent = "Cerca Biblioteca";
-    
     searchButton.onclick = searchLibrary;
-    
+
+    // Nascondi il riquadro dei risultati all'apertura
+    if (resultsContainer) {
+        resultsContainer.style.display = 'none';
+    }
+
     searchContainer.style.display = 'block';
 }
 
+
+        
 // Make functions globally accessible
 window.searchLibrary = searchLibrary;
 window.toggleLibrarySearch = toggleLibrarySearch;
