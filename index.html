@@ -71,11 +71,10 @@
         }
 
         /* Casella di ricerca */
-      .search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
+        .search-container {
+            padding: 20px;
+            display: none; /* Inizialmente nascosta */
+        }
         .sidebar-expanded.open .search-container {
             display: block; /* Mostra la casella di ricerca */
         }
@@ -273,36 +272,6 @@
     margin-top: 5px;
 }
 
-
-  #start-point {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: transparent;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px 30px 8px 10px;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-    width: 100%;
-}
-
-.custom-arrow {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234285f4"><path d="M7 10l5 5 5-5z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: center;
-    border: none;
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none; /* Impedisce il clic sulla freccia */
-}      
-
     </style>
 </head>
 <body>
@@ -324,10 +293,11 @@
 
     <!-- Seconda barra laterale (espansione) -->
     <div class="sidebar-expanded" id="expandedSidebar">
-<div class="search-container">
-    <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-    <button type="button" class="custom-arrow" aria-label="Apri l'elenco delle biblioteche"></button>
-</div>
+        <div class="search-container" id="searchContainer">
+            <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+<datalist id="library-suggestions">
+    <!-- Opzioni verranno aggiunte via JavaScript -->
+</datalist>
 
             <button onclick="searchRoute()">Trova Percorso</button>
         </div>
