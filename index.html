@@ -355,23 +355,38 @@
   }
 }        
 
+/* Stile per il contenitore del campo di ricerca */
+.search-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%; /* Occupa tutta la larghezza disponibile */
+}
+
+/* Stile per il campo di ricerca */
+#start-point {
+    width: 100%; /* Occupa tutta la larghezza del contenitore */
+    padding-right: 30px; /* Lascia spazio per la "x" */
+    box-sizing: border-box; /* Include il padding nella larghezza totale */
+}
+
+/* Stile per il pulsante "x" */
 .clear-search-btn {
     display: none; /* Inizialmente nascosto */
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #888;
-    font-size: 16px;
-    padding: 5px;
-    margin-left: 5px;
     position: absolute;
-    right: 10px;
+    right: 10px; /* Posizione rispetto al bordo destro del campo */
     top: 50%;
     transform: translateY(-50%);
+    cursor: pointer;
+    color: #888; /* Colore grigio */
+    font-size: 14px;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
 }
 
 .clear-search-btn:hover {
-    color: #555;
+    color: #555; /* Colore più scuro al passaggio del mouse */
 }
 
         
@@ -397,15 +412,17 @@
     <!-- Seconda barra laterale (espansione) -->
 <!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
-  <div class="search-container" id="searchContainer">
-    <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+<div class="search-container" id="searchContainer">
+    <div class="search-input-wrapper">
+        <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+        <!-- Aggiungi la "x" all'interno del campo -->
+        <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+    </div>
     <datalist id="library-suggestions">
-      <!-- Opzioni verranno aggiunte via JavaScript -->
+        <!-- Opzioni verranno aggiunte via JavaScript -->
     </datalist>
     <button onclick="searchRoute()">Trova Percorso</button>
-      <!-- Aggiungi il pulsante "x" -->
-    <button id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</button>
-  </div>
+</div>
   <!-- Aggiungi il contenitore dei risultati qui -->
   <div id="search-results"></div>
 </div>
@@ -625,11 +642,14 @@ function toggleClearButton() {
     const searchInput = document.getElementById('start-point');
     const clearButton = document.getElementById('clear-search');
     if (searchInput.value.trim() !== '') {
-        clearButton.style.display = 'block';
+        clearButton.style.display = 'inline-block'; // Mostra la "x"
     } else {
-        clearButton.style.display = 'none';
+        clearButton.style.display = 'none'; // Nascondi la "x"
     }
 }
+
+// Aggiungi un listener per l'input nel campo di ricerca
+document.getElementById('start-point').addEventListener('input', toggleClearButton);
 
 // Aggiungi un listener per l'input nel campo di ricerca
 document.getElementById('start-point').addEventListener('input', toggleClearButton);
