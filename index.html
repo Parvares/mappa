@@ -549,6 +549,21 @@ function highlightLegendItem(municipioNumber) {
 }
 window.highlightLegendItem = highlightLegendItem;
 
+
+// Aggiungi prima del nuovo codice di ricerca
+function findMarkerByLibrary(library) {
+    let foundMarker = null;
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            const pos = layer.getLatLng();
+            if (pos.lat === library.coords[0] && pos.lng === library.coords[1]) {
+                foundMarker = layer;
+            }
+        }
+    });
+    return foundMarker;
+}
+        
         
 document.addEventListener("DOMContentLoaded", async function() {
     // Initialize map
