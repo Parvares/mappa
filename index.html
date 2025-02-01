@@ -78,14 +78,42 @@
         .sidebar-expanded.open .search-container {
             display: block; /* Mostra la casella di ricerca */
         }
-        .search-container input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #4285f4; /* Contorno blu */
-            border-radius: 4px; /* Bordi arrotondati */
-            font-size: 14px;
-            outline: none; /* Rimuove il bordo predefinito */
-        }
+.search-container input {
+    width: 100%;
+    padding: 8px 30px 8px 12px; /* Padding sinistro aggiunto */
+    border: 1px solid #4285f4;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('down-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: right 12px center; /* Posizione più precisa */
+    background-size: 14px 14px; /* Dimensione leggermente aumentata */
+    box-sizing: border-box; /* Previene l'allungamento */
+    overflow: hidden; /* Nasconde eventuali elementi fuori dal bordo */
+}
+/* Fix per Firefox - Nasconde completamente la freccia */
+@-moz-document url-prefix() {
+    #start-point {
+        text-indent: -2px;
+        background-position: right 8px center;
+    }
+    
+    #library-suggestions {
+        display: none; /* Nasconde il dropdown nativo */
+    }
+}
+/* Migliora la visibilità dell'icona */
+#start-point:focus {
+    background-image: url('down-arrow.svg');
+    border-color: #4285f4;
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+        
         .search-container button {
             width: 100%;
             padding: 8px;
