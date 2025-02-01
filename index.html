@@ -98,11 +98,16 @@
             font-size: 14px;
         }
 
+
+.legend.visible {
+    right: 0;
+}
+
 .legend {
     display: block;
     background: rgba(255, 255, 255, 0.95);
-    padding: 12px 16px;  /* Ridotto il padding */
-    font: 12px/14px 'Segoe UI', system-ui, sans-serif;  /* Ridotto il font-size */
+    padding: 15px 20px;  /* Padding bilanciato */
+    font: 13px/15px 'Segoe UI', system-ui, sans-serif;
     box-shadow: 0 5px 25px rgba(0,0,0,0.15);
     border-radius: 12px 0 0 12px;
     position: fixed;
@@ -116,26 +121,22 @@
     transition: right 0.3s ease;
 }
 
-.legend.visible {
-    right: 0;
-}
-
 .legend h4 {
-    margin: 0 0 8px 0;  /* Ridotto il margin bottom */
-    font-size: 14px;    /* Ridotto il font-size */
+    margin: 0 0 12px 0;  /* Margin più bilanciato */
+    font-size: 14px;
 }
 
 .legend-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 4px;           /* Ridotto il gap tra gli elementi */
+    gap: 6px;           /* Gap intermedio tra gli elementi */
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    padding: 4px 8px;   /* Ridotto il padding */
-    border-radius: 6px; /* Ridotto il border-radius */
+    padding: 6px 10px;   /* Padding bilanciato */
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(255,255,255,0.7);
@@ -143,9 +144,9 @@
 }
 
 .legend-item span {
-    width: 16px;        /* Ridotto le dimensioni dello span colorato */
-    height: 16px;
-    margin-right: 8px;  /* Ridotto il margin-right */
+    width: 18px;         /* Dimensione icona bilanciata */
+    height: 18px;
+    margin-right: 10px;  /* Margin bilanciato */
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
@@ -170,7 +171,7 @@
 }
 
 .legend-item .text {
-    font-size: 12px;    /* Ridotto il font-size */
+    font-size: 13px;
     color: #4a5568;
     font-weight: 500;
     letter-spacing: 0.02em;
