@@ -107,26 +107,32 @@
         .sidebar-expanded.open .search-container {
             display: block; /* Mostra la casella di ricerca */
         }
-        .search-container input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #4285f4; /* Contorno blu */
-            border-radius: 4px; /* Bordi arrotondati */
-            font-size: 14px;
-            outline: none; /* Rimuove il bordo predefinito */
-        }
-        .search-container button {
-            width: 100%;
-            padding: 8px;
-            margin-top: 10px;
-            background-color: #4285f4;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
 
+        
+        .search-container input {
+  width: calc(100% - 120px); /* Larghezza del campo di ricerca */
+  padding: 8px;
+  border: 2px solid #4285f4; /* Bordo blu */
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none; /* Rimuove il bordo predefinito */
+  box-sizing: border-box; /* Include padding e bordo nelle dimensioni totali */
+  height: 40px; /* Altezza fissa */
+}
+
+.search-container button {
+  width: 100px; /* Larghezza fissa per il pulsante */
+  padding: 8px;
+  background-color: #4285f4; /* Colore di sfondo blu */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  box-sizing: border-box; /* Include padding e bordo nelle dimensioni totali */
+  height: 40px; /* Altezza fissa */
+  margin-left: 10px; /* Spazio tra il campo di ricerca e il pulsante */
+}
 
 .legend.visible {
     right: 0;
