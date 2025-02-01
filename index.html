@@ -98,28 +98,27 @@
             font-size: 14px;
         }
 
- .legend.hidden {
-    display: none;
-}
-        
-        
 .legend {
-    display: block; /* Default state */
+    display: block;
     background: rgba(255, 255, 255, 0.95);
     padding: 18px 22px;
     font: 13px/15px 'Segoe UI', system-ui, sans-serif;
     box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-    border-radius: 12px;
-    position: absolute;
-    bottom: 25px;
-    right: 15px;
+    border-radius: 12px 0 0 12px;
+    position: fixed;
+    top: 0;
+    right: -320px; /* Inizialmente nascosta fuori dallo schermo */
+    height: 100vh;
     z-index: 1000;
-    max-height: 65vh;
     overflow-y: auto;
     width: 300px;
     border: 1px solid rgba(0,0,0,0.1);
     backdrop-filter: blur(4px);
-    transition: all 0.3s ease;
+    transition: right 0.3s ease;
+}
+
+.legend.visible {
+    right: 0;
 }
 
 .legend-grid {
@@ -344,12 +343,12 @@ const municipalityColors = {
         }
 
 // Add this new function for legend toggle
-    function toggleLegend() {
-        const legend = document.querySelector('.legend');
-        if (legend) {
-            legend.classList.toggle('hidden');
-        }
+function toggleLegend() {
+    const legend = document.querySelector('.legend');
+    if (legend) {
+        legend.classList.toggle('visible');
     }
+}
         
         // Funzione per attivare la ricerca
   function toggleLibrarySearch() {
@@ -666,7 +665,7 @@ fetch('municipio10.geojson')
         }).addTo(map);
 
         // Aggiungi la legenda interattiva
-         const legend = L.control({ position: 'bottomright' });
+         const legend = L.control({ position: 'topright' });
    // Replace the legend.onAdd function with this corrected version
 legend.onAdd = function() {
     const div = L.DomUtil.create("div", "legend");
