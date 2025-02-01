@@ -277,68 +277,70 @@
 
 /* Stile per il riquadro dei risultati */
 #search-results {
-    position: absolute;
-    top: 70px; /* Posizione sotto la casella di ricerca */
-    left: 20px; /* Allineato con il pannello laterale */
-    width: 280px; /* Larghezza coerente con il pannello */
-    max-height: 400px; /* Altezza massima con scroll */
-    overflow-y: auto; /* Abilita lo scroll se necessario */
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 15px;
-    z-index: 1000;
-    border: 1px solid #e0e0e0;
+  position: relative; /* Cambia da absolute a relative */
+  top: auto; /* Rimuovi il posizionamento assoluto */
+  left: auto; /* Rimuovi il posizionamento assoluto */
+  width: 100%; /* Larghezza piena del pannello */
+  max-height: 400px; /* Altezza massima con scroll */
+  overflow-y: auto; /* Abilita lo scroll se necessario */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 15px;
+  margin-top: 20px; /* Spazio sopra il riquadro */
+  border: 1px solid #e0e0e0;
+  z-index: 1; /* Assicurati che sia sopra altri elementi */
 }
 
 /* Stile per il titolo del municipio */
 #search-results .municipio-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 /* Stile per ogni voce di biblioteca */
 #search-results .library-item {
-    padding: 8px 12px;
-    margin: 5px 0;
-    border-radius: 6px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    font-size: 14px;
-    color: #555;
-    border: 1px solid #e0e0e0;
+  padding: 8px 12px;
+  margin: 5px 0;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #e0e0e0;
 }
 
 /* Effetto hover sulle voci di biblioteca */
 #search-results .library-item:hover {
-    background-color: #f1f1f1;
-    transform: translateX(5px);
-    border-color: #4285f4;
+  background-color: #f1f1f1;
+  transform: translateX(5px);
+  border-color: #4285f4;
 }
 
 /* Scrollbar personalizzata */
 #search-results::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 #search-results::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
+  background: #f1f1f1;
+  border-radius: 4px;
 }
 
 #search-results::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
+  background: #888;
+  border-radius: 4px;
 }
 
 #search-results::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  background: #555;
 }
+
         
     </style>
 </head>
@@ -360,16 +362,18 @@
     </div>
 
     <!-- Seconda barra laterale (espansione) -->
-    <div class="sidebar-expanded" id="expandedSidebar">
-        <div class="search-container" id="searchContainer">
-            <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-<datalist id="library-suggestions">
-    <!-- Opzioni verranno aggiunte via JavaScript -->
-</datalist>
-
-            <button onclick="searchRoute()">Trova Percorso</button>
-        </div>
-    </div>
+<!-- Seconda barra laterale (espansione) -->
+<div class="sidebar-expanded" id="expandedSidebar">
+  <div class="search-container" id="searchContainer">
+    <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+    <datalist id="library-suggestions">
+      <!-- Opzioni verranno aggiunte via JavaScript -->
+    </datalist>
+    <button onclick="searchRoute()">Trova Percorso</button>
+  </div>
+  <!-- Aggiungi il contenitore dei risultati qui -->
+  <div id="search-results"></div>
+</div>
 
     <div id="map"></div>
     
@@ -462,30 +466,31 @@ async function searchLibrary() {
 }
 
 function showMunicipioAndLibraries(municipioNumber, libraries) {
-    // Rimuovi i risultati precedenti
-    const existingResults = document.getElementById('search-results');
-    if (existingResults) {
-        existingResults.remove();
-    }
-
-    // Crea il contenitore per i risultati
+  // Rimuovi i risultati precedenti
+  const existingResults = document.getElementById('search-results');
+  if (existingResults) {
+    existingResults.innerHTML = ''; // Svuota il contenuto invece di rimuoverlo
+  } else {
     const resultsContainer = document.createElement('div');
     resultsContainer.id = 'search-results';
+    document.getElementById('expandedSidebar').appendChild(resultsContainer);
+  }
 
-    // Aggiungi il titolo del municipio
-    const municipioDiv = document.createElement('div');
-    municipioDiv.className = 'municipio-title';
-    municipioDiv.textContent = `Municipio ${romanize(municipioNumber)}`;
-    resultsContainer.appendChild(municipioDiv);
+  // Aggiungi il titolo del municipio
+  const municipioDiv = document.createElement('div');
+  municipioDiv.className = 'municipio-title';
+  municipioDiv.textContent = `Municipio ${romanize(municipioNumber)}`;
+  resultsContainer.appendChild(municipioDiv);
 
-    // Aggiungi le biblioteche del municipio
-    libraries.forEach(library => {
-        const libraryDiv = document.createElement('div');
-        libraryDiv.className = 'library-item';
-        libraryDiv.textContent = library.name;
-        libraryDiv.onclick = () => selectLibrary(library);
-        resultsContainer.appendChild(libraryDiv);
-    });
+  // Aggiungi le biblioteche del municipio
+  libraries.forEach(library => {
+    const libraryDiv = document.createElement('div');
+    libraryDiv.className = 'library-item';
+    libraryDiv.textContent = library.name;
+    libraryDiv.onclick = () => selectLibrary(library);
+    resultsContainer.appendChild(libraryDiv);
+  });
+}
 
     // Aggiungi i risultati al DOM
     document.body.appendChild(resultsContainer);
