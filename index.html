@@ -291,10 +291,11 @@ body,html{margin:0;padding:0;height:100%;width:100%}
             <h3>Mappa Biblioteche</h3>
         </div>
         <div class="sidebar-body">
-            <!-- Nuovo pulsante sidebar.svg -->
+            <!-- Pulsante per aprire/chiudere la sidebar -->
             <div class="sidebar-toggle" onclick="toggleSidebar()">
                 <img src="sidebar.svg" alt="Toggle Sidebar" class="icon">
             </div>
+
             <!-- Pulsanti esistenti -->
             <div class="search-route" onclick="expandSidebar('route')">
                 <img src="street-search.svg" alt="Cerca percorso" class="icon">
@@ -304,12 +305,10 @@ body,html{margin:0;padding:0;height:100%;width:100%}
                 <img src="search-icon.svg" alt="Cerca biblioteca" class="icon">
                 <span>Cerca Biblioteca</span>
             </div>
-            <!-- Form di ricerca -->
-            <div id="route-search" class="search-box">
-                <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-            </div>
-            <div id="library-search" class="search-box">
-                <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
+
+            <!-- Campo di ricerca unico -->
+            <div id="dynamic-search" class="search-box" style="display: none;">
+                <input type="text" id="search-input" placeholder="Inserisci punto di partenza">
             </div>
         </div>
     </div>
@@ -396,31 +395,70 @@ async function loadAndShowBorder(municipalityNumber, map) {
 
 document.addEventListener("DOMContentLoaded", function() {
 // Funzione per espandere la barra laterale e mostrare il form di ricerca
+// Funzione per espandere la barra laterale e mostrare il campo di ricerca appropriato
 window.expandSidebar = function(type) {
     const sidebar = document.getElementById('sidebar');
-    const routeSearch = document.getElementById('route-search');
-    const librarySearch = document.getElementById('library-search');
+    const searchRoute = document.querySelector('.search-route');
+    const searchLibrary = document.querySelector('.search-library');
+    const dynamicSearch = document.getElementById('dynamic-search');
+    const searchInput = document.getElementById('search-input');
 
+    // Nascondi i pulsanti "Cerca percorso" e "Cerca biblioteca"
+    searchRoute.style.display = 'none';
+    searchLibrary.style.display = 'none';
+
+    // Mostra il campo di ricerca dinamico
+    dynamicSearch.style.display = 'flex';
+
+    // Imposta il placeholder e il comportamento in base al tipo di ricerca
     if (type === 'route') {
-        routeSearch.style.display = 'flex';
-        librarySearch.style.display = 'none';
+        searchInput.placeholder = 'Inserisci punto di partenza';
+        searchInput.onkeypress = function(event) {
+            if (event.key === 'Enter') {
+                searchRoute();
+            }
+        };
     } else if (type === 'library') {
-        routeSearch.style.display = 'flex';
-        librarySearch.style.display = 'none';
+        searchInput.placeholder = 'Inserisci nome biblioteca';
+        searchInput.onkeypress = function(event) {
+            if (event.key === 'Enter') {
+                searchLibrary();
+            }
+        };
     }
 
+    // Espandi la sidebar
     sidebar.classList.add('expanded');
 };
 
-// Aggiungi event listener per i clic sulle icone
-document.addEventListener("DOMContentLoaded", function() {
-  const routeIcon = document.querySelector('.search-route');
-  const libraryIcon = document.querySelector('.search-library');
+// Funzione per ripristinare la sidebar allo stato iniziale
+function resetSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const searchRoute = document.querySelector('.search-route');
+    const searchLibrary = document.querySelector('.search-library');
+    const dynamicSearch = document.getElementById('dynamic-search');
 
-  routeIcon.addEventListener('click', () => expandSidebar('route'));
-  libraryIcon.addEventListener('click', () => expandSidebar('library'));
+    // Ripristina la visibilità dei pulsanti
+    searchRoute.style.display = 'flex';
+    searchLibrary.style.display = 'flex';
+
+    // Nascondi il campo di ricerca dinamico
+    dynamicSearch.style.display = 'none';
+
+    // Chiudi la sidebar
+    sidebar.classList.remove('expanded');
+}
+
+// Aggiungi un listener per il pulsante di chiusura della sidebar
+document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+    resetSidebar();
 });
 
+
+
+
+
+    
     // Funzione per cercare il percorso
     window.searchRoute = async function() {
         const startPoint = document.getElementById('start-point').value;
