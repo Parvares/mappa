@@ -354,6 +354,27 @@
     margin: 10px auto; /* Riduci il margine su schermi piccoli */
   }
 }        
+
+.clear-search-btn {
+    display: none; /* Inizialmente nascosto */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    font-size: 16px;
+    padding: 5px;
+    margin-left: 5px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.clear-search-btn:hover {
+    color: #555;
+}
+
+        
     </style>
 </head>
 <body>
@@ -382,6 +403,8 @@
       <!-- Opzioni verranno aggiunte via JavaScript -->
     </datalist>
     <button onclick="searchRoute()">Trova Percorso</button>
+      <!-- Aggiungi il pulsante "x" -->
+    <button id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</button>
   </div>
   <!-- Aggiungi il contenitore dei risultati qui -->
   <div id="search-results"></div>
@@ -587,6 +610,30 @@ function toggleStreetSearch() {
     // Mostra la casella di ricerca
     searchContainer.style.display = 'block';
 }
+
+
+// Funzione per resettare il campo di ricerca
+function clearSearchField() {
+    const searchInput = document.getElementById('start-point');
+    searchInput.value = '';
+    searchInput.focus();
+    toggleClearButton();
+}
+
+// Funzione per mostrare/nascondere il pulsante "x"
+function toggleClearButton() {
+    const searchInput = document.getElementById('start-point');
+    const clearButton = document.getElementById('clear-search');
+    if (searchInput.value.trim() !== '') {
+        clearButton.style.display = 'block';
+    } else {
+        clearButton.style.display = 'none';
+    }
+}
+
+// Aggiungi un listener per l'input nel campo di ricerca
+document.getElementById('start-point').addEventListener('input', toggleClearButton);
+        
         
 // Funzione helper per caricare e visualizzare il confine di un municipio
 async function loadAndShowBorder(municipalityNumber, map) {
