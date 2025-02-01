@@ -16,7 +16,44 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 .search-box .icon{width:24px;height:24px;margin-right:10px;cursor:pointer}
 .search-box .separator{width:1px;height:24px;background-color:#ccc;margin:0 10px}
 
+/* Stile per la barra laterale */
+/* Stile per la barra laterale stretta */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px; /* Larghezza stretta */
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: width 0.3s ease;
+    z-index: 1000;
+    overflow: hidden;
+}
 
+#sidebar.expanded {
+    width: 300px; /* Larghezza espansa */
+}
+
+.sidebar-content {
+    padding: 20px;
+    width: 300px; /* Larghezza del contenuto espanso */
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+    display: none; /* Nascondi il titolo nella barra stretta */
+}
+
+#sidebar.expanded .sidebar-header h3 {
+    display: block; /* Mostra il titolo quando espanso */
+}
+
+.sidebar-body {
+    margin-top: 20px;
+}
 
 .search-route, .search-library {
     display: flex;
