@@ -40,12 +40,50 @@
             align-items: center;
             padding-top: 20px;
         }
-        .sidebar button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
+
+        /* Stile per i pulsanti della barra laterale */
+.sidebar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-top: 10px; /* Abbassa i pulsanti */
+    position: relative; /* Necessario per il tooltip */
+    transition: background-color 0.3s ease; /* Transizione per l'effetto hover */
+}
+
+/* Effetto hover sui pulsanti */
+.sidebar button:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Cambia colore di sfondo al passaggio del mouse */
+    border-radius: 5px; /* Arrotonda gli angoli */
+}
+
+/* Stile per il tooltip */
+.sidebar button::after {
+    content: attr(data-tooltip); /* Usa l'attributo data-tooltip per il testo */
+    position: absolute;
+    left: 60px; /* Posizione a destra del pulsante */
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Mostra il tooltip al passaggio del mouse */
+.sidebar button:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+        
   .sidebar button img {
     width: 24px;
     height: 24px;
@@ -394,20 +432,20 @@
 </head>
 <body>
     <!-- Barra laterale fissa -->
-    <div class="sidebar">
-        <button onclick="toggleExpandedSidebar()">
-            <img src="sidebar.svg" alt="Menu">
-        </button>
-        <button onclick="toggleLibrarySearch()">
-            <img src="search-icon.svg" alt="Cerca biblioteca">
-        </button>
-        <button onclick="toggleStreetSearch()">
-            <img src="street-search.svg" alt="Cerca indirizzo">
-        </button>
-        <button onclick="toggleLegend()">
-            <img src="legend-icon.svg" alt="Mostra/Nascondi legenda">
-        </button>
-    </div>
+<div class="sidebar">
+    <button onclick="toggleExpandedSidebar()" data-tooltip="Apri/Chiudi menu">
+        <img src="sidebar.svg" alt="Menu">
+    </button>
+    <button onclick="toggleLibrarySearch()" data-tooltip="Cerca biblioteca">
+        <img src="search-icon.svg" alt="Cerca biblioteca">
+    </button>
+    <button onclick="toggleStreetSearch()" data-tooltip="Cerca indirizzo">
+        <img src="street-search.svg" alt="Cerca indirizzo">
+    </button>
+    <button onclick="toggleLegend()" data-tooltip="Mostra/Nascondi legenda">
+        <img src="legend-icon.svg" alt="Mostra/Nascondi legenda">
+    </button>
+</div>
 
     <!-- Seconda barra laterale (espansione) -->
 <!-- Seconda barra laterale (espansione) -->
