@@ -78,49 +78,14 @@
         .sidebar-expanded.open .search-container {
             display: block; /* Mostra la casella di ricerca */
         }
-.search-container input {
-    width: 100%;
-    padding: 8px 30px 8px 12px; /* Padding sinistro aggiunto */
-    border: 1px solid #4285f4;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url('down-arrow.svg');
-    background-repeat: no-repeat;
-    background-position: right 12px center; /* Posizione più precisa */
-    background-size: 14px 14px; /* Dimensione leggermente aumentata */
-    box-sizing: border-box; /* Previene l'allungamento */
-    overflow: hidden; /* Nasconde eventuali elementi fuori dal bordo */
-}
-/* Fix specifico per Firefox */
-@-moz-document url-prefix() {
-    #start-point {
-        text-indent: 0.01px; /* Fix per nascondere la freccia predefinita */
-        text-overflow: ''; /* Rimuove la freccia predefinita */
-    }
-}
-
-/* Nascondi il datalist nativo */
-#library-suggestions {
-    display: none;
-}
-
-/* Migliora l'aspetto al passaggio del mouse */
-#start-point:hover {
-    border-color: #66a3ff; /* Cambia il colore del bordo */
-    background-image: url('down-arrow.svg'); /* Mantiene l'icona personalizzata */
-}
-/* Migliora la visibilità dell'icona */
-#start-point:focus {
-    background-image: url('down-arrow.svg');
-    border-color: #4285f4;
-    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
-}
-
-        
+        .search-container input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #4285f4; /* Contorno blu */
+            border-radius: 4px; /* Bordi arrotondati */
+            font-size: 14px;
+            outline: none; /* Rimuove il bordo predefinito */
+        }
         .search-container button {
             width: 100%;
             padding: 8px;
@@ -307,30 +272,6 @@
     margin-top: 5px;
 }
 
-
-#library-suggestions {
-    display: none; /* Il datalist è gestito dal browser, quindi non ha bisogno di stili */
-}
-
-/* Nascondi la freccia predefinita del dropdown */
-#start-point {
-    width: 100%;
-    padding: 8px 30px 8px 12px; /* Padding per l'icona a destra */
-    border: 1px solid #4285f4;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
-    -webkit-appearance: none; /* Rimuove la freccia predefinita su Chrome/Safari */
-    -moz-appearance: none;    /* Rimuove la freccia predefinita su Firefox */
-    appearance: none;         /* Rimuove la freccia predefinita su altri browser */
-    background-image: url('down-arrow.svg');
-    background-repeat: no-repeat;
-    background-position: right 12px center; /* Posizione dell'icona */
-    background-size: 14px 14px; /* Dimensione dell'icona */
-    box-sizing: border-box; /* Mantiene la larghezza corretta */
-    cursor: pointer; /* Cambia il cursore per indicare che è cliccabile */
-}
-        
     </style>
 </head>
 <body>
@@ -353,7 +294,7 @@
     <!-- Seconda barra laterale (espansione) -->
     <div class="sidebar-expanded" id="expandedSidebar">
         <div class="search-container" id="searchContainer">
-           <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+            <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
 <datalist id="library-suggestions">
     <!-- Opzioni verranno aggiunte via JavaScript -->
 </datalist>
@@ -481,7 +422,7 @@ function toggleLibrarySearch() {
     
     const startPointInput = document.getElementById('start-point');
     const searchButton = searchContainer.querySelector('button');
-    startPointInput.placeholder = "Cerca o seleziona una biblioteca";
+    startPointInput.placeholder = "Cerca una biblioteca...";
     searchButton.textContent = "Cerca Biblioteca";
     
     searchButton.onclick = searchLibrary;
