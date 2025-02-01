@@ -8,13 +8,77 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
     <link rel="icon" href="favicon.png" type="image/png">
     <style>
-body,html{margin:0;padding:0;height:100%;width:100%}
-#map{height:100vh;width:100%}
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
 .search-box{position:absolute;top:10px;left:50px;z-index:1000;background:#fff;padding:10px;border-radius:5px;box-shadow:0 0 15px rgba(0,0,0,.2);display:flex;align-items:center}
 .search-box input{width:250px;margin-right:10px;padding:5px 10px;border:1px solid #ccc;border-radius:3px;font-size:14px}
 .search-box button{background-color:#4285f4;color:#fff;border:none;padding:5px 10px;border-radius:3px;cursor:pointer;font-size:14px}
 .search-box .icon{width:24px;height:24px;margin-right:10px;cursor:pointer}
 .search-box .separator{width:1px;height:24px;background-color:#ccc;margin:0 10px}
+        .search-container {
+            display: none;
+            width: 100%;
+            padding: 10px;
+        }
+        .sidebar.expanded .search-container {
+            display: block;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .search-container button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            background-color: #4285f4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+  .sidebar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 60px; /* Larghezza iniziale */
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: width 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        .sidebar.expanded {
+            width: 300px; /* Larghezza espansa */
+        }
+        .sidebar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .sidebar button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        
 .legend {
     background: rgba(255, 255, 255, 0.95);
     padding: 18px 22px;
@@ -180,13 +244,21 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     </style>
 </head>
 <body>
-  <div class="search-box">
-        
-        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Morante">
-            <img src="home.svg" alt="Biblioteca Home" class="icon">
-        </a>
-        <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-        <button onclick="searchRoute()" title="Trova percorso fino alla Biblioteca Morante">Trova Percorso</button>
+    <!-- Pannello laterale -->
+    <div class="sidebar" id="sidebar">
+        <button onclick="toggleSidebar()">
+            <img src="sidebar.svg" alt="Menu">
+        </button>
+        <button onclick="toggleSearch()">
+            <img src="search-icon.svg" alt="Cerca">
+        </button>
+        <button onclick="toggleStreetSearch()">
+            <img src="street-search.svg" alt="Cerca indirizzo">
+        </button>
+        <div class="search-container" id="searchContainer">
+            <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+            <button onclick="searchRoute()">Trova Percorso</button>
+        </div>
     </div>
     <div id="map"></div>
     
@@ -232,7 +304,25 @@ const municipalityColors = {
         let currentHighlight = null;
         let selectedMunicipio = null;
 
+       // Funzioni per gestire il pannello laterale
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('expanded');
+        }
 
+        function toggleSearch() {
+            // Implementa la logica per la ricerca
+            alert("Funzione di ricerca non ancora implementata.");
+        }
+
+        function toggleStreetSearch() {
+            const sidebar = document.getElementById('sidebar');
+            const searchContainer = document.getElementById('searchContainer');
+            sidebar.classList.add('expanded');
+            searchContainer.style.display = 'block';
+        }
+
+        
 // Funzione helper per caricare e visualizzare il confine di un municipio
 async function loadAndShowBorder(municipalityNumber, map) {
     // Se c'è già un confine visualizzato, rimuovilo
