@@ -382,7 +382,14 @@ async function loadAndShowBorder(municipalityNumber, map) {
 document.addEventListener("DOMContentLoaded", async function() { // <-- Aggiungi async qui
 
     const center = [41.732522, 12.271879];
-    const map = L.map("map").setView(center, 14);
+                const map = L.map("map", {
+                zoomControl: false  // Disable default zoom control
+            }).setView(center, 14);
+            
+            // Add zoom control to the right side
+            L.control.zoom({
+                position: 'topright'
+            }).addTo(map);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
