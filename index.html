@@ -273,36 +273,36 @@
 }
 
 .search-results {
-            position: absolute;
-            top: 60px;
-            left: 50px;
-            z-index: 1000;
-            background: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 15px rgba(0,0,0,.2);
-            max-height: 300px;
-            overflow-y: auto;
-            width: 300px;
-        }
-        .municipio-result {
-            margin-bottom: 10px;
-        }
-        .municipio-result h4 {
-            margin: 0 0 5px 0;
-            cursor: pointer;
-        }
-        .library-list {
-            margin-left: 20px;
-        }
-        .library-list div {
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 3px;
-        }
-        .library-list div:hover {
-            background-color: #f0f0f0;
-        }
+    position: absolute;
+    top: 60px;
+    left: 50px;
+    z-index: 1000;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+    max-height: 300px;
+    overflow-y: auto;
+    width: 300px;
+}
+.municipio-result {
+    margin-bottom: 10px;
+}
+.municipio-result h4 {
+    margin: 0 0 5px 0;
+    cursor: pointer;
+}
+.library-list {
+    margin-left: 20px;
+}
+.library-list div {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+}
+.library-list div:hover {
+    background-color: #f0f0f0;
+}
         
     </style>
 </head>
@@ -503,57 +503,6 @@ function toggleLegend() {
 }
 
 
-// Funzione per cercare una biblioteca e aprire il popup corrispondente
-async function searchLibrary() {
-    const searchTerm = document.getElementById('start-point').value.toLowerCase();
-    if (!searchTerm) return;
-
-    try {
-        const response = await fetch('libraries.json');
-        const data = await response.json();
-
-
-
-        
-        const foundLibrary = data.libraries.find(library => 
-            library.name.toLowerCase().includes(searchTerm)
-        );
-
-        if (foundLibrary) {
-            // Trova il marker corrispondente
-            let foundMarker = null;
-            map.eachLayer((layer) => {
-                if (layer instanceof L.Marker) {
-                    const pos = layer.getLatLng();
-                    if (pos.lat === foundLibrary.coords[0] && pos.lng === foundLibrary.coords[1]) {
-                        foundMarker = layer;
-                    }
-                }
-            });
-
-            if (foundMarker) {
-                // Apri il popup del marker
-                foundMarker.openPopup();
-                map.setView(foundMarker.getLatLng(), 14);
-
-                // Evidenzia l'area del municipio
-                const municipioNumber = foundLibrary.municipality;
-                loadAndShowBorder(municipioNumber, map);
-
-                // Evidenzia la voce della legenda
-                highlightLegendItem(municipioNumber);
-                selectedMunicipio = municipioNumber;
-            } else {
-                console.log('Marker not found for library:', foundLibrary);
-            }
-        } else {
-            alert('Biblioteca non trovata. Riprova.');
-        }
-    } catch (error) {
-        console.error('Errore nella ricerca della biblioteca:', error);
-        alert('Errore nella ricerca. Riprova.');
-    }
-}
 
 function toggleLibrarySearch() {
     const expandedSidebar = document.getElementById('expandedSidebar');
