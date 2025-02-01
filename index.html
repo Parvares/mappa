@@ -468,10 +468,13 @@ async function searchLibrary() {
 function showMunicipioAndLibraries(municipioNumber, libraries) {
   // Rimuovi i risultati precedenti
   const existingResults = document.getElementById('search-results');
+  let resultsContainer; // Dichiarazione della variabile all'inizio della funzione
+
   if (existingResults) {
     existingResults.innerHTML = ''; // Svuota il contenuto invece di rimuoverlo
+    resultsContainer = existingResults; // Assegna il contenitore esistente alla variabile
   } else {
-    const resultsContainer = document.createElement('div');
+    resultsContainer = document.createElement('div'); // Crea un nuovo contenitore
     resultsContainer.id = 'search-results';
     document.getElementById('expandedSidebar').appendChild(resultsContainer);
   }
@@ -480,7 +483,7 @@ function showMunicipioAndLibraries(municipioNumber, libraries) {
   const municipioDiv = document.createElement('div');
   municipioDiv.className = 'municipio-title';
   municipioDiv.textContent = `Municipio ${romanize(municipioNumber)}`;
-  resultsContainer.appendChild(municipioDiv);
+  resultsContainer.appendChild(municipioDiv); // Ora resultsContainer è definito
 
   // Aggiungi le biblioteche del municipio
   libraries.forEach(library => {
