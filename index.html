@@ -272,6 +272,50 @@
     margin-top: 5px;
 }
 
+/* Rimuovi lo stile predefinito del triangolo rovesciato */
+#start-point {
+    appearance: none; /* Rimuove lo stile predefinito */
+    -webkit-appearance: none; /* Per browser WebKit */
+    -moz-appearance: none; /* Per Firefox */
+    background-color: transparent; /* Sfondo trasparente */
+    border: 1px solid #ccc; /* Bordo leggero */
+    border-radius: 4px; /* Bordi arrotondati */
+    padding: 8px 30px 8px 10px; /* Padding per la freccia */
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Aggiungi una freccia personalizzata */
+#start-point {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234285f4"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+/* Stile per il datalist */
+#library-suggestions {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Stile per le opzioni del datalist */
+#library-suggestions option {
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+
+#library-suggestions option:hover {
+    background-color: #f0f0f0;
+}
+        
     </style>
 </head>
 <body>
