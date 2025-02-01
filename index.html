@@ -272,22 +272,6 @@
     margin-top: 5px;
 }
 
-
- #suggestions-container {
-    border: 1px solid #ccc;
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.suggestion-item {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #eee;
-}
-
-.suggestion-item:hover {
-    background-color: #f5f5f5;
-}       
     </style>
 </head>
 <body>
@@ -312,8 +296,6 @@
         <div class="search-container" id="searchContainer">
             <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
             <button onclick="searchRoute()">Trova Percorso</button>
-            <!-- Aggiungi questa riga subito dopo il button -->
-        <div id="suggestions-container"></div>
         </div>
     </div>
 
@@ -818,45 +800,6 @@ window.handleLegendClick = async function(municipioNumber) {
 };
         })
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
-});
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.querySelector('[name="Cerca una biblioteca"]');
-    const suggestionsContainer = document.getElementById('suggestions-container');
-    let libraries = [];
-
-    // Carica i dati delle biblioteche
-    fetch('libraries.json')
-        .then(response => response.json())
-        .then(data => {
-            libraries = data.libraries;
-        });
-
-    // Gestione input utente
-    searchInput.addEventListener('input', function(e) {
-        const query = e.target.value.toLowerCase();
-        suggestionsContainer.innerHTML = '';
-
-        if(query.length < 2) return;
-
-        const results = libraries.filter(library => 
-            library.name.toLowerCase().includes(query) ||
-            library.address.toLowerCase().includes(query) ||
-            library.municipalityName.toLowerCase().includes(query)
-        );
-
-        // Crea suggerimenti
-        results.forEach(library => {
-            const div = document.createElement('div');
-            div.className = 'suggestion-item';
-            div.innerHTML = `<strong>${library.name}</strong><br>${library.address}`;
-            div.addEventListener('click', () => {
-                window.location.href = library.url; // Reindirizza alla pagina della biblioteca
-            });
-            suggestionsContainer.appendChild(div);
-        });
-    });
 });
     </script>
 </body>
