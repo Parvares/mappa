@@ -46,10 +46,12 @@
             cursor: pointer;
             margin-bottom: 20px;
         }
-        .sidebar button img {
-            width: 24px;
-            height: 24px;
-        }
+  .sidebar button img {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 0;
+}
 
         /* Seconda barra laterale (espansione) */
         .sidebar-expanded {
@@ -96,8 +98,12 @@
             font-size: 14px;
         }
 
+ .legend.hidden {
+    display: none;
+}
         
 .legend {
+    display: block; /* Default state */
     background: rgba(255, 255, 255, 0.95);
     padding: 18px 22px;
     font: 13px/15px 'Segoe UI', system-ui, sans-serif;
@@ -263,17 +269,20 @@
 </head>
 <body>
     <!-- Barra laterale fissa -->
-<div class="sidebar">
-    <button onclick="toggleExpandedSidebar()">
-        <img src="sidebar.svg" alt="Menu">
-    </button>
-    <button onclick="toggleLibrarySearch()">
-        <img src="search-icon.svg" alt="Cerca biblioteca">
-    </button>
-    <button onclick="toggleStreetSearch()">
-        <img src="street-search.svg" alt="Cerca indirizzo">
-    </button>
-</div>
+    <div class="sidebar">
+        <button onclick="toggleExpandedSidebar()">
+            <img src="sidebar.svg" alt="Menu">
+        </button>
+        <button onclick="toggleLibrarySearch()">
+            <img src="search-icon.svg" alt="Cerca biblioteca">
+        </button>
+        <button onclick="toggleStreetSearch()">
+            <img src="street-search.svg" alt="Cerca indirizzo">
+        </button>
+        <button onclick="toggleLegend()">
+            <img src="legend-icon.svg" alt="Mostra/Nascondi legenda">
+        </button>
+    </div>
 
     <!-- Seconda barra laterale (espansione) -->
     <div class="sidebar-expanded" id="expandedSidebar">
@@ -333,6 +342,14 @@ const municipalityColors = {
             expandedSidebar.classList.toggle('open');
         }
 
+// Add this new function for legend toggle
+    function toggleLegend() {
+        const legend = document.querySelector('.legend');
+        if (legend) {
+            legend.classList.toggle('hidden');
+        }
+    }
+        
         // Funzione per attivare la ricerca
   function toggleLibrarySearch() {
     const expandedSidebar = document.getElementById('expandedSidebar');
