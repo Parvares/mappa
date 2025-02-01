@@ -54,30 +54,55 @@
 }
 
         /* Seconda barra laterale (espansione) */
-        .sidebar-expanded {
-            position: absolute;
-            top: 0;
-            left: 60px; /* Parte dalla fine della barra fissa */
-            height: 100%;
-            width: 0; /* Inizialmente nascosta */
-            background: #f4f7f0; /* Colore di sfondo */
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 999;
-            transition: width 0.3s ease;
-            overflow: hidden;
-        }
-        .sidebar-expanded.open {
+.sidebar-expanded {
+  position: absolute;
+  top: 0;
+  left: 60px; /* Parte dalla fine della barra fissa */
+  height: 100%;
+  width: 0; /* Inizialmente nascosta */
+  background: #f4f7f0; /* Colore di sfondo */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  display: flex; /* Abilita flexbox */
+  flex-direction: column; /* Allinea gli elementi in colonna */
+  justify-content: flex-start; /* Allinea gli elementi all'inizio */
+  align-items: center; /* Centra gli elementi orizzontalmente */
+  padding-top: 20px; /* Aggiungi un po' di spazio in alto */
+}
+
+.sidebar-expanded.open {
   width: 400px; /* Larghezza espansa */
   padding: 20px; /* Aggiungi padding per evitare che il contenuto sia troppo vicino ai bordi */
   box-sizing: border-box; /* Include il padding nella larghezza totale */
 }
+@media (max-width: 768px) {
+  .sidebar-expanded.open {
+    width: 100%; /* Occupa tutta la larghezza su schermi piccoli */
+    padding: 10px; /* Riduci il padding su schermi piccoli */
+  }
+
+  .search-container {
+    width: calc(100% - 20px); /* Riduci la larghezza su schermi piccoli */
+    margin: 10px auto; /* Riduci il margine su schermi piccoli */
+  }
+}
+
+        
 
         /* Casella di ricerca */
         /* Stile per il pannello di ricerca */
 .search-container {
-    position: relative; /* Permette di posizionare il riquadro dei risultati relativamente a questo contenitore */
-    padding: 20px;
-    display: none;
+  position: relative; /* Mantieni il posizionamento relativo */
+  width: calc(100% - 40px); /* Larghezza piena meno un po' di padding */
+  margin: 20px auto; /* Centra orizzontalmente e aggiunge margine superiore */
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+  z-index: 1; /* Assicurati che sia sopra altri elementi */
 }
         .sidebar-expanded.open .search-container {
             display: block; /* Mostra la casella di ricerca */
