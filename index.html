@@ -285,35 +285,35 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 </head>
 <body>
  <!-- Barra laterale -->
-<div id="sidebar">
-  <div class="sidebar-content">
-    <div class="sidebar-header">
-      <h3>Mappa Biblioteche</h3>
-    </div>
-    <div class="sidebar-body">
-      <!-- Nuovo pulsante sidebar.svg -->
-      <div class="sidebar-toggle" onclick="toggleSidebar()">
-        <img src="sidebar.svg" alt="Toggle Sidebar" class="icon">
+  <div id="sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <h3>Mappa Biblioteche</h3>
       </div>
-      <!-- Pulsanti esistenti -->
-      <div class="search-route" onclick="expandSidebar('route')">
-        <img src="street-search.svg" alt="Cerca percorso" class="icon">
-        <span>Cerca Percorso</span>
-      </div>
-      <div class="search-library" onclick="expandSidebar('library')">
-        <img src="search-icon.svg" alt="Cerca biblioteca" class="icon">
-        <span>Cerca Biblioteca</span>
-      </div>
-      <!-- Form di ricerca -->
-      <div id="route-search" class="search-box">
-        <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-      </div>
-      <div id="library-search" class="search-box">
-        <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
+      <div class="sidebar-body">
+        <!-- Nuovo pulsante sidebar.svg -->
+        <div class="sidebar-toggle" onclick="toggleSidebar()">
+          <img src="sidebar.svg" alt="Toggle Sidebar" class="icon">
+        </div>
+        <!-- Pulsanti esistenti -->
+        <div class="search-route">
+          <img src="street-search.svg" alt="Cerca percorso" class="icon">
+          <span>Cerca Percorso</span>
+        </div>
+        <div class="search-library">
+          <img src="search-icon.svg" alt="Cerca biblioteca" class="icon">
+          <span>Cerca Biblioteca</span>
+        </div>
+        <!-- Form di ricerca -->
+        <div id="route-search" class="search-box">
+          <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+        </div>
+        <div id="library-search" class="search-box">
+          <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
+        </div>
       </div>
     </div>
   </div>
-</div>
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
