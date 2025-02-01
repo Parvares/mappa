@@ -294,7 +294,11 @@
     <!-- Seconda barra laterale (espansione) -->
     <div class="sidebar-expanded" id="expandedSidebar">
         <div class="search-container" id="searchContainer">
-            <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+            <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+<datalist id="library-suggestions">
+    <!-- Opzioni verranno aggiunte via JavaScript -->
+</datalist>
+
             <button onclick="searchRoute()">Trova Percorso</button>
         </div>
     </div>
@@ -366,6 +370,10 @@ async function searchLibrary() {
     try {
         const response = await fetch('libraries.json');
         const data = await response.json();
+
+
+
+        
         const foundLibrary = data.libraries.find(library => 
             library.name.toLowerCase().includes(searchTerm)
         );
@@ -571,37 +579,45 @@ const icons = getIconsConfig();
 
 // Spazio dove erano i marker per le biblioteche...
 // Carica le biblioteche dal file JSON
-  try {
+// Dopo aver caricato le biblioteche dal file JSON
+try {
     const response = await fetch('libraries.json');
     const data = await response.json();
-    
+
+    // Popola il datalist con i nomi delle biblioteche
+    const datalist = document.getElementById('library-suggestions');
+    data.libraries.forEach(library => {
+        const option = document.createElement('option');
+        option.value = library.name;
+        datalist.appendChild(option);
+    });
+
     // Crea i marker per ogni biblioteca
     data.libraries.forEach(library => {
-      const popupContent = `
-        <div class="baloon">
-          <h3>${library.name}</h3>
-          <p style="font-size: 15px;">
-            ${library.address} <br>
-            ${library.cap} Municipio ${library.municipalityName}
-          </p>
-          <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
-            Vai alla scheda
-          </a>
-        </div>
-      `;
-
-      createMarker(
-        library.coords,
-        library.name,
-        icons[`municipio${library.municipality}`],
-        popupContent,
-        library.municipality,
-        map
-      );
+        const popupContent = `
+            <div class="baloon">
+                <h3>${library.name}</h3>
+                <p style="font-size: 15px;">
+                    ${library.address} <br>
+                    ${library.cap} Municipio ${library.municipalityName}
+                </p>
+                <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
+                    Vai alla scheda
+                </a>
+            </div>
+        `;
+        createMarker(
+            library.coords,
+            library.name,
+            icons[`municipio${library.municipality}`],
+            popupContent,
+            library.municipality,
+            map
+        );
     });
-  } catch (error) {
+} catch (error) {
     console.error('Errore nel caricamento delle biblioteche:', error);
-  }
+}
     
 
 
