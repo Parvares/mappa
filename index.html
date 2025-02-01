@@ -67,8 +67,10 @@
             overflow: hidden;
         }
         .sidebar-expanded.open {
-            width: 320px; /* Larghezza espansa */
-        }
+  width: 400px; /* Larghezza espansa */
+  padding: 20px; /* Aggiungi padding per evitare che il contenuto sia troppo vicino ai bordi */
+  box-sizing: border-box; /* Include il padding nella larghezza totale */
+}
 
         /* Casella di ricerca */
         /* Stile per il pannello di ricerca */
@@ -277,21 +279,19 @@
 
 /* Stile per il riquadro dei risultati */
 #search-results {
-  position: relative; /* Cambia da absolute a relative */
-  top: auto; /* Rimuovi il posizionamento assoluto */
-  left: auto; /* Rimuovi il posizionamento assoluto */
-  width: 100%; /* Larghezza piena del pannello */
+  position: relative; /* Mantieni il posizionamento relativo */
+  width: calc(100% - 40px); /* Larghezza piena meno un po' di padding */
   max-height: 400px; /* Altezza massima con scroll */
   overflow-y: auto; /* Abilita lo scroll se necessario */
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 15px;
-  margin-top: 20px; /* Spazio sopra il riquadro */
+  margin: 20px auto; /* Centra orizzontalmente e aggiunge margine superiore */
   border: 1px solid #e0e0e0;
   z-index: 1; /* Assicurati che sia sopra altri elementi */
 }
-
+        
 /* Stile per il titolo del municipio */
 #search-results .municipio-title {
   font-size: 16px;
@@ -322,6 +322,7 @@
   border-color: #4285f4;
 }
 
+        
 /* Scrollbar personalizzata */
 #search-results::-webkit-scrollbar {
   width: 8px;
@@ -341,7 +342,17 @@
   background: #555;
 }
 
-        
+@media (max-width: 768px) {
+  .sidebar-expanded.open {
+    width: 100%; /* Occupa tutta la larghezza su schermi piccoli */
+    padding: 10px; /* Riduci il padding su schermi piccoli */
+  }
+
+  #search-results {
+    width: calc(100% - 20px); /* Riduci la larghezza su schermi piccoli */
+    margin: 10px auto; /* Riduci il margine su schermi piccoli */
+  }
+}        
     </style>
 </head>
 <body>
