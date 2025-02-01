@@ -272,6 +272,28 @@
     margin-top: 5px;
 }
 
+
+.suggestions {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions div {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.suggestions div:hover {
+  background-color: #f0f0f0;
+}
+
+        
     </style>
 </head>
 <body>
@@ -280,9 +302,9 @@
         <button onclick="toggleExpandedSidebar()">
             <img src="sidebar.svg" alt="Menu">
         </button>
-        <button onclick="toggleLibrarySearch()">
-            <img src="search-icon.svg" alt="Cerca biblioteca">
-        </button>
+       <button onclick="document.getElementById('expandedSidebar').classList.add('open'); document.getElementById('library-search').focus();">
+  <img src="search-icon.svg" alt="Cerca biblioteca">
+</button>
         <button onclick="toggleStreetSearch()">
             <img src="street-search.svg" alt="Cerca indirizzo">
         </button>
@@ -292,12 +314,12 @@
     </div>
 
     <!-- Seconda barra laterale (espansione) -->
-    <div class="sidebar-expanded" id="expandedSidebar">
-        <div class="search-container" id="searchContainer">
-            <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-            <button onclick="searchRoute()">Trova Percorso</button>
-        </div>
-    </div>
+<div class="sidebar-expanded" id="expandedSidebar">
+  <div class="search-container" id="searchContainer">
+    <input type="text" id="library-search" placeholder="Cerca una biblioteca..." oninput="searchLibraries()">
+    <div id="suggestions" class="suggestions"></div>
+  </div>
+</div>
 
     <div id="map"></div>
     
@@ -327,7 +349,76 @@ const municipalityColors = {
     15: "#000000"  // Nero
 };
 
+let librariesData = []; // Variabile globale per memorizzare i dati delle biblioteche
 
+// Funzione per caricare le biblioteche
+async function loadLibraries() {
+  try {
+    const response = await fetch('libraries.json');
+    librariesData = await response.json();
+  } catch (error) {
+    console.error('Errore nel caricamento delle biblioteche:', error);
+  }
+}
+
+// Funzione per cercare le biblioteche
+function searchLibraries() {
+  const input = document.getElementById('library-search').value.toLowerCase();
+  const suggestionsContainer = document.getElementById('suggestions');
+  suggestionsContainer.innerHTML = '';
+
+  if (input.length === 0) {
+    return;
+  }
+
+  const filteredLibraries = librariesData.libraries.filter(library =>
+    library.name.toLowerCase().includes(input)
+  );
+
+  filteredLibraries.forEach(library => {
+    const suggestion = document.createElement('div');
+    suggestion.textContent = library.name;
+    suggestion.onclick = () => selectLibrary(library);
+    suggestionsContainer.appendChild(suggestion);
+  });
+}
+
+// Funzione per selezionare una biblioteca
+function selectLibrary(library) {
+  const map = window.map; // Assicurati che la mappa sia accessibile globalmente
+  const coords = library.coords;
+  const popupContent = `
+    <div class="baloon">
+      <h3>${library.name}</h3>
+      <p style="font-size: 15px;">
+        ${library.address} <br>
+        ${library.cap} Municipio ${library.municipalityName}
+      </p>
+      <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
+        Vai alla scheda
+      </a>
+    </div>
+  `;
+
+  // Crea un marker per la biblioteca selezionata
+  const marker = L.marker(coords, { icon: icons[`municipio${library.municipality}`] })
+    .addTo(map)
+    .bindPopup(popupContent);
+
+  // Centra la mappa sulla biblioteca selezionata
+  map.setView(coords, 15);
+  marker.openPopup();
+
+  // Chiudi la barra laterale e cancella i suggerimenti
+  const expandedSidebar = document.getElementById('expandedSidebar');
+  expandedSidebar.classList.remove('open');
+  document.getElementById('suggestions').innerHTML = '';
+}
+
+// Carica le biblioteche all'avvio
+document.addEventListener("DOMContentLoaded", async function() {
+  await loadLibraries();
+});
 
               // Funzione per convertire numeri in numeri romani
         function romanize(num) {
@@ -357,24 +448,7 @@ function toggleLegend() {
     }
 }
         
-        // Funzione per attivare la ricerca
-  function toggleLibrarySearch() {
-    const expandedSidebar = document.getElementById('expandedSidebar');
-    const searchContainer = document.getElementById('searchContainer');
-    
-    // Apri la barra laterale
-    expandedSidebar.classList.add('open');
-    
-    // Modifica il placeholder e il testo del pulsante
-    const startPointInput = document.getElementById('start-point');
-    const searchButton = searchContainer.querySelector('button');
-    
-    startPointInput.placeholder = "Cerca una biblioteca...";
-    searchButton.textContent = "Cerca Biblioteca";
-    
-    // Mostra la casella di ricerca
-    searchContainer.style.display = 'block';
-}
+
 
         // Funzione per attivare la ricerca indirizzo
 function toggleStreetSearch() {
