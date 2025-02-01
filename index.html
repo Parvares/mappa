@@ -490,15 +490,11 @@ function showMunicipioAndLibraries(municipioNumber, libraries) {
     libraryDiv.onclick = () => selectLibrary(library);
     resultsContainer.appendChild(libraryDiv);
   });
-}
 
-    // Aggiungi i risultati al DOM
-    document.body.appendChild(resultsContainer);
-
-    // Evidenzia il municipio sulla mappa
-    loadAndShowBorder(municipioNumber, map);
-    highlightLegendItem(municipioNumber);
-    selectedMunicipio = municipioNumber;
+  // Evidenzia il municipio sulla mappa
+  loadAndShowBorder(municipioNumber, map);
+  highlightLegendItem(municipioNumber);
+  selectedMunicipio = municipioNumber;
 }
 
 
