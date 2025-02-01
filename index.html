@@ -55,6 +55,43 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     margin-top: 20px;
 }
 
+/* Modifica gli stili esistenti nella sezione <style> */
+.search-route, .search-library {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: #f5f5f5;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.search-route.hidden, .search-library.hidden {
+    display: none;
+}
+
+.search-box {
+    display: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #f5f5f5;
+    border-radius: 5px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#sidebar.expanded .search-box.active {
+    display: block;
+}
+
+        
 .search-route, .search-library {
     display: flex;
     align-items: center;
@@ -271,22 +308,15 @@ body,html{margin:0;padding:0;height:100%;width:100%}
             <h3>Mappa Biblioteche</h3>
         </div>
         <div class="sidebar-body">
-            <div class="search-route" onclick="expandSidebar('route')">
-                <img src="street-search.svg" alt="Cerca percorso" class="icon">
+            <div class="route-search" onclick="expandSidebar('route')">
+                <img src="route-icon.svg" alt="Cerca percorso" class="icon">
                 <span>Cerca Percorso</span>
             </div>
-            <div class="search-library" onclick="expandSidebar('library')">
+            <div class="library-search" onclick="expandSidebar('library')">
                 <img src="library-icon.svg" alt="Cerca biblioteca" class="icon">
                 <span>Cerca Biblioteca</span>
             </div>
-            <div id="route-search" class="search-box">
-                <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-                <img src="search-icon.svg" alt="Cerca" class="search-icon" onclick="searchRoute()">
-            </div>
-            <div id="library-search" class="search-box">
-                <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
-                <img src="search-icon.svg" alt="Cerca" class="search-icon" onclick="searchLibrary()">
-            </div>
+           
         </div>
     </div>
 </div>
@@ -366,21 +396,27 @@ async function loadAndShowBorder(municipalityNumber, map) {
 
 document.addEventListener("DOMContentLoaded", function() {
     // Funzione per espandere la barra laterale e mostrare il form di ricerca
-    window.expandSidebar = function(type) {
-        const sidebar = document.getElementById('sidebar');
-        const routeSearch = document.getElementById('route-search');
-        const librarySearch = document.getElementById('library-search');
+window.expandSidebar = function(type) {
+    const sidebar = document.getElementById('sidebar');
+    const routeSearch = document.getElementById('route-search');
+    const librarySearch = document.getElementById('library-search');
+    const routeButton = document.querySelector('.search-route');
+    const libraryButton = document.querySelector('.search-library');
 
-        if (type === 'route') {
-            routeSearch.style.display = 'flex';
-            librarySearch.style.display = 'none';
-        } else if (type === 'library') {
-            routeSearch.style.display = 'none';
-            librarySearch.style.display = 'flex';
-        }
-
-        sidebar.classList.add('expanded');
-    };
+    if (type === 'route') {
+        routeSearch.classList.add('active');
+        librarySearch.classList.remove('active');
+        routeButton.classList.add('hidden');
+        libraryButton.classList.remove('hidden');
+    } else if (type === 'library') {
+        routeSearch.classList.remove('active');
+        librarySearch.classList.add('active');
+        routeButton.classList.remove('hidden');
+        libraryButton.classList.add('hidden');
+    }
+    
+    sidebar.classList.add('expanded');
+};
 
     // Funzione per cercare il percorso
     window.searchRoute = async function() {
