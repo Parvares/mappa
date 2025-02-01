@@ -55,6 +55,29 @@ body,html{margin:0;padding:0;height:100%;width:100%}
     margin-top: 20px;
 }
 
+  .sidebar-toggle {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background: #f5f5f5;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  background: #e0e0e0;
+}
+
+.sidebar-toggle img {
+  margin-right: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+
+        
 .search-route, .search-library {
     display: flex;
     align-items: center;
@@ -261,29 +284,33 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 <body>
  <!-- Barra laterale -->
 <div id="sidebar">
-    <div class="sidebar-content">
-        <div class="sidebar-header">
-            <h3>Mappa Biblioteche</h3>
-        </div>
-        <div class="sidebar-body">
-            <div class="search-route" onclick="expandSidebar('route')">
-                <img src="street-search.svg" alt="Cerca percorso" class="icon">
-                <span>Cerca Percorso</span>
-            </div>
-            <div class="search-library" onclick="expandSidebar('library')">
-                <img src="search-icon.svg" alt="Cerca biblioteca" class="icon">
-                <span>Cerca Biblioteca</span>
-            </div>
-            <div id="route-search" class="search-box">
-                <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-                
-            </div>
-            <div id="library-search" class="search-box">
-                <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
-                
-            </div>
-        </div>
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <h3>Mappa Biblioteche</h3>
     </div>
+    <div class="sidebar-body">
+      <!-- Nuovo pulsante sidebar.svg -->
+      <div class="sidebar-toggle" onclick="toggleSidebar()">
+        <img src="sidebar.svg" alt="Toggle Sidebar" class="icon">
+      </div>
+      <!-- Pulsanti esistenti -->
+      <div class="search-route" onclick="expandSidebar('route')">
+        <img src="street-search.svg" alt="Cerca percorso" class="icon">
+        <span>Cerca Percorso</span>
+      </div>
+      <div class="search-library" onclick="expandSidebar('library')">
+        <img src="search-icon.svg" alt="Cerca biblioteca" class="icon">
+        <span>Cerca Biblioteca</span>
+      </div>
+      <!-- Form di ricerca -->
+      <div id="route-search" class="search-box">
+        <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+      </div>
+      <div id="library-search" class="search-box">
+        <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
+      </div>
+    </div>
+  </div>
 </div>
     <div id="map"></div>
     
@@ -330,6 +357,12 @@ const municipalityColors = {
         let selectedMunicipio = null;
 
 
+// Funzione per il toggle della sidebar
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.classList.toggle('expanded');
+}
+        
 // Funzione helper per caricare e visualizzare il confine di un municipio
 async function loadAndShowBorder(municipalityNumber, map) {
     // Se c'è già un confine visualizzato, rimuovilo
