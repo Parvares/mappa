@@ -95,16 +95,23 @@
     box-sizing: border-box; /* Previene l'allungamento */
     overflow: hidden; /* Nasconde eventuali elementi fuori dal bordo */
 }
-/* Fix per Firefox - Nasconde completamente la freccia */
+/* Fix specifico per Firefox */
 @-moz-document url-prefix() {
     #start-point {
-        text-indent: -2px;
-        background-position: right 8px center;
+        text-indent: 0.01px; /* Fix per nascondere la freccia predefinita */
+        text-overflow: ''; /* Rimuove la freccia predefinita */
     }
-    
-    #library-suggestions {
-        display: none; /* Nasconde il dropdown nativo */
-    }
+}
+
+/* Nascondi il datalist nativo */
+#library-suggestions {
+    display: none;
+}
+
+/* Migliora l'aspetto al passaggio del mouse */
+#start-point:hover {
+    border-color: #66a3ff; /* Cambia il colore del bordo */
+    background-image: url('down-arrow.svg'); /* Mantiene l'icona personalizzata */
 }
 /* Migliora la visibilità dell'icona */
 #start-point:focus {
@@ -308,7 +315,7 @@
 /* Nascondi la freccia predefinita del dropdown */
 #start-point {
     width: 100%;
-    padding: 8px;
+    padding: 8px 30px 8px 12px; /* Padding per l'icona a destra */
     border: 1px solid #4285f4;
     border-radius: 4px;
     font-size: 14px;
@@ -316,13 +323,13 @@
     -webkit-appearance: none; /* Rimuove la freccia predefinita su Chrome/Safari */
     -moz-appearance: none;    /* Rimuove la freccia predefinita su Firefox */
     appearance: none;         /* Rimuove la freccia predefinita su altri browser */
-    background-image: url('down-arrow.svg'); /* Aggiungi la tua icona personalizzata */
+    background-image: url('down-arrow.svg');
     background-repeat: no-repeat;
-    background-position: right 10px center; /* Posiziona l'icona a destra */
-    background-size: 12px 12px; /* Dimensione dell'icona */
-    padding-right: 30px; /* Aggiungi spazio per l'icona */
+    background-position: right 12px center; /* Posizione dell'icona */
+    background-size: 14px 14px; /* Dimensione dell'icona */
+    box-sizing: border-box; /* Mantiene la larghezza corretta */
+    cursor: pointer; /* Cambia il cursore per indicare che è cliccabile */
 }
-
         
     </style>
 </head>
