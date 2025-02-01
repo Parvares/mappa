@@ -100,8 +100,8 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 }
 
 .search-box {
-    display: none;
-    margin-top: 10px;
+  display: none;
+  margin-top: 10px;
 }
 
 .search-box input {
@@ -113,10 +113,12 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 }
 
 
-
 #sidebar.expanded .search-box {
-    display: block;
+  display: block;
 }
+
+
+        
 .legend {
     background: rgba(255, 255, 255, 0.95);
     padding: 18px 22px;
@@ -393,22 +395,31 @@ async function loadAndShowBorder(municipalityNumber, map) {
         
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Funzione per espandere la barra laterale e mostrare il form di ricerca
-    window.expandSidebar = function(type) {
-        const sidebar = document.getElementById('sidebar');
-        const routeSearch = document.getElementById('route-search');
-        const librarySearch = document.getElementById('library-search');
+// Funzione per espandere la barra laterale e mostrare il form di ricerca
+window.expandSidebar = function(type) {
+  const sidebar = document.getElementById('sidebar');
+  const routeSearch = document.getElementById('route-search');
+  const librarySearch = document.getElementById('library-search');
 
-        if (type === 'route') {
-            routeSearch.style.display = 'flex';
-            librarySearch.style.display = 'none';
-        } else if (type === 'library') {
-            routeSearch.style.display = 'none';
-            librarySearch.style.display = 'flex';
-        }
+  if (type === 'route') {
+    routeSearch.style.display = 'flex';
+    librarySearch.style.display = 'none';
+  } else if (type === 'library') {
+    routeSearch.style.display = 'none';
+    librarySearch.style.display = 'flex';
+  }
 
-        sidebar.classList.add('expanded');
-    };
+  sidebar.classList.add('expanded');
+};
+
+// Aggiungi event listener per i clic sulle icone
+document.addEventListener("DOMContentLoaded", function() {
+  const routeIcon = document.querySelector('.search-route');
+  const libraryIcon = document.querySelector('.search-library');
+
+  routeIcon.addEventListener('click', () => expandSidebar('route'));
+  libraryIcon.addEventListener('click', () => expandSidebar('library'));
+});
 
     // Funzione per cercare il percorso
     window.searchRoute = async function() {
