@@ -100,23 +100,23 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 }
 
 .search-box {
-  display: none;
-  margin-top: 10px;
+    display: none;
+    margin-top: 10px;
+    width: 100%; /* Assicurati che il campo di ricerca occupi tutta la larghezza disponibile */
 }
 
 .search-box input {
-    width: calc(100% - 40px); /* Larghezza del campo di input */
+    width: calc(100% - 20px); /* Larghezza del campo di input, considerando il padding */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+    margin: 0 10px; /* Aggiungi un margine laterale per allineare il campo di ricerca */
 }
-
 
 #sidebar.expanded .search-box {
-  display: block;
+    display: block;
 }
-
 
         
 .legend {
@@ -286,33 +286,33 @@ body,html{margin:0;padding:0;height:100%;width:100%}
 <body>
  <!-- Barra laterale -->
 <div id="sidebar">
-  <div class="sidebar-content">
-    <div class="sidebar-header">
-      <h3>Mappa Biblioteche</h3>
+    <div class="sidebar-content">
+        <div class="sidebar-header">
+            <h3>Mappa Biblioteche</h3>
+        </div>
+        <div class="sidebar-body">
+            <!-- Nuovo pulsante sidebar.svg -->
+            <div class="sidebar-toggle" onclick="toggleSidebar()">
+                <img src="sidebar.svg" alt="Toggle Sidebar" class="icon">
+            </div>
+            <!-- Pulsanti esistenti -->
+            <div class="search-route" onclick="expandSidebar('route')">
+                <img src="street-search.svg" alt="Cerca percorso" class="icon">
+                <span>Cerca Percorso</span>
+            </div>
+            <div class="search-library" onclick="expandSidebar('library')">
+                <img src="search-icon.svg" alt="Cerca biblioteca" class="icon">
+                <span>Cerca Biblioteca</span>
+            </div>
+            <!-- Form di ricerca -->
+            <div id="route-search" class="search-box">
+                <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
+            </div>
+            <div id="library-search" class="search-box">
+                <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
+            </div>
+        </div>
     </div>
-    <div class="sidebar-body">
-      <!-- Nuovo pulsante sidebar.svg -->
-      <div class="sidebar-toggle" onclick="toggleSidebar()">
-        <img src="sidebar.svg" alt="Toggle Sidebar" class="icon">
-      </div>
-      <!-- Pulsanti esistenti -->
-      <div class="search-route" onclick="expandSidebar('route')">
-        <img src="street-search.svg" alt="Cerca percorso" class="icon">
-        <span>Cerca Percorso</span>
-      </div>
-      <div class="search-library" onclick="expandSidebar('library')">
-        <img src="search-icon.svg" alt="Cerca biblioteca" class="icon">
-        <span>Cerca Biblioteca</span>
-      </div>
-      <!-- Form di ricerca -->
-      <div id="route-search" class="search-box">
-        <input type="text" id="start-point" placeholder="Inserisci punto di partenza">
-      </div>
-      <div id="library-search" class="search-box">
-        <input type="text" id="library-name" placeholder="Inserisci nome biblioteca">
-      </div>
-    </div>
-  </div>
 </div>
     <div id="map"></div>
     
@@ -397,19 +397,19 @@ async function loadAndShowBorder(municipalityNumber, map) {
 document.addEventListener("DOMContentLoaded", function() {
 // Funzione per espandere la barra laterale e mostrare il form di ricerca
 window.expandSidebar = function(type) {
-  const sidebar = document.getElementById('sidebar');
-  const routeSearch = document.getElementById('route-search');
-  const librarySearch = document.getElementById('library-search');
+    const sidebar = document.getElementById('sidebar');
+    const routeSearch = document.getElementById('route-search');
+    const librarySearch = document.getElementById('library-search');
 
-  if (type === 'route') {
-    routeSearch.style.display = 'flex';
-    librarySearch.style.display = 'none';
-  } else if (type === 'library') {
-    routeSearch.style.display = 'none';
-    librarySearch.style.display = 'flex';
-  }
+    if (type === 'route') {
+        routeSearch.style.display = 'flex';
+        librarySearch.style.display = 'none';
+    } else if (type === 'library') {
+        routeSearch.style.display = 'flex';
+        librarySearch.style.display = 'none';
+    }
 
-  sidebar.classList.add('expanded');
+    sidebar.classList.add('expanded');
 };
 
 // Aggiungi event listener per i clic sulle icone
