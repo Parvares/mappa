@@ -252,6 +252,8 @@ body, html {
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(255,255,255,0.7);
     border: 1px solid transparent;
+    position: relative;
+    padding-right: 30px !important;
 }
 
 .legend-item span {
@@ -286,6 +288,7 @@ body, html {
     color: #4a5568;
     font-weight: 500;
     letter-spacing: 0.02em;
+    margin-right: 20px;
 }
 
   .legend-item.disabled {
@@ -319,6 +322,54 @@ body, html {
     transform: scale(1.08); /* Ridotto da 1.15 a 1.08 per un effetto più sottile */
     box-shadow: 0 1px 4px rgba(0,0,0,0.05); /* Ridotto l'effetto ombra */
 }
+
+        .info-icon {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-style: italic;
+            cursor: help;
+            transition: all 0.2s ease;
+        }
+        
+        .info-icon:hover {
+            background: #e0e0e0;
+        }
+        
+        .tooltip {
+            position: absolute;
+            left: calc(100% + 10px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            width: max-content;
+            max-width: 200px;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+        
+        .info-icon:hover + .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        
         
 .municipio-highlight {
     stroke-width: 4px !important;
@@ -1089,11 +1140,29 @@ fetch('municipio10.geojson')
             }
         }).addTo(map);
 
-        // Aggiungi la legenda interattiva
-         const legend = L.control({ position: 'topright' });
+// Prima definisci l'oggetto con le zone dei municipi
+const municipalityZones = {
+    1: "Centro storico",
+    2: "Parioli/Nomentano",
+    3: "Monte Sacro",
+    4: "Tiburtina", 
+    5: "Prenestino/Centocelle",
+    6: "Roma Delle Torri",
+    7: "Appio-Latino/Tuscolano/Cinecittà",
+    8: "Appia Antica",
+    9: "EUR",
+    10: "Ostia/Acilia",
+    11: "Arvalia/Portuense",
+    12: "Monte Verde",
+    13: "Aurelia",
+    14: "Monte Mario",
+    15: "Cassia/Flaminia"
+};
 
-        
-// Replace the legend.onAdd function with this corrected version
+// Aggiungi la legenda interattiva
+const legend = L.control({ position: 'topright' });
+
+// Modifica la funzione legend.onAdd
 legend.onAdd = function() {
     const div = L.DomUtil.create("div", "legend");
     div.innerHTML = `
@@ -1105,22 +1174,23 @@ legend.onAdd = function() {
                     ${num !== '10' ? `onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})"` : ''}>
                     <span style="background: ${color}"></span>
                     <div class="text">Municipio ${romanize(parseInt(num))}</div>
+                    <div class="info-icon">i</div>
+                    <div class="tooltip">Zona: ${municipalityZones[num]}</div>
                 </div>
             `).join("")}
         </div>
     `;
-
+    
     // Aggiungi l'event listener per il pulsante di chiusura
     const closeButton = div.querySelector('#closeLegend');
     if (closeButton) {
         closeButton.addEventListener('click', function(e) {
             e.stopPropagation();
-            toggleLegend(); // Usa la tua funzione esistente
+            toggleLegend();
         });
     } else {
         console.error('Pulsante di chiusura non trovato!');
     }
-
     return div;
 };
 legend.addTo(map);
