@@ -554,13 +554,16 @@ document.getElementById('legend-close-icon').addEventListener('click', function(
 
 function toggleLegend() {
     var legend = document.getElementById('legend');
+    var panelButton = document.getElementById('panel-button');
+    
     if (legend.style.left === "0px" || legend.style.left === "") {
         legend.style.left = "-250px"; // Nasconde la legenda
+        panelButton.innerHTML = "&#10095;"; // Cambia l'icona del pulsante
     } else {
         legend.style.left = "0px"; // Mostra la legenda
+        panelButton.innerHTML = "&#10094;"; // Cambia l'icona del pulsante
     }
 }
-
 
 // Funzione per cercare una biblioteca e aprire il popup corrispondente
 async function searchLibrary() {
