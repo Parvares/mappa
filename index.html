@@ -622,6 +622,7 @@ body, html {
     padding: 8px 12px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    display: block;
 }
 
 .custom-datalist div:hover {
@@ -632,6 +633,7 @@ body, html {
     background-color: #4285f4;
     color: #fff;
 }
+
         
     </style>
 </head>
@@ -1058,6 +1060,49 @@ document.getElementById('start-point').addEventListener('blur', () => {
         customDatalist.style.display = 'none';
     }, 200);
 });
+
+
+
+function filterSuggestions(searchText) {
+    const customDatalist = document.getElementById('library-suggestions');
+    const options = customDatalist.querySelectorAll('div');
+
+    options.forEach(option => {
+        const libraryName = option.textContent.toLowerCase();
+        if (libraryName.includes(searchText.toLowerCase())) {
+            option.style.display = 'block'; // Mostra l'opzione
+        } else {
+            option.style.display = 'none'; // Nascondi l'opzione
+        }
+    });
+
+    // Mostra il menu solo se ci sono opzioni visibili
+    const visibleOptions = Array.from(options).filter(option => option.style.display !== 'none');
+    if (visibleOptions.length > 0) {
+        customDatalist.style.display = 'block';
+    } else {
+        customDatalist.style.display = 'none';
+    }
+}
+
+
+document.getElementById('start-point').addEventListener('input', (e) => {
+    const searchText = e.target.value;
+    filterSuggestions(searchText);
+});    
+
+
+document.addEventListener('click', (e) => {
+    const customDatalist = document.getElementById('library-suggestions');
+    const searchInput = document.getElementById('start-point');
+
+    if (e.target !== searchInput && e.target !== customDatalist) {
+        customDatalist.style.display = 'none';
+    }
+});
+
+
+    
 
     // Crea i marker per ogni biblioteca
     data.libraries.forEach(library => {
