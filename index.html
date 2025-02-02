@@ -41,14 +41,17 @@
     padding-top: 40px; /* Riduci questo valore (era 20px) */
 }
 
-.sidebar button {
-    background: 0 0;
-    border: none;
+.sidebar-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
     cursor: pointer;
-    margin-bottom: 20px;
-    margin-top: 5px; /* Riduci questo valore (era 10px) */
-    position: relative;
-    transition: background-color 0.3s ease;
+    margin: 5px;
+}
+
+.sidebar-button.active {
+    background-color: #4CAF50; /* Colore di evidenziazione */
+    color: white;
 }
 
 /* Effetto hover sui pulsanti */
@@ -92,6 +95,7 @@
 
         /* Seconda barra laterale (espansione) */
         .sidebar-expanded {
+             display: none; /* Nasconde il pannello espanso di default */
             position: absolute;
             top: 0;
             left: 60px; /* Parte dalla fine della barra fissa */
@@ -104,6 +108,7 @@
             overflow: hidden;
         }
         .sidebar-expanded.open {
+  display: block; /* Mostra il pannello quando ha la classe "open" */
   width: 400px; /* Larghezza espansa */
   padding: 20px; /* Aggiungi padding per evitare che il contenuto sia troppo vicino ai bordi */
   box-sizing: border-box; /* Include il padding nella larghezza totale */
@@ -486,37 +491,39 @@
     </style>
 </head>
 <body>
-    <!-- Barra laterale fissa -->
+<!-- Barra laterale fissa -->
 <div class="sidebar">
-    <button onclick="toggleExpandedSidebar()" data-tooltip="Apri/Chiudi menu">
+    <button id="menuButton" class="sidebar-button" onclick="toggleExpandedSidebar()" data-tooltip="Apri/Chiudi menu">
         <img src="sidebar.svg" alt="Menu">
     </button>
-    <button onclick="toggleLibrarySearch()" data-tooltip="Cerca biblioteca">
+    <button id="librarySearchButton" class="sidebar-button" onclick="toggleLibrarySearch()" data-tooltip="Cerca biblioteca">
         <img src="search-icon.svg" alt="Cerca biblioteca">
     </button>
-    <button onclick="toggleStreetSearch()" data-tooltip="Cerca indirizzo">
+    <button id="streetSearchButton" class="sidebar-button" onclick="toggleStreetSearch()" data-tooltip="Cerca indirizzo">
         <img src="street-search.svg" alt="Cerca indirizzo">
     </button>
-    <button onclick="toggleLegend()" data-tooltip="Mostra/Nascondi legenda">
+    <button id="legendButton" class="sidebar-button" onclick="toggleLegend()" data-tooltip="Mostra/Nascondi legenda">
         <img src="legend-icon.svg" alt="Mostra/Nascondi legenda">
     </button>
 </div>
 
-
 <!-- Seconda barra laterale (espansione) -->
-<div class=sidebar-expanded id=expandedSidebar>
+<div class="sidebar-expanded" id="expandedSidebar">
     <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div> <!-- Aggiungi questa linea -->
-    <div class=search-container id=searchContainer>
-        <div class=search-input-wrapper>
-            <input id=start-point placeholder="Inserisci punto di partenza" list=library-suggestions>
-            <span id=clear-search class=clear-search-btn onclick=clearSearchField()>✕</span>
+    <div class="search-container" id="searchContainer">
+        <div class="search-input-wrapper">
+            <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+            <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
         </div>
-        <datalist id=library-suggestions></datalist>
-        <button onclick=searchRoute()>Trova Percorso</button>
+        <datalist id="library-suggestions"></datalist>
+        <button onclick="searchRoute()">Trova Percorso</button>
     </div>
-    <div id=search-results></div>
+    <div id="search-results"></div>
 </div>
 
+
+
+    
     <div id="map"></div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
