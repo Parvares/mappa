@@ -1015,17 +1015,13 @@ fetch('municipio10.geojson')
 // Replace the legend.onAdd function with this corrected version
 legend.onAdd = function() {
     const div = L.DomUtil.create("div", "legend");
-
     div.innerHTML = `
-        <div id="closeLegend" class="legend-close-icon">×</div> <!-- Aggiungi id="closeLegend" -->
+        <div id="closeLegend" class="legend-close-icon">×</div>
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
         <div class="legend-grid">
             ${Object.entries(municipalityColors).map(([num, color]) => `
-                <div class="legend-item ${num === '10' ? 'disabled' : ''}" 
-                     data-municipio="${num}" 
-                     ${num !== '10' ? `onmouseover="handleLegendHover(${num})" 
-                     onmouseout="handleLegendOut(${num})" 
-                     onclick="handleLegendClick(${num})"` : ''}>
+                <div class="legend-item ${num === '10' ? 'disabled' : ''}" data-municipio="${num}"
+                    ${num !== '10' ? `onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})"` : ''}>
                     <span style="background: ${color}"></span>
                     <div class="text">Municipio ${romanize(parseInt(num))}</div>
                 </div>
@@ -1033,8 +1029,8 @@ legend.onAdd = function() {
         </div>
     `;
 
-    // ▶▶▶ CODICE MODIFICATO (usa toggleLegend) ◀◀◀
-    const closeButton = document.getElementById('closeLegend');
+    // Aggiungi l'event listener per il pulsante di chiusura
+    const closeButton = div.querySelector('#closeLegend');
     if (closeButton) {
         closeButton.addEventListener('click', function(e) {
             e.stopPropagation();
