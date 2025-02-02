@@ -604,58 +604,6 @@ body, html {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); /* Ombra più pronunciata */
 }
 
-.suggestions-container {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 0 0 4px 4px;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.suggestion-item {
-    padding: 8px 12px;
-    cursor: pointer;
-    border-bottom: 1px solid #eee;
-}
-
-.suggestion-item:hover {
-    background-color: #f5f5f5;
-}
-
-.suggestion-item:last-child {
-    border-bottom: none;
-}
-
-/* Modifica lo stile del contenitore di ricerca */
-.search-container {
-    position: relative;
-}
-
-/* Stile per la scrollbar dei suggerimenti */
-.suggestions-container::-webkit-scrollbar {
-    width: 8px;
-}
-
-.suggestions-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-.suggestions-container::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-}
-
-.suggestions-container::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
 
 
         
@@ -773,61 +721,32 @@ async function searchLibrary() {
     const searchTerm = document.getElementById('start-point').value.toLowerCase();
     if (!searchTerm) return;
 
-   try {
-    const response = await fetch('libraries.json');
-    const data = await response.json();
-    
-    const searchInput = document.getElementById('start-point');
-    const searchContainer = document.querySelector('.search-container');
-    
-    // Crea il contenitore dei suggerimenti
-    const suggestionsContainer = document.createElement('div');
-    suggestionsContainer.className = 'suggestions-container';
-    searchContainer.appendChild(suggestionsContainer);
-    
-    // Gestione dell'input
-    searchInput.addEventListener('input', function() {
-        const searchText = this.value.toLowerCase();
-        if (searchText.length < 1) {
-            suggestionsContainer.style.display = 'none';
-            return;
-        }
-        
-        // Filtra le biblioteche
-        const matches = data.libraries.filter(library => 
-            library.name.toLowerCase().includes(searchText)
-        ).slice(0, 6); // Mostra solo i primi 6 risultati
-        
-        if (matches.length > 0) {
-            suggestionsContainer.style.display = 'block';
-            suggestionsContainer.innerHTML = matches.map(library => `
-                <div class="suggestion-item">${library.name}</div>
-            `).join('');
-            
-            // Gestione del click sui suggerimenti
-            suggestionsContainer.querySelectorAll('.suggestion-item').forEach((item, index) => {
-                item.addEventListener('click', () => {
-                    searchInput.value = matches[index].name;
-                    suggestionsContainer.style.display = 'none';
-                    // Avvia la ricerca
-                    searchLibrary();
-                });
-            });
+    try {
+        const response = await fetch('libraries.json');
+        const data = await response.json();
+
+        // Trova la biblioteca cercata
+        const foundLibrary = data.libraries.find(library =>
+            library.name.toLowerCase().includes(searchTerm)
+        );
+
+        if (foundLibrary) {
+            // Trova tutte le biblioteche dello stesso municipio
+            const librariesInMunicipio = data.libraries.filter(library =>
+                library.municipality === foundLibrary.municipality
+            );
+
+            // Mostra il municipio e le biblioteche
+            showMunicipioAndLibraries(foundLibrary.municipality, librariesInMunicipio);
         } else {
-            suggestionsContainer.style.display = 'none';
+            alert('Biblioteca non trovata. Riprova.');
         }
-    });
-    
-    // Nascondi i suggerimenti quando si clicca fuori
-    document.addEventListener('click', function(e) {
-        if (!searchContainer.contains(e.target)) {
-            suggestionsContainer.style.display = 'none';
-        }
-    });
-    
-} catch (error) {
-    console.error('Errore nel caricamento delle biblioteche:', error);
+    } catch (error) {
+        console.error('Errore nella ricerca della biblioteca:', error);
+        alert('Errore nella ricerca. Riprova.');
+    }
 }
+
 function showMunicipioAndLibraries(municipioNumber, libraries) {
     const resultsContainer = document.getElementById('search-results');
     
