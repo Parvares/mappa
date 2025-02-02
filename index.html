@@ -534,15 +534,14 @@ body, html {
     
 <div class="search-container" id="searchContainer">
     <div style="display: flex; align-items: center; gap: 10px;">
+        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" 
+           title="Vai alla Biblioteca Morante">
+            <img src="home.svg" alt="Biblioteca Home" class="icon">
+        </a>
         <div class="search-input-wrapper" style="flex: 1;">
             <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
             <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
         </div>
-        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" 
-           title="Vai alla Biblioteca Morante" 
-           style="display: flex; align-items: center; text-decoration: none;">
-            <img src="home.svg" alt="Biblioteca Home" class="icon">
-        </a>
     </div>
     <datalist id="library-suggestions"></datalist>
     <button onclick="searchRoute()">Trova Percorso</button>
