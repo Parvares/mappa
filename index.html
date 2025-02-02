@@ -504,16 +504,13 @@ body, html {
 <body>
     <!-- Barra laterale fissa -->
 <div class=sidebar>
-<button id="menuBtn" onclick=toggleExpandedSidebar() data-tooltip="Apri/Chiudi menu">
+<button id=menuBtn onclick=toggleExpandedSidebar() data-tooltip="Apri/Chiudi menu">
 <img src=sidebar.svg alt=Menu>
 </button>
-<button id="libraryBtn" onclick=toggleLibrarySearch() data-tooltip="Cerca biblioteca">
-<img src=search-icon.svg alt="Cerca biblioteca">
+<button id=searchBtn onclick=toggleSearch() data-tooltip="Cerca biblioteca o indirizzo">
+<img src=search-icon.svg alt="Cerca biblioteca o indirizzo">
 </button>
-<button id="streetBtn" onclick=toggleStreetSearch() data-tooltip="Cerca indirizzo">
-<img src=street-search.svg alt="Cerca indirizzo">
-</button>
-<button id="legendBtn" onclick=toggleLegend() data-tooltip="Mostra/Nascondi legenda">
+<button id=legendBtn onclick=toggleLegend() data-tooltip="Mostra/Nascondi legenda">
 <img src=legend-icon.svg alt="Mostra/Nascondi legenda">
 </button>
 </div>
@@ -689,67 +686,46 @@ function selectLibrary(library) {
 }
 
         
-function toggleLibrarySearch() {
-    const libraryBtn = document.getElementById('libraryBtn');
-    const expandedSidebar = document.getElementById("expandedSidebar");
-    const searchContainer = document.getElementById("searchContainer");
-    const searchResults = document.getElementById("search-results");
-    const isOpen = expandedSidebar.classList.contains("open") && libraryBtn.classList.contains('active');
+function toggleSearch() {
+    const searchBtn = document.getElementById('searchBtn');
+    const sidebar = document.getElementById('expandedSidebar');
+    const searchContainer = document.getElementById('searchContainer');
+    const isOpen = sidebar.classList.contains('open') && searchBtn.classList.contains('active');
 
-    // Remove active class from other buttons
     document.getElementById('menuBtn').classList.remove('active');
-    document.getElementById('streetBtn').classList.remove('active');
 
     if (isOpen) {
-        expandedSidebar.classList.remove("open");
-        libraryBtn.classList.remove('active');
+        sidebar.classList.remove('open');
+        searchBtn.classList.remove('active');
     } else {
-        expandedSidebar.classList.add("open");
-        libraryBtn.classList.add('active');
-        
-        const startPoint = document.getElementById("start-point");
-        const searchButton = searchContainer.querySelector("button");
-        startPoint.placeholder = "Cerca una biblioteca...";
-        searchButton.textContent = "Cerca Biblioteca";
-        searchButton.onclick = searchLibrary;
-        if (searchResults) {
-            searchResults.style.display = "none";
-        }
-        searchContainer.style.display = "block";
-    }
-}
-
-
-        
-// Make functions globally accessible
-window.searchLibrary = searchLibrary;
-window.toggleLibrarySearch = toggleLibrarySearch;
-
-
-        
-        // Funzione per attivare la ricerca indirizzo
-function toggleStreetSearch() {
-    const streetBtn = document.getElementById('streetBtn');
-    const expandedSidebar = document.getElementById("expandedSidebar");
-    const searchContainer = document.getElementById("searchContainer");
-    const isOpen = expandedSidebar.classList.contains("open") && streetBtn.classList.contains('active');
-
-    // Remove active class from other buttons
-    document.getElementById('menuBtn').classList.remove('active');
-    document.getElementById('libraryBtn').classList.remove('active');
-
-    if (isOpen) {
-        expandedSidebar.classList.remove("open");
-        streetBtn.classList.remove('active');
-    } else {
-        expandedSidebar.classList.add("open");
-        streetBtn.classList.add('active');
-        
-        const startPoint = document.getElementById("start-point");
-        const searchButton = searchContainer.querySelector("button");
-        startPoint.placeholder = "Inserisci punto di partenza";
-        searchButton.textContent = "Trova Percorso";
-        searchContainer.style.display = "block";
+        sidebar.classList.add('open');
+        searchBtn.classList.add('active');
+        const input = document.getElementById('start-point');
+        input.placeholder = "Cerca biblioteca o indirizzo...";
+        const button = searchContainer.querySelector('button');
+        button.textContent = "Cerca";
+        button.onclick = async function() {
+            const searchText = input.value.toLowerCase();
+            
+            // First try to find a library
+            try {
+                const response = await fetch('libraries.json');
+                const data = await response.json();
+                const library = data.libraries.find(lib => lib.name.toLowerCase().includes(searchText));
+                
+                if (library) {
+                    const municipioLibraries = data.libraries.filter(lib => lib.municipality === library.municipality);
+                    showMunicipioAndLibraries(library.municipality, municipioLibraries);
+                    return;
+                }
+            } catch (error) {
+                console.error('Errore nella ricerca della biblioteca:', error);
+            }
+            
+            // If no library found, try routing to address
+            searchRoute();
+        };
+        searchContainer.style.display = 'block';
     }
 }
 
