@@ -579,14 +579,21 @@ body, html {
     right: 10px; /* Distanza dal margine destro */
     top: 50%; /* Posiziona al centro verticalmente */
     transform: translateY(-50%); /* Centra verticalmente */
-    font-size: 24px; /* Dimensione del simbolo */
+    font-size: 18px; /* Dimensione del simbolo ridotta */
     color: #000; /* Colore del simbolo */
     background-color: rgba(255, 255, 255, 0.8); /* Sfondo semi-trasparente */
-    padding: 10px; /* Spaziatura interna */
+    padding: 5px 8px; /* Padding ridotto (5px sopra/sotto, 8px destra/sinistra) */
     border-radius: 5px; /* Bordi arrotondati */
     cursor: pointer; /* Cambia il cursore al passaggio del mouse */
     z-index: 1000; /* Assicura che sia sopra la mappa */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombra per migliorare la visibilità */
+    width: 40px; /* Larghezza fissa per renderla più stretta */
+    text-align: center; /* Centra il simbolo orizzontalmente */
+}
+
+#handle:hover {
+    background-color: rgba(255, 255, 255, 1); /* Sfondo meno trasparente al passaggio del mouse */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); /* Ombra più pronunciata al passaggio del mouse */
 }
         
     </style>
