@@ -229,30 +229,31 @@
 
 .legend-close-icon {
     position: absolute;
-    right: 8px;
-    top: 8px;
+    right: 10px;  /* Posizione invariata */
+    top: 10px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 22px;  /* Dimensione del font modificata */
+    font-size: 22px;  /* Dimensione leggermente ridotta */
     opacity: 0.8;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
     color: #666;
-    width: 26px;  /* Ridotta la dimensione del contenitore */
-    height: 26px;  /* Ridotta la dimensione del contenitore */
+    width: 28px;  /* Cerchio più piccolo */
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    padding: 0;  /* Rimosso il padding */
+    padding: 0;  /* Rimuovi padding per centrare meglio */
+    line-height: 1;  /* Allinea verticalmente la "×" */
 }
 
 .legend-close-icon:hover {
     opacity: 1;
     color: #ff4444;
     background-color: rgba(255, 68, 68, 0.15);
-    transform: scale(1.15);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transform: scale(1.1);  /* Ingrandimento più leggero */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
         
 .municipio-highlight {
