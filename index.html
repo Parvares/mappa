@@ -225,6 +225,26 @@
             pointer-events: none;
         }
 
+
+    #legend {
+    position: relative;
+    /* Altri stili esistenti */
+}
+
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #000;
+    z-index: 10;
+}
+
+.close-icon:hover {
+    color: #555;
+}    
+
 .municipio-highlight {
     stroke-width: 4px !important;
     stroke-opacity: 0.9 !important;
@@ -467,6 +487,18 @@
 </div>
 
     <div id="map"></div>
+
+
+     <!-- Aggiungi la legenda qui -->
+    <div id="legend">
+        <div id="legend-content">
+            <!-- Contenuto della legenda -->
+        </div>
+        <!-- Aggiungi l'icona per chiudere la legenda -->
+        <div id="legend-close-icon" class="close-icon">&#10094;</div>
+    </div>
+
+    
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
@@ -516,11 +548,20 @@ const municipalityColors = {
             expandedSidebar.classList.toggle('open');
         }
 
-// Add this new function for legend toggle
+document.getElementById('legend-close-icon').addEventListener('click', function() {
+    toggleLegend();
+});
+
 function toggleLegend() {
-    const legend = document.querySelector('.legend');
-    if (legend) {
-        legend.classList.toggle('visible');
+    var legend = document.getElementById('legend');
+    var panelButton = document.getElementById('panel-button'); // Supponendo che questo sia l'ID del pulsante nel pannello laterale
+
+    if (legend.style.left === "0px" || legend.style.left === "") {
+        legend.style.left = "-250px"; // Modifica questo valore in base alla larghezza della tua legenda
+        panelButton.innerHTML = "&#10095;"; // Cambia l'icona del pulsante nel pannello laterale
+    } else {
+        legend.style.left = "0px";
+        panelButton.innerHTML = "&#10094;"; // Cambia l'icona del pulsante nel pannello laterale
     }
 }
 
