@@ -598,7 +598,10 @@ body, html {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); /* Ombra più pronunciata al passaggio del mouse */
 }
 
-
+#handle.active {
+    background-color: rgba(255, 255, 255, 1); /* Cambia colore quando attivo */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); /* Ombra più pronunciata */
+}
 
 
 
@@ -607,7 +610,7 @@ body, html {
 </head>
 <body>
 
-    <div id="handle">⁞⁞</div>
+    <div id="handle" onclick="toggleLegend()">⁞⁞</div>
 
     
     <!-- Barra laterale fissa -->
@@ -702,10 +705,12 @@ const municipalityColors = {
 function toggleLegend() {
     const legend = document.querySelector(".legend");
     const legendBtn = document.getElementById('legendBtn');
+    const handle = document.getElementById('handle');
     
     if (legend) {
         legend.classList.toggle("visible");
         legendBtn.classList.toggle('active');
+        handle.classList.toggle('active'); // Aggiungi/rimuovi la classe 'active' alla maniglia
     }
 }
 
