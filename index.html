@@ -573,11 +573,29 @@ body, html {
 .clear-search-btn:hover {
     color: #555; /* Colore più scuro al passaggio del mouse */
 }
-
+        
+#handle {
+    position: absolute;
+    right: 10px; /* Distanza dal margine destro */
+    top: 50%; /* Posiziona al centro verticalmente */
+    transform: translateY(-50%); /* Centra verticalmente */
+    font-size: 24px; /* Dimensione del simbolo */
+    color: #000; /* Colore del simbolo */
+    background-color: rgba(255, 255, 255, 0.8); /* Sfondo semi-trasparente */
+    padding: 10px; /* Spaziatura interna */
+    border-radius: 5px; /* Bordi arrotondati */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    z-index: 1000; /* Assicura che sia sopra la mappa */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombra per migliorare la visibilità */
+}
         
     </style>
 </head>
 <body>
+
+    <div id="handle">⁞⁞</div>
+
+    
     <!-- Barra laterale fissa -->
 <div class=sidebar>
 <button id=menuBtn onclick=toggleExpandedSidebar() data-tooltip="Espandi">
