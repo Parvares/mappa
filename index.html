@@ -228,6 +228,30 @@
             pointer-events: none;
         }
 
+.legend .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255, 77, 77, 0.7); /* Colore di sfondo */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 1001; /* Assicurati che sia sopra il contenuto della legenda */
+    transition: background-color 0.3s;
+}
+
+.legend .close-btn:hover {
+    background-color: rgba(255, 26, 26, 0.8); /* Cambia colore al passaggio del mouse */
+}
+        
 .municipio-highlight {
     stroke-width: 4px !important;
     stroke-opacity: 0.9 !important;
