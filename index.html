@@ -57,6 +57,14 @@
     border-radius: 5px; /* Arrotonda gli angoli */
 }
 
+/* Add new styles for active button state */
+.sidebar button.active {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+
+        
 /* Stile per il tooltip */
 .sidebar button::after {
     content: attr(data-tooltip); /* Usa l'attributo data-tooltip per il testo */
@@ -487,19 +495,19 @@
 </head>
 <body>
     <!-- Barra laterale fissa -->
-<div class="sidebar">
-    <button onclick="toggleExpandedSidebar()" data-tooltip="Apri/Chiudi menu">
-        <img src="sidebar.svg" alt="Menu">
-    </button>
-    <button onclick="toggleLibrarySearch()" data-tooltip="Cerca biblioteca">
-        <img src="search-icon.svg" alt="Cerca biblioteca">
-    </button>
-    <button onclick="toggleStreetSearch()" data-tooltip="Cerca indirizzo">
-        <img src="street-search.svg" alt="Cerca indirizzo">
-    </button>
-    <button onclick="toggleLegend()" data-tooltip="Mostra/Nascondi legenda">
-        <img src="legend-icon.svg" alt="Mostra/Nascondi legenda">
-    </button>
+<div class=sidebar>
+<button id="menuBtn" onclick=toggleExpandedSidebar() data-tooltip="Apri/Chiudi menu">
+<img src=sidebar.svg alt=Menu>
+</button>
+<button id="libraryBtn" onclick=toggleLibrarySearch() data-tooltip="Cerca biblioteca">
+<img src=search-icon.svg alt="Cerca biblioteca">
+</button>
+<button id="streetBtn" onclick=toggleStreetSearch() data-tooltip="Cerca indirizzo">
+<img src=street-search.svg alt="Cerca indirizzo">
+</button>
+<button id="legendBtn" onclick=toggleLegend() data-tooltip="Mostra/Nascondi legenda">
+<img src=legend-icon.svg alt="Mostra/Nascondi legenda">
+</button>
 </div>
 
 
@@ -569,9 +577,12 @@ const municipalityColors = {
 
 // Add this new function for legend toggle
 function toggleLegend() {
-    const legend = document.querySelector('.legend');
+    const legend = document.querySelector(".legend");
+    const legendBtn = document.getElementById('legendBtn');
+    
     if (legend) {
-        legend.classList.toggle('visible');
+        legend.classList.toggle("visible");
+        legendBtn.classList.toggle('active');
     }
 }
 
@@ -671,24 +682,33 @@ function selectLibrary(library) {
 
         
 function toggleLibrarySearch() {
-    const expandedSidebar = document.getElementById('expandedSidebar');
-    const searchContainer = document.getElementById('searchContainer');
-    const resultsContainer = document.getElementById('search-results');
+    const libraryBtn = document.getElementById('libraryBtn');
+    const expandedSidebar = document.getElementById("expandedSidebar");
+    const searchContainer = document.getElementById("searchContainer");
+    const searchResults = document.getElementById("search-results");
+    const isOpen = expandedSidebar.classList.contains("open") && libraryBtn.classList.contains('active');
 
-    expandedSidebar.classList.add('open');
-    const startPointInput = document.getElementById('start-point');
-    const searchButton = searchContainer.querySelector('button');
+    // Remove active class from other buttons
+    document.getElementById('menuBtn').classList.remove('active');
+    document.getElementById('streetBtn').classList.remove('active');
 
-    startPointInput.placeholder = "Cerca una biblioteca...";
-    searchButton.textContent = "Cerca Biblioteca";
-    searchButton.onclick = searchLibrary;
-
-    // Nascondi il riquadro dei risultati all'apertura
-    if (resultsContainer) {
-        resultsContainer.style.display = 'none';
+    if (isOpen) {
+        expandedSidebar.classList.remove("open");
+        libraryBtn.classList.remove('active');
+    } else {
+        expandedSidebar.classList.add("open");
+        libraryBtn.classList.add('active');
+        
+        const startPoint = document.getElementById("start-point");
+        const searchButton = searchContainer.querySelector("button");
+        startPoint.placeholder = "Cerca una biblioteca...";
+        searchButton.textContent = "Cerca Biblioteca";
+        searchButton.onclick = searchLibrary;
+        if (searchResults) {
+            searchResults.style.display = "none";
+        }
+        searchContainer.style.display = "block";
     }
-
-    searchContainer.style.display = 'block';
 }
 
 
@@ -701,21 +721,28 @@ window.toggleLibrarySearch = toggleLibrarySearch;
         
         // Funzione per attivare la ricerca indirizzo
 function toggleStreetSearch() {
-    const expandedSidebar = document.getElementById('expandedSidebar');
-    const searchContainer = document.getElementById('searchContainer');
-    
-    // Apri la barra laterale
-    expandedSidebar.classList.add('open');
-    
-    // Modifica il placeholder e il testo del pulsante
-    const startPointInput = document.getElementById('start-point');
-    const searchButton = searchContainer.querySelector('button');
-    
-    startPointInput.placeholder = "Inserisci punto di partenza";
-    searchButton.textContent = "Trova Percorso";
-    
-    // Mostra la casella di ricerca
-    searchContainer.style.display = 'block';
+    const streetBtn = document.getElementById('streetBtn');
+    const expandedSidebar = document.getElementById("expandedSidebar");
+    const searchContainer = document.getElementById("searchContainer");
+    const isOpen = expandedSidebar.classList.contains("open") && streetBtn.classList.contains('active');
+
+    // Remove active class from other buttons
+    document.getElementById('menuBtn').classList.remove('active');
+    document.getElementById('libraryBtn').classList.remove('active');
+
+    if (isOpen) {
+        expandedSidebar.classList.remove("open");
+        streetBtn.classList.remove('active');
+    } else {
+        expandedSidebar.classList.add("open");
+        streetBtn.classList.add('active');
+        
+        const startPoint = document.getElementById("start-point");
+        const searchButton = searchContainer.querySelector("button");
+        startPoint.placeholder = "Inserisci punto di partenza";
+        searchButton.textContent = "Trova Percorso";
+        searchContainer.style.display = "block";
+    }
 }
 
 
