@@ -463,7 +463,7 @@
     <button onclick="toggleStreetSearch()" data-tooltip="Cerca indirizzo">
         <img src="street-search.svg" alt="Cerca indirizzo">
     </button>
-    <button onclick="toggleLegend()" data-tooltip="Mostra/Nascondi legenda">
+    <button onclick="toggleLegend()" data-tooltip="Mostra/Nascondi legenda" id="panel-button">
         <img src="legend-icon.svg" alt="Mostra/Nascondi legenda">
     </button>
 </div>
@@ -554,14 +554,14 @@ document.getElementById('legend-close-icon').addEventListener('click', function(
 
 function toggleLegend() {
     var legend = document.getElementById('legend');
-    var panelButton = document.getElementById('panel-button');
+    var panelButton = document.getElementById('panel-button'); // Ora esiste
     
     if (legend.style.left === "0px" || legend.style.left === "") {
-        legend.style.left = "-250px"; // Nasconde la legenda
-        panelButton.innerHTML = "&#10095;"; // Cambia l'icona del pulsante
+        legend.style.left = "-250px";
+        panelButton.innerHTML = "&#10095;"; // Cambia icona
     } else {
-        legend.style.left = "0px"; // Mostra la legenda
-        panelButton.innerHTML = "&#10094;"; // Cambia l'icona del pulsante
+        legend.style.left = "0px";
+        panelButton.innerHTML = "&#10094;"; // Cambia icona
     }
 }
 
