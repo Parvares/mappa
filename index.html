@@ -172,10 +172,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 6px;           /* Gap intermedio tra gli elementi */
-    }
-
-.legend .legend-grid {
-    margin-top: 25px; 
+    margin-top: 20px; /* Aggiungi un margine superiore per abbassare i municipi */
 }
 
 .legend-item {
@@ -228,33 +225,6 @@
             pointer-events: none;
         }
 
-.legend .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 24px;
-    height: 24px;
-    background-color: rgba(255, 77, 77, 0.7); /* Colore di sfondo */
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 14px;
-    z-index: 1001; /* Assicurati che sia sopra il contenuto della legenda */
-    transition: background-color 0.3s;
-}
-
-
-
-        
-.legend .close-btn:hover {
-    background-color: rgba(255, 26, 26, 0.8); /* Cambia colore al passaggio del mouse */
-}
-        
 .municipio-highlight {
     stroke-width: 4px !important;
     stroke-opacity: 0.9 !important;
@@ -464,7 +434,7 @@
 <body>
     <!-- Barra laterale fissa -->
 <div class="sidebar">
-    <button onclick="toggleExpandedSidebar()" data-tooltip="Espandi">
+    <button onclick="toggleExpandedSidebar()" data-tooltip="Apri/Chiudi menu">
         <img src="sidebar.svg" alt="Menu">
     </button>
     <button onclick="toggleLibrarySearch()" data-tooltip="Cerca biblioteca">
@@ -473,8 +443,8 @@
     <button onclick="toggleStreetSearch()" data-tooltip="Cerca indirizzo">
         <img src="street-search.svg" alt="Cerca indirizzo">
     </button>
-    <button onclick="toggleLegend()" data-tooltip="Legenda">
-        <img src="legend-icon.svg" alt="Legenda">
+    <button onclick="toggleLegend()" data-tooltip="Mostra/Nascondi legenda">
+        <img src="legend-icon.svg" alt="Mostra/Nascondi legenda">
     </button>
 </div>
 
@@ -1024,29 +994,28 @@ fetch('municipio10.geojson')
 
         // Aggiungi la legenda interattiva
          const legend = L.control({ position: 'topright' });
-
-        // Replace the legend.onAdd function with this corrected version
+   // Replace the legend.onAdd function with this corrected version
 legend.onAdd = function() {
     const div = L.DomUtil.create("div", "legend");
+    
+
+
     div.innerHTML = `
-        <button class="close-btn" title="Chiudi legenda">✕</button>
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
         <div class="legend-grid">
             ${Object.entries(municipalityColors).map(([num, color]) => `
-                <div class="legend-item ${num === '10' ? 'disabled' : ''}" data-municipio="${num}" ${num !== '10' ? `onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})"` : ''}>
+                <div class="legend-item ${num === '10' ? 'disabled' : ''}" 
+                     data-municipio="${num}" 
+                     ${num !== '10' ? `onmouseover="handleLegendHover(${num})" 
+                     onmouseout="handleLegendOut(${num})" 
+                     onclick="handleLegendClick(${num})"` : ''}>
                     <span style="background: ${color}"></span>
                     <div class="text">Municipio ${romanize(parseInt(num))}</div>
                 </div>
             `).join("")}
         </div>
     `;
-
-    // Aggiungi un gestore di eventi per il pulsante di chiusura
-    const closeBtn = div.querySelector('.close-btn');
-    closeBtn.addEventListener('click', () => {
-        div.style.right = '-350px'; // Nasconde la legenda spostandola a destra
-    });
-
+    
     return div;
 };
     legend.addTo(map);
