@@ -229,24 +229,29 @@
 
 .legend-close-icon {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 8px;  /* Regolato per compensare il padding */
+    top: 8px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 22px; /* Dimensione aumentata */
-    opacity: 0.7;
-    transition: all 0.2s; /* Transizione su tutte le proprietà */
+    font-size: 24px;  /* Dimensione aumentata */
+    opacity: 0.8;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
-    color: #333; /* Colore più definito */
-    padding: 2px; /* Spazio per hover */
-    border-radius: 50%; /* Effetto circolare al passaggio del mouse */
+    color: #666;
+    width: 32px;  /* Dimensione fissa per il contenitore */
+    height: 32px;
+    display: flex;  /* Centratura perfetta */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
 .legend-close-icon:hover {
     opacity: 1;
-    color: #ff4444; /* Rosso acceso al passaggio */
-    background-color: rgba(255, 68, 68, 0.1); /* Leggero sfondo rosso */
-    transform: scale(1.1); /* Leggero ingrandimento */
+    color: #ff4444;
+    background-color: rgba(255, 68, 68, 0.15);  /* Sfondo più visibile */
+    transform: scale(1.15);  /* Ingrandimento più marcato */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);  /* Ombra per profondità */
 }
         
 .municipio-highlight {
