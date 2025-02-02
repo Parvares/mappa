@@ -225,29 +225,6 @@
             pointer-events: none;
         }
 
-    /* Stile per l'icona di chiusura */
-#legend-close-icon {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    color: #666;
-    transition: transform 0.2s;
-}
-
-#legend-close-icon:hover {
-    color: #333;
-    transform: scale(1.1);
-}
-
-/* Animazione per la chiusura */
-.legend-closing {
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-}
-
-        
 .municipio-highlight {
     stroke-width: 4px !important;
     stroke-opacity: 0.9 !important;
@@ -540,32 +517,12 @@ const municipalityColors = {
         }
 
 // Add this new function for legend toggle
-// Usa la stessa funzione esistente del pulsante laterale
 function toggleLegend() {
-    const legend = document.getElementById('legend-container');
-    const sidebarButton = document.querySelector('.sidebar-toggle');
-    
-    if (legend.classList.contains('legend-closing')) {
-        legend.classList.remove('legend-closing');
-        sidebarButton.classList.remove('active');
-    } else {
-        legend.classList.add('legend-closing');
-        sidebarButton.classList.add('active');
+    const legend = document.querySelector('.legend');
+    if (legend) {
+        legend.classList.toggle('visible');
     }
 }
-
-// Aggiungi l'event listener solo al nuovo elemento
-document.getElementById('legend-close-icon').addEventListener('click', function(e) {
-    e.stopPropagation(); // Previene conflitti con altri click
-    toggleLegend();
-});
-
-// Mantieni l'esistente listener per il pulsante laterale
-document.querySelector('.sidebar-toggle').addEventListener('click', toggleLegend);
-
-
-
-        
 
 
 // Funzione per cercare una biblioteca e aprire il popup corrispondente
