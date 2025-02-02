@@ -248,6 +248,11 @@
     transition: background-color 0.3s;
 }
 
+
+.legend {
+    transition: right 0.3s ease; /* Aggiungi questa linea se non è già presente */
+}
+        
 .legend .close-btn:hover {
     background-color: rgba(255, 26, 26, 0.8); /* Cambia colore al passaggio del mouse */
 }
@@ -1026,6 +1031,7 @@ fetch('municipio10.geojson')
 legend.onAdd = function() {
     const div = L.DomUtil.create("div", "legend");
     div.innerHTML = `
+        <button class="close-btn" title="Chiudi legenda">✕</button>
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
         <div class="legend-grid">
             ${Object.entries(municipalityColors).map(([num, color]) => `
@@ -1036,6 +1042,13 @@ legend.onAdd = function() {
             `).join("")}
         </div>
     `;
+
+    // Aggiungi un gestore di eventi per il pulsante di chiusura
+    const closeBtn = div.querySelector('.close-btn');
+    closeBtn.addEventListener('click', () => {
+        div.style.right = '-350px'; // Nasconde la legenda spostandola a destra
+    });
+
     return div;
 };
     legend.addTo(map);
