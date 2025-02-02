@@ -25,31 +25,30 @@
 .search-box .separator{width:1px;height:24px;background-color:#ccc;margin:0 10px}
 
         
-        /* Barra laterale fissa */
-        .sidebar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 60px; /* Larghezza fissa */
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-        }
+/* Barra laterale fissa */
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px; /* Riduci questo valore (era 20px) */
+}
 
-        /* Stile per i pulsanti della barra laterale */
 .sidebar button {
-    background: none;
+    background: 0 0;
     border: none;
     cursor: pointer;
     margin-bottom: 20px;
-    margin-top: 10px; /* Abbassa i pulsanti */
-    position: relative; /* Necessario per il tooltip */
-    transition: background-color 0.3s ease; /* Transizione per l'effetto hover */
+    margin-top: 5px; /* Riduci questo valore (era 10px) */
+    position: relative;
+    transition: background-color 0.3s ease;
 }
 
 /* Effetto hover sui pulsanti */
