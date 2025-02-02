@@ -605,30 +605,7 @@ body, html {
 }
 
 
-.custom-suggestions {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    max-height: 200px;
-    overflow-y: auto;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    display: none;
-}
 
-.custom-suggestions div {
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.custom-suggestions div:hover {
-    background-color: #f1f1f1;
-}
         
     </style>
 </head>
@@ -663,11 +640,11 @@ body, html {
             <img src="home.svg" alt="Biblioteca Home" class="icon">
         </a>
         <div class="search-input-wrapper" style="flex: 1;">
-    <input id="start-point" placeholder="Inserisci punto di partenza">
-    <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
-</div>
+            <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+            <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+        </div>
     </div>
-    <div id="custom-suggestions" class="custom-suggestions"></div>
+    <datalist id="library-suggestions"></datalist>
     <button onclick="searchRoute()">Trova Percorso</button>
 </div>
 
@@ -740,31 +717,33 @@ function toggleLegend() {
 
 
 // Funzione per cercare una biblioteca e aprire il popup corrispondente
-function selectLibrary(library) {
-    let foundMarker = null;
-    map.eachLayer((layer) => {
-        if (layer instanceof L.Marker) {
-            const pos = layer.getLatLng();
-            if (pos.lat === library.coords[0] && pos.lng === library.coords[1]) {
-                foundMarker = layer;
-            }
+async function searchLibrary() {
+    const searchTerm = document.getElementById('start-point').value.toLowerCase();
+    if (!searchTerm) return;
+
+    try {
+        const response = await fetch('libraries.json');
+        const data = await response.json();
+
+        // Trova la biblioteca cercata
+        const foundLibrary = data.libraries.find(library =>
+            library.name.toLowerCase().includes(searchTerm)
+        );
+
+        if (foundLibrary) {
+            // Trova tutte le biblioteche dello stesso municipio
+            const librariesInMunicipio = data.libraries.filter(library =>
+                library.municipality === foundLibrary.municipality
+            );
+
+            // Mostra il municipio e le biblioteche
+            showMunicipioAndLibraries(foundLibrary.municipality, librariesInMunicipio);
+        } else {
+            alert('Biblioteca non trovata. Riprova.');
         }
-    });
-
-    if (foundMarker) {
-        foundMarker.openPopup();
-        map.setView(foundMarker.getLatLng(), 14);
-        loadAndShowBorder(library.municipality, map);
-        highlightLegendItem(library.municipality);
-        selectedMunicipio = library.municipality;
-    } else {
-        console.log('Marker not found for library:', library);
-    }
-
-    // Nascondi il riquadro dei risultati
-    const resultsContainer = document.getElementById('custom-suggestions');
-    if (resultsContainer) {
-        resultsContainer.style.display = 'none';
+    } catch (error) {
+        console.error('Errore nella ricerca della biblioteca:', error);
+        alert('Errore nella ricerca. Riprova.');
     }
 }
 
@@ -894,7 +873,8 @@ function toggleClearButton() {
     }
 }
 
-
+// Aggiungi un listener per l'input nel campo di ricerca
+document.getElementById('start-point').addEventListener('input', toggleClearButton);
 
 // Aggiungi un listener per l'input nel campo di ricerca
 document.getElementById('start-point').addEventListener('input', toggleClearButton);
@@ -1060,47 +1040,6 @@ try {
             map
         );
     });
-
-    // Aggiungi il blocco n. 4 qui
-    document.getElementById('start-point').addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        const suggestionsContainer = document.getElementById('custom-suggestions');
-        suggestionsContainer.innerHTML = '';
-
-        if (searchTerm.length > 0) {
-            const filteredLibraries = data.libraries.filter(library => 
-                library.name.toLowerCase().includes(searchTerm)
-            );
-
-            if (filteredLibraries.length > 0) {
-                filteredLibraries.forEach(library => {
-                    const suggestion = document.createElement('div');
-                    suggestion.textContent = library.name;
-                    suggestion.onclick = () => {
-                        document.getElementById('start-point').value = library.name;
-                        suggestionsContainer.style.display = 'none';
-                        selectLibrary(library);
-                    };
-                    suggestionsContainer.appendChild(suggestion);
-                });
-                suggestionsContainer.style.display = 'block';
-            } else {
-                suggestionsContainer.style.display = 'none';
-            }
-        } else {
-            suggestionsContainer.style.display = 'none';
-        }
-    });
-
-    // Nascondi il menu personalizzato quando si clicca fuori
-    document.addEventListener('click', function(event) {
-        const suggestionsContainer = document.getElementById('custom-suggestions');
-        const searchInput = document.getElementById('start-point');
-        if (event.target !== searchInput && !suggestionsContainer.contains(event.target)) {
-            suggestionsContainer.style.display = 'none';
-        }
-    });
-
 } catch (error) {
     console.error('Errore nel caricamento delle biblioteche:', error);
 }
