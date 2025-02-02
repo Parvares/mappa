@@ -110,6 +110,34 @@
   box-sizing: border-box; /* Include il padding nella larghezza totale */
 }
 
+.sidebar-close-icon {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: url('x.svg') center center no-repeat;
+    background-size: 14px;
+}
+
+.sidebar-close-icon:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.08);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+
+
+        
         /* Casella di ricerca */
         /* Stile per il pannello di ricerca */
 .search-container {
@@ -475,22 +503,19 @@
     </button>
 </div>
 
-    <!-- Seconda barra laterale (espansione) -->
+
 <!-- Seconda barra laterale (espansione) -->
-<div class="sidebar-expanded" id="expandedSidebar">
-<div class="search-container" id="searchContainer">
-    <div class="search-input-wrapper">
-        <input type="text" id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-        <!-- Aggiungi la "x" all'interno del campo -->
-        <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+<div class=sidebar-expanded id=expandedSidebar>
+    <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div> <!-- Aggiungi questa linea -->
+    <div class=search-container id=searchContainer>
+        <div class=search-input-wrapper>
+            <input id=start-point placeholder="Inserisci punto di partenza" list=library-suggestions>
+            <span id=clear-search class=clear-search-btn onclick=clearSearchField()>✕</span>
+        </div>
+        <datalist id=library-suggestions></datalist>
+        <button onclick=searchRoute()>Trova Percorso</button>
     </div>
-    <datalist id="library-suggestions">
-        <!-- Opzioni verranno aggiunte via JavaScript -->
-    </datalist>
-    <button onclick="searchRoute()">Trova Percorso</button>
-</div>
-  <!-- Aggiungi il contenitore dei risultati qui -->
-  <div id="search-results"></div>
+    <div id=search-results></div>
 </div>
 
     <div id="map"></div>
