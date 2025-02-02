@@ -994,13 +994,15 @@ fetch('municipio10.geojson')
 
         // Aggiungi la legenda interattiva
          const legend = L.control({ position: 'topright' });
-   // Replace the legend.onAdd function with this corrected version
+
+        
+// Replace the legend.onAdd function with this corrected version
 legend.onAdd = function() {
     const div = L.DomUtil.create("div", "legend");
-    
 
-
+    // Aggiungi l'icona di chiusura qui
     div.innerHTML = `
+        <div class="legend-close-icon">×</div> <!-- Icona di chiusura aggiunta -->
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
         <div class="legend-grid">
             ${Object.entries(municipalityColors).map(([num, color]) => `
@@ -1015,10 +1017,18 @@ legend.onAdd = function() {
             `).join("")}
         </div>
     `;
-    
+
+    // Aggiungi l'event listener per l'icona di chiusura
+    div.querySelector('.legend-close-icon').addEventListener('click', function(e) {
+        e.stopPropagation(); // Evita conflitti con altri eventi
+        if (div.classList.contains('active')) {
+            toggleLegend(e); // Usa la stessa funzione di toggle del pulsante laterale
+        }
+    });
+
     return div;
 };
-    legend.addTo(map);
+legend.addTo(map);
 
   
 
