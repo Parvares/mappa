@@ -354,7 +354,7 @@ body, html {
     left: -100%;  /* Imposta la posizione a sinistra del bordo sinistro della legenda */
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.8);
+    background: linear-gradient(to right, #000000, #4a4a4a, #e0e0e0, #ffffff); /* Gradiente dal nero al bianco */
     color: white;
     padding: 8px 12px;
     border-radius: 6px;
@@ -362,7 +362,7 @@ body, html {
     width: 250px; /* Impostiamo la larghezza del tooltip uguale a quella della legenda */
     visibility: hidden;
     opacity: 0;
-    transition: all 0.2s ease;
+    transition: all 0.2s ease, background-color 0.5s ease; /* Transizione fluida anche per il colore di sfondo */
     z-index: 1001; /* Assicurati che il tooltip sia sopra la legenda */
 }
 
