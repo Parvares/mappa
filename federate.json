@@ -170,6 +170,51 @@
     },   
 
 
+    {
+      "name": "Biblioteca Carlo Levi di Genzano",
+      "coords": [41.711847403189736, 12.69056029472596],
+      "address": "Viale Mazzini, 12, Genzano di Roma",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-genzano-di-roma"
+    },   
+    {
+      "name": "Biblioteca di Bruno Martellotta di Grottaferrata",
+      "coords": [41.79524683928027, 12.66929575424878],
+      "address": "Viale Giovanni Dusmet, 20, Grottaferrata",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/biblioteca-di-grottaferrata/"
+    },   
+
+    {
+      "name": "Biblioteca Francesco Dionisi di Lanuvio",
+      "coords": [41.677650998438835, 12.698640035205585],
+      "address": "Via Sforza Cesarini, 37, Lanuvio",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/biblioteca-di-lanuvio/"
+    },   
+
+    {
+      "name": "Biblioteca Ferdinando Tamburlani di Lariano,
+      "coords": [41.72690238307899, 12.833896854245392],
+      "address": "Piazza Santa Eurosia 1, Lariano",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/biblioteca-di-lariano/"
+    },   
+
+    
+        {
+      "name": "Biblioteca Francesco Dionisi di Lanuvio"",
+      "coords": [41.677650998438835, 12.698640035205585],
+      "address": "Via Sforza Cesarini, 37, Lanuvio",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/biblioteca-di-lanuvio/"
+    },   
+
 
 
 
