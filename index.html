@@ -216,21 +216,21 @@ body, html {
 .legend {
     display: block;
     background: rgba(255,255,255,.95);
-    padding: 30px 20px 15px 20px;
+    padding: 15px 20px; /* Ridotto il padding superiore e inferiore */
     font: 13px/15px 'Segoe UI', system-ui, sans-serif;
     box-shadow: 0 5px 25px rgba(0,0,0,.15);
     border-radius: 12px;
     position: fixed;
-    top: 5vh; /* Sposta la legenda leggermente verso il basso */
+    top: 10px; /* Avvicinato al bordo superiore */
     right: -350px;
-    height: 90vh; /* Aumenta l'altezza lasciando un piccolo margine sopra e sotto */
+    height: auto; 
     z-index: 1000;
     width: 250px;
     border: 1px solid rgba(0,0,0,.1);
     backdrop-filter: blur(4px);
     transition: right .3s ease;
-    transform: none; /* Rimuove il translateY(-50%) */
 }
+
 
 
 
