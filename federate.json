@@ -1,0 +1,23 @@
+{
+  "federate": [
+    {
+      "name": "Biblioteca di Area di Scienze Economiche “Pierangelo Garegnani - Roma Tre”",
+      "coords": [41.876553, 12.478932],
+      "address": "Via Silvio d’Amico 77",
+      "cap": "00145 ",
+      "municipality": 1,
+      "municipalityName": "ROMA I",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-scienze-economiche-pierangelo-garegnani/"
+    },
+    {
+      "name": "Biblioteca di Area Giuridica - Roma Tre",
+      "coords": [41.893223, 12.473114],
+      "address": "Via Ostiense 161",
+      "cap": "00154",
+      "municipality": 1,
+      "municipalityName": "ROMA I",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-giuridica/"
+    }
+
+  ]
+}
