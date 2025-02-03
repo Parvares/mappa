@@ -354,8 +354,8 @@ body, html {
     left: -100%;  /* Imposta la posizione a sinistra del bordo sinistro della legenda */
     top: 50%;
     transform: translateY(-50%);
-    background: linear-gradient(to right, #000000, #4a4a4a, #d0d0d0, #ffffff); /* Gradiente dal nero al bianco */
-    color: black; /* Testo nero */
+    background: linear-gradient(to right, #000000, #4a4a4a, #A8A8A8, #ffffff); /* Gradiente dal nero al grigio chiaro */
+    color: #ffffff; /* Testo bianco */
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 12px;
@@ -366,6 +366,8 @@ body, html {
     z-index: 1001; /* Assicurati che il tooltip sia sopra la legenda */
     overflow: hidden; /* Taglia la parte destra che fuoriesce */
 }
+
+        
 /* Modifica la visibilità del tooltip quando l'elemento è in hover */
 .info-icon:hover + .tooltip {
     visibility: visible;
