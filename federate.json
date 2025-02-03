@@ -33,36 +33,36 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-architettura-enrico-mattiello/"
     },
  {
-      "name": "Biblioteca Di Area Delle Arti. Sezione Storia Dell'arte Luigi Grassi. Università Degli Studi Roma Tre",
-      "coords": [41.863902555913526, 12.479250900000002],
+      "name": "Biblioteca Di Area Delle Arti. Sezione Storia Dell'arte Luigi Grassi. Università Degli Studi - Roma Tre",
+      "coords": [41.903753865609126, 12.4964298],
       "address": "Piazza della Repubblica, 10",
       "libraryType": "Universitaria",
       "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-storia-dellarte-luigi-grassi/"
     },
     {
-      "name": "Biblioteca Foro Italico",
-      "coords": [41.933493, 12.457753],
-      "address": "Viale dei Gladiatori 2",
+      "name": "Biblioteca di Area di Scienze della Formazione Angelo Broccoli - Roma Tre",
+      "coords": [41.903753865609126, 12.4964298],
+      "address": " via del Castro Pretorio 20",
       "libraryType": "Universitaria",
-      "system": "Foro Italico",
-      "url": "https://www.uniroma4.it/biblioteca"
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-scienze-della-formazione-angelo-broccoli/"
     },
     {
-      "name": "Biblioteca Link Campus",
-      "coords": [41.801218, 12.514503],
-      "address": "Via Nomentana 335",
+      "name": "Biblioteca di Area di Scienze della Formazione Angelo Broccoli - Roma Tre",
+      "coords": [41.903753865609126, 12.4964298],
+      "address": "Piazza della Repubblica, 10",
       "libraryType": "Universitaria",
-      "system": "Link Campus",
-      "url": "https://www.link-campus.eu/biblioteca"
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-storia-dellarte-luigi-grassi/"
     },
     {
-      "name": "Biblioteca del Sistema Bibliotecario Ceretano-Sabatino - Viterbo",
-      "coords": [42.402224, 12.105056],
-      "address": "Piazza della Morte 5, Viterbo",
-      "libraryType": "Comunale",
-      "system": "SISTEMA BIBLIOTECARIO CERETANO-SABATINO",
-      "url": "http://www.bibliotecaviterbo.it/"
+      "name": "Biblioteca di Area di Scienze della Formazione Angelo Broccoli - Roma Tre",
+      "coords": [41.903753865609126, 12.4964298],
+      "address": "Piazza della Repubblica, 10",
+      "libraryType": "Universitaria",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-storia-dellarte-luigi-grassi/"
     },
     {
       "name": "Biblioteca del Sistema Bibliotecario Ceretano-Sabatino - Nepi",
