@@ -5,7 +5,7 @@
       "coords": [41.876553, 12.478932],
       "address": "Via Silvio d’Amico 77",
       "libraryType": "Universitaria",
-      "system": "SISTEMA BIBLIOTECARIO DI ATENEO - UNIVERSITÀ DEGLI STUDI ROMA TRE",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-scienze-economiche-pierangelo-garegnani/"
     },
     {
@@ -13,7 +13,7 @@
       "coords": [41.893223, 12.473114],
       "address": "Via Ostiense 161",
       "libraryType": "Universitaria",
-      "system": "SISTEMA BIBLIOTECARIO DI ATENEO - UNIVERSITÀ DEGLI STUDI ROMA TRE",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-giuridica/"
     },
     {
@@ -21,7 +21,7 @@
       "coords": [41.743569, 12.673218],
       "address": "Piazza Giuseppe Mazzini 6, Genzano di Roma",
       "libraryType": "Comunale",
-      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "system": "Biblioteche Sistema Castelli Romani",
       "url": "http://www.bibliotecagenzano.it/"
     },
     {
@@ -29,7 +29,7 @@
       "coords": [41.735991, 12.648196],
       "address": "Via G. Matteotti 29, Albano Laziale",
       "libraryType": "Comunale",
-      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "system": "BIblioteche Sistema Castelli Romani",
       "url": "http://www.bibliotechecastelliromani.it/"
     },
     {
@@ -45,7 +45,7 @@
       "coords": [41.933493, 12.457753],
       "address": "Viale dei Gladiatori 2",
       "libraryType": "Universitaria",
-      "system": "FORO ITALICO",
+      "system": "Foro Italico",
       "url": "https://www.uniroma4.it/biblioteca"
     },
     {
@@ -53,7 +53,7 @@
       "coords": [41.801218, 12.514503],
       "address": "Via Nomentana 335",
       "libraryType": "Universitaria",
-      "system": "LINK CAMPUS",
+      "system": "Link Campus",
       "url": "https://www.link-campus.eu/biblioteca"
     },
     {
