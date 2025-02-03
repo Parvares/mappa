@@ -353,9 +353,10 @@ body, html {
             background: #e0e0e0;
         }
         
+/* Modifica la posizione del tooltip per allinearlo al lato sinistro del riquadro della legenda */
 .tooltip {
     position: absolute;
-    left: -100%;  /* Posiziona il tooltip a sinistra del suo elemento genitore */
+    left: -210px;  /* Imposta il tooltip appena a sinistra della legenda (aggiustabile in base alla larghezza della legenda) */
     top: 50%;
     transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.8);
@@ -368,9 +369,9 @@ body, html {
     visibility: hidden;
     opacity: 0;
     transition: all 0.2s ease;
-    z-index: 1001;  /* Assicurati che il tooltip stia sopra la legenda */
+    z-index: 1001;  /* Assicurati che il tooltip sia sopra la legenda */
 }
-        
+
 /* Modifica la visibilità del tooltip quando l'elemento è in hover */
 .info-icon:hover + .tooltip {
     visibility: visible;
