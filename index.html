@@ -1393,8 +1393,20 @@ window.handleLegendClick = async function(municipioNumber) {
     allItems.forEach(item => item.classList.remove('highlighted'));
 
     if (selectedMunicipio === municipioNumber) {
+        // Deseleziona il municipio
         if (currentBorder) {
-            map.removeLayer(currentBorder);
+            // Se è il municipio X, ripristina lo stile predefinito
+            if (municipioNumber === 10) {
+                municipioLayers[10].setStyle({
+                    color: municipalityColors[10],
+                    weight: 3, // Stile predefinito
+                    opacity: 0.65, // Stile predefinito
+                    fillOpacity: 0 // Stile predefinito
+                }).bringToFront();
+            } else {
+                // Rimuovi il layer per gli altri municipi
+                map.removeLayer(currentBorder);
+            }
             currentBorder = null;
         }
         selectedMunicipio = null;
@@ -1420,7 +1432,10 @@ window.handleLegendClick = async function(municipioNumber) {
     }
 
     if (currentBorder) {
-        map.removeLayer(currentBorder);
+        // Se c'è un confine attivo, rimuovilo (tranne per il municipio X)
+        if (selectedMunicipio !== 10) {
+            map.removeLayer(currentBorder);
+        }
     }
 
     selectedMunicipio = municipioNumber;
@@ -1429,15 +1444,17 @@ window.handleLegendClick = async function(municipioNumber) {
         item.classList.add('highlighted');
     }
 
-    // Aggiungi il confine del municipio X con uno stile diverso se è già presente
-    if (municipioNumber === 10 && municipioLayers[10]) {
+    // Evidenzia il municipio selezionato
+    if (municipioNumber === 10) {
+        // Se è il municipio X, applica uno stile di evidenziazione
         currentBorder = municipioLayers[10].setStyle({
             color: municipalityColors[10],
-            weight: 6, // Aumenta lo spessore per evidenziare
-            opacity: 1, // Aumenta l'opacità per evidenziare
-            fillOpacity: 0.3 // Aumenta l'opacità del riempimento per evidenziare
-        }).addTo(map).bringToFront();
+            weight: 6, // Stile di evidenziazione
+            opacity: 1, // Stile di evidenziazione
+            fillOpacity: 0.3 // Stile di evidenziazione
+        }).bringToFront();
     } else {
+        // Per gli altri municipi, aggiungi il layer normalmente
         currentBorder = municipioLayers[municipioNumber].addTo(map).bringToFront();
     }
 
