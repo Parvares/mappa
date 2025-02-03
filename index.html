@@ -1388,61 +1388,100 @@ window.handleLegendHover = async function(municipioNumber) {
             };
 
             // Funzione per gestire il click sulla legenda
-window.handleLegendClick = async function(municipioNumber) {
-    const allItems = document.querySelectorAll('.legend-item');
-    allItems.forEach(item => item.classList.remove('highlighted'));
+ window.handleLegendClick = async function(municipioNumber) {
+                const allItems = document.querySelectorAll('.legend-item');
+                allItems.forEach(item => item.classList.remove('highlighted'));
 
-    if (selectedMunicipio === municipioNumber) {
-        if (currentBorder) {
-            map.removeLayer(currentBorder);
-            currentBorder = null;
-        }
-        selectedMunicipio = null;
-        return;
-    }
-
-    if (!municipioLayers[municipioNumber]) {
-        try {
-            const response = await fetch(`municipio${municipioNumber}.geojson`);
-            const data = await response.json();
-            municipioLayers[municipioNumber] = L.geoJSON(data, {
-                style: {
-                    color: municipalityColors[municipioNumber],
-                    weight: 4,
-                    opacity: 0.9,
-                    fillOpacity: 0.2
+                // Se clicchiamo sullo stesso municipio già selezionato
+                if (selectedMunicipio === municipioNumber) {
+                    if (currentBorder) {
+                        map.removeLayer(currentBorder);
+                        currentBorder = null;
+                    }
+                    
+                    // Se era il municipio X, ripristina lo stile default ma mantienilo visibile
+                    if (municipioNumber === 10) {
+                        municipioLayers[10].setStyle({
+                            color: municipalityColors[10],
+                            weight: 3,
+                            opacity: 0.65,
+                            fillOpacity: 0
+                        });
+                    }
+                    
+                    selectedMunicipio = null;
+                    return;
                 }
-            });
-        } catch (error) {
-            console.error(`Error loading municipality ${municipioNumber}:`, error);
-            return;
-        }
-    }
 
-    if (currentBorder) {
-        map.removeLayer(currentBorder);
-    }
+                // Carica il GeoJSON se non è già stato caricato
+                if (!municipioLayers[municipioNumber]) {
+                    try {
+                        const response = await fetch(`municipio${municipioNumber}.geojson`);
+                        const data = await response.json();
+                        municipioLayers[municipioNumber] = L.geoJSON(data, {
+                            style: {
+                                color: municipalityColors[municipioNumber],
+                                weight: 4,
+                                opacity: 0.9,
+                                fillOpacity: 0.2
+                            }
+                        });
+                    } catch (error) {
+                        console.error(`Error loading municipality ${municipioNumber}:`, error);
+                        return;
+                    }
+                }
 
-    selectedMunicipio = municipioNumber;
-    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-    if (item) {
-        item.classList.add('highlighted');
-    }
+                // Rimuovi il bordo precedente se non è il municipio X
+                if (currentBorder && currentBorder !== municipioLayers[10]) {
+                    map.removeLayer(currentBorder);
+                }
 
-    // Aggiungi il confine del municipio X con uno stile diverso se è già presente
-    if (municipioNumber === 10 && municipioLayers[10]) {
-        currentBorder = municipioLayers[10].setStyle({
-            color: municipalityColors[10],
-            weight: 6, // Aumenta lo spessore per evidenziare
-            opacity: 1, // Aumenta l'opacità per evidenziare
-            fillOpacity: 0.3 // Aumenta l'opacità del riempimento per evidenziare
-        }).addTo(map).bringToFront();
-    } else {
-        currentBorder = municipioLayers[municipioNumber].addTo(map).bringToFront();
-    }
+                selectedMunicipio = municipioNumber;
+                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+                if (item) {
+                    item.classList.add('highlighted');
+                }
 
-    map.fitBounds(currentBorder.getBounds());
-};
+                // Gestione speciale per il municipio X
+                if (municipioNumber === 10) {
+                    municipioLayers[10].setStyle({
+                        color: municipalityColors[10],
+                        weight: 6,
+                        opacity: 1,
+                        fillOpacity: 0.3
+                    }).bringToFront();
+                    currentBorder = municipioLayers[10];
+                } else {
+                    // Per altri municipi, aggiungi il nuovo bordo
+                    currentBorder = municipioLayers[municipioNumber].addTo(map).bringToFront();
+                }
+
+                map.fitBounds(currentBorder.getBounds());
+            };
+
+            // Modifica della funzione handleLegendOut
+            window.handleLegendOut = function(municipioNumber) {
+                if (municipioNumber === selectedMunicipio) return;
+                
+                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+                item.classList.remove('highlighted');
+
+                if (currentHighlight && currentHighlight !== currentBorder) {
+                    map.removeLayer(currentHighlight);
+                    currentHighlight = null;
+                }
+
+                // Se c'è un municipio selezionato, assicurati che rimanga visibile
+                if (selectedMunicipio && currentBorder) {
+                    currentBorder.bringToFront();
+                }
+
+                // Assicurati che il municipio X rimanga sempre visibile
+                if (municipioLayers[10]) {
+                    municipioLayers[10].bringToFront();
+                }
+            };
         })
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
