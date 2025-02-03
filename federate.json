@@ -65,7 +65,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-umanistica-giorgio-petrocchi/"
     },
     {
-      "name": "Biblioteca di Area Umanistica Giorgio Petrocchi - Roma Tre",
+      "name": "Biblioteca di Area Umanistica Giorgio Petrocchi. Sezione Biblioteca Guillaume Apollinaire - Roma Tre",
       "coords": [41.852190215505324, 12.474100667745525],
       "address": "Via del Valco di San Paolo 19",
       "libraryType": "Universitaria",
@@ -81,12 +81,20 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-studi-politici-pietro-grilli-di-cortona/"
     },
     {
-      "name": "Biblioteca di Area Umanistica Giorgio Petrocchi - Roma Tre",
-      "coords": [41.850838769205595, 12.475275696580892],
+      "name": "Biblioteca di Area Scientifica – Biblioteca di Area Tecnologica. Sede Centrale- Roma Tre",
+      "coords": [41.85565548539767, 12.469811368145308],
+      "address": "Via della Vasca Navale, 79/81",
+      "libraryType": "Universitaria",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-scientifica-biblioteca-di-area-tecnologica/sedi-e-orari/"
+    }
+    {
+      "name": "Biblioteca di Area Scientifica – Biblioteca di Area Tecnologica. Sede Centrale- Roma Tre",
+      "coords": [41.85541449043049, 12.463283738910294],
       "address": "Via Ostiense, 236",
       "libraryType": "Universitaria",
       "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
-      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-umanistica-giorgio-petrocchi/"
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-scientifica-biblioteca-di-area-tecnologica/sedi-e-orari/"
     }
   ]
 }
