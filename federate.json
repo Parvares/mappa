@@ -2,7 +2,7 @@
   "federate": [
     {
       "name": "Biblioteca di Area di Scienze Economiche “Pierangelo Garegnani - Roma Tre”",
-      "coords": [41.876553, 12.478932],
+      "coords": [41.85150676716081, 12.480466910074682],
       "address": "Via Silvio d’Amico 77",
       "libraryType": "Universitaria",
       "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
@@ -10,35 +10,35 @@
     },
     {
       "name": "Biblioteca di Area Giuridica - Roma Tre",
-      "coords": [41.893223, 12.473114],
+      "coords": [41.8626340292021, 12.478881169316743],
       "address": "Via Ostiense 161",
       "libraryType": "Universitaria",
       "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-giuridica/"
     },
     {
-      "name": "Biblioteca del Sistema Castelli Romani - Genzano",
-      "coords": [41.743569, 12.673218],
-      "address": "Piazza Giuseppe Mazzini 6, Genzano di Roma",
-      "libraryType": "Comunale",
-      "system": "Biblioteche Sistema Castelli Romani",
-      "url": "http://www.bibliotecagenzano.it/"
-    },
-    {
-      "name": "Biblioteca del Sistema Castelli Romani - Albano Laziale",
-      "coords": [41.735991, 12.648196],
-      "address": "Via G. Matteotti 29, Albano Laziale",
-      "libraryType": "Comunale",
-      "system": "BIblioteche Sistema Castelli Romani",
-      "url": "http://www.bibliotechecastelliromani.it/"
-    },
-    {
-      "name": "Biblioteca LUMSA",
-      "coords": [41.893870, 12.484758],
-      "address": "Via Pompeo Magno 21",
+      "name": "Biblioteca di Area delle Arti, Sezione Spettacolo “Lino Miccichè - Roma Tre”",
+      "coords": [41.863902555913526, 12.479250900000002],
+      "address": "Via Ostiense, 139",
       "libraryType": "Universitaria",
-      "system": "LUMSA",
-      "url": "https://www.lumsa.it/biblioteca"
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-spettacolo-lino-micciche/"
+    },
+ {
+      "name": "Biblioteca Di Area Delle Arti. Sezione Architettura "Enrico Mattiello" - Roma Tre",
+      "coords": [41.877220792161, 12.471950255822966],
+      "address": "Largo Giovanni Battista Marzi, 10",
+      "libraryType": "Universitaria",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-architettura-enrico-mattiello/"
+    },
+ {
+      "name": "Biblioteca Sezione Spettacolo “Lino Miccichè - Roma Tre”",
+      "coords": [41.863902555913526, 12.479250900000002],
+      "address": "Via Ostiense, 139",
+      "libraryType": "Universitaria",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-spettacolo-lino-micciche/"
     },
     {
       "name": "Biblioteca Foro Italico",
