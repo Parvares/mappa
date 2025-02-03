@@ -213,7 +213,9 @@ body, html {
     right: 40px; /* Modificato da 0 a 40px per lasciare spazio alla maniglia */
 }
 
+/* Assicurati che il contenitore della legenda abbia una posizione relativa */
 .legend {
+    position: relative; /* Aggiungi questa linea */
     display: block;
     background: rgba(255,255,255,.95);
     padding: 15px 20px; /* Ridotto il padding superiore e inferiore */
@@ -353,11 +355,10 @@ body, html {
             background: #e0e0e0;
         }
         
-/* Modifica la posizione del tooltip per allinearlo al lato sinistro del riquadro della legenda */
 .tooltip {
     position: absolute;
-    left: 0; /* Allinea al bordo sinistro */
-    top: 50%; /* Centra verticalmente */
+    left: -210px;  /* Imposta il tooltip appena a sinistra della legenda (aggiustabile in base alla larghezza della legenda) */
+    top: 50%;
     transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.8);
     color: white;
