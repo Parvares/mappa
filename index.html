@@ -215,25 +215,22 @@ body, html {
 
 /* Assicurati che il contenitore della legenda abbia una posizione relativa */
 .legend {
-    position: relative; /* Aggiungi questa linea */
-    display: block;
+    position: fixed; /* Fisso in modo che resti visibile anche durante lo scroll */
+    top: 10px; /* Vicino al bordo superiore */
+    bottom: 25px; /* Vicino al bordo inferiore */
+    right: -350px; /* Posizione iniziale fuori dalla vista */
+    z-index: 1000;
+    width: 250px;
     background: rgba(255,255,255,.95);
-    padding: 15px 20px; /* Ridotto il padding superiore e inferiore */
+    padding: 15px 20px;
     font: 13px/15px 'Segoe UI', system-ui, sans-serif;
     box-shadow: 0 5px 25px rgba(0,0,0,.15);
     border-radius: 12px;
-    position: fixed;
-    top: 10px; /* Vicino al bordo superiore */
-    bottom: 25px; /* Vicino al bordo inferiore */
-    right: -350px;
-    z-index: 1000;
-    width: 250px;
     border: 1px solid rgba(0,0,0,.1);
     backdrop-filter: blur(4px);
     transition: right .3s ease;
-    overflow: visible;  /* Consente ai tooltip di fuoriuscire dal riquadro della legenda */
+    overflow: visible;
 }
-
 
 
 
@@ -357,7 +354,7 @@ body, html {
         
 .tooltip {
     position: absolute;
-    left: -210px;  /* Imposta il tooltip appena a sinistra della legenda (aggiustabile in base alla larghezza della legenda) */
+    left: 0;  /* Allineato al bordo sinistro della legenda */
     top: 50%;
     transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.8);
@@ -365,12 +362,11 @@ body, html {
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 12px;
-    width: max-content;
     max-width: 200px;
     visibility: hidden;
     opacity: 0;
     transition: all 0.2s ease;
-    z-index: 1001;  /* Assicurati che il tooltip sia sopra la legenda */
+    z-index: 1001; /* Assicurati che il tooltip sia sopra la legenda */
 }
 
 /* Modifica la visibilità del tooltip quando l'elemento è in hover */
