@@ -970,16 +970,23 @@ document.addEventListener("DOMContentLoaded", async function() {
         zoomControl: false
     }).setView(center, 14);
             
-            // Add zoom control to the right side
-            L.control.zoom({
-                position: 'topright'
-            }).addTo(map);
+    // Add zoom control to the right side with custom CSS class
+    const zoomControl = L.control.zoom({
+        position: 'topright'
+    });
+    
+    zoomControl.addTo(map);
+    
+    // Add custom CSS to the zoom control container after it's added to the map
+    const zoomContainer = zoomControl.getContainer();
+    zoomContainer.style.marginTop = '50px';
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "© OpenStreetMap contributors"
     }).addTo(map);
 
+    
     // Definizione del percorso
     const pathPoints = [
         center,
