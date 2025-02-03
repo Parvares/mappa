@@ -143,7 +143,31 @@
       "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/biblioteca-di-ariccia/"
     },
 
+   {
+      "name": "Biblioteca Pier Paolo Pasolini di Ciampino",
+      "coords": [41.80302303363924, 12.60039639657852],
+      "address": "Via 4 Novembre, Ciampino",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-ciampino/"
+    },
 
+    {
+      "name": "Biblioteca Elsa Morante di Colonna",
+      "coords": [41.85863334824509, 12.75587959645176],
+      "address": "Piazzale Francesco Capogrossi, Colonna",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/biblioteca-di-colonna/"
+    },   
+    {
+      "name": "Biblioteca Carlo Del Vescovo di Frascati",
+      "coords": [41.80912939077731, 12.68238846589549],
+      "address": "Corso Matteotti, 32, Frascati",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/biblioteca-di-frascati/"
+    },   
 
 
 
