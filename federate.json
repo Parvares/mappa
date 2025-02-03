@@ -65,28 +65,28 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-umanistica-giorgio-petrocchi/"
     },
     {
-      "name": "Biblioteca del Sistema Bibliotecario Ceretano-Sabatino - Nepi",
-      "coords": [42.233219, 12.411047],
-      "address": "Via della Libertà 7, Nepi",
-      "libraryType": "Comunale",
-      "system": "SISTEMA BIBLIOTECARIO CERETANO-SABATINO",
-      "url": "http://www.biblioteca.nepi.it/"
+      "name": "Biblioteca di Area Umanistica Giorgio Petrocchi - Roma Tre",
+      "coords": [41.852190215505324, 12.474100667745525],
+      "address": "Via del Valco di San Paolo 19",
+      "libraryType": "Universitaria",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-umanistica-giorgio-petrocchi/sedi-e-orari/sezione-biblioteca-guillaume-apollinaire/"
     },
     {
-      "name": "Biblioteca del Sistema Bibliotecario Monti Prenestini - Palestrina",
-      "coords": [41.818323, 12.944839],
-      "address": "Piazza G. Marconi 3, Palestrina",
-      "libraryType": "Comunale",
-      "system": "SISTEMA BIBLIOTECARIO MONTI PRENESTINI",
-      "url": "http://www.bibliotecapalestrina.it/"
+      "name": "Biblioteca Di Area Di Studi Politici Pietro Grilli Di Cortona - Roma Tre",
+      "coords": [41.8521292652553, 12.479293277543649],
+      "address": "Via Gabriello Chiabrera, 199",
+      "libraryType": "Universitaria",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-studi-politici-pietro-grilli-di-cortona/"
     },
     {
-      "name": "Biblioteca del Sistema Bibliotecario Monti Prenestini - Zagarolo",
-      "coords": [41.768548, 12.864755],
-      "address": "Via di Roma 23, Zagarolo",
-      "libraryType": "Comunale",
-      "system": "SISTEMA BIBLIOTECARIO MONTI PRENESTINI",
-      "url": "http://www.bibliotecazagarolo.it/"
+      "name": "Biblioteca di Area Umanistica Giorgio Petrocchi - Roma Tre",
+      "coords": [41.850838769205595, 12.475275696580892],
+      "address": "Via Ostiense, 236",
+      "libraryType": "Universitaria",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-umanistica-giorgio-petrocchi/"
     }
   ]
 }
