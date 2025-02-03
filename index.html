@@ -229,7 +229,7 @@ body, html {
     border: 1px solid rgba(0,0,0,.1);
     backdrop-filter: blur(4px);
     transition: right .3s ease;
-    overflow-y: auto; /* Aggiunto per gestire lo scorrimento se il contenuto è troppo alto */
+    overflow: visible;  /* Consente ai tooltip di fuoriuscire dal riquadro della legenda */
 }
 
 
@@ -353,28 +353,29 @@ body, html {
             background: #e0e0e0;
         }
         
-        .tooltip {
-            position: absolute;
-            right: calc(100% + 10px);  /* Cambiato da left a right */
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            width: max-content;
-            max-width: 200px;
-            visibility: hidden;
-            opacity: 0;
-            transition: all 0.2s ease;
-            z-index: 1000;
-        }
+.tooltip {
+    position: absolute;
+    left: -100%;  /* Posiziona il tooltip a sinistra del suo elemento genitore */
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    width: max-content;
+    max-width: 200px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s ease;
+    z-index: 1001;  /* Assicurati che il tooltip stia sopra la legenda */
+}
         
-        .info-icon:hover + .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
+/* Modifica la visibilità del tooltip quando l'elemento è in hover */
+.info-icon:hover + .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
 
         
         
