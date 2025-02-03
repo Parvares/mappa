@@ -1265,11 +1265,6 @@ document.getElementById('start-point').addEventListener('keypress', function(eve
 fetch('municipio10.geojson')
     .then(response => response.json())
     .then(data => {
-
-
-       
-
-        // Carica il municipio X di default
         municipioLayers[10] = L.geoJSON(data, {
             style: {
                 color: municipalityColors[10],
@@ -1278,6 +1273,9 @@ fetch('municipio10.geojson')
                 fillOpacity: 0
             }
         }).addTo(map);
+    })
+    .catch(error => console.error('Errore nel caricamento dei confini:', error));
+    
 
 // Prima definisci l'oggetto con le zone dei municipi
 const municipalityZones = {
