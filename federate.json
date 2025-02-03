@@ -106,20 +106,34 @@
       "url": "https://sba.uniroma3.it/biblioteche/altre-biblioteche/moby-dick-biblioteca-hub-culturale/"
     },
 
+   
     {
-      "name": "Biblioteca Di Area Di Studi Politici Pietro Grilli Di Cortona - Roma Tre",
-      "coords": [41.8521292652553, 12.479293277543649],
-      "address": "Via Gabriello Chiabrera, 199",
-      "libraryType": "Universitaria",
-      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
-      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-studi-politici-pietro-grilli-di-cortona/"
+      "name": "Biblioteca Comunale Di Albano Laziale Cesare De Santis",
+      "coords": [41.726805368800335, 12.661762388903735],
+      "address": "Viale Risorgimento, 5, Albano",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-albano-laziale/"
+    },
+
+    {
+      "name": "Biblioteca di Cecchina (Albano Laziale)",
+      "coords": [41.726805368800335, 12.661762388903735],
+      "address": "Viale Italia, 2, Cecchina (Albano Laziale)",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/biblioteca-di-cecchina-albano-laziale/"
     },
 
 
-
-
-
-
+    {
+      "name": "Biblioteca Comunale Di Albano Laziale Cesare De Santis",
+      "coords": [41.726805368800335, 12.661762388903735],
+      "address": "Viale Risorgimento, 5, Albano",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-albano-laziale/"
+    },
 
 
 
