@@ -87,14 +87,48 @@
       "libraryType": "Universitaria",
       "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-scientifica-biblioteca-di-area-tecnologica/sedi-e-orari/"
-    }
+    }.
     {
-      "name": "Biblioteca di Area Scientifica – Biblioteca di Area Tecnologica. Sede Centrale- Roma Tre",
+      "name": "Biblioteca di Area Scientifica – Biblioteca di Area Tecnologica. Sede delle Torri - Roma Tre",
       "coords": [41.85541449043049, 12.463283738910294],
-      "address": "Via Ostiense, 236",
+      "address": " Lungotevere Dante 376",
       "libraryType": "Universitaria",
       "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-scientifica-biblioteca-di-area-tecnologica/sedi-e-orari/"
     }
+
+{
+      "name": "Biblioteca Hub Culturale Moby Dick - Roma Tre",
+      "coords": [41.86325005078215, 12.48547130822748],
+      "address": "via Edgardo Ferrati 3a",
+      "libraryType": "Universitaria",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/altre-biblioteche/moby-dick-biblioteca-hub-culturale/"
+    },
+
+    {
+      "name": "Biblioteca Di Area Di Studi Politici Pietro Grilli Di Cortona - Roma Tre",
+      "coords": [41.8521292652553, 12.479293277543649],
+      "address": "Via Gabriello Chiabrera, 199",
+      "libraryType": "Universitaria",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-studi-politici-pietro-grilli-di-cortona/"
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
   ]
 }
