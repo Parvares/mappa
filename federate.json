@@ -4,20 +4,89 @@
       "name": "Biblioteca di Area di Scienze Economiche “Pierangelo Garegnani - Roma Tre”",
       "coords": [41.876553, 12.478932],
       "address": "Via Silvio d’Amico 77",
-      "cap": "00145 ",
-      "municipality": 1,
-      "municipalityName": "ROMA I",
+      "libraryType": "Universitaria",
+      "system": "SISTEMA BIBLIOTECARIO DI ATENEO - UNIVERSITÀ DEGLI STUDI ROMA TRE",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-scienze-economiche-pierangelo-garegnani/"
     },
     {
       "name": "Biblioteca di Area Giuridica - Roma Tre",
       "coords": [41.893223, 12.473114],
       "address": "Via Ostiense 161",
-      "cap": "00154",
-      "municipality": 1,
-      "municipalityName": "ROMA I",
+      "libraryType": "Universitaria",
+      "system": "SISTEMA BIBLIOTECARIO DI ATENEO - UNIVERSITÀ DEGLI STUDI ROMA TRE",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-giuridica/"
+    },
+    {
+      "name": "Biblioteca del Sistema Castelli Romani - Genzano",
+      "coords": [41.743569, 12.673218],
+      "address": "Piazza Giuseppe Mazzini 6, Genzano di Roma",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "http://www.bibliotecagenzano.it/"
+    },
+    {
+      "name": "Biblioteca del Sistema Castelli Romani - Albano Laziale",
+      "coords": [41.735991, 12.648196],
+      "address": "Via G. Matteotti 29, Albano Laziale",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "http://www.bibliotechecastelliromani.it/"
+    },
+    {
+      "name": "Biblioteca LUMSA",
+      "coords": [41.893870, 12.484758],
+      "address": "Via Pompeo Magno 21",
+      "libraryType": "Universitaria",
+      "system": "LUMSA",
+      "url": "https://www.lumsa.it/biblioteca"
+    },
+    {
+      "name": "Biblioteca Foro Italico",
+      "coords": [41.933493, 12.457753],
+      "address": "Viale dei Gladiatori 2",
+      "libraryType": "Universitaria",
+      "system": "FORO ITALICO",
+      "url": "https://www.uniroma4.it/biblioteca"
+    },
+    {
+      "name": "Biblioteca Link Campus",
+      "coords": [41.801218, 12.514503],
+      "address": "Via Nomentana 335",
+      "libraryType": "Universitaria",
+      "system": "LINK CAMPUS",
+      "url": "https://www.link-campus.eu/biblioteca"
+    },
+    {
+      "name": "Biblioteca del Sistema Bibliotecario Ceretano-Sabatino - Viterbo",
+      "coords": [42.402224, 12.105056],
+      "address": "Piazza della Morte 5, Viterbo",
+      "libraryType": "Comunale",
+      "system": "SISTEMA BIBLIOTECARIO CERETANO-SABATINO",
+      "url": "http://www.bibliotecaviterbo.it/"
+    },
+    {
+      "name": "Biblioteca del Sistema Bibliotecario Ceretano-Sabatino - Nepi",
+      "coords": [42.233219, 12.411047],
+      "address": "Via della Libertà 7, Nepi",
+      "libraryType": "Comunale",
+      "system": "SISTEMA BIBLIOTECARIO CERETANO-SABATINO",
+      "url": "http://www.biblioteca.nepi.it/"
+    },
+    {
+      "name": "Biblioteca del Sistema Bibliotecario Monti Prenestini - Palestrina",
+      "coords": [41.818323, 12.944839],
+      "address": "Piazza G. Marconi 3, Palestrina",
+      "libraryType": "Comunale",
+      "system": "SISTEMA BIBLIOTECARIO MONTI PRENESTINI",
+      "url": "http://www.bibliotecapalestrina.it/"
+    },
+    {
+      "name": "Biblioteca del Sistema Bibliotecario Monti Prenestini - Zagarolo",
+      "coords": [41.768548, 12.864755],
+      "address": "Via di Roma 23, Zagarolo",
+      "libraryType": "Comunale",
+      "system": "SISTEMA BIBLIOTECARIO MONTI PRENESTINI",
+      "url": "http://www.bibliotecazagarolo.it/"
     }
-
   ]
 }
