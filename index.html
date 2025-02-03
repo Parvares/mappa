@@ -355,12 +355,14 @@ body, html {
         
         .tooltip {
             position: absolute;
+            left: -120%;  /* Posiziona la tooltip a sinistra */
             right: calc(100% + 10px);  /* Cambiato da left a right */
             top: 50%;
             transform: translateY(-50%);
             background: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 8px 12px;
+            display: none;  /* Inizialmente nascosta */
             border-radius: 6px;
             font-size: 12px;
             width: max-content;
@@ -368,6 +370,7 @@ body, html {
             visibility: hidden;
             opacity: 0;
             transition: all 0.2s ease;
+            white-space: nowrap;
             z-index: 1000;
         }
         
