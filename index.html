@@ -1395,8 +1395,8 @@ window.handleLegendClick = async function(municipioNumber) {
     if (selectedMunicipio === municipioNumber) {
         // Deseleziona il municipio
         if (currentBorder) {
-            // Se è il municipio X, ripristina lo stile predefinito
             if (municipioNumber === 10) {
+                // Ripristina lo stile predefinito per il municipio X
                 municipioLayers[10].setStyle({
                     color: municipalityColors[10],
                     weight: 3, // Stile predefinito
