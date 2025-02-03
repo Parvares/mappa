@@ -1265,6 +1265,11 @@ document.getElementById('start-point').addEventListener('keypress', function(eve
 fetch('municipio10.geojson')
     .then(response => response.json())
     .then(data => {
+
+
+       
+
+        // Carica il municipio X di default
         municipioLayers[10] = L.geoJSON(data, {
             style: {
                 color: municipalityColors[10],
@@ -1273,9 +1278,6 @@ fetch('municipio10.geojson')
                 fillOpacity: 0
             }
         }).addTo(map);
-    })
-    .catch(error => console.error('Errore nel caricamento dei confini:', error));
-    
 
 // Prima definisci l'oggetto con le zone dei municipi
 const municipalityZones = {
@@ -1391,20 +1393,8 @@ window.handleLegendClick = async function(municipioNumber) {
     allItems.forEach(item => item.classList.remove('highlighted'));
 
     if (selectedMunicipio === municipioNumber) {
-        // Deseleziona il municipio
         if (currentBorder) {
-            if (municipioNumber === 10) {
-                // Ripristina lo stile predefinito per il municipio X
-                municipioLayers[10].setStyle({
-                    color: municipalityColors[10],
-                    weight: 3, // Stile predefinito
-                    opacity: 0.65, // Stile predefinito
-                    fillOpacity: 0 // Stile predefinito
-                }).bringToFront();
-            } else {
-                // Rimuovi il layer per gli altri municipi
-                map.removeLayer(currentBorder);
-            }
+            map.removeLayer(currentBorder);
             currentBorder = null;
         }
         selectedMunicipio = null;
@@ -1430,10 +1420,7 @@ window.handleLegendClick = async function(municipioNumber) {
     }
 
     if (currentBorder) {
-        // Se c'è un confine attivo, rimuovilo (tranne per il municipio X)
-        if (selectedMunicipio !== 10) {
-            map.removeLayer(currentBorder);
-        }
+        map.removeLayer(currentBorder);
     }
 
     selectedMunicipio = municipioNumber;
@@ -1442,17 +1429,15 @@ window.handleLegendClick = async function(municipioNumber) {
         item.classList.add('highlighted');
     }
 
-    // Evidenzia il municipio selezionato
-    if (municipioNumber === 10) {
-        // Se è il municipio X, applica uno stile di evidenziazione
+    // Aggiungi il confine del municipio X con uno stile diverso se è già presente
+    if (municipioNumber === 10 && municipioLayers[10]) {
         currentBorder = municipioLayers[10].setStyle({
             color: municipalityColors[10],
-            weight: 6, // Stile di evidenziazione
-            opacity: 1, // Stile di evidenziazione
-            fillOpacity: 0.3 // Stile di evidenziazione
-        }).bringToFront();
+            weight: 6, // Aumenta lo spessore per evidenziare
+            opacity: 1, // Aumenta l'opacità per evidenziare
+            fillOpacity: 0.3 // Aumenta l'opacità del riempimento per evidenziare
+        }).addTo(map).bringToFront();
     } else {
-        // Per gli altri municipi, aggiungi il layer normalmente
         currentBorder = municipioLayers[municipioNumber].addTo(map).bringToFront();
     }
 
