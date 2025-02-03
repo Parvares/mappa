@@ -87,7 +87,7 @@
       "libraryType": "Universitaria",
       "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-scientifica-biblioteca-di-area-tecnologica/sedi-e-orari/"
-    }.
+    },
     {
       "name": "Biblioteca di Area Scientifica – Biblioteca di Area Tecnologica. Sede delle Torri - Roma Tre",
       "coords": [41.85541449043049, 12.463283738910294],
@@ -95,7 +95,7 @@
       "libraryType": "Universitaria",
       "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-scientifica-biblioteca-di-area-tecnologica/sedi-e-orari/"
-    }
+    },
 
 {
       "name": "Biblioteca Hub Culturale Moby Dick - Roma Tre",
@@ -118,7 +118,7 @@
 
     {
       "name": "Biblioteca di Cecchina (Albano Laziale)",
-      "coords": [41.726805368800335, 12.661762388903735],
+      "coords": [41.6967355731805, 12.650803425408435],
       "address": "Viale Italia, 2, Cecchina (Albano Laziale)",
       "libraryType": "Comunale",
       "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
@@ -127,12 +127,12 @@
 
 
     {
-      "name": "Biblioteca Comunale Di Albano Laziale Cesare De Santis",
-      "coords": [41.726805368800335, 12.661762388903735],
-      "address": "Viale Risorgimento, 5, Albano",
+      "name": "Biblioteca di Pavona (Albano Laziale)",
+      "coords": [41.722821367775765, 12.603878711915998],
+      "address": "Via del Mare, 255, Pavona (Albano Laziale)",
       "libraryType": "Comunale",
       "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
-      "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-albano-laziale/"
+      "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/biblioteca-di-pavona-albano-laziale/"
     },
 
 
