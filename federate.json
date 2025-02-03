@@ -1,7 +1,7 @@
 {
   "federate": [
     {
-      "name": "Biblioteca di Area di Scienze Economiche “Pierangelo Garegnani - Roma Tre”",
+      "name": "Biblioteca di Area di Scienze Economiche Pierangelo Garegnani - Roma Tre”",
       "coords": [41.85150676716081, 12.480466910074682],
       "address": "Via Silvio d’Amico 77",
       "libraryType": "Universitaria",
@@ -17,7 +17,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-giuridica/"
     },
     {
-      "name": "Biblioteca di Area delle Arti, Sezione Spettacolo “Lino Miccichè - Roma Tre",
+      "name": "Biblioteca di Area delle Arti, Sezione Spettacolo Lino Miccichè - Roma Tre",
       "coords": [41.863902555913526, 12.479250900000002],
       "address": "Via Ostiense, 139",
       "libraryType": "Universitaria",
@@ -25,7 +25,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-spettacolo-lino-micciche/"
     },
  {
-      "name": "Biblioteca Di Area Delle Arti. Sezione Architettura "Enrico Mattiello - Roma Tre",
+      "name": "Biblioteca Di Area Delle Arti. Sezione Architettura Enrico Mattiello - Roma Tre",
       "coords": [41.877220792161, 12.471950255822966],
       "address": "Largo Giovanni Battista Marzi, 10",
       "libraryType": "Universitaria",
@@ -33,7 +33,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-architettura-enrico-mattiello/"
     },
  {
-      "name": "Biblioteca Di Area Delle Arti. Sezione Storia Dell'arte "Luigi Grassi". Università Degli Studi Roma Tre",
+      "name": "Biblioteca Di Area Delle Arti. Sezione Storia Dell'arte Luigi Grassi. Università Degli Studi Roma Tre",
       "coords": [41.863902555913526, 12.479250900000002],
       "address": "Piazza della Repubblica, 10",
       "libraryType": "Universitaria",
