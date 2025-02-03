@@ -42,8 +42,8 @@
     },
     {
       "name": "Biblioteca di Area di Scienze della Formazione Angelo Broccoli - Roma Tre",
-      "coords": [41.903753865609126, 12.4964298],
-      "address": " via del Castro Pretorio 20",
+      "coords": [41.90161421063957, 12.50515373216587],
+      "address": "via del Castro Pretorio 20",
       "libraryType": "Universitaria",
       "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-scienze-della-formazione-angelo-broccoli/"
@@ -57,12 +57,12 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-storia-dellarte-luigi-grassi/"
     },
     {
-      "name": "Biblioteca di Area di Scienze della Formazione Angelo Broccoli - Roma Tre",
-      "coords": [41.903753865609126, 12.4964298],
-      "address": "Piazza della Repubblica, 10",
+      "name": "Biblioteca di Area Umanistica Giorgio Petrocchi - Roma Tre",
+      "coords": [41.850838769205595, 12.475275696580892],
+      "address": "Via Ostiense, 236",
       "libraryType": "Universitaria",
       "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
-      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-storia-dellarte-luigi-grassi/"
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-umanistica-giorgio-petrocchi/"
     },
     {
       "name": "Biblioteca del Sistema Bibliotecario Ceretano-Sabatino - Nepi",
