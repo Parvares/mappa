@@ -355,17 +355,17 @@ body, html {
     top: 50%;
     transform: translateY(-50%);
     background: linear-gradient(to right, #000000, #4a4a4a, #d0d0d0, #ffffff); /* Gradiente dal nero al bianco */
-    color: #f0f0f0; /* Colore del testo, chiaro ma non bianco puro */
+    color: black; /* Testo nero */
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 12px;
-    width: 250px; /* Impostiamo la larghezza del tooltip uguale a quella della legenda */
+    width: 230px; /* Riduci leggermente la larghezza per evitare che copra il quadratino */
     visibility: hidden;
     opacity: 0;
     transition: all 0.2s ease, background-color 0.5s ease; /* Transizione fluida anche per il colore di sfondo */
     z-index: 1001; /* Assicurati che il tooltip sia sopra la legenda */
+    overflow: hidden; /* Taglia la parte destra che fuoriesce */
 }
-
 /* Modifica la visibilità del tooltip quando l'elemento è in hover */
 .info-icon:hover + .tooltip {
     visibility: visible;
