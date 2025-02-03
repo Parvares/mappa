@@ -327,7 +327,12 @@ body, html {
     transform: scale(1.08); /* Ridotto da 1.15 a 1.08 per un effetto più sottile */
     box-shadow: 0 1px 4px rgba(0,0,0,0.05); /* Ridotto l'effetto ombra */
 }
-
+        
+/* Spostare il pulsante di zoom più in basso */
+.leaflet-control-zoom {
+    margin-top: 50px; /* Regola questo valore per allinearlo con la legenda */
+}
+        
         .info-icon {
             position: absolute;
             right: 8px;
