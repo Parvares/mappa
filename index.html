@@ -220,7 +220,7 @@ body, html {
     bottom: 25px; /* Vicino al bordo inferiore */
     right: -350px; /* Posizione iniziale fuori dalla vista */
     z-index: 1000;
-    width: 250px;
+    width: 250px; /* Larghezza della legenda */
     background: rgba(255,255,255,.95);
     padding: 15px 20px;
     font: 13px/15px 'Segoe UI', system-ui, sans-serif;
@@ -231,7 +231,6 @@ body, html {
     transition: right .3s ease;
     overflow: visible;
 }
-
 
 .legend h4 {
     margin: 0 0 12px 0;  /* Margin più bilanciato */
@@ -352,7 +351,7 @@ body, html {
         
 .tooltip {
     position: absolute;
-    left: -10px;  /* Fuoriuscita minima dal bordo sinistro */
+    left: -100%;  /* Imposta la posizione a sinistra del bordo sinistro della legenda */
     top: 50%;
     transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.8);
@@ -360,7 +359,7 @@ body, html {
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 12px;
-    max-width: 200px;
+    width: 250px; /* Impostiamo la larghezza del tooltip uguale a quella della legenda */
     visibility: hidden;
     opacity: 0;
     transition: all 0.2s ease;
