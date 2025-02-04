@@ -405,11 +405,33 @@
       "address": "Via degli Asinelli, 10 A, Trevignano Romano,
       "libraryType": "Comunale",
       "system": "Sistema Bibliotecario Ceretano-Sabatino",
-      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Santa%20Marinella%20'Alessandro%20Capotosti'/RL1N4?sysb=ceretano"
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Trevignano%20Romano%20-%20Biblioteca%20Comunale/RL1H9"
+    },  
+
+    
+
+  {
+      "name": "Biblioteca Comunale di Genazzano",
+      "coords": [41.83528653568289, 12.974005938909334],
+      "address": "Piazza San Nicola 8, Genazzano,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/GENAZZANO/"
+    },  
+
+  {
+      "name": "Biblioteca Comunale Giuseppe Caiati di Valmontone",
+      "coords": [41.77606566515246, 12.918559197267626],
+      "address": "Piazza Umberto Pilozzi, Valmontone,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/biblioteca-comunale-di-valmontone/"
     },  
 
 
 
+
+    
 
     
     
