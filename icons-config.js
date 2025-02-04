@@ -125,16 +125,16 @@ municipio1: L.icon({
         uniroma3: L.icon({
             iconUrl: 'unirosso.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
+            iconSize: [35, 41],
+            iconAnchor: [17, 41],
             popupAnchor: [1, -34],
             shadowSize: [41, 41]
         }),
         castelli: L.icon({
             iconUrl: 'comuneblu.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
+            iconSize: [35, 41],
+            iconAnchor: [17, 41],
             popupAnchor: [1, -34],
             shadowSize: [41, 41]
         })
