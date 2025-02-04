@@ -137,7 +137,7 @@ municipio1: L.icon({
     iconAnchor: [25, 50], // Centrato il punto di ancoraggio
     popupAnchor: [1, -40], // Leggermente adattato
     shadowSize: [50, 50] // Adattata l'ombra
-});
+})
 
        
   };
