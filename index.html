@@ -944,29 +944,31 @@ function selectLibrary(library) {
 
 // Funzione per aprire/chiudere il pannello delle biblioteche federate
 function toggleFederateSidebar() {
-    const federateSidebar = document.getElementById('federateSidebar');
-    const federateBtn = document.getElementById('federateBtn');
-    const expandedSidebar = document.getElementById('expandedSidebar');
-    const searchContainer = document.getElementById('searchContainer');
-    
-    // Chiudi il pannello di ricerca se è aperto
-    if (expandedSidebar.classList.contains('open')) {
-        expandedSidebar.classList.remove('open');
+    const federateSidebar = document.getElementById("federateSidebar");
+    const federateBtn = document.getElementById("federateBtn");
+    const expandedSidebar = document.getElementById("expandedSidebar");
+    const searchContainer = document.getElementById("searchContainer");
+
+    // Chiudi l'altro pannello se aperto
+    if (expandedSidebar.classList.contains("open")) {
+        expandedSidebar.classList.remove("open");
     }
-    
-    // Nascondi il container di ricerca
+
+    // Nascondi il contenitore di ricerca se visibile
     if (searchContainer) {
-        searchContainer.style.display = 'none';
+        searchContainer.style.display = "none";
     }
-    
-    // Togli la classe active da tutti i pulsanti della sidebar
-    document.querySelectorAll('.sidebar button').forEach(btn => {
-        btn.classList.remove('active');
+
+    // Rimuovi la classe 'active' da tutti i pulsanti
+    document.querySelectorAll(".sidebar button").forEach((button) => {
+        button.classList.remove("active");
     });
-    
-    // Toggle delle classi per il pannello delle biblioteche federate
-    federateSidebar.classList.toggle('open');
-    federateBtn.classList.toggle('active');
+
+    // Apri o chiudi il pannello federato
+    federateSidebar.classList.toggle("open");
+
+    // Aggiungi o rimuovi la classe 'active' solo al pulsante federato
+    federateBtn.classList.toggle("active");
 }
 
 
