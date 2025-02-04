@@ -944,80 +944,84 @@ function selectLibrary(library) {
 
 // Funzione per aprire/chiudere il pannello delle biblioteche federate
 function toggleFederateSidebar() {
-    const federateSidebar = document.getElementById("federateSidebar");
-    const federateBtn = document.getElementById("federateBtn");
-    const expandedSidebar = document.getElementById("expandedSidebar");
-    const searchContainer = document.getElementById("searchContainer");
+    const federateSidebar = document.getElementById('federateSidebar');
+    const federateBtn = document.getElementById('federateBtn');
+    const expandedSidebar = document.getElementById('expandedSidebar');
+    const searchContainer = document.getElementById('searchContainer');
 
-    // Chiudi l'altro pannello se aperto
-    if (expandedSidebar.classList.contains("open")) {
-        expandedSidebar.classList.remove("open");
-    }
-
-    // Nascondi il contenitore di ricerca se visibile
-    if (searchContainer) {
-        searchContainer.style.display = "none";
-    }
-
-    // Rimuovi la classe 'active' da tutti i pulsanti
-    document.querySelectorAll(".sidebar button").forEach((button) => {
-        button.classList.remove("active");
+    // Rimuovo la classe active da tutti i pulsanti
+    document.querySelectorAll('.sidebar button').forEach(button => {
+        button.classList.remove('active');
     });
 
-    // Apri o chiudi il pannello federato
-    federateSidebar.classList.toggle("open");
+    // Chiudo il pannello di ricerca se aperto
+    expandedSidebar.classList.remove('open');
+    if (searchContainer) {
+        searchContainer.style.display = 'none';
+    }
 
-    // Aggiungi o rimuovi la classe 'active' solo al pulsante federato, ma solo se il pannello è aperto
-    if (federateSidebar.classList.contains("open")) {
-        federateBtn.classList.add("active");
+    // Gestisco l'apertura/chiusura del pannello federate
+    federateSidebar.classList.toggle('open');
+    if (federateSidebar.classList.contains('open')) {
+        federateBtn.classList.add('active');
     } else {
-        federateBtn.classList.remove("active");
+        federateBtn.classList.remove('active');
     }
 }
 
-
-
-        
-        
 function toggleSearch() {
     const searchBtn = document.getElementById('searchBtn');
-    const sidebar = document.getElementById('expandedSidebar');
+    const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
-    const isOpen = sidebar.classList.contains('open') && searchBtn.classList.contains('active');
+    const federateSidebar = document.getElementById('federateSidebar');
+    const federateBtn = document.getElementById('federateBtn');
 
-    document.getElementById('menuBtn').classList.remove('active');
+    // Rimuovo la classe active da tutti i pulsanti
+    document.querySelectorAll('.sidebar button').forEach(button => {
+        button.classList.remove('active');
+    });
 
-    if (isOpen) {
-        sidebar.classList.remove('open');
+    // Chiudo il pannello federate se aperto
+    federateSidebar.classList.remove('open');
+    federateBtn.classList.remove('active');
+
+    const isSearchOpen = expandedSidebar.classList.contains('open') && searchBtn.classList.contains('active');
+
+    if (isSearchOpen) {
+        // Se il pannello di ricerca è aperto, lo chiudo
+        expandedSidebar.classList.remove('open');
         searchBtn.classList.remove('active');
     } else {
-        sidebar.classList.add('open');
+        // Se il pannello di ricerca è chiuso, lo apro
+        expandedSidebar.classList.add('open');
         searchBtn.classList.add('active');
-        const input = document.getElementById('start-point');
-        input.placeholder = "Cerca biblioteca o indirizzo...";
-        const button = searchContainer.querySelector('button');
-        button.textContent = "Cerca";
-        button.onclick = async function() {
-            const searchText = input.value.toLowerCase();
-            
-            // First try to find a library
+
+        const startPoint = document.getElementById('start-point');
+        startPoint.placeholder = "Cerca biblioteca o indirizzo...";
+
+        const searchButton = searchContainer.querySelector('button');
+        searchButton.textContent = "Cerca";
+        searchButton.onclick = async function() {
+            const searchQuery = startPoint.value.toLowerCase();
             try {
                 const response = await fetch('libraries.json');
                 const data = await response.json();
-                const library = data.libraries.find(lib => lib.name.toLowerCase().includes(searchText));
-                
-                if (library) {
-                    const municipioLibraries = data.libraries.filter(lib => lib.municipality === library.municipality);
-                    showMunicipioAndLibraries(library.municipality, municipioLibraries);
+                const foundLibrary = data.libraries.find(lib => 
+                    lib.name.toLowerCase().includes(searchQuery)
+                );
+                if (foundLibrary) {
+                    const municipioLibraries = data.libraries.filter(lib => 
+                        lib.municipality === foundLibrary.municipality
+                    );
+                    showMunicipioAndLibraries(foundLibrary.municipality, municipioLibraries);
                     return;
                 }
             } catch (error) {
                 console.error('Errore nella ricerca della biblioteca:', error);
             }
-            
-            // If no library found, try routing to address
             searchRoute();
         };
+
         searchContainer.style.display = 'block';
     }
 }
