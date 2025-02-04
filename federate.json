@@ -305,7 +305,14 @@
       "url": "https://www.unilink.it/en/university/link-campus-library"
     },  
 
-
+           {
+      "name": "Biblioteca Comunale Angela Zucconi di Anguillara ",
+      "coords": [42.09308462177522, 12.27378582576864],
+      "address": "Largo dello Zodiaco, 21, Anguillara Sabazia",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Anguillara%20'Angela%20Zucconi'/RL1E9?sysb=ceretano"
+    },  
 
 
 
