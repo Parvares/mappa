@@ -334,8 +334,84 @@
     },  
 
 
+     {
+      "name": "Biblioteca Comunale Nilde Iotti di Cerveteri",
+      "coords": [41.997707992387284, 12.100958854259295],
+      "address": "Via Francesco Rosati, snc, Cerveteri",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Cerveteri/RL1YV?sysb=ceretano"
+    },  
 
 
+   {
+      "name": "Biblioteca Comunale multimediale di Formello",
+      "coords": [42.082967209556706, 12.400694990215685],
+      "address": "Piazza S. Lorenzo, Formello",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Formello%20-%20Biblioteca%20Comunale/RL1GQ"
+    },  
+   {
+      "name": "Biblioteca Comunale Peppino Impastato di Ladispoli",
+      "coords": [41.959594501464295, 12.07137981008028],
+      "address": "Via Caltagirone, snc, Ladispoli",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Ladispoli%20'Peppino%20Impastato'/RL1A6?sysb=ceretano"
+    },  
+   {
+      "name": "Biblioteca Comunale Peppino Impastato di Ladispoli",
+      "coords": [41.959594501464295, 12.07137981008028],
+      "address": "Via Caltagirone, snc, Ladispoli",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Ladispoli%20'Peppino%20Impastato'/RL1A6?sysb=ceretano"
+    },  
+    
+ 
+  {
+      "name": "Biblioteca Comunale di Manziana",
+      "coords": [42.13371258132516, 12.13365930586104],
+      "address": "Piazza Firenze, 27, Manziana",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Manziana%20-%20Biblioteca%20Comunale/RL1A8"
+    },  
+
+
+  {
+      "name": "Biblioteca Comunale di Mazzano Romano",
+      "coords": [42.205066349699216, 12.399522025434445],
+      "address": "Piazza Giovanni XXIII, 12, Mazzano Romano",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Mazzano%20Romano/RL1GT?sysb=ceretano"
+    },  
+
+
+  {
+      "name": "Biblioteca Comunale di Santa Marinella",
+      "coords": [42.038258998042174, 11.862236105790187],
+      "address": "Via Aurelia, 310, Santa Marinella,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Santa%20Marinella%20'Alessandro%20Capotosti'/RL1N4?sysb=ceretano"
+    },  
+
+  {
+      "name": "Biblioteca Comunale di Trevignano Romano",
+      "coords": [42.15836127829592, 12.237007810090464],
+      "address": "Via degli Asinelli, 10 A, Trevignano Romano,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Santa%20Marinella%20'Alessandro%20Capotosti'/RL1N4?sysb=ceretano"
+    },  
+
+
+
+
+    
     
     
     
