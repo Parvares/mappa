@@ -639,6 +639,60 @@ body, html {
     color: #fff;
 }
 
+/* Stile per il contenitore delle biblioteche federate */
+.federate-container {
+    padding: 20px;
+}
+
+.federate-container h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.federate-container .legend-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+.federate-container .legend-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid transparent;
+    position: relative;
+    padding-right: 30px !important;
+}
+
+.federate-container .legend-item span {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.federate-container .legend-item:hover {
+    background: rgba(241, 242, 246, 0.6);
+    transform: translateX(3px);
+    border-color: #dfe4ea;
+}
+
+.federate-container .legend-item .text {
+    font-size: 13px;
+    color: #4a5568;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-right: 20px;
+}
+
+        
         
     </style>
 </head>
@@ -667,23 +721,61 @@ body, html {
 
 
 <!-- Seconda barra laterale (espansione) -->
-<div class=sidebar-expanded id=expandedSidebar>
-    <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div> <!-- Aggiungi questa linea -->
-    
-    
-<div class="search-container" id="searchContainer">
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" 
-           title="Vai alla Biblioteca Elsa Morante">
-            <img src="home.svg" alt="Biblioteca Home" class="icon">
-        </a>
-        <div class="search-input-wrapper" style="flex: 1;">
-            <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-            <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+<div class="sidebar-expanded" id="expandedSidebar">
+    <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
+    <!-- Aggiungi questa linea -->
+    <div class="search-container" id="searchContainer">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
+                <img src="home.svg" alt="Biblioteca Home" class="icon">
+            </a>
+            <div class="search-input-wrapper" style="flex: 1;">
+                <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+                <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+            </div>
+        </div>
+        <div id="library-suggestions" class="custom-datalist"></div>
+        <button onclick="searchRoute()">Trova Percorso</button>
+    </div>
+    <div id="search-results"></div>
+</div>
+
+<!-- Nuovo pannello per le biblioteche federate -->
+<div class="sidebar-expanded" id="federateSidebar">
+    <div class="sidebar-close-icon" onclick="toggleFederateSidebar()"></div>
+    <div class="federate-container">
+        <h4>Biblioteche Federate</h4>
+        <div class="legend-grid">
+            <div class="legend-item">
+                <span style="background: #6a3f3a"></span>
+                <div class="text">Biblioteca di Area Di Scienze Della Formazione "Angelo Broccoli". Università Degli Studi Roma Tre</div>
+            </div>
+            <div class="legend-item">
+                <span style="background: #00faff"></span>
+                <div class="text">Biblioteca di Area Umanistica "Giorgio Petrocchi". Sede Centrale. Università Degli Studi Roma Tre</div>
+            </div>
+            <div class="legend-item">
+                <span style="background: #fbd51c"></span>
+                <div class="text">Biblioteca di Area Umanistica "Giorgio Petrocchi". Sezione “Biblioteca Guillaume Apollinaire”. Università Degli Studi Roma Tre</div>
+            </div>
+            <div class="legend-item">
+                <span style="background: #473e86"></span>
+                <div class="text">Biblioteca di Area Di Studi Politici "Pietro Grilli Di Cortona". Università Degli Studi Roma Tre</div>
+            </div>
+            <div class="legend-item">
+                <span style="background: #018a87"></span>
+                <div class="text">Biblioteca di Area Scientifica – Biblioteca Di Area Tecnologica. Sede Centrale. Università Degli Studi Roma Tre</div>
+            </div>
+            <div class="legend-item">
+                <span style="background: #d33682"></span>
+                <div class="text">Biblioteca di Area Scientifica – Biblioteca Di Area Tecnologica. Sede Delle Torri. Università Degli Studi Roma Tre</div>
+            </div>
+            <div class="legend-item">
+                <span style="background: #ff7c4e"></span>
+                <div class="text">Biblioteca Hub Culturale Moby Dick. Università Degli Studi Roma Tre - Disco Lazio</div>
+            </div>
         </div>
     </div>
-    <div id="library-suggestions" class="custom-datalist"></div>
-    <button onclick="searchRoute()">Trova Percorso</button>
 </div>
 
     
@@ -847,6 +939,26 @@ function selectLibrary(library) {
     }
 }
 
+// Funzione per aprire/chiudere il pannello delle biblioteche federate
+function toggleFederateSidebar() {
+    const federateSidebar = document.getElementById('federateSidebar');
+    const federateBtn = document.getElementById('federateBtn');
+    const expandedSidebar = document.getElementById('expandedSidebar');
+
+    // Chiudi gli altri pannelli se aperti
+    if (expandedSidebar.classList.contains('open')) {
+        expandedSidebar.classList.remove('open');
+    }
+
+    // Apri/chiudi il pannello delle biblioteche federate
+    federateSidebar.classList.toggle('open');
+    federateBtn.classList.toggle('active');
+}
+
+document.getElementById('federateBtn').addEventListener('click', toggleFederateSidebar);
+
+
+        
         
 function toggleSearch() {
     const searchBtn = document.getElementById('searchBtn');
