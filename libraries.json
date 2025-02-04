@@ -360,5 +360,24 @@
       "municipalityName": "ROMA XV",
       "url": "https://www.bibliotechediroma.it/opac/library/Biblioteca%20Galline%20Bianche/RMBV1"
     }
+ ],
+  "federate": [
+    {
+      "name": "Biblioteca di Area di Scienze Economiche Pierangelo Garegnani - Roma Tre",
+      "coords": [41.85150676716081, 12.480466910074682],
+      "address": "Via Silvio d’Amico 77",
+      "libraryType": "Universitaria",
+      "system": "Sistema Bibliotecario Di Ateneo - Università Degli Studi Roma Tre",
+      "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-scienze-economiche-pierangelo-garegnani/"
+    },
+    {
+      "name": "Biblioteca Augusto Tersenghi di Velletri",
+      "coords": [41.69137024492294, 12.776194725408116],
+      "address": "Piazza Trento e Trieste, Velletri",
+      "libraryType": "Comunale",
+      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
+      "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-velletri/"
+    }
+    // ... altre biblioteche federate ...
   ]
 }
