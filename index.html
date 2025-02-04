@@ -943,13 +943,13 @@ function toggleFederateSidebar() {
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
     const expandedSidebar = document.getElementById('expandedSidebar');
-
-    // Chiudi gli altri pannelli se aperti
+    
+    // Chiudi il pannello espanso se è aperto
     if (expandedSidebar.classList.contains('open')) {
         expandedSidebar.classList.remove('open');
     }
-
-    // Apri/chiudi il pannello delle biblioteche federate
+    
+    // Toggle del pannello delle biblioteche federate
     federateSidebar.classList.toggle('open');
     federateBtn.classList.toggle('active');
 }
