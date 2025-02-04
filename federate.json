@@ -1,7 +1,7 @@
 {
   "federate": [
     {
-      "name": "Biblioteca di Area di Scienze Economiche Pierangelo Garegnani - Roma Tre”",
+      "name": "Biblioteca di Area di Scienze Economiche Pierangelo Garegnani - Roma Tre",
       "coords": [41.85150676716081, 12.480466910074682],
       "address": "Via Silvio d’Amico 77",
       "libraryType": "Universitaria",
@@ -270,11 +270,11 @@
 
             {
       "name": "Biblioteca Augusto Tersenghi di Velletri",
-      "coords": [41.79606553677703, 12.806299140755067],
+      "coords": [41.69137024492294, 12.776194725408116],
       "address": "Piazza Trento e Trieste, Velletri",
       "libraryType": "Comunale",
       "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
-      "url": "41.691378256555815, 12.776205454243524"
+      "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-velletri/"
     },  
     
     
