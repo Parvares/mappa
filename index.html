@@ -976,21 +976,25 @@ function toggleSearch() {
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
 
-    // Rimuovo la classe active da tutti i pulsanti
+    // Rimuovo la classe active da tutti i pulsanti eccetto searchBtn
     document.querySelectorAll('.sidebar button').forEach(button => {
-        button.classList.remove('active');
+        if (button !== searchBtn) {
+            button.classList.remove('active');
+        }
     });
 
     // Chiudo il pannello federate se aperto
     federateSidebar.classList.remove('open');
     federateBtn.classList.remove('active');
 
-    const isSearchOpen = expandedSidebar.classList.contains('open') && searchBtn.classList.contains('active');
+    // Verifico se il pannello di ricerca è già aperto
+    const isSearchOpen = expandedSidebar.classList.contains('open');
 
     if (isSearchOpen) {
         // Se il pannello di ricerca è aperto, lo chiudo
         expandedSidebar.classList.remove('open');
         searchBtn.classList.remove('active');
+        searchContainer.style.display = 'none';
     } else {
         // Se il pannello di ricerca è chiuso, lo apro
         expandedSidebar.classList.add('open');
@@ -1025,7 +1029,6 @@ function toggleSearch() {
         searchContainer.style.display = 'block';
     }
 }
-
 
 // Funzione per resettare il campo di ricerca
 function clearSearchField() {
