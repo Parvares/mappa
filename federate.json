@@ -276,6 +276,45 @@
       "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
       "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-velletri/"
     },  
+
+
+            {
+      "name": "Biblioteca Centrale di Ateneo Card. Attilio Nicora (LUMSA)",
+      "coords": [41.90391699588104, 12.463270467748222],
+      "address": "via di Porta Castello, 44, Roma",
+      "libraryType": "Universitaria",
+      "system": "LUMSA",
+      "url": "https://lumsa.it/it/biblioteca-roma-a-nicora"
+    },  
+
+            {
+      "name": "Biblioteca dell'università degli Studi Di Roma Foro Italico",
+      "coords": [41.931603595127974, 12.458659996585022],
+      "address": "Piazza Lauro De Bosis, 6, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma "Foro Italico"",
+      "url": "https://opac.uniroma4.it/SebinaOpacRMS/.do"
+    },  
+
+            {
+      "name": "Link Campus Library",
+      "coords": [41.89282666759432, 12.432797267747624],
+      "address": "Piazza Lauro De Bosis, 6, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi Link"",
+      "url": "https://www.unilink.it/en/university/link-campus-library"
+    },  
+
+
+
+
+
+
+
+
+
+
+    
     
     
   ]
