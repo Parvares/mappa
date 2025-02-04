@@ -314,9 +314,24 @@
       "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Anguillara%20'Angela%20Zucconi'/RL1E9?sysb=ceretano"
     },  
 
+      {
+      "name": "Biblioteca Comunale Di Bracciano Bartolomea Orsini",
+      "coords": [42.10073124195649, 12.175232038922884],
+      "address": "Via del Pratoterra, 2, Bracciano",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Bracciano%20'Bartolomea%20Orsini'/RL1A1?sysb=ceretano"
+    },  
 
 
-
+      {
+      "name": "Biblioteca Comunale Di Campagnano Carlo Maggiorani",
+      "coords": [42.13907331839105, 12.381118850570763],
+      "address": "Corso Vittorio Emanuele, 2, Campagnano di Roma",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Campagnano%20'Carlo%20Maggiorani'/RL1C6?sysb=ceretano"
+    },  
 
 
 
