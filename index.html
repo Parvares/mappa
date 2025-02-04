@@ -967,9 +967,14 @@ function toggleFederateSidebar() {
     // Apri o chiudi il pannello federato
     federateSidebar.classList.toggle("open");
 
-    // Aggiungi o rimuovi la classe 'active' solo al pulsante federato
-    federateBtn.classList.toggle("active");
+    // Aggiungi o rimuovi la classe 'active' solo al pulsante federato, ma solo se il pannello è aperto
+    if (federateSidebar.classList.contains("open")) {
+        federateBtn.classList.add("active");
+    } else {
+        federateBtn.classList.remove("active");
+    }
 }
+
 
 
         
