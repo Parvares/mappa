@@ -1332,7 +1332,8 @@ document.addEventListener('click', (e) => {
         );
     });
     
-
+// Immediately remove federated library markers
+    map.removeLayer(marker);
     
 } catch (error) {
     console.error('Errore nel caricamento delle biblioteche:', error);
