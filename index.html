@@ -1678,12 +1678,12 @@ function toggleRomeLibraries() {
     const button = document.getElementById('toggleRomeLibraries');
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker) {
-            // Get the library's system from the title attribute
-            const librarySystem = layer.options.title;
+            // Get the library's name from the title attribute
+            const libraryName = layer.options.title;
             
             // Check if it's a Rome city library by checking the JSON data
-            const isRomeLibrary = data.libraries.some(lib => 
-                lib.name === librarySystem
+            const isRomeLibrary = window.libraryData.libraries.some(lib => 
+                lib.name === libraryName
             );
 
             if (isRomeLibrary) {
@@ -1702,7 +1702,6 @@ function toggleRomeLibraries() {
     romeLibrariesVisible = !romeLibrariesVisible;
     button.textContent = romeLibrariesVisible ? 'Hide Rome Libraries' : 'Show Rome Libraries';
 }
-
         
     </script>
 </body>
