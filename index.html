@@ -874,6 +874,17 @@ async function searchLibrary() {
         } else {
             alert('Biblioteca non trovata. Riprova.');
         }
+
+
+
+        // NEW CODE: Initially hide federate markers
+    const federateLibraries = document.querySelectorAll('.leaflet-marker-icon');
+    federateLibraries.forEach(marker => {
+        const popupContent = marker.__popup._content;
+        if (popupContent.includes('LUMSA') || popupContent.includes('Roma Tre') || popupContent.includes('Ceretano-Sabatino') || popupContent.includes('Castelli Romani')) {
+            marker.style.display = 'none';
+        }
+    });
     } catch (error) {
         console.error('Errore nella ricerca della biblioteca:', error);
         alert('Errore nella ricerca. Riprova.');
