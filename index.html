@@ -1671,28 +1671,31 @@ window.handleLegendHover = async function(municipioNumber) {
 });
 
 let romeLibrariesVisible = true;
-
 function toggleRomeLibraries() {
     const button = document.getElementById('toggleRomeLibraries');
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker) {
-            // Controlla se il marker è una biblioteca di Roma (non federata)
-            const libraryMarker = layer.options.title;
-            const isRomeLibrary = libraryMarker && !libraryMarker.includes('Sistema');
+            // Get the library's system from the title attribute
+            const librarySystem = layer.options.title;
+            
+            // Check if it's a Rome city library by checking the JSON data
+            const isRomeLibrary = data.libraries.some(lib => 
+                lib.name === librarySystem
+            );
 
             if (isRomeLibrary) {
                 if (romeLibrariesVisible) {
-                    // Nasconde il marker
+                    // Hide the marker
                     layer.remove();
                 } else {
-                    // Mostra il marker
+                    // Show the marker
                     layer.addTo(map);
                 }
             }
         }
     });
 
-    // Cambia il testo del pulsante e lo stato della visibilità
+    // Change button text and visibility state
     romeLibrariesVisible = !romeLibrariesVisible;
     button.textContent = romeLibrariesVisible ? 'Hide Rome Libraries' : 'Show Rome Libraries';
 }
