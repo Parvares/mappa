@@ -774,6 +774,11 @@ body, html {
                 <span style="background: #ff7c4e"></span>
                 <div class="text">Sistema Bibliotecario Monti Prenestini</div>
             </div>
+<button id="toggleRomeLibraries" onclick="toggleRomeLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
+    Toggle Rome Libraries
+</button>
+
+            
         </div>
     </div>
 </div>
@@ -1664,6 +1669,33 @@ window.handleLegendHover = async function(municipioNumber) {
         })
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
+
+let romeLibrariesVisible = true;
+
+function toggleRomeLibraries() {
+    const button = document.getElementById('toggleRomeLibraries');
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            // Check if the marker is a Rome library (not a federated library)
+            const libraryMarker = layer.options.title;
+            const isRomeLibrary = libraryMarker && !libraryMarker.includes('Sistema');
+            
+            if (isRomeLibrary) {
+                if (romeLibrariesVisible) {
+                    map.removeLayer(layer);
+                    button.textContent = 'Show Rome Libraries';
+                } else {
+                    layer.addTo(map);
+                    button.textContent = 'Hide Rome Libraries';
+                }
+            }
+        }
+    });
+    
+    romeLibrariesVisible = !romeLibrariesVisible;
+}
+
+        
     </script>
 </body>
 </html>
