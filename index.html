@@ -1674,25 +1674,29 @@ let romeLibrariesVisible = true;
 
 function toggleRomeLibraries() {
     const button = document.getElementById('toggleRomeLibraries');
+    let librariesToToggle = 0;
+
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker) {
-            // Check if the marker is a Rome library (not a federated library)
+            // Only toggle non-federated libraries
             const libraryMarker = layer.options.title;
-            const isRomeLibrary = libraryMarker && !libraryMarker.includes('Sistema');
+            const isRomeLibrary = data.libraries.some(lib => lib.name === libraryMarker);
             
             if (isRomeLibrary) {
+                librariesToToggle++;
                 if (romeLibrariesVisible) {
                     map.removeLayer(layer);
-                    button.textContent = 'Show Rome Libraries';
                 } else {
                     layer.addTo(map);
-                    button.textContent = 'Hide Rome Libraries';
                 }
             }
         }
     });
     
-    romeLibrariesVisible = !romeLibrariesVisible;
+    if (librariesToToggle > 0) {
+        romeLibrariesVisible = !romeLibrariesVisible;
+        button.textContent = romeLibrariesVisible ? 'Hide Rome Libraries' : 'Show Rome Libraries';
+    }
 }
 
         
