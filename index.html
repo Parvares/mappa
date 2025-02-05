@@ -748,13 +748,7 @@ body, html {
 <div class="sidebar-expanded" id="expandedSidebar">
     <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
 
-<!-- Aggiungi questo nuovo pulsante -->
-<div class="toggle-libraries-container">
-    <button id="toggleLibrariesBtn" onclick="toggleLibraries()" data-tooltip="Mostra/Nascondi biblioteche">
-        <img src="pin-roma.svg" alt="Mostra/Nascondi biblioteche">
-        <span>Biblioteche di Roma</span>
-    </button>
-</div>
+
     
     <!-- Aggiungi questa linea -->
     <div class="search-container" id="searchContainer">
@@ -775,11 +769,23 @@ body, html {
 
 
 <!-- Nuovo pannello per le biblioteche federate -->
+
+
+    
 <div class="sidebar-expanded" id="federateSidebar">
     <div class="sidebar-close-icon" onclick="toggleFederateSidebar()"></div>
     <div class="federate-container">
         <h4>Biblioteche Federate</h4>
         <div class="legend-grid">
+
+<!-- Aggiungi questo nuovo pulsante -->
+<div class="toggle-libraries-container">
+    <button id="toggleLibrariesBtn" onclick="toggleLibraries()" data-tooltip="Mostra/Nascondi biblioteche">
+        <img src="pin-roma.svg" alt="Mostra/Nascondi biblioteche">
+        <span>Biblioteche di Roma</span>
+    </button>
+</div>
+            
             <div class="legend-item">
                 <span style="background: #6a3f3a"></span>
                 <div class="text">Sistema Bibliotecario di Ateneo - Università Degli Studi Roma Tre</div>
