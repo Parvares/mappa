@@ -797,6 +797,9 @@ body, html {
     
     <script>
 
+
+        let romeLibrariesVisible = true;
+
  // Colori per i diversi municipi
 const municipalityColors = {
     1: "#6a3f3a", // Marrone
@@ -1670,7 +1673,7 @@ window.handleLegendHover = async function(municipioNumber) {
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
 
-let romeLibrariesVisible = true;
+
 
 function toggleRomeLibraries() {
     const button = document.getElementById('toggleRomeLibraries');
