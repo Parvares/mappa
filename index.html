@@ -942,6 +942,30 @@ function selectLibrary(library) {
     }
 }
 
+function toggleFederateMarkers(system) {
+  const libraries = document.querySelectorAll('.leaflet-marker-icon');
+  libraries.forEach(marker => {
+    const popupContent = marker.__popup._content;
+    const isMatchingSystem = popupContent.includes(system);
+    marker.style.display = isMatchingSystem ? 'block' : 'none';
+  });
+}
+
+function hideAllFederateMarkers() {
+  const libraries = document.querySelectorAll('.leaflet-marker-icon');
+  libraries.forEach(marker => {
+    // Only hide federate library markers
+    const popupContent = marker.__popup._content;
+    if (popupContent.includes('LUMSA') || popupContent.includes('Roma Tre') || 
+        popupContent.includes('Ceretano-Sabatino') || popupContent.includes('Castelli Romani')) {
+      marker.style.display = 'none';
+    }
+  });
+}
+
+
+        
+
 // Funzione per aprire/chiudere il pannello delle biblioteche federate
 function toggleFederateSidebar() {
   const federateSidebar = document.getElementById('federateSidebar');
@@ -962,13 +986,42 @@ function toggleFederateSidebar() {
 
   // Gestisco l'apertura/chiusura del pannello federate
   federateSidebar.classList.toggle('open');
+
   if (federateSidebar.classList.contains('open')) {
     federateBtn.classList.add('active');
+
+    // Add click event listeners to federate system items
+    const systemItems = document.querySelectorAll('.legend-item[data-system]');
+    systemItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Remove active class from all items
+        systemItems.forEach(i => i.classList.remove('active'));
+        
+        // Add active class to clicked item
+        item.classList.add('active');
+        
+        // Show markers for clicked system
+        const system = item.dataset.system;
+        toggleFederateMarkers(system);
+      });
+    });
   } else {
     federateBtn.classList.remove('active');
     hideAllFederateMarkers(); // Nascondi tutti i marker federati
   }
 }
+
+function hideAllFederateMarkers() {
+  const libraries = document.querySelectorAll('.leaflet-marker-icon');
+  libraries.forEach(marker => {
+    // Only hide federate library markers
+    const popupContent = marker.__popup._content;
+    if (popupContent.includes('LUMSA') || popupContent.includes('Roma Tre') || 
+        popupContent.includes('Ceretano-Sabatino') || popupContent.includes('Castelli Romani')) {
+      marker.style.display = 'none';
+    }
+  });
+}        
 
 function toggleSearch() {
     const searchBtn = document.getElementById('searchBtn');
