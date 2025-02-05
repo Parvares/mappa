@@ -779,12 +779,9 @@ body, html {
         <div class="legend-grid">
 
 <!-- Aggiungi questo nuovo pulsante -->
-<div class="toggle-libraries-container">
-    <button id="toggleLibrariesBtn" onclick="toggleLibraries()" data-tooltip="Mostra/Nascondi biblioteche">
-        <img src="pin-roma.svg" alt="Mostra/Nascondi biblioteche">
-        <span>Biblioteche di Roma</span>
-    </button>
-</div>
+<button id="toggleLibrariesBtn" onclick="toggleLibraries()" data-tooltip="Mostra/Nascondi biblioteche">
+    <img src="pin-roma.svg" alt="Mostra/Nascondi biblioteche">
+</button>
             
             <div class="legend-item">
                 <span style="background: #6a3f3a"></span>
@@ -1402,14 +1399,10 @@ function toggleLibraries() {
     librariesVisible = !librariesVisible;
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker) {
-            // Check if the marker is from the standard libraries, not federate libraries
-            const markerData = layer.options.title; // Use the title attribute set during marker creation
-            if (markerData) { // Ensures only Roma libraries are toggled
-                if (librariesVisible) {
-                    layer.addTo(map);
-                } else {
-                    map.removeLayer(layer);
-                }
+            if (librariesVisible) {
+                layer.addTo(map);
+            } else {
+                map.removeLayer(layer);
             }
         }
     });
