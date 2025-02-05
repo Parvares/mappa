@@ -1715,65 +1715,71 @@ function toggleRomeLibraries() {
     }
 }
 
-let federatedLibrariesVisible = false; // Start as hidden
-let removedFederatedLibraries = [];
+let federatedLibrariesVisible = false;
+let federatedMarkers = []; // Store markers globally
 
 function toggleFederatedLibraries() {
     const button = document.getElementById('toggleFederatedLibraries');
     
     if (!federatedLibrariesVisible) {
-        // Show federated libraries
-        window.libraryData.federate.forEach(library => {
-            const marker = createMarker( 
-                library.coords, 
-                library.name, 
-                icons[library.system.includes('Roma Tre') ? 'uniroma3' : 
-                       library.system.includes('CASTELLI ROMANI') ? 'castelli' : 
-                       library.system.includes('Ceretano-Sabatino') ? 'ceretano' : 
-                       library.system.includes('Monti Prenestini') ? 'prenestini' : 
-                       library.system.includes('LUMSA') ? 'lumsa' : 
-                       library.system.includes('Foro Italico') ? 'foro' : 
-                       library.system.includes('Link') ? 'link' : 'municipio1'],
-                `<div class="baloon"> 
-                    <h3>${library.name}</h3> 
-                    <p style="font-size: 15px;"> 
-                        ${library.address}<br> 
-                        ${library.libraryType} - ${library.system} 
-                    </p> 
-                    <a style="color: #bc0b34; font-size: 16px;" href="${library.url}"> 
-                        Vai alla scheda 
-                    </a> 
-                </div>`, 
-                null, 
-                map 
-            );
-        });
+        // If markers haven't been created yet
+        if (federatedMarkers.length === 0) {
+            // Ensure libraryData is available
+            if (window.libraryData && window.libraryData.federate) {
+                window.libraryData.federate.forEach(library => {
+                    const iconKey = library.system.includes('Roma Tre') ? 'uniroma3' : 
+                                    library.system.includes('CASTELLI ROMANI') ? 'castelli' : 
+                                    library.system.includes('Ceretano-Sabatino') ? 'ceretano' : 
+                                    library.system.includes('Monti Prenestini') ? 'prenestini' : 
+                                    library.system.includes('LUMSA') ? 'lumsa' : 
+                                    library.system.includes('Foro Italico') ? 'foro' : 
+                                    library.system.includes('Link') ? 'link' : 
+                                    'municipio1';
+
+                    const popupContent = `
+                        <div class="baloon"> 
+                            <h3>${library.name}</h3> 
+                            <p style="font-size: 15px;"> 
+                                ${library.address}<br> 
+                                ${library.libraryType} - ${library.system} 
+                            </p> 
+                            <a style="color: #bc0b34; font-size: 16px;" href="${library.url}"> 
+                                Vai alla scheda 
+                            </a> 
+                        </div>`;
+
+                    const marker = L.marker(library.coords, {
+                        title: library.name,
+                        icon: icons[iconKey]
+                    }).bindPopup(popupContent);
+
+                    federatedMarkers.push(marker);
+                });
+            } else {
+                console.error('Library data not available');
+                return;
+            }
+        }
+
+        // Add all markers to map
+        federatedMarkers.forEach(marker => marker.addTo(map));
         
         button.textContent = 'Hide Federated Libraries';
         federatedLibrariesVisible = true;
     } else {
-        // Hide federated libraries
-        map.eachLayer((layer) => {
-            if (layer instanceof L.Marker) {
-                const libraryName = layer.options.title;
-                const isFederatedLibrary = window.libraryData.federate.some(lib => lib.name === libraryName);
-                
-                if (isFederatedLibrary) {
-                    layer.remove();
-                }
-            }
-        });
+        // Remove markers from map
+        federatedMarkers.forEach(marker => map.removeLayer(marker));
         
         button.textContent = 'Show Federated Libraries';
         federatedLibrariesVisible = false;
     }
 }
 
-// Automatically hide federated libraries on page load
+// Optional: Initial setup to ensure button is correctly initialized
 document.addEventListener('DOMContentLoaded', () => {
     const button = document.getElementById('toggleFederatedLibraries');
     if (button) {
-        button.click(); // Simulates initial hiding
+        button.textContent = 'Show Federated Libraries';
     }
 });
         
