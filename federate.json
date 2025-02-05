@@ -429,10 +429,89 @@
     },  
 
 
-
-
+  {
+      "name": "Biblioteca Civica Cavense",
+      "coords": [41.819121176147775, 12.933393328324742],
+      "address": "Piazza Caduti di Nassiriya, Cave,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/CIVICA-CAVENSE/"
+    },  
     
 
+  {
+      "name": "Biblioteca Civica Cavense",
+      "coords": [41.819121176147775, 12.933393328324742],
+      "address": "Piazza Caduti di Nassiriya, Cave,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/CIVICA-CAVENSE/"
+    },  
+
+  {
+      "name": "Biblioteca Comunale Albio Tibullo di Gallicano",
+      "coords": [41.87457569075273, 12.819458759431141],
+      "address": "Piazza della Rocca, 30, Gallicano,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://comune.gallicanonellazio.rm.it/servizi-ai-cittadini/arte-e-cultura/biblioteca-comunale-albio-tibullo/"
+    },  
+
+
+  {
+      "name": "Biblioteca Comunale di Labico",
+      "coords": [41.78661778316337, 12.885845496978034],
+      "address": "Piazza Mazzini, Labico,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/LABICO/"
+    },  
+
+  {
+      "name": "Biblioteca Comunale Fantoniana di Palestrina",
+      "coords": [41.8362227819088, 12.891270325415535],
+      "address": "Via Madonna dell'Aquila, Palestrina,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/PALESTRINA/"
+    },  
+
+  {
+      "name": "Biblioteca Comunale di Poli",
+      "coords": [41.89093918666954, 12.89261310560804],
+      "address": "Via Umberto I, 2, Palestrina,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/biblioteca-di-poli/"
+    },  
+
+  {
+      "name": "Biblioteca Comunale Massimo Adabbo di San Cesareo",
+      "coords": [41.82154477257988, 12.801837911921062],
+      "address": "Traversa della Cultura 1, San Cesareo,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/SAN-CESAREO/"
+    },  
+
+ {
+      "name": "Biblioteca Comunale di San Vito Romano",
+      "coords": [41.88250742186951, 12.982286781990851],
+      "address": "Piazza Roma 8, San Vito Romano,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/S-VITO-ROMANO/"
+    },  
+
+
+ {
+      "name": "Biblioteca Comunale Giovanni Coletti di Zagarolo",
+      "coords": [41.838242394438744, 12.831772396580236],
+      "address": "Piazza Indipendenza , Zagarolo,
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/S-VITO-ROMANO/"
+    }    
     
     
     
