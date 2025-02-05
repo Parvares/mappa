@@ -1338,16 +1338,15 @@ document.addEventListener('click', (e) => {
                        library.system.includes('Link') ? 'link' :
                        'municipio1'; // fallback icon
         
-        createMarker(
-            library.coords,
-            library.name,
-            icons[iconKey],
-            popupContent,
-            null, // non c'è un municipio associato
-            map
-        );
-    });
-    
+  
+     createMarker(
+        library.coords, 
+        library.name, 
+        icons[iconKey], 
+        popupContent, 
+        null, 
+        map
+    );
 
     
 } catch (error) {
