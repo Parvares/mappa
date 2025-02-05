@@ -694,10 +694,7 @@ body, html {
     margin-right: 20px;
 }
 
-/* Aggiungi questo stile per gestire la visibilità delle biblioteche di Roma */
-.library-item[data-municipio] {
-    display: block; /* Mostra di default */
-}        
+        
         
     </style>
 </head>
@@ -749,10 +746,13 @@ body, html {
     <div class="federate-container">
         <h4>Biblioteche Federate</h4>
 
-        <!-- Aggiungi il pulsante per nascondere/mostrare le biblioteche di Roma -->
-        <button id="toggleRomaLibraries" onclick="toggleRomaLibraries()" style="margin-bottom: 20px;">
-            Nascondi Biblioteche di Roma
-        </button>
+  <div class="library-toggle-container">
+    <button id="toggleRomaLibraries" class="toggle-libraries-btn">
+      Nascondi Biblioteche di Roma
+    </button>
+  </div>
+</div>
+
         
         <div class="legend-grid">
             <div class="legend-item">
@@ -887,37 +887,39 @@ async function searchLibrary() {
     }
 }
 
-// Modifica la funzione showMunicipioAndLibraries per aggiungere l'attributo data-municipio
 function showMunicipioAndLibraries(municipioNumber, libraries) {
     const resultsContainer = document.getElementById('search-results');
+    
+    // Svuota il contenuto precedente
     resultsContainer.innerHTML = '';
 
+    // Aggiungi il titolo del municipio
     const municipioDiv = document.createElement('div');
     municipioDiv.className = 'municipio-title';
     municipioDiv.textContent = `Municipio ${romanize(municipioNumber)}`;
     resultsContainer.appendChild(municipioDiv);
 
+    // Aggiungi le biblioteche del municipio
     libraries.forEach(library => {
         const libraryDiv = document.createElement('div');
         libraryDiv.className = 'library-item';
         libraryDiv.textContent = library.name;
-        libraryDiv.setAttribute('data-municipio', municipioNumber); // Aggiungi l'attributo data-municipio
         libraryDiv.onclick = () => selectLibrary(library);
         resultsContainer.appendChild(libraryDiv);
     });
 
+    // Mostra il riquadro dei risultati solo se ci sono biblioteche
     if (libraries.length > 0) {
         resultsContainer.style.display = 'block';
     } else {
         resultsContainer.style.display = 'none';
     }
 
+    // Evidenzia il municipio sulla mappa
     loadAndShowBorder(municipioNumber, map);
     highlightLegendItem(municipioNumber);
     selectedMunicipio = municipioNumber;
 }
-
-        
 
 function selectLibrary(library) {
     let foundMarker = null;
@@ -954,24 +956,23 @@ function toggleFederateSidebar() {
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
 
+    // Rimuovo la classe active da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
         button.classList.remove('active');
     });
 
+    // Chiudo il pannello di ricerca se aperto
     expandedSidebar.classList.remove('open');
     if (searchContainer) {
         searchContainer.style.display = 'none';
     }
 
+    // Gestisco l'apertura/chiusura del pannello federate
     federateSidebar.classList.toggle('open');
     if (federateSidebar.classList.contains('open')) {
         federateBtn.classList.add('active');
-        // Mostra il pulsante di toggle solo quando il pannello federato è aperto
-        document.getElementById('toggleRomaLibraries').style.display = 'block';
     } else {
         federateBtn.classList.remove('active');
-        // Nascondi il pulsante di toggle quando il pannello federato è chiuso
-        document.getElementById('toggleRomaLibraries').style.display = 'none';
     }
 }
 
@@ -982,27 +983,33 @@ function toggleSearch() {
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
 
+    // Rimuovo la classe active da tutti i pulsanti eccetto searchBtn
     document.querySelectorAll('.sidebar button').forEach(button => {
         if (button !== searchBtn) {
             button.classList.remove('active');
         }
     });
 
+    // Chiudo il pannello federate se aperto
     federateSidebar.classList.remove('open');
     federateBtn.classList.remove('active');
-    // Nascondi il pulsante di toggle quando il pannello di ricerca è aperto
-    document.getElementById('toggleRomaLibraries').style.display = 'none';
 
+    // Verifico se il pannello di ricerca è già aperto
     const isSearchOpen = expandedSidebar.classList.contains('open');
+
     if (isSearchOpen) {
+        // Se il pannello di ricerca è aperto, lo chiudo
         expandedSidebar.classList.remove('open');
         searchBtn.classList.remove('active');
         searchContainer.style.display = 'none';
     } else {
+        // Se il pannello di ricerca è chiuso, lo apro
         expandedSidebar.classList.add('open');
         searchBtn.classList.add('active');
+
         const startPoint = document.getElementById('start-point');
         startPoint.placeholder = "Cerca biblioteca o indirizzo...";
+
         const searchButton = searchContainer.querySelector('button');
         searchButton.textContent = "Cerca";
         searchButton.onclick = async function() {
@@ -1010,9 +1017,13 @@ function toggleSearch() {
             try {
                 const response = await fetch('libraries.json');
                 const data = await response.json();
-                const foundLibrary = data.libraries.find(lib => lib.name.toLowerCase().includes(searchQuery));
+                const foundLibrary = data.libraries.find(lib => 
+                    lib.name.toLowerCase().includes(searchQuery)
+                );
                 if (foundLibrary) {
-                    const municipioLibraries = data.libraries.filter(lib => lib.municipality === foundLibrary.municipality);
+                    const municipioLibraries = data.libraries.filter(lib => 
+                        lib.municipality === foundLibrary.municipality
+                    );
                     showMunicipioAndLibraries(foundLibrary.municipality, municipioLibraries);
                     return;
                 }
@@ -1021,6 +1032,7 @@ function toggleSearch() {
             }
             searchRoute();
         };
+
         searchContainer.style.display = 'block';
     }
 }
@@ -1031,8 +1043,6 @@ function clearSearchField() {
     searchInput.value = '';
     searchInput.focus();
     toggleClearButton();
-    // Nascondi il pulsante di toggle quando il campo di ricerca viene cancellato
-    document.getElementById('toggleRomaLibraries').style.display = 'none';
 }
 
 // Funzione per mostrare/nascondere il pulsante "x"
@@ -1040,11 +1050,9 @@ function toggleClearButton() {
     const searchInput = document.getElementById('start-point');
     const clearButton = document.getElementById('clear-search');
     if (searchInput.value.trim() !== '') {
-        clearButton.style.display = 'inline-block';
+        clearButton.style.display = 'inline-block'; // Mostra la "x"
     } else {
-        clearButton.style.display = 'none';
-        // Nascondi il pulsante di toggle quando il campo di ricerca è vuoto
-        document.getElementById('toggleRomaLibraries').style.display = 'none';
+        clearButton.style.display = 'none'; // Nascondi la "x"
     }
 }
 
@@ -1147,13 +1155,12 @@ document.addEventListener("DOMContentLoaded", async function() {
 
 
     
-    // Definizione della funzione createMarker
+// Modifica della funzione createMarker per aggiungere una classe al marker
 function createMarker(coords, title, icon, popupContent, municipioNumber, map) {
     const marker = L.marker(coords, { title, icon })
         .addTo(map)
         .on('click', () => {
             if (selectedMunicipio === municipioNumber) {
-                // Deseleziona se cliccato nuovamente
                 if (currentBorder) {
                     map.removeLayer(currentBorder);
                     currentBorder = null;
@@ -1164,24 +1171,54 @@ function createMarker(coords, title, icon, popupContent, municipioNumber, map) {
                     item.classList.remove('highlighted');
                 }
             } else {
-                // Seleziona il municipio
                 loadAndShowBorder(municipioNumber, map);
                 highlightLegendItem(municipioNumber);
                 selectedMunicipio = municipioNumber;
             }
         });
 
-        const popup = L.popup({
-            className: 'custom-popup',
-            offset: [0, -10],
-            closeButton: true
-        }).setContent(popupContent);
+    const popup = L.popup({
+        className: 'custom-popup',
+        offset: [0, -10],
+        closeButton: true
+    }).setContent(popupContent);
 
-        marker.bindPopup(popup);
-        return marker;
+    marker.bindPopup(popup);
+    
+    // Aggiunta della classe CSS al marker
+    const markerElement = marker.getElement();
+    if (markerElement) {
+        markerElement.classList.add('marker');
+        if (municipioNumber === null) {
+            markerElement.classList.add('federate-library');
+        }
     }
 
+    return marker;
+}
+
 const icons = getIconsConfig();
+
+// Creazione marker per le librerie comunali
+createMarker(
+  library.coords, 
+  library.name, 
+  icons[`municipio${library.municipality}`], 
+  popupContent, 
+  library.municipality, 
+  map
+);
+
+// Creazione marker per le librerie federate
+createMarker(
+  library.coords, 
+  library.name, 
+  icons[iconKey], 
+  popupContent, 
+  null, 
+  map
+);
+
   
 
 // Spazio dove erano i marker per le biblioteche...
@@ -1358,21 +1395,37 @@ document.addEventListener('click', (e) => {
 }
 
 
-// Aggiungi questa funzione per gestire la visibilità delle biblioteche di Roma
-function toggleRomaLibraries() {
-    const toggleButton = document.getElementById('toggleRomaLibraries');
-    const romaLibraries = document.querySelectorAll('.library-item[data-municipio]');
+let romaLibrariesVisible = true;
 
-    romaLibraries.forEach(library => {
-        if (library.style.display === 'none') {
-            library.style.display = 'block';
-            toggleButton.textContent = 'Nascondi Biblioteche di Roma';
-        } else {
-            library.style.display = 'none';
-            toggleButton.textContent = 'Mostra Biblioteche di Roma';
-        }
+function toggleRomaLibraries() {
+  const toggleButton = document.getElementById('toggleRomaLibraries');
+  const libraries = document.querySelectorAll('.marker');
+  
+  romaLibrariesVisible = !romaLibrariesVisible;
+  
+  if (!romaLibrariesVisible) {
+    libraries.forEach(library => {
+      // Assuming libraries without a federate class are Roma libraries
+      if (!library.classList.contains('federate-library')) {
+        library.style.display = 'none';
+      }
     });
+    toggleButton.textContent = 'Mostra Biblioteche di Roma';
+  } else {
+    libraries.forEach(library => {
+      if (!library.classList.contains('federate-library')) {
+        library.style.display = '';
+      }
+    });
+    toggleButton.textContent = 'Nascondi Biblioteche di Roma';
+  }
 }
+
+// Add event listener when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  const toggleButton = document.getElementById('toggleRomaLibraries');
+  toggleButton.addEventListener('click', toggleRomaLibraries);
+});
 
 
     
