@@ -942,29 +942,48 @@ function selectLibrary(library) {
 
 // Funzione per aprire/chiudere il pannello delle biblioteche federate
 function toggleFederateSidebar() {
-    const federateSidebar = document.getElementById('federateSidebar');
-    const federateBtn = document.getElementById('federateBtn');
-    const expandedSidebar = document.getElementById('expandedSidebar');
-    const searchContainer = document.getElementById('searchContainer');
+  const federateSidebar = document.getElementById('federateSidebar');
+  const federateBtn = document.getElementById('federateBtn');
+  const expandedSidebar = document.getElementById('expandedSidebar');
+  const searchContainer = document.getElementById('searchContainer');
 
-    // Rimuovo la classe active da tutti i pulsanti
-    document.querySelectorAll('.sidebar button').forEach(button => {
-        button.classList.remove('active');
+  // Remove active class from all buttons
+  document.querySelectorAll('.sidebar button').forEach(button => {
+    button.classList.remove('active');
+  });
+
+  // Close search panel if open
+  expandedSidebar.classList.remove('open');
+  if (searchContainer) {
+    searchContainer.style.display = 'none';
+  }
+
+  // Handle federate sidebar toggle
+  federateSidebar.classList.toggle('open');
+  if (federateSidebar.classList.contains('open')) {
+    federateBtn.classList.add('active');
+    
+    // Add click handlers to federated library system items
+    const federateItems = document.querySelectorAll('.federate-container .legend-item');
+    federateItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const systemName = this.querySelector('.text').textContent;
+        toggleFederatedLibraries(systemName);
+      });
     });
-
-    // Chiudo il pannello di ricerca se aperto
-    expandedSidebar.classList.remove('open');
-    if (searchContainer) {
-        searchContainer.style.display = 'none';
-    }
-
-    // Gestisco l'apertura/chiusura del pannello federate
-    federateSidebar.classList.toggle('open');
-    if (federateSidebar.classList.contains('open')) {
-        federateBtn.classList.add('active');
-    } else {
-        federateBtn.classList.remove('active');
-    }
+  } else {
+    federateBtn.classList.remove('active');
+    
+    // Remove all currently displayed federated markers
+    map.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        const markerData = layer.options.libraryData;
+        if (markerData && markerData.isFederated) {
+          map.removeLayer(layer);
+        }
+      }
+    });
+  }
 }
 
 function toggleSearch() {
@@ -1215,7 +1234,68 @@ document.getElementById('start-point').addEventListener('blur', () => {
     }, 200);
 });
 
+// Add this function after library marker creation
+function toggleFederatedLibraries(systemName) {
+  // Reset visibility of all federated markers first
+  map.eachLayer((layer) => {
+    if (layer instanceof L.Marker) {
+      const markerData = layer.options.libraryData;
+      if (markerData && markerData.isFederated) {
+        map.removeLayer(layer);
+      }
+    }
+  });
 
+  // Now add back only the markers for the selected system
+  try {
+    fetch('libraries.json')
+      .then(response => response.json())
+      .then(data => {
+        data.federate.forEach(library => {
+          if (library.system === systemName) {
+            const iconKey = library.system.includes('Roma Tre') ? 'uniroma3' : 
+                            library.system.includes('CASTELLI ROMANI') ? 'castelli' : 
+                            library.system.includes('Ceretano-Sabatino') ? 'ceretano' : 
+                            library.system.includes('Monti Prenestini') ? 'prenestini' : 
+                            library.system.includes('LUMSA') ? 'lumsa' : 
+                            library.system.includes('Foro Italico') ? 'foro' : 
+                            library.system.includes('Link') ? 'link' : 
+                            'municipio1';
+
+            const popupContent = `
+              <div class="baloon">
+                <h3>${library.name}</h3>
+                <p style="font-size: 15px;">
+                  ${library.address}<br>
+                  ${library.libraryType} - ${library.system}
+                </p>
+                <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
+                  Vai alla scheda
+                </a>
+              </div>
+            `;
+
+            const marker = createMarker(
+              library.coords, 
+              library.name, 
+              icons[iconKey], 
+              popupContent, 
+              null, 
+              map
+            );
+
+            // Add a flag to identify federated markers
+            marker.options.libraryData = { 
+              ...library, 
+              isFederated: true 
+            };
+          }
+        });
+      });
+  } catch (error) {
+    console.error('Errore nel caricamento delle biblioteche federate:', error);
+  }
+}
 
 function filterSuggestions(searchText) {
     const customDatalist = document.getElementById('library-suggestions');
