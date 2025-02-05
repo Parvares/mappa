@@ -1714,13 +1714,21 @@ function toggleRomeLibraries() {
     }
 }
 
-let federatedLibrariesVisible = false; // Inizialmente nascoste
+let federatedLibrariesVisible = false; // Change initial state to false
 let removedFederatedLibraries = [];
 
 function toggleFederatedLibraries() {
     const button = document.getElementById('toggleFederatedLibraries');
-    if (federatedLibrariesVisible) {
-        // Nascondi le biblioteche federate
+    if (!federatedLibrariesVisible) {
+        // Show federated libraries
+        removedFederatedLibraries.forEach(marker => {
+            marker.addTo(map);
+        });
+        button.textContent = 'Hide Federated Libraries';
+        federatedLibrariesVisible = true;
+        removedFederatedLibraries = [];
+    } else {
+        // Hide federated libraries
         removedFederatedLibraries = [];
         map.eachLayer((layer) => {
             if (layer instanceof L.Marker) {
@@ -1734,22 +1742,8 @@ function toggleFederatedLibraries() {
         });
         button.textContent = 'Show Federated Libraries';
         federatedLibrariesVisible = false;
-    } else {
-        // Mostra le biblioteche federate
-        removedFederatedLibraries.forEach(marker => {
-            marker.addTo(map);
-        });
-        button.textContent = 'Hide Federated Libraries';
-        federatedLibrariesVisible = true;
-        removedFederatedLibraries = [];
     }
-}
-
-// Assicurati che le biblioteche federate siano nascoste all'inizio
-document.addEventListener("DOMContentLoaded", function() {
-    toggleFederatedLibraries(); // Nascondi le biblioteche federate all'inizio
-});
-        
+} 
         
     </script>
 </body>
