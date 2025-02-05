@@ -694,7 +694,9 @@ body, html {
     margin-right: 20px;
 }
 
-        
+   .federate-icon {
+  /* Aggiungi qui gli stili specifici per i marker federati */
+}   
         
     </style>
 </head>
@@ -942,29 +944,30 @@ function selectLibrary(library) {
 
 // Funzione per aprire/chiudere il pannello delle biblioteche federate
 function toggleFederateSidebar() {
-    const federateSidebar = document.getElementById('federateSidebar');
-    const federateBtn = document.getElementById('federateBtn');
-    const expandedSidebar = document.getElementById('expandedSidebar');
-    const searchContainer = document.getElementById('searchContainer');
+  const federateSidebar = document.getElementById('federateSidebar');
+  const federateBtn = document.getElementById('federateBtn');
+  const expandedSidebar = document.getElementById('expandedSidebar');
+  const searchContainer = document.getElementById('searchContainer');
 
-    // Rimuovo la classe active da tutti i pulsanti
-    document.querySelectorAll('.sidebar button').forEach(button => {
-        button.classList.remove('active');
-    });
+  // Rimuovo la classe active da tutti i pulsanti
+  document.querySelectorAll('.sidebar button').forEach(button => {
+    button.classList.remove('active');
+  });
 
-    // Chiudo il pannello di ricerca se aperto
-    expandedSidebar.classList.remove('open');
-    if (searchContainer) {
-        searchContainer.style.display = 'none';
-    }
+  // Chiudo il pannello di ricerca se aperto
+  expandedSidebar.classList.remove('open');
+  if (searchContainer) {
+    searchContainer.style.display = 'none';
+  }
 
-    // Gestisco l'apertura/chiusura del pannello federate
-    federateSidebar.classList.toggle('open');
-    if (federateSidebar.classList.contains('open')) {
-        federateBtn.classList.add('active');
-    } else {
-        federateBtn.classList.remove('active');
-    }
+  // Gestisco l'apertura/chiusura del pannello federate
+  federateSidebar.classList.toggle('open');
+  if (federateSidebar.classList.contains('open')) {
+    federateBtn.classList.add('active');
+  } else {
+    federateBtn.classList.remove('active');
+    hideAllFederateMarkers(); // Nascondi tutti i marker federati
+  }
 }
 
 function toggleSearch() {
