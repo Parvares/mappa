@@ -461,7 +461,7 @@
   {
       "name": "Biblioteca Comunale di Labico",
       "coords": [41.78661778316337, 12.885845496978034],
-      "address": "Piazza Mazzini, Labico,
+      "address": "Piazza Mazzini, Labico",
       "libraryType": "Comunale",
       "system": "Sistema Bibliotecario Monti Prenestini",
       "url": "https://sbmp.comperio.it/library/LABICO/"
@@ -470,7 +470,7 @@
   {
       "name": "Biblioteca Comunale Fantoniana di Palestrina",
       "coords": [41.8362227819088, 12.891270325415535],
-      "address": "Via Madonna dell'Aquila, Palestrina,
+      "address": "Via Madonna dell'Aquila, Palestrina",
       "libraryType": "Comunale",
       "system": "Sistema Bibliotecario Monti Prenestini",
       "url": "https://sbmp.comperio.it/library/PALESTRINA/"
