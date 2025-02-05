@@ -130,6 +130,7 @@ municipio1: L.icon({
     popupAnchor: [1, -40], // Leggermente adattato
     shadowSize: [50, 50] // Adattata l'ombra
         }),
+    
         castelli: L.icon({
     iconUrl: 'comuneblu.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -137,8 +138,20 @@ municipio1: L.icon({
     iconAnchor: [25, 50], // Centrato il punto di ancoraggio
     popupAnchor: [1, -40], // Leggermente adattato
     shadowSize: [50, 50] // Adattata l'ombra
+}),
+
+        ceretano: L.icon({
+    iconUrl: 'comunemagenta.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [50, 50], // Aumentata larghezza e altezza
+    iconAnchor: [25, 50], // Centrato il punto di ancoraggio
+    popupAnchor: [1, -40], // Leggermente adattato
+    shadowSize: [50, 50] // Adattata l'ombra
 })
 
+
+
+    
        
   };
 }
