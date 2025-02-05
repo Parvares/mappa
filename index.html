@@ -694,9 +694,7 @@ body, html {
     margin-right: 20px;
 }
 
-   .federate-icon {
-  /* Aggiungi qui gli stili specifici per i marker federati */
-}   
+        
         
     </style>
 </head>
@@ -724,12 +722,6 @@ body, html {
 <!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
     <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
-
-<button id="toggleMunicipalLibrariesBtn" style="width:100%; margin-bottom:10px;">
-    Nascondi biblioteche municipali
-</button>
-
-    
     <!-- Aggiungi questa linea -->
     <div class="search-container" id="searchContainer">
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -754,31 +746,31 @@ body, html {
     <div class="federate-container">
         <h4>Biblioteche Federate</h4>
         <div class="legend-grid">
-            <div class="legend-item" data-system="uniroma3">
+            <div class="legend-item">
                 <span style="background: #6a3f3a"></span>
                 <div class="text">Sistema Bibliotecario di Ateneo - Università Degli Studi Roma Tre</div>
             </div>
-            <div class="legend-item" data-system="castelli">
+            <div class="legend-item">
                 <span style="background: #00faff"></span>
                 <div class="text">Biblioteche Sistema Castelli Romani</div>
             </div>
-            <div class="legend-item" data-system="lumsa">
+            <div class="legend-item">
                 <span style="background: #fbd51c"></span>
                 <div class="text">Lumsa</div>
             </div>
-            <div class="legend-item" data-system="foro">
+            <div class="legend-item">
                 <span style="background: #473e86"></span>
                 <div class="text">Foro Italico</div>
             </div>
-            <div class="legend-item" data-system="link">
+            <div class="legend-item">
                 <span style="background: #018a87"></span>
                 <div class="text">Link Campus</div>
             </div>
-            <div class="legend-item" data-system="ceretano">
+            <div class="legend-item">
                 <span style="background: #d33682"></span>
                 <div class="text">Sistema Bibliotecario Ceretano-Sabatino</div>
             </div>
-            <div class="legend-item" data-system="prenestini">
+            <div class="legend-item">
                 <span style="background: #ff7c4e"></span>
                 <div class="text">Sistema Bibliotecario Monti Prenestini</div>
             </div>
@@ -880,17 +872,6 @@ async function searchLibrary() {
         } else {
             alert('Biblioteca non trovata. Riprova.');
         }
-
-
-
-        // NEW CODE: Initially hide federate markers
-    const federateLibraries = document.querySelectorAll('.leaflet-marker-icon');
-    federateLibraries.forEach(marker => {
-        const popupContent = marker.__popup._content;
-        if (popupContent.includes('LUMSA') || popupContent.includes('Roma Tre') || popupContent.includes('Ceretano-Sabatino') || popupContent.includes('Castelli Romani')) {
-            marker.style.display = 'none';
-        }
-    });
     } catch (error) {
         console.error('Errore nella ricerca della biblioteca:', error);
         alert('Errore nella ricerca. Riprova.');
@@ -959,86 +940,32 @@ function selectLibrary(library) {
     }
 }
 
-function toggleFederateMarkers(system) {
-    const libraries = document.querySelectorAll('.leaflet-marker-icon');
-    libraries.forEach(marker => {
-        const popupContent = marker.__popup._content;
-        const isMatchingSystem = popupContent.includes(system);
-        marker.style.display = isMatchingSystem ? 'block' : 'none';
-    });
-}
-
-function hideAllFederateMarkers() {
-  const libraries = document.querySelectorAll('.leaflet-marker-icon');
-  libraries.forEach(marker => {
-    // Only hide federate library markers
-    const popupContent = marker.__popup._content;
-    if (popupContent.includes('LUMSA') || popupContent.includes('Roma Tre') || 
-        popupContent.includes('Ceretano-Sabatino') || popupContent.includes('Castelli Romani')) {
-      marker.style.display = 'none';
-    }
-  });
-}
-
-
-        
-
 // Funzione per aprire/chiudere il pannello delle biblioteche federate
 function toggleFederateSidebar() {
-  const federateSidebar = document.getElementById('federateSidebar');
-  const federateBtn = document.getElementById('federateBtn');
-  const expandedSidebar = document.getElementById('expandedSidebar');
-  const searchContainer = document.getElementById('searchContainer');
+    const federateSidebar = document.getElementById('federateSidebar');
+    const federateBtn = document.getElementById('federateBtn');
+    const expandedSidebar = document.getElementById('expandedSidebar');
+    const searchContainer = document.getElementById('searchContainer');
 
-  // Rimuovo la classe active da tutti i pulsanti
-  document.querySelectorAll('.sidebar button').forEach(button => {
-    button.classList.remove('active');
-  });
-
-  // Chiudo il pannello di ricerca se aperto
-  expandedSidebar.classList.remove('open');
-  if (searchContainer) {
-    searchContainer.style.display = 'none';
-  }
-
-  // Gestisco l'apertura/chiusura del pannello federate
-  federateSidebar.classList.toggle('open');
-
-  if (federateSidebar.classList.contains('open')) {
-    federateBtn.classList.add('active');
-
-    // Add click event listeners to federate system items
-    const systemItems = document.querySelectorAll('.legend-item[data-system]');
-    systemItems.forEach(item => {
-      item.addEventListener('click', () => {
-        // Remove active class from all items
-        systemItems.forEach(i => i.classList.remove('active'));
-        
-        // Add active class to clicked item
-        item.classList.add('active');
-        
-        // Show markers for clicked system
-        const system = item.dataset.system;
-        toggleFederateMarkers(system);
-      });
+    // Rimuovo la classe active da tutti i pulsanti
+    document.querySelectorAll('.sidebar button').forEach(button => {
+        button.classList.remove('active');
     });
-  } else {
-    federateBtn.classList.remove('active');
-    hideAllFederateMarkers(); // Nascondi tutti i marker federati
-  }
-}
 
-function hideAllFederateMarkers() {
-  const libraries = document.querySelectorAll('.leaflet-marker-icon');
-  libraries.forEach(marker => {
-    // Only hide federate library markers
-    const popupContent = marker.__popup._content;
-    if (popupContent.includes('LUMSA') || popupContent.includes('Roma Tre') || 
-        popupContent.includes('Ceretano-Sabatino') || popupContent.includes('Castelli Romani')) {
-      marker.style.display = 'none';
+    // Chiudo il pannello di ricerca se aperto
+    expandedSidebar.classList.remove('open');
+    if (searchContainer) {
+        searchContainer.style.display = 'none';
     }
-  });
-}        
+
+    // Gestisco l'apertura/chiusura del pannello federate
+    federateSidebar.classList.toggle('open');
+    if (federateSidebar.classList.contains('open')) {
+        federateBtn.classList.add('active');
+    } else {
+        federateBtn.classList.remove('active');
+    }
+}
 
 function toggleSearch() {
     const searchBtn = document.getElementById('searchBtn');
@@ -1353,7 +1280,6 @@ document.addEventListener('click', (e) => {
             library.municipality,
             map
         );
-        municipalLibraryMarkers.push(marker); // Aggiungi questa riga
     });
 
 
@@ -1738,31 +1664,6 @@ window.handleLegendHover = async function(municipioNumber) {
         })
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
-
-
-// Gestione visibilità biblioteche municipali
-let municipalLibraryMarkers = [];
-let municipalLibrariesVisible = true;
-
-function toggleMunicipalLibraries() {
-    municipalLibrariesVisible = !municipalLibrariesVisible;
-    
-    municipalLibraryMarkers.forEach(marker => {
-        if (municipalLibrariesVisible) {
-            marker.addTo(map);
-        } else {
-            map.removeLayer(marker);
-        }
-    });
-
-    document.getElementById('toggleMunicipalLibrariesBtn').textContent = 
-        municipalLibrariesVisible 
-            ? 'Nascondi biblioteche municipali' 
-            : 'Mostra biblioteche municipali';
-}
-
-document.getElementById('toggleMunicipalLibrariesBtn').addEventListener('click', toggleMunicipalLibraries);
-        
     </script>
 </body>
 </html>
