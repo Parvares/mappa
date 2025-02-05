@@ -774,10 +774,17 @@ body, html {
                 <span style="background: #ff7c4e"></span>
                 <div class="text">Sistema Bibliotecario Monti Prenestini</div>
             </div>
-<button id="toggleRomeLibraries" onclick="toggleRomeLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
+
+            <button id="toggleFederatedLibraries" onclick="toggleFederatedLibraries()" 
+        style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;"> 
+    Hide Federated Libraries 
+</button>
+            
+            <button id="toggleRomeLibraries" onclick="toggleRomeLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
     Toggle Rome Libraries
 </button>
 
+            
             
         </div>
     </div>
@@ -1707,6 +1714,42 @@ function toggleRomeLibraries() {
         removedRomeLibraries = []; // Resetta l'array dopo il ripristino
     }
 }
+
+let federatedLibrariesVisible = true;
+let removedFederatedLibraries = [];
+
+function toggleFederatedLibraries() {
+    const button = document.getElementById('toggleFederatedLibraries');
+    
+    if (federatedLibrariesVisible) {
+        // Hide federated libraries
+        removedFederatedLibraries = [];
+        map.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+                const libraryName = layer.options.title;
+                const isFederatedLibrary = window.libraryData.federate.some(lib => lib.name === libraryName);
+                
+                if (isFederatedLibrary) {
+                    removedFederatedLibraries.push(layer);
+                    layer.remove();
+                }
+            }
+        });
+        
+        button.textContent = 'Show Federated Libraries';
+        federatedLibrariesVisible = false;
+    } else {
+        // Show federated libraries
+        removedFederatedLibraries.forEach(marker => {
+            marker.addTo(map);
+        });
+        
+        button.textContent = 'Hide Federated Libraries';
+        federatedLibrariesVisible = true;
+        removedFederatedLibraries = [];
+    }
+}
+        
         
     </script>
 </body>
