@@ -1341,14 +1341,16 @@ data.federate.forEach(library => {
     if (systemKey) {
         markersBySystem[systemKey].push(marker);
     }
+
+    } catch (error) {
+    console.error('Errore nel caricamento del confine:', error);
+  }  
 });
     
 
 
-  } catch (error) {
-    console.error('Errore nel caricamento del confine:', error);
-  }
-})
+
+
 
 
 
