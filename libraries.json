@@ -469,7 +469,36 @@
       "url": "https://sba.uniroma3.it/biblioteche/altre-biblioteche/moby-dick-biblioteca-hub-culturale/"
     },
 
-   
+
+   {
+      "name": "Biblioteca Centrale di Ateneo Card. Attilio Nicora (LUMSA)",
+      "coords": [41.90391699588104, 12.463270467748222],
+      "address": "via di Porta Castello, 44, Roma",
+      "libraryType": "Universitaria",
+      "system": "LUMSA",
+      "url": "https://lumsa.it/it/biblioteca-roma-a-nicora"
+    },  
+
+            {
+      "name": "Biblioteca dell'università degli Studi Di Roma Foro Italico",
+      "coords": [41.931603595127974, 12.458659996585022],
+      "address": "Piazza Lauro De Bosis, 6, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma Foro Italico",
+      "url": "https://opac.uniroma4.it/SebinaOpacRMS/.do"
+    },  
+
+            {
+      "name": "Link Campus Library",
+      "coords": [41.89282666759432, 12.432797267747624],
+      "address": "Piazza Lauro De Bosis, 6, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi Link",
+      "url": "https://www.unilink.it/en/university/link-campus-library"
+    },  
+
+
+    
     {
       "name": "Biblioteca Comunale Di Albano Laziale Cesare De Santis",
       "coords": [41.726805368800335, 12.661762388903735],
@@ -649,7 +678,216 @@
       "libraryType": "Comunale",
       "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
       "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-velletri/"
+    },
+
+       {
+      "name": "Biblioteca Comunale Angela Zucconi di Anguillara ",
+      "coords": [42.09308462177522, 12.27378582576864],
+      "address": "Largo dello Zodiaco, 21, Anguillara Sabazia",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Anguillara%20'Angela%20Zucconi'/RL1E9?sysb=ceretano"
+    },  
+
+      {
+      "name": "Biblioteca Comunale Di Bracciano Bartolomea Orsini",
+      "coords": [42.10073124195649, 12.175232038922884],
+      "address": "Via del Pratoterra, 2, Bracciano",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Bracciano%20'Bartolomea%20Orsini'/RL1A1?sysb=ceretano"
+    },  
+
+
+      {
+      "name": "Biblioteca Comunale Di Campagnano Carlo Maggiorani",
+      "coords": [42.13907331839105, 12.381118850570763],
+      "address": "Corso Vittorio Emanuele, 2, Campagnano di Roma",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Campagnano%20'Carlo%20Maggiorani'/RL1C6?sysb=ceretano"
+    },  
+
+
+     {
+      "name": "Biblioteca Comunale Nilde Iotti di Cerveteri",
+      "coords": [41.997707992387284, 12.100958854259295],
+      "address": "Via Francesco Rosati, snc, Cerveteri",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Cerveteri/RL1YV?sysb=ceretano"
+    },  
+
+
+   {
+      "name": "Biblioteca Comunale multimediale di Formello",
+      "coords": [42.082967209556706, 12.400694990215685],
+      "address": "Piazza S. Lorenzo, Formello",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Formello%20-%20Biblioteca%20Comunale/RL1GQ"
+    },  
+   {
+      "name": "Biblioteca Comunale Peppino Impastato di Ladispoli",
+      "coords": [41.959594501464295, 12.07137981008028],
+      "address": "Via Caltagirone, snc, Ladispoli",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Ladispoli%20'Peppino%20Impastato'/RL1A6?sysb=ceretano"
+    },  
+   {
+      "name": "Biblioteca Comunale Peppino Impastato di Ladispoli",
+      "coords": [41.959594501464295, 12.07137981008028],
+      "address": "Via Caltagirone, snc, Ladispoli",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Ladispoli%20'Peppino%20Impastato'/RL1A6?sysb=ceretano"
+    },  
+    
+ 
+  {
+      "name": "Biblioteca Comunale di Manziana",
+      "coords": [42.13371258132516, 12.13365930586104],
+      "address": "Piazza Firenze, 27, Manziana",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Manziana%20-%20Biblioteca%20Comunale/RL1A8"
+    },  
+
+
+  {
+      "name": "Biblioteca Comunale di Mazzano Romano",
+      "coords": [42.205066349699216, 12.399522025434445],
+      "address": "Piazza Giovanni XXIII, 12, Mazzano Romano",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Mazzano%20Romano/RL1GT?sysb=ceretano"
+    },  
+
+
+  {
+      "name": "Biblioteca Comunale di Santa Marinella",
+      "coords": [42.038258998042174, 11.862236105790187],
+      "address": "Via Aurelia, 310, Santa Marinella",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Santa%20Marinella%20'Alessandro%20Capotosti'/RL1N4?sysb=ceretano"
+    },  
+
+  {
+      "name": "Biblioteca Comunale di Trevignano Romano",
+      "coords": [42.15836127829592, 12.237007810090464],
+      "address": "Via degli Asinelli, 10 A, Trevignano Romano",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Ceretano-Sabatino",
+      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Trevignano%20Romano%20-%20Biblioteca%20Comunale/RL1H9"
+    },  
+
+    
+
+  {
+      "name": "Biblioteca Comunale di Genazzano",
+      "coords": [41.83528653568289, 12.974005938909334],
+      "address": "Piazza San Nicola 8, Genazzano",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/GENAZZANO/"
+    },  
+
+  {
+      "name": "Biblioteca Comunale Giuseppe Caiati di Valmontone",
+      "coords": [41.77606566515246, 12.918559197267626],
+      "address": "Piazza Umberto Pilozzi, Valmontone",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/biblioteca-comunale-di-valmontone/"
+    },  
+
+
+  {
+      "name": "Biblioteca Civica Cavense",
+      "coords": [41.819121176147775, 12.933393328324742],
+      "address": "Piazza Caduti di Nassiriya, Cave"
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/CIVICA-CAVENSE/"
+    },  
+    
+
+  {
+      "name": "Biblioteca Civica Cavense",
+      "coords": [41.819121176147775, 12.933393328324742],
+      "address": "Piazza Caduti di Nassiriya, Cave",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/CIVICA-CAVENSE/"
+    },  
+
+  {
+      "name": "Biblioteca Comunale Albio Tibullo di Gallicano",
+      "coords": [41.87457569075273, 12.819458759431141],
+      "address": "Piazza della Rocca, 30, Gallicano",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://comune.gallicanonellazio.rm.it/servizi-ai-cittadini/arte-e-cultura/biblioteca-comunale-albio-tibullo/"
+    },  
+
+
+  {
+      "name": "Biblioteca Comunale di Labico",
+      "coords": [41.78661778316337, 12.885845496978034],
+      "address": "Piazza Mazzini, Labico",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/LABICO/"
+    },  
+
+  {
+      "name": "Biblioteca Comunale Fantoniana di Palestrina",
+      "coords": [41.8362227819088, 12.891270325415535],
+      "address": "Via Madonna dell'Aquila, Palestrina",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/PALESTRINA/"
+    },  
+
+  {
+      "name": "Biblioteca Comunale di Poli",
+      "coords": [41.89093918666954, 12.89261310560804],
+      "address": "Via Umberto I, 2, Palestrina",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/biblioteca-di-poli/"
+    },  
+
+  {
+      "name": "Biblioteca Comunale Massimo Adabbo di San Cesareo",
+      "coords": [41.82154477257988, 12.801837911921062],
+      "address": "Traversa della Cultura 1, San Cesareo",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/SAN-CESAREO/"
+    },  
+
+ {
+      "name": "Biblioteca Comunale di San Vito Romano",
+      "coords": [41.88250742186951, 12.982286781990851],
+      "address": "Piazza Roma 8, San Vito Romano",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/S-VITO-ROMANO/"
+    },  
+
+
+ {
+      "name": "Biblioteca Comunale Giovanni Coletti di Zagarolo",
+      "coords": [41.838242394438744, 12.831772396580236],
+      "address": "Piazza Indipendenza , Zagarolo",
+      "libraryType": "Comunale",
+      "system": "Sistema Bibliotecario Monti Prenestini",
+      "url": "https://sbmp.comperio.it/library/S-VITO-ROMANO/"
     }
+    
 
    
   ]
