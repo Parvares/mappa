@@ -1390,7 +1390,19 @@ document.addEventListener('click', (e) => {
 }
 
 
-
+let librariesVisible = true;
+function toggleLibraries() {
+    librariesVisible = !librariesVisible;
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            if (librariesVisible) {
+                layer.addTo(map);
+            } else {
+                map.removeLayer(layer);
+            }
+        }
+    });
+}
 
 
     
