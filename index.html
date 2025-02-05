@@ -1235,7 +1235,7 @@ document.getElementById('start-point').addEventListener('blur', () => {
 });
 
 // Add this function after library marker creation
-function toggleFederatedLibraries(systemName) {
+window.toggleFederatedLibraries = function(systemName) {
   // Reset visibility of all federated markers first
   map.eachLayer((layer) => {
     if (layer instanceof L.Marker) {
