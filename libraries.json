@@ -807,7 +807,7 @@
   {
       "name": "Biblioteca Civica Cavense",
       "coords": [41.819121176147775, 12.933393328324742],
-      "address": "Piazza Caduti di Nassiriya, Cave"
+      "address": "Piazza Caduti di Nassiriya, Cave",
       "libraryType": "Comunale",
       "system": "Sistema Bibliotecario Monti Prenestini",
       "url": "https://sbmp.comperio.it/library/CIVICA-CAVENSE/"
