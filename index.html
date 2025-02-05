@@ -1313,26 +1313,26 @@ data.federate.forEach(library => {
     </div> 
     `; 
 
-    const iconKey = library.system.includes('Roma Tre') ? 'uniroma3' : 
-        library.system.includes('CASTELLI ROMANI') ? 'castelli' : 
-        library.system.includes('Ceretano-Sabatino') ? 'ceretano' : 
-        library.system.includes('Monti Prenestini') ? 'prenestini' : 
-        library.system.includes('LUMSA') ? 'lumsa' : 
-        library.system.includes('Foro Italico') ? 'foro' : 
-        library.system.includes('Link') ? 'link' : 
-        'municipio1'; // fallback icon
+const iconKey = (library.system.includes('Roma Tre') ? 'uniroma3' : 
+    library.system.includes('CASTELLI ROMANI') ? 'castelli' : 
+    library.system.includes('Ceretano-Sabatino') ? 'ceretano' : 
+    library.system.includes('Monti Prenestini') ? 'prenestini' : 
+    library.system.includes('LUMSA') ? 'lumsa' : 
+    library.system.includes('Foro Italico') ? 'foro' : 
+    library.system.includes('Link') ? 'link' : 
+    'municipio1'); // fallback icon
 
-    const marker = createMarker( 
-        library.coords, 
-        library.name, 
-        icons[iconKey], 
-        popupContent, 
-        null, 
-        map 
-    );
+const marker = createMarker( 
+    library.coords, 
+    library.name, 
+    icons[iconKey], 
+    popupContent, 
+    null, 
+    map 
+);
 
-    // Immediately remove federated library markers
-    map.removeLayer(marker);
+// Immediately remove federated library markers
+map.removeLayer(marker);
     
 } catch (error) {
     console.error('Errore nel caricamento delle biblioteche:', error);
