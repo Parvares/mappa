@@ -820,7 +820,7 @@ const municipalityColors = {
     15: "#000000"  // Nero
 };
 
-
+let romaLibrariesVisible = true;
 
               // Funzione per convertire numeri in numeri romani
         function romanize(num) {
@@ -1199,15 +1199,7 @@ function createMarker(coords, title, icon, popupContent, municipioNumber, map) {
 
 const icons = getIconsConfig();
 
-// Creazione marker per le librerie comunali
-createMarker(
-  library.coords, 
-  library.name, 
-  icons[`municipio${library.municipality}`], 
-  popupContent, 
-  library.municipality, 
-  map
-);
+
 
 // Creazione marker per le librerie federate
 createMarker(
@@ -1732,6 +1724,26 @@ window.handleLegendHover = async function(municipioNumber) {
         })
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
+
+function toggleRomaLibraries() {
+    const toggleButton = document.getElementById('toggleRomaLibraries');
+    const libraries = document.querySelectorAll('.marker:not(.federate-library)');
+    
+    romaLibrariesVisible = !romaLibrariesVisible;
+    
+    if (!romaLibrariesVisible) {
+        libraries.forEach(library => {
+            library.style.display = 'none';
+        });
+        toggleButton.textContent = 'Mostra Biblioteche di Roma';
+    } else {
+        libraries.forEach(library => {
+            library.style.display = '';
+        });
+        toggleButton.textContent = 'Nascondi Biblioteche di Roma';
+    }
+}
+        
     </script>
 </body>
 </html>
