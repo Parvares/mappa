@@ -943,12 +943,12 @@ function selectLibrary(library) {
 }
 
 function toggleFederateMarkers(system) {
-  const libraries = document.querySelectorAll('.leaflet-marker-icon');
-  libraries.forEach(marker => {
-    const popupContent = marker.__popup._content;
-    const isMatchingSystem = popupContent.includes(system);
-    marker.style.display = isMatchingSystem ? 'block' : 'none';
-  });
+    const libraries = document.querySelectorAll('.leaflet-marker-icon');
+    libraries.forEach(marker => {
+        const popupContent = marker.__popup._content;
+        const isMatchingSystem = popupContent.includes(system);
+        marker.style.display = isMatchingSystem ? 'block' : 'none';
+    });
 }
 
 function hideAllFederateMarkers() {
