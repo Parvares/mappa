@@ -1240,8 +1240,12 @@ document.getElementById('start-point').addEventListener('blur', () => {
 });
 
 // Add this function after library marker creation
+// Comment out or remove the existing federate marker creation
+// data.federate.forEach(library => { ... })
+
+// New implementation for federated libraries
 window.toggleFederatedLibraries = function(systemName) {
-    // First, hide all federated markers
+    // Remove all existing federated markers
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker) {
             const markerData = layer.options.libraryData;
@@ -1251,16 +1255,35 @@ window.toggleFederatedLibraries = function(systemName) {
         }
     });
 
-    // Now load and show only markers for the selected system
-    fetch('libraries.json')
+    // Add markers for selected system
+    try {
+        fetch('libraries.json')
         .then(response => response.json())
         .then(data => {
             data.federate.forEach(library => {
-                // Only add markers for the selected system
                 if (library.system === systemName) {
-                    const iconKey = getIconKeyForSystem(library.system);
-                    const popupContent = createPopupContent(library);
-                    
+                    const iconKey = library.system.includes('Roma Tre') ? 'uniroma3' : 
+                        library.system.includes('CASTELLI ROMANI') ? 'castelli' : 
+                        library.system.includes('Ceretano-Sabatino') ? 'ceretano' : 
+                        library.system.includes('Monti Prenestini') ? 'prenestini' : 
+                        library.system.includes('LUMSA') ? 'lumsa' : 
+                        library.system.includes('Foro Italico') ? 'foro' : 
+                        library.system.includes('Link') ? 'link' : 
+                        'municipio1';
+
+                    const popupContent = ` 
+                        <div class="baloon">
+                            <h3>${library.name}</h3>
+                            <p style="font-size: 15px;"> 
+                                ${library.address}<br> 
+                                ${library.libraryType} - ${library.system} 
+                            </p>
+                            <a style="color: #bc0b34; font-size: 16px;" href="${library.url}"> 
+                                Vai alla scheda 
+                            </a>
+                        </div>
+                    `;
+
                     const marker = createMarker(
                         library.coords, 
                         library.name, 
@@ -1269,7 +1292,7 @@ window.toggleFederatedLibraries = function(systemName) {
                         null, 
                         map
                     );
-                    
+
                     // Add a flag to identify federated markers
                     marker.options.libraryData = { 
                         ...library, 
@@ -1277,12 +1300,14 @@ window.toggleFederatedLibraries = function(systemName) {
                     };
                 }
             });
-        })
-        .catch(error => {
-            console.error('Errore nel caricamento delle biblioteche federate:', error);
         });
+    } catch (error) {
+        console.error('Errore nel caricamento delle biblioteche federate:', error);
+    }
 };
 
+
+    
 // Helper function to get icon key
 function getIconKeyForSystem(systemName) {
     if (systemName.includes('Roma Tre')) return 'uniroma3';
