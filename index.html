@@ -724,6 +724,12 @@ body, html {
 <!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
     <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
+
+<button id="toggleMunicipalLibrariesBtn" style="width:100%; margin-bottom:10px;">
+    Nascondi biblioteche municipali
+</button>
+
+    
     <!-- Aggiungi questa linea -->
     <div class="search-container" id="searchContainer">
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -1347,6 +1353,7 @@ document.addEventListener('click', (e) => {
             library.municipality,
             map
         );
+        municipalLibraryMarkers.push(marker); // Aggiungi questa riga
     });
 
 
@@ -1731,6 +1738,31 @@ window.handleLegendHover = async function(municipioNumber) {
         })
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
+
+
+// Gestione visibilità biblioteche municipali
+let municipalLibraryMarkers = [];
+let municipalLibrariesVisible = true;
+
+function toggleMunicipalLibraries() {
+    municipalLibrariesVisible = !municipalLibrariesVisible;
+    
+    municipalLibraryMarkers.forEach(marker => {
+        if (municipalLibrariesVisible) {
+            marker.addTo(map);
+        } else {
+            map.removeLayer(marker);
+        }
+    });
+
+    document.getElementById('toggleMunicipalLibrariesBtn').textContent = 
+        municipalLibrariesVisible 
+            ? 'Nascondi biblioteche municipali' 
+            : 'Mostra biblioteche municipali';
+}
+
+document.getElementById('toggleMunicipalLibrariesBtn').addEventListener('click', toggleMunicipalLibraries);
+        
     </script>
 </body>
 </html>
