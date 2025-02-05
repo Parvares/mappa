@@ -1674,33 +1674,38 @@ window.handleLegendHover = async function(municipioNumber) {
 });
 
 let romeLibrariesVisible = true;
+let removedRomeLibraries = []; // Nuova variabile per memorizzare i marker rimossi
+
 function toggleRomeLibraries() {
     const button = document.getElementById('toggleRomeLibraries');
-    map.eachLayer((layer) => {
-        if (layer instanceof L.Marker) {
-            // Get the library's name from the title attribute
-            const libraryName = layer.options.title;
-            
-            // Check if it's a Rome city library by checking the JSON data
-            const isRomeLibrary = window.libraryData.libraries.some(lib => 
-                lib.name === libraryName
-            );
-
-            if (isRomeLibrary) {
-                if (romeLibrariesVisible) {
-                    // Hide the marker
-                    layer.remove();
-                } else {
-                    // Show the marker
-                    layer.addTo(map);
+    
+    if (romeLibrariesVisible) {
+        // Fase di nascondimento
+        removedRomeLibraries = []; // Resetta l'array
+        map.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+                const libraryName = layer.options.title;
+                const isRomeLibrary = window.libraryData.libraries.some(lib => lib.name === libraryName);
+                
+                if (isRomeLibrary) {
+                    removedRomeLibraries.push(layer); // Memorizza il marker
+                    layer.remove(); // Rimuovi dalla mappa
                 }
             }
-        }
-    });
-
-    // Change button text and visibility state
-    romeLibrariesVisible = !romeLibrariesVisible;
-    button.textContent = romeLibrariesVisible ? 'Hide Rome Libraries' : 'Show Rome Libraries';
+        });
+        
+        button.textContent = 'Show Rome Libraries';
+        romeLibrariesVisible = false;
+    } else {
+        // Fase di ricomparsa
+        removedRomeLibraries.forEach(marker => {
+            marker.addTo(map); // Riaggiunge tutti i marker memorizzati
+        });
+        
+        button.textContent = 'Hide Rome Libraries';
+        romeLibrariesVisible = true;
+        removedRomeLibraries = []; // Resetta l'array dopo il ripristino
+    }
 }
         
     </script>
