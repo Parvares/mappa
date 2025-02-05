@@ -1195,6 +1195,9 @@ try {
     const response = await fetch('libraries.json');
     const data = await response.json();
 
+// Add this line to make data globally accessible
+    window.libraryData = data;
+    
     // Popola il datalist con i nomi delle biblioteche
 const customDatalist = document.getElementById('library-suggestions');
     // Aggiungi sia le biblioteche normali che quelle federate al datalist
