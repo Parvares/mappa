@@ -1675,6 +1675,7 @@ window.handleLegendHover = async function(municipioNumber) {
 
 
 
+// Update the toggle function to use the global variable
 function toggleRomeLibraries() {
     const button = document.getElementById('toggleRomeLibraries');
     let librariesToToggle = 0;
@@ -1683,7 +1684,7 @@ function toggleRomeLibraries() {
         if (layer instanceof L.Marker) {
             // Only toggle non-federated libraries
             const libraryMarker = layer.options.title;
-            const isRomeLibrary = data.libraries.some(lib => lib.name === libraryMarker);
+            const isRomeLibrary = librariesData.libraries.some(lib => lib.name === libraryMarker);
             
             if (isRomeLibrary) {
                 librariesToToggle++;
