@@ -831,13 +831,18 @@ const municipalityColors = {
             return roman[num - 1] || num;
         }
 
-        // Variabili globali 
-        let currentBorder = null;
-        let routingControl = null;
-        let municipioLayer = null;
-        let municipioLayers = {};
-        let currentHighlight = null;
-        let selectedMunicipio = null;
+// Initialize global variables
+let map;
+let currentBorder = null;
+let routingControl = null;
+let municipioLayer = null;
+let municipioLayers = {};
+let currentHighlight = null;
+let selectedMunicipio = null;
+let romeLibrariesVisible = true;
+let federatedLibrariesVisible = false;
+let removedRomeLibraries = [];
+let removedFederatedLibraries = [];
 
       // Funzione per aprire/chiudere la seconda barra laterale
         function toggleExpandedSidebar() {
@@ -1097,7 +1102,7 @@ async function loadAndShowBorder(municipalityNumber, map) {
 
 
 
-let map;
+
 
 // Funzione per evidenziare la voce della legenda
 function highlightLegendItem(municipioNumber) {
@@ -1680,8 +1685,7 @@ window.handleLegendHover = async function(municipioNumber) {
         .catch(error => console.error('Errore nel caricamento dei confini:', error));
 });
 
-let romeLibrariesVisible = true;
-let removedRomeLibraries = []; // Nuova variabile per memorizzare i marker rimossi
+
 
 function toggleRomeLibraries() {
     const button = document.getElementById('toggleRomeLibraries');
@@ -1715,8 +1719,7 @@ function toggleRomeLibraries() {
     }
 }
 
-let federatedLibrariesVisible = true;
-let removedFederatedLibraries = [];
+
 
 function toggleFederatedLibraries() {
     const button = document.getElementById('toggleFederatedLibraries');
