@@ -547,13 +547,181 @@
     },  
 
             {
-      "name": "Biblioteca dell'area Giuridica. Università Degli Studi Di Roma Tor Vergata",
+      "name": "Biblioteca dell'area Giuridica. Università Degli Studi di Roma Tor Vergata",
       "coords": [41.85295365423381, 12.628519325416416],
       "address": "Via Cracovia, 50, Roma",
       "libraryType": "Universitaria",
       "system": "Università degli Studi di Roma Tor Vergata",
       "url": "https://web.uniroma2.it/it/percorso/biblioteca_area_giuridica"
     },  
+
+            {
+      "name": "Biblioteca centrale della Facoltà di Architettura. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.918970161046076, 12.480329281242723],
+      "address": "Via Antonio Gramsci, 53, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://web.uniroma1.it/bca/home"
+    },  
+
+          {
+      "name": "Biblioteca Ludovico Quaroni. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.91445787434678, 12.474984438913326],
+      "address": "Via Flaminia 72, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://pdta.web.uniroma1.it/it/biblioteca-ludovico-quaroni-0"
+    },  
+
+         {
+      "name": "Biblioteca del Dipartimento di Architettura e progetto. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.92975956875921, 12.468428132167217],
+      "address": "via Flaminia, 359, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Architettura%20e%20progetto/RMSA3"
+    },  
+
+         {
+      "name": "Biblioteca del Dipartimento di Storia, disegno e restauro dell’architettura. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.90400897133357, 12.475740201765065],
+      "address": "Piazza Borghese, 9",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Storia,%20disegno%20e%20restauro%20dell'architettura/RMSSA"
+    },  
+
+         {
+      "name": "Biblioteca Angelo Monteverdi per gli studi filologici, linguistici e letterari. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.90258534013629, 12.515886967748123],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://bam.web.uniroma1.it/"
+    },  
+    
+        {
+      "name": "Biblioteca del Dipartimento di Biologia ambientale. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.90281872474647, 12.51708592541897],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://dba.web.uniroma1.it/it/biblioteca-del-dipartimento-di-biologia-ambientale"
+    },  
+
+       {
+      "name": "Biblioteca del Dipartimento di Biologia e biotecnologie Charles Darwin. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.904394443785705, 12.516542949161666],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Biologia%20e%20biotecnologie%20Charles%20Darwin%20(Sede%20principale%20Antropologia)/RMSBU"
+    },  
+
+       {
+      "name": "Biblioteca del Dipartimento di Chimica Gabriello Illuminati. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.901881696001766, 12.51674358863327],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://web.uniroma1.it/bibchimicailluminati/home"
+    },  
+
+       {
+      "name": "Biblioteca del Dipartimento di Fisica. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.903127397030154, 12.513615998431385],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://www.phys.uniroma1.it/fisica/biblioteca"
+    },  
+
+       {
+      "name": "Biblioteca del Dipartimento di Lettere e culture moderne. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.90230677084307, 12.515386347576488],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Lettere%20e%20culture%20moderne%20(Sede%20principale%20Scienze%20documentarie)/RMS1K"
+    },  
+
+     {
+      "name": "Biblioteca del Dipartimento di Matematica Guido Castelnuovo. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.90184855233405, 12.515042081241855],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://www.mat.uniroma1.it/strutture/biblioteca"
+    },  
+
+     {
+      "name": "Biblioteca del Dipartimento di Scienze dell’antichità. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.9025986400989, 12.515305610077343],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://web.uniroma1.it/bibantichita/home"
+    },
+    
+    {
+      "name": "Biblioteca del Dipartimento di Scienze della Terra. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.90402270632508, 12.513804867748169],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Scienze%20della%20terra/RMSST"
+    },
+    
+    {
+      "name": "Biblioteca del Dipartimento di Scienze politiche. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.904386734012945, 12.515014478863879],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Scienze%20politiche/RMSSP"
+    }, 
+    
+    {
+      "name": "Biblioteca del Dipartimento di Scienze sociali ed economiche. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.90494441572461, 12.514200985132579],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Scienze%20sociali%20ed%20economiche%20(Sede%20principale%20Economia)/RMSTE"
+    },  
+
+   {
+      "name": "Biblioteca del Dipartimento di Scienze statistiche. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.902924653928935, 12.511779625418987],
+      "address": "Piazza Aldo Moro, 5",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Scienze%20statistiche%20(Sede%20principale%20Statistica)/RMS64"
+    },  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
 
     
     
