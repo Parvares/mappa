@@ -910,26 +910,78 @@
 
 
 {
-      "name": "Biblioteca del Dipartimento di Ingegneria civile edile e ambientale. Università Degli Studi Di Roma La Sapienza",
-      "coords": [41.893407331818494, 12.493048401621799],
+      "name": "Biblioteca del Dipartimento di Ingegneria dell’informazione, elettronica e telecomunicazioni. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.89348648772914, 12.492837187824556],
       "address": "Via Eudossiana, 18, Roma",
       "libraryType": "Universitaria",
       "system": "Università degli Studi di Roma La Sapienza",
-      "url": "https://www.dicea.uniroma1.it/node/1"
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/%E2%9A%A0%20Ingegneria%20dell'informazione,%20elettronica%20e%20telecomunicazioni%20-%20NON%20ATTIVA%20%E2%9A%A0/RMSIN"
+    },  
+
+{
+      "name": "Biblioteca del Dipartimento di Ingegneria meccanica e aerospaziale. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.89351061319657, 12.492788492887403],
+      "address": "Via Eudossiana, 18, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Ingegneria%20meccanica%20e%20aerospaziale/RMSMA"
+    },  
+
+{
+      "name": "Biblioteca del Dipartimento di Ingegneria strutturale e geotecnica. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.89347582176227, 12.492903593135097],
+      "address": "Via Eudossiana, 18, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://disg.web.uniroma1.it/it/strutture/biblioteca"
+    },  
+
+{
+      "name": "Biblioteca del Dipartimento di Ingegneria informatica, automatica e gestionale Antonio Ruberti. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.89119504562647, 12.503637638912119],
+      "address": "Via Ariosto, 25, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Ingegneria%20informatica,%20automatica%20e%20gestionale%20Antonio%20Ruberti/RMSIS"
+    },  
+
+{
+      "name": "Biblioteca del Dipartimento di Lingue e letterature straniere moderne. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.896621487136564, 12.52004591007696],
+      "address": "Circonvallazione Tiburtina, 4, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Lingue%20e%20letterature%20straniere%20moderne/RMS4L"
     },  
 
 
+    {
+      "name": "Biblioteca del Dipartimento Istituto italiano di studi orientali - ISO. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.89661272902896, 12.520066567747813],
+      "address": "Circonvallazione Tiburtina, 4, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Istituto%20italiano%20di%20Studi%20orientali%20ISO/RMS1L"
+    },  
 
 
+    {
+      "name": "Biblioteca della Facoltà di Medicina e psicologia Ernesto Valentini. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.89669034275696, 12.516116652406176],
+      "address": "Via dei Marsi, 78, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Medicina%20e%20psicologia%20Ernesto%20Valentini%20(Sede%20principale%20Psicologia)/RMS53"
+    },  
 
-
-
-
-
-
-    
-
-
+ {
+      "name": "Biblioteca di Ricerca sociale, informatica e comunicazione. Università Degli Studi Di Roma La Sapienza",
+      "coords": [41.91436223934966, 12.496952310077893],
+      "address": "Via Salaria, 113, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma La Sapienza",
+      "url": "https://opac.uniroma1.it/SebinaOpacRMS/library/Ricerca%20sociale,%20informatica%20e%20comunicazione/RMSSO"
+    },  
 
     
     
