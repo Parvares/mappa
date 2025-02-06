@@ -1114,28 +1114,24 @@ function highlightLegendItem(municipioNumber) {
 window.highlightLegendItem = highlightLegendItem;
 
         
-document.addEventListener("DOMContentLoaded", async function() {
-    // Initialize map
-    const center = [41.732522, 12.271879];
-    map = L.map("map", {
-        zoomControl: false
-    }).setView(center, 14);
-            
-    // Add zoom control to the right side with custom CSS class
-    const zoomControl = L.control.zoom({
-        position: 'topright'
-    });
-    
-    zoomControl.addTo(map);
-    
-    // Add custom CSS to the zoom control container after it's added to the map
-    const zoomContainer = zoomControl.getContainer();
-    zoomContainer.style.marginTop = '22px';
+// Funzione asincrona per inizializzare la mappa e caricare i dati
+async function initializeMapAndData() {
+  // Initialize map
+  const center = [41.732522, 12.271879];
+  const map = L.map("map", { zoomControl: false }).setView(center, 14);
+  
+  // Add zoom control to the right side with custom CSS class
+  const zoomControl = L.control.zoom({ position: 'topright' });
+  zoomControl.addTo(map);
+  
+  // Add custom CSS to the zoom control container after it's added to the map
+  const zoomContainer = zoomControl.getContainer();
+  zoomContainer.style.marginTop = '22px';
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: "© OpenStreetMap contributors"
-    }).addTo(map);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(map);
 
     
     // Definizione del percorso
@@ -1225,87 +1221,94 @@ const icons = getIconsConfig();
 // Spazio dove erano i marker per le biblioteche...
 // Carica le biblioteche dal file JSON
 // Dopo aver caricato le biblioteche dal file JSON
-    try {
-        // Load libraries data
-        const response = await fetch('libraries.json');
-        const libraryData = await response.json();
-        window.libraryData = libraryData; // Make data globally accessible
+  try {
+    // Load libraries data
+    const response = await fetch('libraries.json');
+    const libraryData = await response.json();
+    window.libraryData = libraryData; // Make data globally accessible
 
-        // Initialize datalist for library suggestions
-        initializeLibraryDatalist(libraryData);
+    // Initialize datalist for library suggestions
+    initializeLibraryDatalist(libraryData);
 
-        // Create markers for regular libraries
-        libraryData.libraries.forEach(library => {
-            const popupContent = `
-                <div class="baloon">
-                    <h3>${library.name}</h3>
-                    <p style="font-size: 15px;">
-                        ${library.address}
-                        <br>
-                        ${library.cap} Municipio ${library.municipalityName}
-                    </p>
-                    <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
-                        Vai alla scheda
-                    </a>
-                </div>
-            `;
-            createMarker(
-                library.coords,
-                library.name,
-                icons[`municipio${library.municipality}`],
-                popupContent,
-                library.municipality,
-                map
-            );
-        });
+    // Create markers for regular libraries
+    libraryData.libraries.forEach(library => {
+      const popupContent = `
+        <div class="baloon">
+          <h3>${library.name}</h3>
+          <p style="font-size: 15px;">
+            ${library.address}
+            <br>
+            ${library.cap} Municipio ${library.municipalityName}
+          </p>
+          <a style="color: #bc0b36; font-size: 16px;" href="${library.url}">
+            Vai alla scheda
+          </a>
+        </div>
+      `;
+      
+      createMarker(
+        library.coords,
+        library.name,
+        icons[`municipio${library.municipality}`],
+        popupContent,
+        library.municipality,
+        map
+      );
+    });
 
-        // Create markers for federated libraries (but don't add to map initially)
-        libraryData.federate.forEach(library => {
-            const popupContent = `
-                <div class="baloon">
-                    <h3>${library.name}</h3>
-                    <p style="font-size: 15px;">
-                        ${library.address}<br>
-                        ${library.libraryType} - ${library.system}
-                    </p>
-                    <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
-                        Vai alla scheda
-                    </a>
-                </div>
-            `;
+    // Create markers for federated libraries (but don't add to map initially)
+    libraryData.federate.forEach(library => {
+      const popupContent = `
+        <div class="baloon">
+          <h3>${library.name}</h3>
+          <p style="font-size: 15px;">
+            ${library.address}<br>
+            ${library.libraryType} - ${library.system}
+          </p>
+          <a style="color: #bc0b36; font-size: 16px;" href="${library.url}">
+            Vai alla scheda
+          </a>
+        </div>
+      `;
+      
+      const iconKey = getIconKeyForLibrary(library);
+      const marker = createMarker(
+        library.coords,
+        library.name,
+        icons[iconKey],
+        popupContent,
+        null,
+        map,
+        false // Don't add to map initially
+      );
+      removedFederatedLibraries.push(marker);
+    });
 
-            const iconKey = getIconKeyForLibrary(library);
-            const marker = createMarker(
-                library.coords,
-                library.name,
-                icons[iconKey],
-                popupContent,
-                null,
-                map,
-                false // Don't add to map initially
-            );
-            removedFederatedLibraries.push(marker);
-        });
+    // Load initial municipality (Municipio X)
+    const municipioResponse = await fetch('municipio10.geojson');
+    const municipioData = await municipioResponse.json();
+    municipioLayers[10] = L.geoJSON(municipioData, {
+      style: {
+        color: municipalityColors[10],
+        weight: 3,
+        opacity: 0.65,
+        fillOpacity: 0
+      }
+    }).addTo(map);
 
-        // Load initial municipality (Municipio X)
-        const municipioResponse = await fetch('municipio10.geojson');
-        const municipioData = await municipioResponse.json();
-        municipioLayers[10] = L.geoJSON(municipioData, {
-            style: {
-                color: municipalityColors[10],
-                weight: 3,
-                opacity: 0.65,
-                fillOpacity: 0
-            }
-        }).addTo(map);
+    // Add legend
+    addLegend(map);
 
-        // Add legend
-        addLegend(map);
+  } catch (error) {
+    console.error('Error initializing map:', error);
+  }
+}
 
-    } catch (error) {
-        console.error('Error initializing map:', error);
-    }
+// Modifica l'event listener del DOMContentLoaded per utilizzare la nuova funzione
+document.addEventListener("DOMContentLoaded", () => {
+  initializeMapAndData();
 });
+                      
 
 // Helper function to get icon key for federated libraries
 function getIconKeyForLibrary(library) {
