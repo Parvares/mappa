@@ -1372,18 +1372,22 @@ window.federatedMarkers = data.federate.map(library => {
     
 
 
+// Move this function outside of the DOMContentLoaded event listener
 function zoomToLibrarySystem(systemName) {
     // Find markers for the specific system
     const systemMarkers = window.federatedMarkers.filter(marker => 
         marker.options.library.librarySystem.includes(systemName)
     );
-
+    
     if (systemMarkers.length > 0) {
         // Create a bounds object from the markers
         const group = new L.featureGroup(systemMarkers);
         map.fitBounds(group.getBounds(), { padding: [50, 50] });
     }
-}    
+}
+
+// Make sure it's globally accessible
+window.zoomToLibrarySystem = zoomToLibrarySystem;
   
 
 
