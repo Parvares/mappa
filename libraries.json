@@ -498,6 +498,64 @@
     },  
 
 
+            {
+      "name": "Biblioteca dell'area Letteraria Storica Filosofica. Università degli Studi di Roma Tor Vergata",
+      "coords": [41.85209809892517, 12.621425554251777],
+      "address": "Via Columbia, 1, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma Tor Vergata",
+      "url": "https://web.uniroma2.it/contenuto/biblioteca_dell_area_letteraria__storica__filosofica"
+    },  
+
+            {
+      "name": "Biblioteca dell'area Scientifico Tecnologica. Università degli Studi di Roma Tor Vergata",
+      "coords": [41.85278056919239, 12.630541511522427],
+      "address": "Via della Ricerca Scientifica , 1, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma Tor Vergata",
+      "url": "https://web.uniroma2.it/it/percorso/biblioteca_area_scientifico_tecnologica"
+    },  
+
+
+            {
+      "name": "Biblioteca dell'area Biomedica Paolo M. Fasella. Università degli Studi Di Roma Tor Vergata",
+      "coords": [41.85531961646842, 12.636035205265943],
+      "address": "Via Montpellier, 1, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma Tor Vergata",
+      "url": "https://web.uniroma2.it/contenuto/biblioteca_dell_area_biomedica_paolo_m__fasella"
+    },  
+
+
+            {
+      "name": "Biblioteca dell'area Economica Vilfredo Pareto. Università degli Studi di Roma Tor Vergata",
+      "coords": [41.85265049600668, 12.625403790478604],
+      "address": "Via Columbia, 2, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma Tor Vergata",
+      "url": "https://web.uniroma2.it/contenuto/biblioteca_dell_area_economica_vilfredo_pareto"
+    },  
+
+
+            {
+      "name": "Biblioteca Dell'area di Ingegneria. Università degli Studi di Roma Tor Vergata",
+      "coords": [41.855921521487105, 12.622734093750827],
+      "address": "Via del Politecnico, 1, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma Tor Vergata",
+      "url": "https://web.uniroma2.it/contenuto/biblioteca_dell_area_di_ingegneria"
+    },  
+
+            {
+      "name": "Biblioteca dell'area Giuridica. Università Degli Studi Di Roma Tor Vergata",
+      "coords": [41.85295365423381, 12.628519325416416],
+      "address": "Via Cracovia, 50, Roma",
+      "libraryType": "Universitaria",
+      "system": "Università degli Studi di Roma Tor Vergata",
+      "url": "https://web.uniroma2.it/it/percorso/biblioteca_area_giuridica"
+    },  
+
+    
     
     {
       "name": "Biblioteca Comunale Di Albano Laziale Cesare De Santis",
