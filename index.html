@@ -776,7 +776,7 @@ body, html {
             </div>
 
 <button id="toggleFederatedLibraries" onclick="toggleFederatedLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
-    Show Federated Libraries
+    Mostra Biblioteche Federate
 </button>
             
             <button id="toggleRomeLibraries" onclick="toggleRomeLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
@@ -1707,7 +1707,7 @@ function toggleRomeLibraries() {
             }
         });
         
-        button.textContent = 'Show Rome Libraries';
+        button.textContent = 'Mostra Biblioteche di Roma';
         romeLibrariesVisible = false;
     } else {
         // Fase di ricomparsa
@@ -1715,7 +1715,7 @@ function toggleRomeLibraries() {
             marker.addTo(map); // Riaggiunge tutti i marker memorizzati
         });
         
-        button.textContent = 'Hide Rome Libraries';
+        button.textContent = 'Nascondi Biblioteche di Roma';
         romeLibrariesVisible = true;
         removedRomeLibraries = []; // Resetta l'array dopo il ripristino
     }
@@ -1741,7 +1741,7 @@ function toggleFederatedLibraries() {
                 marker.addTo(map);
             }
         });
-        button.textContent = 'Hide Federated Libraries';
+        button.textContent = 'Nascondi Biblioteche federate';
         federatedLibrariesVisible = true;
     }
 }
