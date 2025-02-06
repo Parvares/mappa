@@ -1328,6 +1328,7 @@ window.federatedMarkers = data.federate.map(library => {
                     library.system.includes('Monti Prenestini') ? 'prenestini' :
                     library.system.includes('LUMSA') ? 'lumsa' :
                     library.system.includes('Foro Italico') ? 'foro' :
+                    library.system.includes('Tor Vergata') ? 'vergata' :
                     library.system.includes('Link') ? 'link' : 'municipio1'; // fallback icon
 
     return createMarker(
