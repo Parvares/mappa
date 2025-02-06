@@ -774,10 +774,8 @@ body, html {
                 <span style="background: #ff7c4e"></span>
                 <div class="text">Sistema Bibliotecario Monti Prenestini</div>
             </div>
-
-            <button id="toggleFederatedLibraries" onclick="toggleFederatedLibraries()" 
-        style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;"> 
-    Hide Federated Libraries 
+<button id="toggleFederatedLibraries" onclick="toggleFederatedLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
+    Show Federated Libraries
 </button>
             
             <button id="toggleRomeLibraries" onclick="toggleRomeLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
@@ -1299,39 +1297,43 @@ document.addEventListener('click', (e) => {
 
 
  // Crea i marker per le biblioteche federate
-    data.federate.forEach(library => {
-        const popupContent = `
-            <div class="baloon">
-                <h3>${library.name}</h3>
-                <p style="font-size: 15px;">
-                    ${library.address}<br>
-                    ${library.libraryType} - ${library.system}
-                </p>
-                <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
-                    Vai alla scheda
-                </a>
-            </div>
-        `;
-        
-        // Seleziona l'icona appropriata in base al sistema bibliotecario
-        const iconKey = library.system.includes('Roma Tre') ? 'uniroma3' : 
-                       library.system.includes('CASTELLI ROMANI') ? 'castelli' : 
-                       library.system.includes('Ceretano-Sabatino') ? 'ceretano' : 
-                       library.system.includes('Monti Prenestini') ? 'prenestini' :
-                       library.system.includes('LUMSA') ? 'lumsa' :
-                       library.system.includes('Foro Italico') ? 'foro' :
-                       library.system.includes('Link') ? 'link' :
-                       'municipio1'; // fallback icon
-        
-        createMarker(
-            library.coords,
-            library.name,
-            icons[iconKey],
-            popupContent,
-            null, // non c'è un municipio associato
-            map
-        );
-    });
+// Crea i marker per le biblioteche federate
+data.federate.forEach(library => {
+    const popupContent = `
+        <div class="baloon">
+            <h3>${library.name}</h3>
+            <p style="font-size: 15px;">
+                ${library.address}<br>
+                ${library.libraryType} - ${library.system}
+            </p>
+            <a style="color: #bc0b34; font-size: 16px;" href="${library.url}">
+                Vai alla scheda
+            </a>
+        </div>
+    `;
+
+    // Seleziona l'icona appropriata in base al sistema bibliotecario
+    const iconKey = library.system.includes('Roma Tre') ? 'uniroma3' :
+                    library.system.includes('CASTELLI ROMANI') ? 'castelli' :
+                    library.system.includes('Ceretano-Sabatino') ? 'ceretano' :
+                    library.system.includes('Monti Prenestini') ? 'prenestini' :
+                    library.system.includes('LUMSA') ? 'lumsa' :
+                    library.system.includes('Foro Italico') ? 'foro' :
+                    library.system.includes('Link') ? 'link' :
+                    'municipio1'; // fallback icon
+
+    const marker = createMarker(
+        library.coords,
+        library.name,
+        icons[iconKey],
+        popupContent,
+        null, // non c'è un municipio associato
+        map
+    );
+
+    // Non aggiungere il marker alla mappa inizialmente
+    removedFederatedLibraries.push(marker);
+});
     
 
     
@@ -1715,35 +1717,31 @@ function toggleRomeLibraries() {
     }
 }
 
-let federatedLibrariesVisible = true;
+let federatedLibrariesVisible = false; // Imposta inizialmente su false
 let removedFederatedLibraries = [];
 
 function toggleFederatedLibraries() {
     const button = document.getElementById('toggleFederatedLibraries');
-    
     if (federatedLibrariesVisible) {
-        // Hide federated libraries
+        // Nascondi le biblioteche federate
         removedFederatedLibraries = [];
         map.eachLayer((layer) => {
             if (layer instanceof L.Marker) {
                 const libraryName = layer.options.title;
                 const isFederatedLibrary = window.libraryData.federate.some(lib => lib.name === libraryName);
-                
                 if (isFederatedLibrary) {
                     removedFederatedLibraries.push(layer);
                     layer.remove();
                 }
             }
         });
-        
         button.textContent = 'Show Federated Libraries';
         federatedLibrariesVisible = false;
     } else {
-        // Show federated libraries
+        // Mostra le biblioteche federate
         removedFederatedLibraries.forEach(marker => {
             marker.addTo(map);
         });
-        
         button.textContent = 'Hide Federated Libraries';
         federatedLibrariesVisible = true;
         removedFederatedLibraries = [];
