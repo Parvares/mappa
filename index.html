@@ -1625,7 +1625,6 @@ window.handleLegendClick = async function(municipioNumber) {
     const allItems = document.querySelectorAll('.legend-item');
     allItems.forEach(item => item.classList.remove('highlighted'));
 
-                // Se clicchiamo sullo stesso municipio già selezionato
     if (selectedMunicipio === municipioNumber) {
         if (currentBorder) {
             map.removeLayer(currentBorder);
@@ -1650,7 +1649,7 @@ window.handleLegendClick = async function(municipioNumber) {
                 }
 
                 // Carica il GeoJSON se non è già stato caricato
-                if (!municipioLayers[municipioNumber]) {
+            if (!municipioLayers[municipioNumber]) {
         try {
             const response = await fetch(`municipio${municipioNumber}.geojson`);
             const data = await response.json();
@@ -1666,6 +1665,7 @@ window.handleLegendClick = async function(municipioNumber) {
             console.error(`Error loading municipality ${municipioNumber}:`, error);
             return;
         }
+    }
     }
 
                 // Rimuovi il bordo precedente se non è il municipio X
