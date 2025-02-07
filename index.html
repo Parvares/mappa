@@ -629,7 +629,7 @@ body, html {
 
 .federate-container .legend-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Cambiato da center a flex-start */
     padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
@@ -646,6 +646,8 @@ body, html {
     margin-right: 10px;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Impedisce al quadrato di ridimensionarsi */
+    margin-top: 3px; /* Aggiunge un piccolo offset verso il basso */
 }
 
 .federate-container .legend-item:hover {
@@ -660,6 +662,8 @@ body, html {
     font-weight: 500;
     letter-spacing: 0.02em;
     margin-right: 20px;
+    flex: 1; /* Permette al testo di occupare lo spazio rimanente */
+    line-height: 1.4; /* Migliora la spaziatura delle righe per il testo su più righe */
 }
 
  .legend-item-header {
