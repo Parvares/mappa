@@ -262,6 +262,7 @@ body, html {
 }
 
 .legend-item {
+    position: relative; /* Ensure relative positioning */
     display: flex;
     align-items: center;
     padding: 6px 10px;   /* Padding bilanciato */
@@ -270,7 +271,6 @@ body, html {
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(255,255,255,0.7);
     border: 1px solid transparent;
-    position: relative;
     padding-right: 30px !important;
 }
 
@@ -344,6 +344,8 @@ body, html {
 
         
 .info-icon {
+      display: inline-block;
+  margin-left: 5px;
     position: absolute;
     right: 8px;
     top: 50%;
@@ -367,9 +369,9 @@ body, html {
 }
         
 /* Stile per il tooltip */
-.legend-item .tooltip {
+.tooltip {
   position: absolute;
-  left: calc(100% + 10px);
+  left: 100%; /* Position to the right of the text */
   top: 50%;
   transform: translateY(-50%);
   background: rgba(0,0,0,0.8);
@@ -378,12 +380,11 @@ body, html {
   border-radius: 4px;
   font-size: 12px;
   white-space: nowrap;
+  z-index: 1000;
+  margin-left: 10px; /* Add some space between item and tooltip */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s, visibility 0.3s;
-  z-index: 1000;
-    border: 1px solid red; /* temporary debug */
-  display: block; /* force visibility */
 }
 
 .legend-item:hover .tooltip {
