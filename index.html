@@ -1541,18 +1541,18 @@ if (legendContainer) {
             .map(lib => `<div class="library-item-legend" onclick="selectLibrary(${JSON.stringify(lib)})">${lib.name}</div>`)
             .join('');
             
-        return `
-            <div class="legend-item" data-municipio="${num}" onclick="handleLegendClick(${num})">
-                <div class="legend-item-header">
-                    <span style="background: ${color}"></span>
-                    <div class="text">Municipio ${romanize(parseInt(num))}</div>
-                    <div class="expand-icon">▼</div>
-                </div>
-                <div class="libraries-list">
-                    ${municipioLibraries}
-                </div>
-            </div>
-        `;
+       return `
+  <div class="legend-item" data-municipio="${num}" onclick="handleLegendClick(${num}, event)">
+    <div class="legend-item-header">
+      <span style="background: ${color}"></span>
+      <div class="text">Municipio ${romanize(parseInt(num))}</div>
+      <div class="expand-icon">▼</div>
+    </div>
+    <div class="libraries-list">
+      ${municipioLibraries}
+    </div>
+  </div>
+`;
     }).join('');
 }
 
