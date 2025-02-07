@@ -272,6 +272,7 @@ body, html {
     border: 1px solid transparent;
     position: relative;
     padding-right: 30px !important;
+    overflow: visible;
 }
 
 .legend-item span {
@@ -360,30 +361,31 @@ body, html {
     font-style: italic;
     cursor: help;
     transition: all 0.2s ease;
+    z-index: 10;
 }
 
 .info-icon:hover {
     background: #e0e0e0;
 }
-        
+
 .tooltip {
-    position: absolute;
-    left: calc(100% + 10px); /* Posiziona a destra dell'elemento */
+    position: fixed; /* Cambiato da absolute a fixed */
+    left: calc(100% + 280px); /* Posiziona molto più a destra */
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0,0,0,0.8);
+    background: linear-gradient(135deg, #2c3e50, #34495e);
     color: white;
-    padding: 6px 10px;
-    border-radius: 4px;
+    padding: 8px 12px;
+    border-radius: 6px;
     font-size: 12px;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
     z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-        
-        
+
 .legend-item:hover .tooltip {
     opacity: 1;
     visibility: visible;
