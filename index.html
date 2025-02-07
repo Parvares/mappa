@@ -630,7 +630,7 @@ body, html {
 .federate-container .legend-item {
   display: flex; /* Usa flexbox per allineare gli elementi */
   align-items: center; /* Allinea verticalmente al centro */
-  gap: 10px; /* Aggiunge spazio tra il quadrato colorato e il testo */
+  gap: 10px; /* Aggiunge spazio tra il quadratino e il testo */
   padding: 6px 10px;
   border-radius: 6px;
   cursor: pointer;
@@ -641,17 +641,11 @@ body, html {
 }
 
 .federate-container .legend-item span {
-  width: 18px; /* Larghezza del quadrato colorato */
-  height: 18px; /* Altezza del quadrato colorato */
+  width: 18px; /* Larghezza del quadratino */
+  height: 18px; /* Altezza del quadratino */
   border-radius: 4px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0; /* Impedisce al quadrato di ridursi */
-}
-
-.federate-container .legend-item:hover {
-    background: rgba(241, 242, 246, 0.6);
-    transform: translateX(3px);
-    border-color: #dfe4ea;
+  flex-shrink: 0; /* Impedisce al quadratino di ridursi */
 }
 
 .federate-container .legend-item .text {
@@ -662,6 +656,13 @@ body, html {
   margin-right: 20px;
   flex-grow: 1; /* Permette al testo di occupare lo spazio rimanente */
 }
+
+.federate-container .legend-item:hover {
+    background: rgba(241, 242, 246, 0.6);
+    transform: translateX(3px);
+    border-color: #dfe4ea;
+}
+
 
  .legend-item-header {
     display: flex;
