@@ -341,7 +341,35 @@ body, html {
     box-shadow: 0 1px 4px rgba(0,0,0,0.05); /* Ridotto l'effetto ombra */
 }
         
+.legend-item {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
 
+.legend-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.libraries-container {
+    margin-top: 10px;
+    padding-left: 20px;
+    border-left: 2px solid #ccc;
+}
+
+.library-item {
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.library-item:hover {
+    background-color: #f1f1f1;
+}
         
         .info-icon {
             position: absolute;
@@ -366,31 +394,6 @@ body, html {
             background: #e0e0e0;
         }
         
-.tooltip {
-    position: absolute;
-    left: 10px; /* Posiziona il tooltip all'interno del riquadro */
-    top: 50%;
-    transform: translateY(-50%);
-    background: linear-gradient(to right, #000000, #4a4a4a, #A8A8A8, #ffffff); /* Gradiente dal nero al grigio chiaro */
-    color: #ffffff; /* Testo bianco */
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 12px;
-    width: 230px; /* Riduci leggermente la larghezza per evitare che copra il quadratino */
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.2s ease, background-color 0.5s ease; /* Transizione fluida anche per il colore di sfondo */
-    z-index: 1001; /* Assicurati che il tooltip sia sopra la legenda */
-    overflow: hidden; /* Taglia la parte destra che fuoriesce */
-    margin-right: 10px; /* Aggiungi un margine a destra per evitare che il tooltip si sovrapponga al bordo */
-}
-
-        
-/* Modifica la visibilità del tooltip quando l'elemento è in hover */
-.info-icon:hover + .tooltip {
-    visibility: visible;
-    opacity: 1;
-}
 
         
         
@@ -1538,11 +1541,10 @@ const municipalityZones = {
 const legendContainer = document.querySelector('.legend-container .legend-grid');
 if (legendContainer) {
     legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => `
-        <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})">
+        <div class="legend-item" data-municipio="${num}" onclick="toggleMunicipioLibraries(${num})">
             <span style="background: ${color}"></span>
             <div class="text">Municipio ${romanize(parseInt(num))}</div>
-            <div class="info-icon">i</div>
-            <div class="tooltip">Zona: ${municipalityZones[num]}</div>
+            <div class="libraries-container" id="libraries-${num}" style="display: none;"></div>
         </div>
     `).join('');
 }
@@ -1833,7 +1835,63 @@ function zoomToSystemLibraries(systemName) {
     const message = `Trovate ${count} biblioteche del sistema ${systemName}`;
     console.log(message);
 }
+
         
+// Funzione per espandere/collassare le biblioteche di un municipio
+function toggleMunicipioLibraries(municipioNumber) {
+    const librariesContainer = document.getElementById(`libraries-${municipioNumber}`);
+    const legendItem = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+
+    // Se il contenitore è già visibile, collassalo
+    if (librariesContainer.style.display === "block") {
+        librariesContainer.style.display = "none";
+        legendItem.classList.remove("expanded");
+    } else {
+        // Altrimenti, carica le biblioteche e espandi
+        loadMunicipioLibraries(municipioNumber, librariesContainer);
+        librariesContainer.style.display = "block";
+        legendItem.classList.add("expanded");
+    }
+}
+
+// Funzione per caricare le biblioteche di un municipio
+function loadMunicipioLibraries(municipioNumber, container) {
+    // Se le biblioteche sono già state caricate, non fare nulla
+    if (container.innerHTML !== "") return;
+
+    // Filtra le biblioteche del municipio
+    const libraries = window.libraryData.libraries.filter(lib => lib.municipality === municipioNumber);
+
+    // Aggiungi le biblioteche al contenitore
+    container.innerHTML = libraries
+        .map(lib => `
+            <div class="library-item" onclick="selectLibrary(${JSON.stringify(lib)})">
+                ${lib.name}
+            </div>
+        `)
+        .join("");
+}
+
+// Funzione per selezionare una biblioteca
+function selectLibrary(library) {
+    // Trova il marker corrispondente e aprine il popup
+    let foundMarker = null;
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            const pos = layer.getLatLng();
+            if (pos.lat === library.coords[0] && pos.lng === library.coords[1]) {
+                foundMarker = layer;
+            }
+        }
+    });
+
+    if (foundMarker) {
+        foundMarker.openPopup();
+        map.setView(foundMarker.getLatLng(), 14);
+    } else {
+        console.log('Marker non trovato per la biblioteca:', library);
+    }
+}        
     </script>
 </body>
 </html>
