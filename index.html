@@ -210,27 +210,19 @@ body, html {
     background-color: rgba(0, 0, 0, 0.05);
 }
         
-.legend.visible {
-    right: 40px; /* Modificato da 0 a 40px per lasciare spazio alla maniglia */
-}
+
 
 /* Assicurati che il contenitore della legenda abbia una posizione relativa */
-.legend {
-    position: fixed; /* Fisso in modo che resti visibile anche durante lo scroll */
-    top: 10px; /* Vicino al bordo superiore */
-    bottom: 25px; /* Vicino al bordo inferiore */
-    right: -350px; /* Posizione iniziale fuori dalla vista */
-    z-index: 1000;
-    width: 250px; /* Larghezza della legenda */
-    background: rgba(255,255,255,.95);
-    padding: 15px 20px;
-    font: 13px/15px 'Segoe UI', system-ui, sans-serif;
-    box-shadow: 0 5px 25px rgba(0,0,0,.15);
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,.1);
-    backdrop-filter: blur(4px);
-    transition: right .3s ease;
-    overflow: visible;
+/* Aggiungi/modifica questi stili */
+.legend-container {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.legend-container h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: #333;
 }
 
 .legend h4 {
@@ -862,15 +854,31 @@ let removedFederatedLibraries = [];
 
 // Add this new function for legend toggle
 function toggleLegend() {
-    const legend = document.querySelector(".legend");
+    const expandedSidebar = document.getElementById('expandedSidebar');
     const legendBtn = document.getElementById('legendBtn');
     const handle = document.getElementById('handle');
     
-    if (legend) {
-        legend.classList.toggle("visible");
-        legendBtn.classList.toggle('active');
-        handle.classList.toggle('active'); // Aggiungi/rimuovi la classe 'active' alla maniglia
+    // Rimuovi la classe active da tutti i pulsanti della sidebar
+    document.querySelectorAll('.sidebar button').forEach(button => {
+        if (button !== legendBtn) {
+            button.classList.remove('active');
+        }
+    });
+    
+    // Chiudi il pannello federate se aperto
+    const federateSidebar = document.getElementById('federateSidebar');
+    federateSidebar.classList.remove('open');
+    
+    if (!expandedSidebar.classList.contains('open')) {
+        expandedSidebar.classList.add('open');
+        legendBtn.classList.add('active');
+        createLegendContent();
+    } else {
+        expandedSidebar.classList.remove('open');
+        legendBtn.classList.remove('active');
     }
+    
+    handle.classList.toggle('active');
 }
 
 
@@ -1513,17 +1521,28 @@ const municipalityZones = {
 };
 
 // Aggiungi la legenda interattiva
-const legend = L.control({ position: 'topright' });
-
-// Modifica la funzione legend.onAdd
-legend.onAdd = function() {
-    const div = L.DomUtil.create("div", "legend");
-    div.innerHTML = `
-        <div id="closeLegend" class="legend-close-icon"></div>
+function createLegendContent() {
+    const expandedSidebar = document.getElementById('expandedSidebar');
+    const searchContainer = document.getElementById('searchContainer');
+    const searchResults = document.getElementById('search-results');
+    
+    // Nascondi gli altri contenuti
+    if (searchContainer) searchContainer.style.display = 'none';
+    if (searchResults) searchResults.style.display = 'none';
+    
+    // Crea il contenitore della legenda
+    const legendContainer = document.createElement('div');
+    legendContainer.className = 'legend-container';
+    legendContainer.style.padding = '20px';
+    
+    legendContainer.innerHTML = `
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
         <div class="legend-grid">
             ${Object.entries(municipalityColors).map(([num, color]) => `
-                <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})">
+                <div class="legend-item" data-municipio="${num}" 
+                     onmouseover="handleLegendHover(${num})" 
+                     onmouseout="handleLegendOut(${num})" 
+                     onclick="handleLegendClick(${num})">
                     <span style="background: ${color}"></span>
                     <div class="text">Municipio ${romanize(parseInt(num))}</div>
                     <div class="info-icon">i</div>
@@ -1533,19 +1552,10 @@ legend.onAdd = function() {
         </div>
     `;
     
-    // Aggiungi l'event listener per il pulsante di chiusura
-    const closeButton = div.querySelector('#closeLegend');
-    if (closeButton) {
-        closeButton.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleLegend();
-        });
-    } else {
-        console.error('Pulsante di chiusura non trovato!');
-    }
-    return div;
-};
-legend.addTo(map);
+    // Svuota il contenuto precedente e aggiungi la nuova legenda
+    expandedSidebar.innerHTML = '';
+    expandedSidebar.appendChild(legendContainer);
+}
 
   
 
