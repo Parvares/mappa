@@ -754,9 +754,9 @@ body, html {
         
             
             <div class="legend-item" onclick="handleFederatedSystemClick('CASTELLI ROMANI')">
-                <span style="background: #0006fd"></span>
-                <div class="text">Biblioteche Sistema Castelli Romani</div>
-            </div>
+    <span style="background: #0006fd"></span>
+    <div class="text">Biblioteche Sistema Castelli Romani</div>
+</div>
             <div class="legend-item">
                 <span style="background: #fc04f7"></span>
                 <div class="text">Sistema Bibliotecario Ceretano-Sabatino</div>
@@ -1751,8 +1751,56 @@ function toggleRomeLibraries() {
 
 
 
+// Funzione per gestire il click sul sistema bibliotecario
+function handleFederatedSystemClick(systemName) {
+    // Rimuovi cluster group precedente se esiste
+    if (currentClusterGroup) {
+        map.removeLayer(currentClusterGroup);
+    }
+
+    // Se non esiste già un cluster group per questo sistema, crealo
+    if (!clusterGroups[systemName]) {
+        clusterGroups[systemName] = L.markerClusterGroup({
+            maxClusterRadius: 50,
+            spiderfyOnMaxZoom: true,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: true
+        });
+
+        // Filtra i marker per il sistema specifico
+        const systemMarkers = window.federatedMarkers.filter(marker => {
+            const popupContent = marker.getPopup().getContent();
+            return popupContent.includes(systemName);
+        });
+
+        // Aggiungi i marker al cluster group
+        systemMarkers.forEach(marker => {
+            clusterGroups[systemName].addLayer(marker);
+        });
+    }
+
+    // Aggiungi il cluster group alla mappa
+    currentClusterGroup = clusterGroups[systemName];
+    map.addLayer(currentClusterGroup);
+
+    // Calcola i bounds di tutti i marker del sistema
+    const bounds = L.latLngBounds(systemMarkers.map(marker => marker.getLatLng()));
+    
+    // Zoom alla vista ottimale con un po' di padding
+    map.fitBounds(bounds, {
+        padding: [50, 50],
+        maxZoom: 13
+    });
+
+    // Aggiorna lo stato dei marker federati
+    federatedLibrariesVisible = true;
+    document.getElementById('toggleFederatedLibraries').textContent = 'Nascondi Biblioteche federate';
+}
+
+// Modifica la funzione toggleFederatedLibraries esistente
 function toggleFederatedLibraries() {
     const button = document.getElementById('toggleFederatedLibraries');
+    
     if (federatedLibrariesVisible) {
         // Nascondi le biblioteche federate
         window.federatedMarkers.forEach(marker => {
@@ -1760,6 +1808,12 @@ function toggleFederatedLibraries() {
                 map.removeLayer(marker);
             }
         });
+        
+        // Rimuovi anche eventuali cluster
+        if (currentClusterGroup) {
+            map.removeLayer(currentClusterGroup);
+        }
+        
         button.textContent = 'Mostra Biblioteche Federate';
         federatedLibrariesVisible = false;
     } else {
