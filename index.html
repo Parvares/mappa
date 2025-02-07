@@ -784,7 +784,16 @@ body, html {
         </div>
     </div>
 
-
+<!-- Terzo pannello laterale espanso: legenda municipi -->
+<div class="sidebar-expanded" id="legendSidebar">
+    <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
+    <div class="legend-container">
+        <h4>Mappa Biblioteche di Roma per Municipio</h4>
+        <div class="legend-grid" id="municipiLegend">
+            <!-- Il contenuto della legenda verrà inserito dinamicamente -->
+        </div>
+    </div>
+</div>
 
 <button id="toggleFederatedLibraries" onclick="toggleFederatedLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
     Mostra Biblioteche Federate
@@ -862,14 +871,28 @@ let removedFederatedLibraries = [];
 
 // Add this new function for legend toggle
 function toggleLegend() {
-    const legend = document.querySelector(".legend");
+    const legendSidebar = document.getElementById('legendSidebar');
     const legendBtn = document.getElementById('legendBtn');
-    const handle = document.getElementById('handle');
+    const expandedSidebar = document.getElementById('expandedSidebar');
+    const federateSidebar = document.getElementById('federateSidebar');
     
-    if (legend) {
-        legend.classList.toggle("visible");
-        legendBtn.classList.toggle('active');
-        handle.classList.toggle('active'); // Aggiungi/rimuovi la classe 'active' alla maniglia
+    // Rimuovi la classe active da tutti i pulsanti eccetto legendBtn
+    document.querySelectorAll('.sidebar button').forEach(button => {
+        if (button !== legendBtn) {
+            button.classList.remove('active');
+        }
+    });
+    
+    // Chiudi gli altri pannelli
+    expandedSidebar.classList.remove('open');
+    federateSidebar.classList.remove('open');
+    
+    // Gestisci l'apertura/chiusura del pannello legenda
+    legendSidebar.classList.toggle('open');
+    if (legendSidebar.classList.contains('open')) {
+        legendBtn.classList.add('active');
+    } else {
+        legendBtn.classList.remove('active');
     }
 }
 
@@ -1512,9 +1535,32 @@ const municipalityZones = {
     15: "Cassia/Flaminia"
 };
 
-// Aggiungi la legenda interattiva
-const legend = L.control({ position: 'topright' });
+// Popola la legenda nel pannello laterale
+const legendGrid = document.getElementById('municipiLegend');
+Object.entries(municipalityColors).forEach(([num, color]) => {
+    const legendItem = document.createElement('div');
+    legendItem.className = 'legend-item';
+    legendItem.setAttribute('data-municipio', num);
+    legendItem.innerHTML = `
+        <span style="background: ${color}"></span>
+        <div class="text">Municipio ${romanize(parseInt(num))}</div>
+        <div class="info-icon">i</div>
+        <div class="tooltip">Zona: ${municipalityZones[num]}</div>
+    `;
+    legendItem.addEventListener('mouseover', () => handleLegendHover(parseInt(num)));
+    legendItem.addEventListener('mouseout', () => handleLegendOut(parseInt(num)));
+    legendItem.addEventListener('click', () => handleLegendClick(parseInt(num)));
+    legendGrid.appendChild(legendItem);
+});
+        
+function toggleLegendSidebar() {
+    const legendSidebar = document.getElementById('legendSidebar');
+    const legendBtn = document.getElementById('legendBtn');
+    legendSidebar.classList.remove('open');
+    legendBtn.classList.remove('active');
+}
 
+        
 // Modifica la funzione legend.onAdd
 legend.onAdd = function() {
     const div = L.DomUtil.create("div", "legend");
@@ -1545,7 +1591,6 @@ legend.onAdd = function() {
     }
     return div;
 };
-legend.addTo(map);
 
   
 
