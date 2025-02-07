@@ -720,11 +720,10 @@ body, html {
 
 
 <!-- Seconda barra laterale (espansione) -->
-<!-- Body section fino alla sidebar-expanded -->
 <div class="sidebar-expanded" id="expandedSidebar">
     <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
+    <!-- Aggiungi questa linea -->
     <div class="search-container" id="searchContainer">
-    
         <div style="display: flex; align-items: center; gap: 10px;">
             <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
                 <img src="home.svg" alt="Biblioteca Home" class="icon">
@@ -736,7 +735,6 @@ body, html {
         </div>
         <div id="library-suggestions" class="custom-datalist"></div>
         <button onclick="searchRoute()">Trova Percorso</button>
-  <div class="legend-container" id="legendContainer">
     </div>
     <div id="search-results"></div>
 </div>
@@ -864,29 +862,16 @@ let removedFederatedLibraries = [];
 
 // Add this new function for legend toggle
 function toggleLegend() {
-    const searchContainer = document.getElementById('searchContainer');
-    const legendContainer = document.getElementById('legendContainer');
-    const expandedSidebar = document.getElementById('expandedSidebar');
+    const legend = document.querySelector(".legend");
     const legendBtn = document.getElementById('legendBtn');
+    const handle = document.getElementById('handle');
     
-    // Nascondi il contenitore di ricerca
-    if (searchContainer) {
-        searchContainer.style.display = 'none';
-    }
-    
-    // Mostra/nascondi la legenda
-    if (legendContainer.style.display === 'none' || !legendContainer.style.display) {
-        legendContainer.style.display = 'block';
-        expandedSidebar.classList.add('open');
-        legendBtn.classList.add('active');
-    } else {
-        legendContainer.style.display = 'none';
-        expandedSidebar.classList.remove('open');
-        legendBtn.classList.remove('active');
+    if (legend) {
+        legend.classList.toggle("visible");
+        legendBtn.classList.toggle('active');
+        handle.classList.toggle('active'); // Aggiungi/rimuovi la classe 'active' alla maniglia
     }
 }
-
-
 
 
 // Funzione per cercare una biblioteca e aprire il popup corrispondente
@@ -1013,7 +998,6 @@ function toggleSearch() {
     const searchBtn = document.getElementById('searchBtn');
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
-    const legendContainer = document.getElementById('legendContainer');
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
 
@@ -1528,25 +1512,40 @@ const municipalityZones = {
     15: "Cassia/Flaminia"
 };
 
-  const legendContainer = document.getElementById('legendContainer');
-    legendContainer.innerHTML = `
-        <div class="legend">
-            <h4>Mappa Biblioteche di Roma per Municipio</h4>
-            <div class="legend-grid">
-                ${Object.entries(municipalityColors).map(([num, color]) => `
-                    <div class="legend-item" data-municipio="${num}" 
-                         onmouseover="handleLegendHover(${num})" 
-                         onmouseout="handleLegendOut(${num})" 
-                         onclick="handleLegendClick(${num})">
-                        <span style="background: ${color}"></span>
-                        <div class="text">Municipio ${romanize(parseInt(num))}</div>
-                        <div class="info-icon">i</div>
-                        <div class="tooltip">Zona: ${municipalityZones[num]}</div>
-                    </div>
-                `).join("")}
-            </div>
+// Aggiungi la legenda interattiva
+const legend = L.control({ position: 'topright' });
+
+// Modifica la funzione legend.onAdd
+legend.onAdd = function() {
+    const div = L.DomUtil.create("div", "legend");
+    div.innerHTML = `
+        <div id="closeLegend" class="legend-close-icon"></div>
+        <h4>Mappa Biblioteche di Roma per Municipio</h4>
+        <div class="legend-grid">
+            ${Object.entries(municipalityColors).map(([num, color]) => `
+                <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})">
+                    <span style="background: ${color}"></span>
+                    <div class="text">Municipio ${romanize(parseInt(num))}</div>
+                    <div class="info-icon">i</div>
+                    <div class="tooltip">Zona: ${municipalityZones[num]}</div>
+                </div>
+            `).join("")}
         </div>
     `;
+    
+    // Aggiungi l'event listener per il pulsante di chiusura
+    const closeButton = div.querySelector('#closeLegend');
+    if (closeButton) {
+        closeButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleLegend();
+        });
+    } else {
+        console.error('Pulsante di chiusura non trovato!');
+    }
+    return div;
+};
+legend.addTo(map);
 
   
 
