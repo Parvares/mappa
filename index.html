@@ -267,6 +267,7 @@ body, html {
     padding: 6px 10px;   /* Padding bilanciato */
     border-radius: 6px;
     cursor: pointer;
+    flex-direction: column;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(255,255,255,0.7);
     border: 1px solid transparent;
@@ -343,28 +344,7 @@ body, html {
         
 
         
-        .info-icon {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #f0f0f0;
-            color: #666;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-style: italic;
-            cursor: help;
-            transition: all 0.2s ease;
-        }
-        
-        .info-icon:hover {
-            background: #e0e0e0;
-        }
+
         
 .tooltip {
     position: absolute;
@@ -682,44 +662,44 @@ body, html {
     margin-right: 20px;
 }
 
-/* Stile per il contenitore delle biblioteche del municipio */
-.municipality-libraries {
-    display: none;
-    margin-left: 28px;
-    margin-top: 8px;
+ .legend-item-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
-.municipality-libraries.expanded {
+.libraries-list {
+    display: none;
+    margin-top: 10px;
+    margin-left: 28px;
+    font-size: 12px;
+}
+
+.libraries-list.expanded {
     display: block;
 }
 
 .library-item-legend {
-    padding: 6px 10px;
-    margin: 4px 0;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 4px 0;
     color: #666;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease;
 }
 
 .library-item-legend:hover {
-    background: rgba(241, 242, 246, 0.6);
-    transform: translateX(3px);
+    color: #000;
 }
 
-/* Icona per espandere/contrarre */
 .expand-icon {
-    float: right;
-    font-size: 18px;
-    line-height: 1;
+    margin-left: auto;
+    font-size: 12px;
+    color: #666;
     transition: transform 0.3s ease;
 }
 
 .legend-item.expanded .expand-icon {
     transform: rotate(180deg);
-}        
+}       
         
     </style>
 </head>
@@ -1016,6 +996,12 @@ function selectLibrary(library) {
         selectedMunicipio = library.municipality;
     } else {
         console.log('Marker not found for library:', library);
+    }
+
+    // Nascondi il riquadro dei risultati
+    const resultsContainer = document.getElementById('search-results');
+    if (resultsContainer) {
+        resultsContainer.style.display = 'none';
     }
 }
 
@@ -1545,59 +1531,29 @@ fetch('municipio10.geojson')
             }
         }).addTo(map);
 
-// Funzione per ottenere le biblioteche di un municipio
-function getLibrariesForMunicipio(municipioNum) {
-    return window.libraryData.libraries.filter(lib => lib.municipality === parseInt(municipioNum));
-}
 
-// Modifica la parte dove viene popolata la legenda
+// Popola la legenda
+const legendContainer = document.querySelector('.legend-container .legend-grid');
 if (legendContainer) {
     legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => {
-        const libraries = getLibrariesForMunicipio(num);
-        const librariesHtml = libraries.map(lib => `
-            <div class="library-item-legend" onclick="selectLibrary(${JSON.stringify(lib)})">
-                ${lib.name}
-            </div>
-        `).join('');
-
+        const municipioLibraries = window.libraryData.libraries
+            .filter(lib => lib.municipality === parseInt(num))
+            .map(lib => `<div class="library-item-legend" onclick="selectLibrary(${JSON.stringify(lib)})">${lib.name}</div>`)
+            .join('');
+            
         return `
             <div class="legend-item" data-municipio="${num}" onclick="handleLegendClick(${num})">
-                <span style="background: ${color}"></span>
-                <div class="text">
-                    Municipio ${romanize(parseInt(num))}
-                    <span class="expand-icon">▼</span>
+                <div class="legend-item-header">
+                    <span style="background: ${color}"></span>
+                    <div class="text">Municipio ${romanize(parseInt(num))}</div>
+                    <div class="expand-icon">▼</div>
                 </div>
-            </div>
-            <div class="municipality-libraries" id="municipio-${num}-libraries">
-                ${librariesHtml}
+                <div class="libraries-list">
+                    ${municipioLibraries}
+                </div>
             </div>
         `;
     }).join('');
-
-    // Aggiungi event listener per l'espansione
-    document.querySelectorAll('.legend-item').forEach(item => {
-        const expandIcon = item.querySelector('.expand-icon');
-        expandIcon.addEventListener('click', (e) => {
-            e.stopPropagation(); // Previene il trigger del click sul parent
-            const municipioNum = item.dataset.municipio;
-            const librariesDiv = document.getElementById(`municipio-${municipioNum}-libraries`);
-            const isExpanded = librariesDiv.classList.contains('expanded');
-            
-            // Chiudi tutti i municipi espansi
-            document.querySelectorAll('.municipality-libraries').forEach(div => {
-                div.classList.remove('expanded');
-            });
-            document.querySelectorAll('.legend-item').forEach(item => {
-                item.classList.remove('expanded');
-            });
-
-            // Espandi/contrai il municipio corrente
-            if (!isExpanded) {
-                librariesDiv.classList.add('expanded');
-                item.classList.add('expanded');
-            }
-        });
-    });
 }
 
   
@@ -1655,30 +1611,46 @@ window.handleLegendHover = async function(municipioNumber) {
             };
 
             // Funzione per gestire il click sulla legenda
- window.handleLegendClick = async function(municipioNumber) {
-                const allItems = document.querySelectorAll('.legend-item');
-                allItems.forEach(item => item.classList.remove('highlighted'));
+window.handleLegendClick = async function(municipioNumber, event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    
+    const legendItem = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+    const librariesList = legendItem.querySelector('.libraries-list');
+    const wasExpanded = legendItem.classList.contains('expanded');
+    
+    // Toggle espansione
+    if (event && event.target.closest('.library-item-legend')) {
+        return; // Non fare nulla se si clicca su una biblioteca
+    }
+    
+    // Gestisci l'espansione
+    if (event && (event.target.classList.contains('expand-icon') || event.target.closest('.legend-item-header'))) {
+        legendItem.classList.toggle('expanded');
+        librariesList.classList.toggle('expanded');
+    }
+    
+    // Gestisci l'evidenziazione del municipio sulla mappa
+    const allItems = document.querySelectorAll('.legend-item');
+    allItems.forEach(item => item.classList.remove('highlighted'));
 
-                // Se clicchiamo sullo stesso municipio già selezionato
-                if (selectedMunicipio === municipioNumber) {
-                    if (currentBorder) {
-                        map.removeLayer(currentBorder);
-                        currentBorder = null;
-                    }
-                    
-                    // Se era il municipio X, ripristina lo stile default ma mantienilo visibile
-                    if (municipioNumber === 10) {
-                        municipioLayers[10].setStyle({
-                            color: municipalityColors[10],
-                            weight: 3,
-                            opacity: 0.65,
-                            fillOpacity: 0
-                        });
-                    }
-                    
-                    selectedMunicipio = null;
-                    return;
-                }
+    if (selectedMunicipio === municipioNumber && !wasExpanded) {
+        if (currentBorder) {
+            map.removeLayer(currentBorder);
+            currentBorder = null;
+        }
+        if (municipioNumber === 10) {
+            municipioLayers[10].setStyle({
+                color: municipalityColors[10],
+                weight: 3,
+                opacity: 0.65,
+                fillOpacity: 0
+            });
+        }
+        selectedMunicipio = null;
+        return;
+    }
 
                 // Carica il GeoJSON se non è già stato caricato
                 if (!municipioLayers[municipioNumber]) {
