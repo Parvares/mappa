@@ -750,10 +750,10 @@ body, html {
             
         
             
-           <div class="legend-item">
-    <span style="background: #0006fd"></span>
-    <div class="text" onclick="zoomToLibrarySystem('CASTELLI ROMANI')">Biblioteche Sistema Castelli Romani</div>
-</div>
+            <div class="legend-item">
+                <span style="background: #0006fd"></span>
+                <div class="text">Biblioteche Sistema Castelli Romani</div>
+            </div>
             <div class="legend-item">
                 <span style="background: #fc04f7"></span>
                 <div class="text">Sistema Bibliotecario Ceretano-Sabatino</div>
@@ -1352,8 +1352,6 @@ window.federatedMarkers = data.federate.map(library => {
                     library.system.includes('La Sapienza') ? 'sapienza' :
                     library.system.includes('Link') ? 'link' : 'municipio1'; // fallback icon
 
-    library.librarySystem = library.system; // Add this line
-
     return createMarker(
         library.coords,
         library.name,
@@ -1372,22 +1370,7 @@ window.federatedMarkers = data.federate.map(library => {
     
 
 
-// Move this function outside of the DOMContentLoaded event listener
-function zoomToLibrarySystem(systemName) {
-    // Find markers for the specific system
-    const systemMarkers = window.federatedMarkers.filter(marker => 
-        marker.options.library.librarySystem.includes(systemName)
-    );
     
-    if (systemMarkers.length > 0) {
-        // Create a bounds object from the markers
-        const group = new L.featureGroup(systemMarkers);
-        map.fitBounds(group.getBounds(), { padding: [50, 50] });
-    }
-}
-
-// Make sure it's globally accessible
-window.zoomToLibrarySystem = zoomToLibrarySystem;
   
 
 
