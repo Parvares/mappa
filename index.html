@@ -1533,17 +1533,33 @@ const municipalityZones = {
 
 // Popola la legenda con i tooltip
 const legendContainer = document.querySelector('.legend-container .legend-grid');
+// Inside the fetch callback where legend is populated
 if (legendContainer) {
-    legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => `
-        <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})">
-            <span style="background: ${color}"></span>
-            <div class="text">Municipio ${romanize(parseInt(num))}</div>
-            <div class="info-icon">i</div>
-            <div class="tooltip">Zona: ${municipalityZones[num]}</div>
-        </div>
-    `).join('');
+  legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => {
+    console.log(`Creating legend item for Municipio ${num}:`, {
+      color: color, 
+      zone: municipalityZones[num]
+    });
+    return ` <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})"> 
+      <span style="background: ${color}"></span> 
+      <div class="text">Municipio ${romanize(parseInt(num))}</div> 
+      <div class="info-icon">i</div> 
+      <div class="tooltip">Zona: ${municipalityZones[num]}</div> 
+    </div> `;
+  }).join('');
+
+  // Add this additional log to verify DOM
+  console.log('Legend items:', legendContainer.innerHTML);
 }
 
+document.querySelectorAll('.legend-item').forEach(item => {
+  item.addEventListener('mouseover', (e) => {
+    console.log('Mouseover on legend item', e.currentTarget);
+    const tooltip = e.currentTarget.querySelector('.tooltip');
+    console.log('Tooltip:', tooltip);
+  });
+});
+        
   
 
         // Gestore hover sulla legenda
