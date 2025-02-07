@@ -367,29 +367,24 @@ body, html {
 }
         
 /* Stile per il tooltip */
-.tooltip {
-     display: none; /* Hide by default */
-    position: absolute;
-    left: calc(100% + 10px); /* Posiziona a destra dell'elemento */
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 6px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-    z-index: 1000;
+.legend-item .tooltip {
+  display: none; /* Hide by default */
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
 }
 
-/* Mostra il tooltip al passaggio del mouse */
 .legend-item:hover .tooltip {
   display: block; /* Show on hover */
-}
-        
+}     
         
 .municipio-highlight {
     stroke-width: 4px !important;
