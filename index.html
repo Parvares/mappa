@@ -262,7 +262,6 @@ body, html {
 }
 
 .legend-item {
-    position: relative; /* Ensure relative positioning */
     display: flex;
     align-items: center;
     padding: 6px 10px;   /* Padding bilanciato */
@@ -271,6 +270,7 @@ body, html {
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(255,255,255,0.7);
     border: 1px solid transparent;
+    position: relative;
     padding-right: 30px !important;
 }
 
@@ -344,8 +344,6 @@ body, html {
 
         
 .info-icon {
-      display: inline-block;
-  margin-left: 5px;
     position: absolute;
     right: 8px;
     top: 50%;
@@ -370,27 +368,26 @@ body, html {
         
 /* Stile per il tooltip */
 .tooltip {
-  position: absolute;
-  left: 100%; /* Position to the right of the text */
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.8);
-  color: white;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  white-space: nowrap;
-  z-index: 1000;
-  margin-left: 10px; /* Add some space between item and tooltip */
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
+    position: absolute;
+    left: calc(100% + 10px); /* Posiziona a destra dell'elemento */
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1000;
 }
 
 .legend-item:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-}
+    opacity: 1;
+    visibility: visible;
+} 
         
 .municipio-highlight {
     stroke-width: 4px !important;
@@ -1534,33 +1531,17 @@ const municipalityZones = {
 
 // Popola la legenda con i tooltip
 const legendContainer = document.querySelector('.legend-container .legend-grid');
-// Inside the fetch callback where legend is populated
 if (legendContainer) {
-  legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => {
-    console.log(`Creating legend item for Municipio ${num}:`, {
-      color: color, 
-      zone: municipalityZones[num]
-    });
-    return ` <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})"> 
-      <span style="background: ${color}"></span> 
-      <div class="text">Municipio ${romanize(parseInt(num))}</div> 
-      <div class="info-icon">i</div> 
-      <div class="tooltip">Zona: ${municipalityZones[num]}</div> 
-    </div> `;
-  }).join('');
-
-  // Add this additional log to verify DOM
-  console.log('Legend items:', legendContainer.innerHTML);
+    legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => `
+        <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})">
+            <span style="background: ${color}"></span>
+            <div class="text">Municipio ${romanize(parseInt(num))}</div>
+            <div class="info-icon">i</div>
+            <div class="tooltip">Zona: ${municipalityZones[num]}</div>
+        </div>
+    `).join('');
 }
 
-document.querySelectorAll('.legend-item').forEach(item => {
-  item.addEventListener('mouseover', (e) => {
-    console.log('Mouseover on legend item', e.currentTarget);
-    const tooltip = e.currentTarget.querySelector('.tooltip');
-    console.log('Tooltip:', tooltip);
-  });
-});
-        
   
 
         // Gestore hover sulla legenda
