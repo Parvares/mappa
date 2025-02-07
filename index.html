@@ -262,6 +262,7 @@ body, html {
 }
 
 .legend-item {
+    align-items: center; /* Allinea verticalmente icone e testo */
     display: flex;
     align-items: center;
     padding: 6px 10px;   /* Padding bilanciato */
@@ -275,12 +276,14 @@ body, html {
     padding-right: 30px !important;
 }
 
+/* Stile per le icone colorate */
 .legend-item span {
-    width: 18px;         /* Dimensione icona bilanciata */
+    width: 18px;
     height: 18px;
-    margin-right: 10px;  /* Margin bilanciato */
+    margin-right: 10px; /* Spazio tra l'icona e il testo */
     border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Impedisce all'icona di ridursi */
 }
         
 
@@ -308,6 +311,7 @@ body, html {
     font-weight: 500;
     letter-spacing: 0.02em;
     margin-right: 20px;
+    flex-grow: 1; /* Permette al testo di espandersi */
 }
 
   .legend-item.disabled {
@@ -662,7 +666,7 @@ body, html {
     margin-right: 20px;
 }
 
- .legend-item-header {
+.legend-item-header {
     display: flex;
     align-items: center;
     width: 100%;
@@ -691,7 +695,7 @@ body, html {
 }
 
 .expand-icon {
-    margin-left: auto;
+    margin-left: auto; /* Posiziona l'icona di espansione a destra */
     font-size: 12px;
     color: #666;
     transition: transform 0.3s ease;
@@ -760,46 +764,48 @@ body, html {
 <!-- Nuovo pannello per le biblioteche federate -->
 <div class="sidebar-expanded" id="federateSidebar">
     <div class="sidebar-close-icon" onclick="toggleFederateSidebar()"></div>
-<div class="federate-container">
-    <h4>Biblioteche Federate</h4>
-    <div class="legend-grid">
-        <div class="legend-item" onclick="zoomToSystemLibraries('CASTELLI ROMANI')">
-            <span style="background: #0006fd"></span>
-            <div class="text">Biblioteche Sistema Castelli Romani</div>
-        </div>
-        <div class="legend-item" onclick="zoomToSystemLibraries('Ceretano-Sabatino')">
-            <span style="background: #fc04f7"></span>
-            <div class="text">Sistema Bibliotecario Ceretano-Sabatino</div>
-        </div>
-        <div class="legend-item" onclick="zoomToSystemLibraries('Monti Prenestini')">
-            <span style="background: #844715"></span>
-            <div class="text">Sistema Bibliotecario Monti Prenestini</div>
-        </div>
-        <div class="legend-item" onclick="zoomToSystemLibraries('LUMSA')">
-            <span style="background: #1e8b1f"></span>
-            <div class="text">Lumsa</div>
-        </div>
-        <div class="legend-item" onclick="zoomToSystemLibraries('Foro Italico')">
-            <span style="background: #473e86"></span>
-            <div class="text">Foro Italico</div>
-        </div>
-        <div class="legend-item" onclick="zoomToSystemLibraries('Link')">
-            <span style="background: #2f4d4c"></span>
-            <div class="text">Link Campus</div>
-        </div>
-        <div class="legend-item" onclick="zoomToSystemLibraries('La Sapienza')">
-            <span style="background: #86134f"></span>
-            <div class="text">Sistema Bibliotecario di Ateneo<br>Università degli Studi Roma La Sapienza</div>
-        </div>
-        <div class="legend-item" onclick="zoomToSystemLibraries('Tor Vergata')">
-            <span style="background: #382724"></span>
-            <div class="text">Sistema Bibliotecario di Ateneo<br>Università degli Studi Roma Tor Vergata</div>
-        </div>
-        <div class="legend-item" onclick="zoomToSystemLibraries('Roma Tre')">
-            <span style="background: #f20000"></span>
-            <div class="text">Sistema Bibliotecario di Ateneo<br>Università degli Studi Roma Tre</div>
+    <div class="federate-container">
+        <h4>Biblioteche Federate</h4>
+        <div class="legend-grid">
+            <div class="legend-item" onclick="zoomToSystemLibraries('CASTELLI ROMANI')">
+                <span style="background: #0006fd"></span>
+                <div class="text">Biblioteche Sistema Castelli Romani</div>
+            </div>
+            <div class="legend-item" onclick="zoomToSystemLibraries('Ceretano-Sabatino')">
+                <span style="background: #fc04f7"></span>
+                <div class="text">Sistema Bibliotecario Ceretano-Sabatino</div>
+            </div>
+            <div class="legend-item" onclick="zoomToSystemLibraries('Monti Prenestini')">
+                <span style="background: #844715"></span>
+                <div class="text">Sistema Bibliotecario Monti Prenestini</div>
+            </div>
+            <div class="legend-item" onclick="zoomToSystemLibraries('LUMSA')">
+                <span style="background: #1e8b1f"></span>
+                <div class="text">Lumsa</div>
+            </div>
+            <div class="legend-item" onclick="zoomToSystemLibraries('Foro Italico')">
+                <span style="background: #473e86"></span>
+                <div class="text">Foro Italico</div>
+            </div>
+            <div class="legend-item" onclick="zoomToSystemLibraries('Link')">
+                <span style="background: #2f4d4c"></span>
+                <div class="text">Link Campus</div>
+            </div>
+            <div class="legend-item" onclick="zoomToSystemLibraries('La Sapienza')">
+                <span style="background: #86134f"></span>
+                <div class="text">Sistema Bibliotecario di Ateneo<br>Università degli Studi Roma La Sapienza</div>
+            </div>
+            <div class="legend-item" onclick="zoomToSystemLibraries('Tor Vergata')">
+                <span style="background: #382724"></span>
+                <div class="text">Sistema Bibliotecario di Ateneo<br>Università degli Studi Roma Tor Vergata</div>
+            </div>
+            <div class="legend-item" onclick="zoomToSystemLibraries('Roma Tre')">
+                <span style="background: #f20000"></span>
+                <div class="text">Sistema Bibliotecario di Ateneo<br>Università degli Studi Roma Tre</div>
+            </div>
         </div>
     </div>
+</div>
 
 
 
