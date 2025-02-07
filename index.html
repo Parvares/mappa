@@ -368,6 +368,7 @@ body, html {
         
 /* Stile per il tooltip */
 .tooltip {
+     display: none; /* Hide by default */
     position: absolute;
     left: calc(100% + 10px); /* Posiziona a destra dell'elemento */
     top: 50%;
@@ -386,8 +387,7 @@ body, html {
 
 /* Mostra il tooltip al passaggio del mouse */
 .legend-item:hover .tooltip {
-    opacity: 1;
-    visibility: visible;
+  display: block; /* Show on hover */
 }
         
         
