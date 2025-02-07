@@ -629,7 +629,7 @@ body, html {
 
 .federate-container .legend-item {
     display: flex;
-    align-items: flex-start; /* Cambiato da center a flex-start */
+    align-items: center; /* Allinea verticalmente icona e testo */
     padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
@@ -643,17 +643,10 @@ body, html {
 .federate-container .legend-item span {
     width: 18px;
     height: 18px;
-    margin-right: 10px;
+    margin-right: 10px; /* Spazio tra l'icona e il testo */
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0; /* Impedisce al quadrato di ridimensionarsi */
-    margin-top: 3px; /* Aggiunge un piccolo offset verso il basso */
-}
-
-.federate-container .legend-item:hover {
-    background: rgba(241, 242, 246, 0.6);
-    transform: translateX(3px);
-    border-color: #dfe4ea;
+    flex-shrink: 0; /* Impedisce all'icona di ridimensionarsi */
 }
 
 .federate-container .legend-item .text {
@@ -661,11 +654,18 @@ body, html {
     color: #4a5568;
     font-weight: 500;
     letter-spacing: 0.02em;
-    margin-right: 20px;
     flex: 1; /* Permette al testo di occupare lo spazio rimanente */
     line-height: 1.4; /* Migliora la spaziatura delle righe per il testo su più righe */
 }
 
+
+.federate-container .legend-item:hover {
+    background: rgba(241, 242, 246, 0.6);
+    transform: translateX(3px);
+    border-color: #dfe4ea;
+}
+
+        
  .legend-item-header {
     display: flex;
     align-items: center;
