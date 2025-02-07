@@ -366,12 +366,13 @@ body, html {
     background: #e0e0e0;
 }
         
+/* Stile per il tooltip */
 .tooltip {
     position: absolute;
     left: calc(100% + 10px); /* Posiziona a destra dell'elemento */
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.8);
     color: white;
     padding: 6px 10px;
     border-radius: 4px;
@@ -383,6 +384,7 @@ body, html {
     z-index: 1000;
 }
 
+/* Mostra il tooltip al passaggio del mouse */
 .legend-item:hover .tooltip {
     opacity: 1;
     visibility: visible;
