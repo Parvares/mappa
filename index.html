@@ -262,8 +262,16 @@ body, html {
 }
 
 .legend-item {
-  
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;   /* Padding bilanciato */
+    border-radius: 6px;
+    cursor: pointer;
     flex-direction: column;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255,255,255,0.7);
+    border: 1px solid transparent;
+    position: relative;
     padding-right: 30px !important;
 }
 
@@ -620,34 +628,26 @@ body, html {
 }
 
 .federate-container .legend-item {
-    display: flex; /* Usa Flexbox per allineare orizzontalmente */
-    align-items: center; /* Allinea verticalmente al centro */
-    padding: 8px 10px; /* Aggiungi un po' di padding */
+    display: flex;
+    align-items: flex-start; /* Cambiato da center a flex-start */
+    padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(255, 255, 255, 0.7);
     border: 1px solid transparent;
     position: relative;
+    padding-right: 30px !important;
 }
 
 .federate-container .legend-item span {
-    width: 18px; /* Larghezza dell'icona */
-    height: 18px; /* Altezza dell'icona */
-    margin-right: 12px; /* Spazio tra l'icona e il testo */
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0; /* Impedisce all'icona di ridimensionarsi */
-}
-
-.federate-container .legend-item .text {
-    font-size: 13px;
-    color: #4a5568;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    flex: 1; /* Permette al testo di occupare lo spazio rimanente */
-    line-height: 1.4; /* Migliora la spaziatura delle righe */
-    text-align: left; /* Allinea il testo a sinistra */
+    flex-shrink: 0; /* Impedisce al quadrato di ridimensionarsi */
+    margin-top: 3px; /* Aggiunge un piccolo offset verso il basso */
 }
 
 .federate-container .legend-item:hover {
@@ -656,7 +656,16 @@ body, html {
     border-color: #dfe4ea;
 }
 
-        
+.federate-container .legend-item .text {
+    font-size: 13px;
+    color: #4a5568;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-right: 20px;
+    flex: 1; /* Permette al testo di occupare lo spazio rimanente */
+    line-height: 1.4; /* Migliora la spaziatura delle righe per il testo su più righe */
+}
+
  .legend-item-header {
     display: flex;
     align-items: center;
