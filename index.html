@@ -367,7 +367,7 @@ body, html {
 }
         
 /* Stile per il tooltip */
-.tooltip {
+.legend-item .tooltip {
   position: absolute;
   left: calc(100% + 10px);
   top: 50%;
@@ -382,6 +382,8 @@ body, html {
   visibility: hidden;
   transition: opacity 0.3s, visibility 0.3s;
   z-index: 1000;
+    border: 1px solid red; /* temporary debug */
+  display: block; /* force visibility */
 }
 
 .legend-item:hover .tooltip {
