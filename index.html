@@ -682,7 +682,44 @@ body, html {
     margin-right: 20px;
 }
 
-        
+/* Stile per il contenitore delle biblioteche del municipio */
+.municipality-libraries {
+    display: none;
+    margin-left: 28px;
+    margin-top: 8px;
+}
+
+.municipality-libraries.expanded {
+    display: block;
+}
+
+.library-item-legend {
+    padding: 6px 10px;
+    margin: 4px 0;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.library-item-legend:hover {
+    background: rgba(241, 242, 246, 0.6);
+    transform: translateX(3px);
+}
+
+/* Icona per espandere/contrarre */
+.expand-icon {
+    float: right;
+    font-size: 18px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.legend-item.expanded .expand-icon {
+    transform: rotate(180deg);
+}        
         
     </style>
 </head>
@@ -979,12 +1016,6 @@ function selectLibrary(library) {
         selectedMunicipio = library.municipality;
     } else {
         console.log('Marker not found for library:', library);
-    }
-
-    // Nascondi il riquadro dei risultati
-    const resultsContainer = document.getElementById('search-results');
-    if (resultsContainer) {
-        resultsContainer.style.display = 'none';
     }
 }
 
@@ -1514,36 +1545,59 @@ fetch('municipio10.geojson')
             }
         }).addTo(map);
 
-// Prima definisci l'oggetto con le zone dei municipi
-const municipalityZones = {
-    1: "Centro storico",
-    2: "Parioli/Nomentano",
-    3: "Monte Sacro",
-    4: "Tiburtina", 
-    5: "Prenestino/Centocelle",
-    6: "Roma Delle Torri",
-    7: "Appio-Latino/Tuscolano/Cinecittà",
-    8: "Appia Antica",
-    9: "EUR",
-    10: "Ostia/Acilia",
-    11: "Arvalia/Portuense",
-    12: "Monte Verde",
-    13: "Aurelia",
-    14: "Monte Mario",
-    15: "Cassia/Flaminia"
-};
+// Funzione per ottenere le biblioteche di un municipio
+function getLibrariesForMunicipio(municipioNum) {
+    return window.libraryData.libraries.filter(lib => lib.municipality === parseInt(municipioNum));
+}
 
-// Popola la legenda
-const legendContainer = document.querySelector('.legend-container .legend-grid');
+// Modifica la parte dove viene popolata la legenda
 if (legendContainer) {
-    legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => `
-        <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})">
-            <span style="background: ${color}"></span>
-            <div class="text">Municipio ${romanize(parseInt(num))}</div>
-            <div class="info-icon">i</div>
-            <div class="tooltip">Zona: ${municipalityZones[num]}</div>
-        </div>
-    `).join('');
+    legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => {
+        const libraries = getLibrariesForMunicipio(num);
+        const librariesHtml = libraries.map(lib => `
+            <div class="library-item-legend" onclick="selectLibrary(${JSON.stringify(lib)})">
+                ${lib.name}
+            </div>
+        `).join('');
+
+        return `
+            <div class="legend-item" data-municipio="${num}" onclick="handleLegendClick(${num})">
+                <span style="background: ${color}"></span>
+                <div class="text">
+                    Municipio ${romanize(parseInt(num))}
+                    <span class="expand-icon">▼</span>
+                </div>
+            </div>
+            <div class="municipality-libraries" id="municipio-${num}-libraries">
+                ${librariesHtml}
+            </div>
+        `;
+    }).join('');
+
+    // Aggiungi event listener per l'espansione
+    document.querySelectorAll('.legend-item').forEach(item => {
+        const expandIcon = item.querySelector('.expand-icon');
+        expandIcon.addEventListener('click', (e) => {
+            e.stopPropagation(); // Previene il trigger del click sul parent
+            const municipioNum = item.dataset.municipio;
+            const librariesDiv = document.getElementById(`municipio-${municipioNum}-libraries`);
+            const isExpanded = librariesDiv.classList.contains('expanded');
+            
+            // Chiudi tutti i municipi espansi
+            document.querySelectorAll('.municipality-libraries').forEach(div => {
+                div.classList.remove('expanded');
+            });
+            document.querySelectorAll('.legend-item').forEach(item => {
+                item.classList.remove('expanded');
+            });
+
+            // Espandi/contrai il municipio corrente
+            if (!isExpanded) {
+                librariesDiv.classList.add('expanded');
+                item.classList.add('expanded');
+            }
+        });
+    });
 }
 
   
