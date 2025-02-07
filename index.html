@@ -699,7 +699,19 @@ body, html {
     margin-right: 20px;
 }
 
-        
+@media (max-width: 768px) {
+    .sidebar-expanded.open {
+        width: 100%;
+        padding: 10px;
+    }
+    .legend {
+        width: 90%;
+        right: -90%;
+    }
+    .legend.visible {
+        right: 5px;
+    }
+}        
         
     </style>
 </head>
@@ -755,10 +767,10 @@ body, html {
             
         
             
-            <div class="legend-item">
-                <span style="background: #0006fd"></span>
-                <div class="text">Biblioteche Sistema Castelli Romani</div>
-            </div>
+            <div class="legend-item" data-system="castelli">
+    <span style="background: #0006fd"></span>
+    <div class="text">Biblioteche Sistema Castelli Romani</div>
+</div>
             <div class="legend-item">
                 <span style="background: #fc04f7"></span>
                 <div class="text">Sistema Bibliotecario Ceretano-Sabatino</div>
@@ -1385,6 +1397,66 @@ window.federatedMarkers = data.federate.map(library => {
   if (municipioLayer) {
     map.removeLayer(municipioLayer);
   }
+
+
+
+
+// Crea un layer di cluster per le biblioteche federate
+const federatedCluster = L.markerClusterGroup({
+    maxClusterRadius: 40,
+    spiderfyOnMaxZoom: true,
+    showCoverageOnHover: false,
+    zoomToBoundsOnClick: true
+});
+
+// Aggiungi i marker delle biblioteche federate al cluster
+window.federatedMarkers.forEach(marker => {
+    federatedCluster.addLayer(marker);
+});
+
+// Aggiungi il cluster alla mappa
+map.addLayer(federatedCluster);
+
+// Funzione per zoommare e centrare sulle biblioteche del Sistema Castelli Romani
+function zoomToCastelliRomani() {
+    const castelliMarkers = window.federatedMarkers.filter(marker => {
+        const libraryName = marker.options.title;
+        return window.libraryData.federate.some(lib => 
+            lib.name === libraryName && 
+            lib.system === 'Sistema Bibliotecario Castelli Romani'
+        );
+    });
+    
+    if (castelliMarkers.length > 0) {
+        const bounds = L.latLngBounds(castelliMarkers.map(marker => marker.getLatLng()));
+        map.flyToBounds(bounds, {
+            padding: [50, 50],
+            duration: 1.5
+        });
+    } else {
+        alert('Nessuna biblioteca del Sistema Castelli Romani trovata.');
+    }
+}
+
+// Aggiungi l'evento click
+document.querySelector('.legend-item[data-system="castelli"]')
+    .addEventListener('click', zoomToCastelliRomani);
+
+5. Nel CSS, alla fine del file dopo l'ultimo @media query, aggiungi:
+@media (max-width: 768px) {
+    .sidebar-expanded.open {
+        width: 100%;
+        padding: 10px;
+    }
+    .legend {
+        width: 90%;
+        right: -90%;
+    }
+    .legend.visible {
+        right: 5px;
+    }
+}
+       
   
   try {
     const response = await fetch('municipio1.geojson');
