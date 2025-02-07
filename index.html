@@ -1562,20 +1562,18 @@ const municipalityZones = {
     15: "Cassia/Flaminia"
 };
 
-// Aggiungi la legenda interattiva
-document.addEventListener('DOMContentLoaded', function() {
-    const legendContainer = document.querySelector('.legend-container .legend-grid');
-    if (legendContainer) {
-        legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => `
-            <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})">
-                <span style="background: ${color}"></span>
-                <div class="text">Municipio ${romanize(parseInt(num))}</div>
-                <div class="info-icon">i</div>
-                <div class="tooltip">Zona: ${municipalityZones[num]}</div>
-            </div>
-        `).join('');
-    }
-});
+// Popola la legenda
+const legendContainer = document.querySelector('.legend-container .legend-grid');
+if (legendContainer) {
+    legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => `
+        <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})">
+            <span style="background: ${color}"></span>
+            <div class="text">Municipio ${romanize(parseInt(num))}</div>
+            <div class="info-icon">i</div>
+            <div class="tooltip">Zona: ${municipalityZones[num]}</div>
+        </div>
+    `).join('');
+}
 
   
 
