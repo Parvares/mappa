@@ -1570,30 +1570,29 @@ if (legendContainer) {
 
         // Gestore hover sulla legenda
 // Funzione per gestire l'hover sulla legenda
-window.handleLegendHover = async function(municipioNumber) {
-                // Non mostrare l'hover se il municipio è già selezionato
-                if (municipioNumber === selectedMunicipio) return;
+window.handleLegendHover = async function(municipioNumber) { // Aggiungi "async" qui
+    if (municipioNumber === selectedMunicipio) return;
 
-                const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-                item.classList.add('highlighted');
+    const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+    item.classList.add('highlighted');
 
-                if (!municipioLayers[municipioNumber]) {
-                    try {
-                        const response = await fetch(`municipio${municipioNumber}.geojson`);
-                        const data = await response.json();
-                        municipioLayers[municipioNumber] = L.geoJSON(data, {
-                            style: {
-                                color: municipalityColors[municipioNumber],
-                                weight: 4,
-                                opacity: 0.9,
-                                fillOpacity: 0.1
-                            }
-                        });
-                    } catch (error) {
-                        console.error(`Error loading municipality ${municipioNumber}:`, error);
-                        return;
-                    }
+    if (!municipioLayers[municipioNumber]) {
+        try {
+            const response = await fetch(`municipio${municipioNumber}.geojson`); // Ora è valido
+            const data = await response.json();
+            municipioLayers[municipioNumber] = L.geoJSON(data, {
+                style: {
+                    color: municipalityColors[municipioNumber],
+                    weight: 4,
+                    opacity: 0.9,
+                    fillOpacity: 0.1
                 }
+            });
+        } catch (error) {
+            console.error(`Error loading municipality ${municipioNumber}:`, error);
+            return;
+        }
+    }
 
                 if (currentHighlight && currentHighlight !== currentBorder) {
                     map.removeLayer(currentHighlight);
