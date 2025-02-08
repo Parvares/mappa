@@ -1801,37 +1801,46 @@ function toggleFederatedLibraries() {
 }
 
 function resetMap() {
+    console.log('Iniziando il reset della mappa...');
+    
     // Reset del campo di ricerca
     const searchInput = document.getElementById('start-point');
     searchInput.value = '';
+    console.log('Campo di ricerca resettato');
     
     // Rimuovi il controllo del percorso se presente
     if (routingControl) {
         map.removeControl(routingControl);
         routingControl = null;
+        console.log('Percorso rimosso dalla mappa');
     }
     
     // Reset della vista della mappa
     const center = [41.732522, 12.271879];
     map.setView(center, 14);
+    console.log('Vista della mappa resettata al centro');
     
     // Reset del municipio selezionato
     if (selectedMunicipio) {
         if (currentBorder) {
             map.removeLayer(currentBorder);
             currentBorder = null;
+            console.log('Bordo del municipio rimosso');
         }
         selectedMunicipio = null;
+        console.log('Selezione municipio resettata');
     }
     
     // Reset dell'evidenziazione nella legenda
     const allItems = document.querySelectorAll('.legend-item');
     allItems.forEach(item => item.classList.remove('highlighted'));
+    console.log('Evidenziazione della legenda resettata');
     
     // Nascondi i risultati della ricerca
     const searchResults = document.getElementById('search-results');
     if (searchResults) {
         searchResults.style.display = 'none';
+        console.log('Risultati della ricerca nascosti');
     }
     
     // Reset del municipio X allo stile originale
@@ -1842,7 +1851,10 @@ function resetMap() {
             opacity: 0.65,
             fillOpacity: 0
         });
+        console.log('Stile del municipio X resettato');
     }
+    
+    console.log('Reset completato con successo');
 }
 
         
