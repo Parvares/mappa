@@ -1085,6 +1085,8 @@ function showMunicipioAndLibraries(municipioNumber, libraries) {
 
 function selectLibrary(library) {
     let foundMarker = null;
+    
+    // Cerca il marker corrispondente alla biblioteca
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker) {
             const pos = layer.getLatLng();
@@ -1095,8 +1097,11 @@ function selectLibrary(library) {
     });
 
     if (foundMarker) {
+        // Apri il popup e centra la mappa sul marker
         foundMarker.openPopup();
         map.setView(foundMarker.getLatLng(), 14);
+        
+        // Evidenzia il municipio corrispondente
         loadAndShowBorder(library.municipality, map);
         highlightLegendItem(library.municipality);
         selectedMunicipio = library.municipality;
@@ -1104,7 +1109,7 @@ function selectLibrary(library) {
         console.log('Marker not found for library:', library);
     }
 
-    // Nascondi il riquadro dei risultati
+    // Nascondi il riquadro dei risultati se presente
     const resultsContainer = document.getElementById('search-results');
     if (resultsContainer) {
         resultsContainer.style.display = 'none';
@@ -1643,10 +1648,10 @@ fetch('municipio10.geojson')
 const legendContainer = document.querySelector('.legend-container .legend-grid');
 if (legendContainer) {
     legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => {
-        const municipioLibraries = window.libraryData.libraries
-            .filter(lib => lib.municipality === parseInt(num))
-            .map(lib => `<div class="library-item-legend" onclick="selectLibrary(${JSON.stringify(lib)})">${lib.name}</div>`)
-            .join('');
+const municipioLibraries = window.libraryData.libraries
+  .filter(lib => lib.municipality === parseInt(num))
+  .map(lib => `<div class="library-item-legend" onclick="selectLibrary(${JSON.stringify(lib)})">${lib.name}</div>`)
+  .join('');
         
         return `
             <div class="legend-item" data-municipio="${num}">
