@@ -1018,22 +1018,26 @@ function selectLibrary(library) {
 function toggleFederateSidebar() {
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
-    const searchContainer = document.getElementById('searchContainer'); // Ottieni searchContainer
+    const expandedSidebar = document.getElementById('expandedSidebar');
+    const searchContainer = document.getElementById('searchContainer');
 
+    // Rimuovo la classe active da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
-        if (button !== federateBtn) { // Deseleziona tutti i pulsanti *tranne* quello federato
-            button.classList.remove('active');
-        }
+        button.classList.remove('active');
     });
 
+    // Chiudo il pannello di ricerca se aperto
+    expandedSidebar.classList.remove('open');
+    if (searchContainer) {
+        searchContainer.style.display = 'none';
+    }
+
+    // Gestisco l'apertura/chiusura del pannello federate
     federateSidebar.classList.toggle('open');
     if (federateSidebar.classList.contains('open')) {
         federateBtn.classList.add('active');
-        federateSidebar.style.display = 'block'; // **NUOVO:** Mostra pannello federato ESPLICITAMENTE
-        searchContainer.style.display = 'none'; // **NUOVO:** Nascondi pannello ricerca ESPLICITAMENTE
     } else {
         federateBtn.classList.remove('active');
-        federateSidebar.style.display = 'none'; // **NUOVO:** Nascondi pannello federato ESPLICITAMENTE
     }
 }
 
