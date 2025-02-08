@@ -709,23 +709,6 @@ body, html {
     content: '−';
 }
 
-.bottone-grigio {
-    background-color: #d3d3d3; /* Grigio chiaro */
-    color: #000; /* Nero per il testo */
-    border: 1px solid #808080; /* Bordo grigio */
-    padding: 10px 20px; /* Spaziatura interna */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px; /* Bordi arrotondati, opzionale */
-}
-
-.bottone-grigio:hover {
-    background-color: #c0c0c0; /* Grigio leggermente più scuro al passaggio del mouse */
-}
-
         
     </style>
 </head>
@@ -1887,52 +1870,7 @@ function zoomToSystemLibraries(systemName) {
     const message = `Trovate ${count} biblioteche del sistema ${systemName}`;
     console.log(message);
 }
-
-function resetMap() {
-    // Reset del campo di ricerca
-    const searchInput = document.getElementById('start-point');
-    searchInput.value = '';
-    
-    // Rimuovi il controllo del percorso se presente
-    if (routingControl) {
-        map.removeControl(routingControl);
-        routingControl = null;
-    }
-    
-    // Reset della vista della mappa
-    const center = [41.732522, 12.271879];
-    map.setView(center, 14);
-    
-    // Reset del municipio selezionato
-    if (selectedMunicipio) {
-        if (currentBorder) {
-            map.removeLayer(currentBorder);
-            currentBorder = null;
-        }
-        selectedMunicipio = null;
-    }
-    
-    // Reset dell'evidenziazione nella legenda
-    const allItems = document.querySelectorAll('.legend-item');
-    allItems.forEach(item => item.classList.remove('highlighted'));
-    
-    // Nascondi i risultati della ricerca
-    const searchResults = document.getElementById('search-results');
-    if (searchResults) {
-        searchResults.style.display = 'none';
-    }
-    
-    // Reset del municipio X allo stile originale
-    if (municipioLayers[10]) {
-        municipioLayers[10].setStyle({
-            color: municipalityColors[10],
-            weight: 3,
-            opacity: 0.65,
-            fillOpacity: 0
-        });
-    }
-}
-  
+        
     </script>
 </body>
 </html>
