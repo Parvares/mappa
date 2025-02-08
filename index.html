@@ -1016,10 +1016,13 @@ function selectLibrary(library) {
 
 // Funzione per aprire/chiudere il pannello delle biblioteche federate
 function toggleFederateSidebar() {
+    console.log("toggleFederateSidebar chiamata"); // Debugging
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
+
+    console.log("Stato attuale del pannello federate:", federateSidebar.classList.contains('open')); // Debugging
 
     // Rimuovo la classe active da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
