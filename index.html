@@ -951,14 +951,14 @@ async function searchLibrary() {
         const response = await fetch('libraries.json');
         const data = await response.json();
 
-        // Trova la biblioteca cercata
-        const foundLibrary = data.libraries.find(library =>
+        // Cerca solo nelle biblioteche di Roma (libraries)
+        const foundLibrary = data.libraries.find(library => 
             library.name.toLowerCase().includes(searchTerm)
         );
 
         if (foundLibrary) {
             // Trova tutte le biblioteche dello stesso municipio
-            const librariesInMunicipio = data.libraries.filter(library =>
+            const librariesInMunicipio = data.libraries.filter(library => 
                 library.municipality === foundLibrary.municipality
             );
 
@@ -1293,18 +1293,18 @@ try {
     window.libraryData = data;
     
     // Popola il datalist con i nomi delle biblioteche
+// Popola il datalist con i nomi delle biblioteche di Roma
 const customDatalist = document.getElementById('library-suggestions');
-    // Aggiungi sia le biblioteche normali che quelle federate al datalist
-    [...data.libraries, ...data.federate].forEach(library => {
-        const option = document.createElement('div');
-        option.textContent = library.name;
-        option.onclick = () => {
-            document.getElementById('start-point').value = library.name;
-            customDatalist.style.display = 'none';
-            searchLibrary();
-        };
-        customDatalist.appendChild(option);
-    });
+data.libraries.forEach(library => {
+    const option = document.createElement('div');
+    option.textContent = library.name;
+    option.onclick = () => {
+        document.getElementById('start-point').value = library.name;
+        customDatalist.style.display = 'none';
+        searchLibrary();
+    };
+    customDatalist.appendChild(option);
+});
 
 // Mostra/nascondi il menu personalizzato quando il campo di ricerca è focalizzato
 document.getElementById('start-point').addEventListener('focus', () => {
