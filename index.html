@@ -1893,41 +1893,51 @@ function zoomToSystemLibraries(systemName) {
 }
 
 function resetMap() {
-  // Chiude tutti i popup aperti
-  map.closePopup();
-  
-  // Rimuove il bordo del municipio evidenziato
-  if (currentBorder) {
-    map.removeLayer(currentBorder);
-    currentBorder = null;
-  }
-  
-  // Resetta l'evidenziazione nella legenda
-  const allLegendItems = document.querySelectorAll('.legend-item');
-  allLegendItems.forEach(item => {
-    item.classList.remove('highlighted');
-  });
-  
-  // Resetta la selezione del municipio
-  selectedMunicipio = null;
-  
-  // Pulisce i risultati di ricerca
-  const searchResults = document.getElementById('search-results');
-  if (searchResults) {
-    searchResults.style.display = 'none';
-    searchResults.innerHTML = '';
-  }
-  
-  // Se il municipio 10 è visibile, ripristina il suo stile originale
-  if (municipioLayers[10]) {
-    municipioLayers[10].setStyle({
-      color: municipalityColors[10],
-      weight: 3,
-      opacity: 0.65,
-      fillOpacity: 0
+    // Chiude tutti i popup aperti
+    map.closePopup();
+
+    // Rimuove il bordo del municipio evidenziato
+    if (currentBorder) {
+        map.removeLayer(currentBorder);
+        currentBorder = null;
+    }
+
+    // Resetta l'evidenziazione nella legenda
+    const allLegendItems = document.querySelectorAll('.legend-item');
+    allLegendItems.forEach(item => {
+        item.classList.remove('highlighted');
     });
-  }
+
+    // Resetta la selezione del municipio
+    selectedMunicipio = null;
+
+    // Pulisce i risultati di ricerca
+    const searchResults = document.getElementById('search-results');
+    if (searchResults) {
+        searchResults.style.display = 'none';
+        searchResults.innerHTML = '';
+    }
+
+    // Se il municipio 10 è visibile, ripristina il suo stile originale
+    if (municipioLayers[10]) {
+        municipioLayers[10].setStyle({
+            color: municipalityColors[10],
+            weight: 3,
+            opacity: 0.65,
+            fillOpacity: 0
+        });
+    }
+
+    // Svuota il campo di ricerca
+    const searchInput = document.getElementById('start-point');
+    if (searchInput) {
+        searchInput.value = ''; // Imposta il valore del campo di ricerca a una stringa vuota
+    }
+
+    // Nascondi il pulsante "x" di cancellazione
+    toggleClearButton();
 }
+        
     </script>
 </body>
 </html>
