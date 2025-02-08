@@ -261,46 +261,103 @@ body, html {
     margin-top: 20px; /* Aggiungi un margine superiore per abbassare i municipi */
 }
 
-/* Stili comuni */
 .legend-item {
-    display: flex;
-    padding: 6px 10px;
+    position: relative;
+    padding: 8px 12px;
     border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(255, 255, 255, 0.7);
     border: 1px solid transparent;
-    position: relative;
-    padding-right: 30px;
+    margin-bottom: 6px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* Stili specifici per .legend-item (default) */
-.legend-item {
-    align-items: center;
-    flex-direction: column;
-}
-
-/* Stili specifici per .federate-container .legend-item */
-.federate-container .legend-item {
-    align-items: flex-start;
-    flex-direction: row; /* Imposta esplicitamente il valore predefinito */
-}        
-
-.legend-item span {
-    width: 18px;         /* Dimensione icona bilanciata */
-    height: 18px;
-    margin-right: 10px;  /* Margin bilanciato */
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-        
 
 .legend-item:hover {
-    background: rgba(241, 242, 246,0.6);
+    background: rgba(241, 242, 246, 0.6);
     transform: translateX(3px);
     border-color: #dfe4ea;
 }
 
+.legend-item-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.legend-item span {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.legend-item .text {
+    flex: 1;
+    font-size: 13px;
+    color: #4a5568;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+/* Nuovo stile per il pulsante di espansione */
+.expand-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+
+.expand-button:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.expand-button svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+}
+
+.legend-item.expanded .expand-button svg {
+    transform: rotate(180deg);
+}
+
+.libraries-list {
+    display: none;
+    margin-top: 10px;
+    margin-left: 28px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.libraries-list.expanded {
+    display: block;
+}
+
+.library-item-legend {
+    padding: 6px 0;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.library-item-legend:hover {
+    color: #000;
+    padding-left: 8px;
+}
+        
 .legend-item.highlighted {
     background: #f8f9fa;
     box-shadow: 0 3px 15px rgba(0,0,0,0.1);
@@ -313,13 +370,7 @@ body, html {
     transform: scale(1.1);
 }
 
-.legend-item .text {
-    font-size: 13px;
-    color: #4a5568;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    margin-right: 20px;
-}
+
 
   .legend-item.disabled {
             opacity: 0.5;
@@ -355,7 +406,28 @@ body, html {
         
 
         
-
+        .info-icon {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-style: italic;
+            cursor: help;
+            transition: all 0.2s ease;
+        }
+        
+        .info-icon:hover {
+            background: #e0e0e0;
+        }
         
 .tooltip {
     position: absolute;
@@ -624,7 +696,7 @@ body, html {
     padding: 20px;
 }
 
-.federate-container h4 {
+.federate-container h4 
     
     margin: 0 0 12px 0;
     font-size: 14px;
@@ -638,6 +710,18 @@ body, html {
     margin-top: 20px;
 }
 
+.federate-container .legend-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid transparent;
+    position: relative;
+    padding-right: 30px !important;
+}
 
 .federate-container .legend-item span {
     width: 18px;
@@ -645,8 +729,6 @@ body, html {
     margin-right: 10px;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0; /* Impedisce al quadrato di ridimensionarsi */
-    margin-top: 3px; /* Aggiunge un piccolo offset verso il basso */
 }
 
 .federate-container .legend-item:hover {
@@ -661,59 +743,9 @@ body, html {
     font-weight: 500;
     letter-spacing: 0.02em;
     margin-right: 20px;
-    flex: 1; /* Permette al testo di occupare lo spazio rimanente */
-    line-height: 1.4; /* Migliora la spaziatura delle righe per il testo su più righe */
 }
 
- .legend-item-header {
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.libraries-list {
-    display: none;
-    margin-top: 10px;
-    margin-left: 28px;
-    font-size: 12px;
-}
-
-.libraries-list.expanded {
-    display: block;
-}
-
-.library-item-legend {
-    padding: 4px 0;
-    color: #666;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.library-item-legend:hover {
-    color: #000;
-}
-
-.expand-icon {
-  margin-left: auto;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 50%;
-  transition: background-color 0.2s ease, transform 0.3s ease;
-}
-
-.expand-icon:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.expand-icon-img {
-  width: 16px;
-  height: 16px;
-  transition: transform 0.3s ease;
-}
-
-.legend-item.expanded .expand-icon-img {
-  transform: rotate(180deg);
-}
+        
         
     </style>
 </head>
@@ -744,7 +776,23 @@ body, html {
     <div class="legend-container">
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
         <div class="legend-grid">
-            <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
+            <!-- Municipio I -->
+            <div class="legend-item">
+                <div class="legend-item-header">
+                    <span style="background: #6a3f3a"></span>
+                    <div class="text">Municipio I</div>
+                    <button class="expand-button" aria-label="Espandi lista biblioteche" onclick="toggleLibraryList(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="libraries-list" style="display: none;">
+                    <div class="library-item-legend">Biblioteca Centrale Ragazzi</div>
+                    <div class="library-item-legend">Biblioteca Rispoli</div>
+                    <div class="library-item-legend">Biblioteca Casa della Memoria</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -1545,31 +1593,36 @@ fetch('municipio10.geojson')
             }
         }).addTo(map);
 
+// Prima definisci l'oggetto con le zone dei municipi
+const municipalityZones = {
+    1: "Centro storico",
+    2: "Parioli/Nomentano",
+    3: "Monte Sacro",
+    4: "Tiburtina", 
+    5: "Prenestino/Centocelle",
+    6: "Roma Delle Torri",
+    7: "Appio-Latino/Tuscolano/Cinecittà",
+    8: "Appia Antica",
+    9: "EUR",
+    10: "Ostia/Acilia",
+    11: "Arvalia/Portuense",
+    12: "Monte Verde",
+    13: "Aurelia",
+    14: "Monte Mario",
+    15: "Cassia/Flaminia"
+};
 
 // Popola la legenda
 const legendContainer = document.querySelector('.legend-container .legend-grid');
 if (legendContainer) {
-    legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => {
-        const municipioLibraries = window.libraryData.libraries
-            .filter(lib => lib.municipality === parseInt(num))
-            .map(lib => `<div class="library-item-legend" onclick="selectLibrary(${JSON.stringify(lib)})">${lib.name}</div>`)
-            .join('');
-            
-       return `
-<div class="legend-item" data-municipio="${num}" onclick="handleLegendClick(${num}, event)">
-  <div class="legend-item-header">
-    <span style="background: ${color}"></span>
-    <div class="text">Municipio ${romanize(parseInt(num))}</div>
-    <div class="expand-icon" onclick="toggleLibrariesList(event)">
-      <img src="expand-icon.svg" alt="Espandi" class="expand-icon-img">
-    </div>
-  </div>
-  <div class="libraries-list">
-    ${municipioLibraries}
-  </div>
-</div>
-`;
-    }).join('');
+    legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => `
+        <div class="legend-item" data-municipio="${num}" onmouseover="handleLegendHover(${num})" onmouseout="handleLegendOut(${num})" onclick="handleLegendClick(${num})">
+            <span style="background: ${color}"></span>
+            <div class="text">Municipio ${romanize(parseInt(num))}</div>
+            <div class="info-icon">i</div>
+            <div class="tooltip">Zona: ${municipalityZones[num]}</div>
+        </div>
+    `).join('');
 }
 
   
@@ -1628,43 +1681,19 @@ window.handleLegendHover = async function(municipioNumber) {
 
             // Funzione per gestire il click sulla legenda
 window.handleLegendClick = async function(municipioNumber, event) {
-    if (event) {
+    // Se il click proviene dal pulsante di espansione, gestisci solo l'espansione
+    if (event.target.closest('.expand-button')) {
         event.stopPropagation();
-    }
-    
-    const legendItem = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-    const librariesList = legendItem.querySelector('.libraries-list');
-    const wasExpanded = legendItem.classList.contains('expanded');
-    
-    // Toggle espansione
-    if (event && event.target.closest('.library-item-legend')) {
-        return; // Non fare nulla se si clicca su una biblioteca
-    }
-    
-    // Gestisci l'espansione
-    if (event && (event.target.classList.contains('expand-icon') || event.target.closest('.legend-item-header'))) {
+        const legendItem = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
+        const librariesList = legendItem.querySelector('.libraries-list');
         legendItem.classList.toggle('expanded');
         librariesList.classList.toggle('expanded');
+        return;
     }
-    
-    // Gestisci l'evidenziazione del municipio sulla mappa
-    const allItems = document.querySelectorAll('.legend-item');
-    allItems.forEach(item => item.classList.remove('highlighted'));
 
-    if (selectedMunicipio === municipioNumber && !wasExpanded) {
-        if (currentBorder) {
-            map.removeLayer(currentBorder);
-            currentBorder = null;
-        }
-        if (municipioNumber === 10) {
-            municipioLayers[10].setStyle({
-                color: municipalityColors[10],
-                weight: 3,
-                opacity: 0.65,
-                fillOpacity: 0
-            });
-        }
-        selectedMunicipio = null;
+    // Se il click proviene da una biblioteca, gestisci solo la selezione della biblioteca
+    if (event.target.closest('.library-item-legend')) {
+        event.stopPropagation();
         return;
     }
 
@@ -1874,83 +1903,7 @@ function zoomToSystemLibraries(systemName) {
     const message = `Trovate ${count} biblioteche del sistema ${systemName}`;
     console.log(message);
 }
-
-function toggleLibrariesList(event) {
-  event.stopPropagation(); // Impedisce la propagazione dell'evento al contenitore del municipio
-  const legendItem = event.target.closest('.legend-item');
-  const librariesList = legendItem.querySelector('.libraries-list');
-  const expandIcon = legendItem.querySelector('.expand-icon-img');
-
-  legendItem.classList.toggle('expanded');
-  librariesList.classList.toggle('expanded');
-  expandIcon.style.transform = legendItem.classList.contains('expanded') ? 'rotate(180deg)' : 'rotate(0deg)';
-}
-
-function handleLegendClick(municipioNumber, event) {
-  if (event) {
-    event.stopPropagation();
-  }
-
-  const legendItem = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-  const wasExpanded = legendItem.classList.contains('expanded');
-
-  // Se l'evento è stato generato dalla freccia, non fare nulla
-  if (event && event.target.closest('.expand-icon')) {
-    return;
-  }
-
-  // Gestisci l'evidenziazione del municipio sulla mappa
-  const allItems = document.querySelectorAll('.legend-item');
-  allItems.forEach(item => item.classList.remove('highlighted'));
-
-  if (selectedMunicipio === municipioNumber && !wasExpanded) {
-    if (currentBorder) {
-      map.removeLayer(currentBorder);
-      currentBorder = null;
-    }
-    if (municipioNumber === 10) {
-      municipioLayers[10].setStyle({ color: municipalityColors[10], weight: 3, opacity: 0.65, fillOpacity: 0 });
-    }
-    selectedMunicipio = null;
-    return;
-  }
-
-  // Carica il GeoJSON se non è già stato caricato
-  if (!municipioLayers[municipioNumber]) {
-    try {
-      const response = await fetch(`municipio${municipioNumber}.geojson`);
-      const data = await response.json();
-      municipioLayers[municipioNumber] = L.geoJSON(data, {
-        style: { color: municipalityColors[municipioNumber], weight: 4, opacity: 0.9, fillOpacity: 0.2 }
-      });
-    } catch (error) {
-      console.error(`Error loading municipality ${municipioNumber}:`, error);
-      return;
-    }
-  }
-
-  // Rimuovi il bordo precedente se non è il municipio X
-  if (currentBorder && currentBorder !== municipioLayers[10]) {
-    map.removeLayer(currentBorder);
-  }
-
-  selectedMunicipio = municipioNumber;
-  const item = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-  if (item) {
-    item.classList.add('highlighted');
-  }
-
-  // Gestione speciale per il municipio X
-  if (municipioNumber === 10) {
-    municipioLayers[10].setStyle({ color: municipalityColors[10], weight: 6, opacity: 1, fillOpacity: 0.3 }).bringToFront();
-    currentBorder = municipioLayers[10];
-  } else {
-    // Per altri municipi, aggiungi il nuovo bordo
-    currentBorder = municipioLayers[municipioNumber].addTo(map).bringToFront();
-  }
-
-  map.fitBounds(currentBorder.getBounds());
-}        
+        
     </script>
 </body>
 </html>
