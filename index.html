@@ -749,21 +749,21 @@ body, html {
 <div class="sidebar-expanded" id="expandedSidebar">
     <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
     <!-- Aggiungi questa linea -->
-    <div class="search-container" id="searchContainer">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
-                <img src="home.svg" alt="Biblioteca Home" class="icon">
-            </a>
-            <div class="search-input-wrapper" style="flex: 1;">
-                <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-                <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
-            </div>
-        </div>
-        <div id="library-suggestions" class="custom-datalist"></div>
-        <button onclick="searchRoute()">Trova Percorso</button>
+<div class="search-container" id="searchContainer">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
+      <img src="home.svg" alt="Biblioteca Home" class="icon">
+    </a>
+    <div class="search-input-wrapper" style="flex: 1;">
+      <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+      <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
     </div>
-    <div id="search-results"></div>
-</div>
+  </div>
+  <div id="library-suggestions" class="custom-datalist"></div>
+  <div style="display: flex; gap: 10px;">
+    <button onclick="searchRoute()" style="flex: 1;">Cerca</button>
+    <button onclick="resetAll()" style="flex: 1; background-color: #808080;">Reset</button>
+  </div>
 
 
 <!-- Nuovo pannello per le biblioteche federate -->
@@ -1870,7 +1870,58 @@ function zoomToSystemLibraries(systemName) {
     const message = `Trovate ${count} biblioteche del sistema ${systemName}`;
     console.log(message);
 }
-        
+ function resetAll() {
+    // Rimuovi il percorso se presente
+    if (routingControl) {
+        map.removeControl(routingControl);
+        routingControl = null;
+    }
+    
+    // Resetta il campo di ricerca
+    const searchInput = document.getElementById('start-point');
+    searchInput.value = '';
+    toggleClearButton();
+    
+    // Nascondi i risultati della ricerca
+    const searchResults = document.getElementById('search-results');
+    searchResults.style.display = 'none';
+    
+    // Rimuovi l'evidenziazione del municipio
+    if (currentBorder) {
+        map.removeLayer(currentBorder);
+        currentBorder = null;
+    }
+    
+    // Rimuovi l'evidenziazione dalla legenda
+    const allLegendItems = document.querySelectorAll('.legend-item');
+    allLegendItems.forEach(item => item.classList.remove('highlighted'));
+    
+    // Resetta la selezione del municipio
+    selectedMunicipio = null;
+    
+    // Chiudi tutti i pannelli laterali aperti
+    document.getElementById('expandedSidebar').classList.remove('open');
+    document.getElementById('legendSidebar').classList.remove('open');
+    document.getElementById('federateSidebar').classList.remove('open');
+    
+    // Rimuovi la classe active dai pulsanti della sidebar
+    document.querySelectorAll('.sidebar button').forEach(button => {
+        button.classList.remove('active');
+    });
+    
+    // Ripristina la vista della mappa al punto iniziale
+    map.setView([41.732522, 12.271879], 14);
+    
+    // Se le biblioteche di Roma non sono visibili, mostrale
+    if (!romeLibrariesVisible) {
+        toggleRomeLibraries();
+    }
+    
+    // Se le biblioteche federate sono visibili, nascondile
+    if (federatedLibrariesVisible) {
+        toggleFederatedLibraries();
+    }
+}       
     </script>
 </body>
 </html>
