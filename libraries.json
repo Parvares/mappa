@@ -992,7 +992,7 @@
     
     
     {
-      "name": "Biblioteca Comunale Di Albano Laziale Cesare De Santis",
+      "name": "Biblioteca Comunale Cesare De Santis di Albano Laziale",
       "coords": [41.726805368800335, 12.661762388903735],
       "address": "Viale Risorgimento, 5, Albano",
       "libraryType": "Comunale",
@@ -1063,7 +1063,7 @@
       "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-genzano-di-roma"
     },   
     {
-      "name": "Biblioteca di Bruno Martellotta di Grottaferrata",
+      "name": "Biblioteca Bruno Martellotta di Grottaferrata",
       "coords": [41.79524683928027, 12.66929575424878],
       "address": "Viale Giovanni Dusmet, 20, Grottaferrata",
       "libraryType": "Comunale",
@@ -1135,7 +1135,7 @@
     },  
 
         {
-      "name": "Biblioteca Luigi Porcari di Rocca PRIORA",
+      "name": "Biblioteca Luigi Porcari di Rocca Priora",
       "coords": [41.794798141889466, 12.76326025424883],
       "address": "Via Francesco Giacci 3, Rocca Priora",
       "libraryType": "Comunale",
@@ -1143,7 +1143,7 @@
       "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/ROCCA-PRIORA/"
     },  
             {
-      "name": "Biblioteca Giovanni Cena di Colle di Fuori (Rocca PRIORA)",
+      "name": "Biblioteca Giovanni Cena di Colle di Fuori (Rocca Priora)",
       "coords": [41.79606553677703, 12.806299140755067],
       "address": "Piazza Giovanni Cena, 3, Colle di Fuori (Rocca Priora)",
       "libraryType": "Comunale",
@@ -1151,8 +1151,7 @@
       "url": "https://www.bibliotechecastelliromani.it/biblioteche-scr/biblioteca-di-colle-di-fuori/"
     },  
 
-
-            {
+    {
       "name": "Biblioteca Augusto Tersenghi di Velletri",
       "coords": [41.69137024492294, 12.776194725408116],
       "address": "Piazza Trento e Trieste, Velletri",
@@ -1161,18 +1160,8 @@
       "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-velletri/"
     },  
 
-
     
     {
-      "name": "Biblioteca Augusto Tersenghi di Velletri",
-      "coords": [41.69137024492294, 12.776194725408116],
-      "address": "Piazza Trento e Trieste, Velletri",
-      "libraryType": "Comunale",
-      "system": "BIBLIOTECHE SISTEMA CASTELLI ROMANI",
-      "url": "https://sbcr.comperio.it/biblioteche-scr/biblioteca-di-velletri/"
-    },
-
-       {
       "name": "Biblioteca Comunale Angela Zucconi di Anguillara ",
       "coords": [42.09308462177522, 12.27378582576864],
       "address": "Largo dello Zodiaco, 21, Anguillara Sabazia",
@@ -1182,7 +1171,7 @@
     },  
 
       {
-      "name": "Biblioteca Comunale Di Bracciano Bartolomea Orsini",
+      "name": "Biblioteca Comunale Bartolomea Orsini di Bracciano",
       "coords": [42.10073124195649, 12.175232038922884],
       "address": "Via del Pratoterra, 2, Bracciano",
       "libraryType": "Comunale",
@@ -1192,7 +1181,7 @@
 
 
       {
-      "name": "Biblioteca Comunale Di Campagnano Carlo Maggiorani",
+      "name": "Biblioteca Comunale Carlo Maggiorani di Campagnano",
       "coords": [42.13907331839105, 12.381118850570763],
       "address": "Corso Vittorio Emanuele, 2, Campagnano di Roma",
       "libraryType": "Comunale",
@@ -1218,14 +1207,6 @@
       "libraryType": "Comunale",
       "system": "Sistema Bibliotecario Ceretano-Sabatino",
       "url": "https://opac.regione.lazio.it/SebinaOpac/library/Formello%20-%20Biblioteca%20Comunale/RL1GQ"
-    },  
-   {
-      "name": "Biblioteca Comunale Peppino Impastato di Ladispoli",
-      "coords": [41.959594501464295, 12.07137981008028],
-      "address": "Via Caltagirone, snc, Ladispoli",
-      "libraryType": "Comunale",
-      "system": "Sistema Bibliotecario Ceretano-Sabatino",
-      "url": "https://opac.regione.lazio.it/SebinaOpac/library/Comunale%20di%20Ladispoli%20'Peppino%20Impastato'/RL1A6?sysb=ceretano"
     },  
    {
       "name": "Biblioteca Comunale Peppino Impastato di Ladispoli",
