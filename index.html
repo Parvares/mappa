@@ -759,11 +759,10 @@ body, html {
       <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
     </div>
   </div>
-<div id="library-suggestions" class="custom-datalist"></div>
-  <div style="display: flex; gap: 10px;">
-    <button onclick="searchRoute()" style="flex: 1;">Cerca</button>
-    <button onclick="resetMap()" style="flex: 1; background-color: #808080;">Reset</button>
-  </div>
+  <div id="library-suggestions" class="custom-datalist"></div>
+<div style="display: flex; gap: 10px;">
+  <button onclick="searchRoute()" style="flex: 1;">Cerca</button>
+  <button onclick="resetMap()" style="flex: 1; background-color: #6B7280;">Reset</button>
 </div>
 
 
@@ -1798,55 +1797,40 @@ function toggleFederatedLibraries() {
 }
 
 function resetMap() {
-    // Rimuovi il routing control se presente
+    // Reset del campo di ricerca
+    const searchInput = document.getElementById('start-point');
+    searchInput.value = '';
+    
+    // Rimuovi il controllo del percorso se presente
     if (routingControl) {
         map.removeControl(routingControl);
         routingControl = null;
     }
-
-    // Rimuovi il bordo del municipio evidenziato
-    if (currentBorder) {
-        map.removeLayer(currentBorder);
-        currentBorder = null;
+    
+    // Reset della vista della mappa
+    const center = [41.732522, 12.271879];
+    map.setView(center, 14);
+    
+    // Reset del municipio selezionato
+    if (selectedMunicipio) {
+        if (currentBorder) {
+            map.removeLayer(currentBorder);
+            currentBorder = null;
+        }
+        selectedMunicipio = null;
     }
-
-    // Resetta l'highlight della legenda
+    
+    // Reset dell'evidenziazione nella legenda
     const allItems = document.querySelectorAll('.legend-item');
     allItems.forEach(item => item.classList.remove('highlighted'));
-
-    // Rimuovi l'highlight corrente se presente
-    if (currentHighlight) {
-        map.removeLayer(currentHighlight);
-        currentHighlight = null;
+    
+    // Nascondi i risultati della ricerca
+    const searchResults = document.getElementById('search-results');
+    if (searchResults) {
+        searchResults.style.display = 'none';
     }
-
-    // Resetta il municipio selezionato
-    selectedMunicipio = null;
-
-    // Chiudi tutti i popup aperti
-    map.eachLayer((layer) => {
-        if (layer instanceof L.Marker) {
-            layer.closePopup();
-        }
-    });
-
-    // Nascondi il riquadro dei risultati della ricerca
-    const resultsContainer = document.getElementById('search-results');
-    if (resultsContainer) {
-        resultsContainer.style.display = 'none';
-    }
-
-    // Pulisci il campo di ricerca
-    const searchInput = document.getElementById('start-point');
-    if (searchInput) {
-        searchInput.value = '';
-        toggleClearButton(); // Nascondi il pulsante "x"
-    }
-
-    // Centra la mappa sulla posizione iniziale
-    map.setView([41.732522, 12.271879], 14);
-
-    // Se il municipio X è invisibile, rendilo visibile con lo stile originale
+    
+    // Reset del municipio X allo stile originale
     if (municipioLayers[10]) {
         municipioLayers[10].setStyle({
             color: municipalityColors[10],
