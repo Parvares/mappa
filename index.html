@@ -1888,25 +1888,51 @@ function zoomToSystemLibraries(systemName) {
     console.log(message);
 }
 
-function resettaTutto() {
-    // Resetta il campo di input dell'indirizzo
-    document.getElementById('campoIndirizzo').value = '';
-
-    // Chiudi tutti i popup
-    chiudiTuttiIPopup();
-
-    // Rimuovi le evidenziazioni dalla mappa (ipotizzando che 'mappa' sia l'id dell'elemento mappa)
-    let mappaElement = document.getElementById('mappa');
-    if (mappaElement) {
-        rimuoviEvidenziazioniMappa(mappaElement); // Passa l'elemento mappa alla funzione
+function resetMap() {
+    // Reset del campo di ricerca
+    const searchInput = document.getElementById('start-point');
+    searchInput.value = '';
+    
+    // Rimuovi il controllo del percorso se presente
+    if (routingControl) {
+        map.removeControl(routingControl);
+        routingControl = null;
     }
-
-    // Svuota l'area dei risultati di ricerca (rimuove anche la scheda municipio se è dentro)
-    document.getElementById('risultatiRicerca').innerHTML = '';
-
-    console.log('Funzione resettaTutto() eseguita');
-    alert('Reset completato!');
-}     
+    
+    // Reset della vista della mappa
+    const center = [41.732522, 12.271879];
+    map.setView(center, 14);
+    
+    // Reset del municipio selezionato
+    if (selectedMunicipio) {
+        if (currentBorder) {
+            map.removeLayer(currentBorder);
+            currentBorder = null;
+        }
+        selectedMunicipio = null;
+    }
+    
+    // Reset dell'evidenziazione nella legenda
+    const allItems = document.querySelectorAll('.legend-item');
+    allItems.forEach(item => item.classList.remove('highlighted'));
+    
+    // Nascondi i risultati della ricerca
+    const searchResults = document.getElementById('search-results');
+    if (searchResults) {
+        searchResults.style.display = 'none';
+    }
+    
+    // Reset del municipio X allo stile originale
+    if (municipioLayers[10]) {
+        municipioLayers[10].setStyle({
+            color: municipalityColors[10],
+            weight: 3,
+            opacity: 0.65,
+            fillOpacity: 0
+        });
+    }
+}
+  
     </script>
 </body>
 </html>
