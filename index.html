@@ -1016,31 +1016,38 @@ function selectLibrary(library) {
 
 // Funzione per aprire/chiudere il pannello delle biblioteche federate
 function toggleFederateSidebar() {
-    console.log("toggleFederateSidebar chiamata"); // Debugging
+    console.log("toggleFederateSidebar chiamata");
+    
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
+    const legendSidebar = document.getElementById('legendSidebar');
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
-
-    console.log("Stato attuale del pannello federate:", federateSidebar.classList.contains('open')); // Debugging
-
+    
+    console.log("Stato attuale del pannello federate:", federateSidebar.classList.contains('open'));
+    
     // Rimuovo la classe active da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
         button.classList.remove('active');
     });
-
-    // Chiudo il pannello di ricerca se aperto
-    expandedSidebar.classList.remove('open');
+    
+    // Chiudo tutti gli altri pannelli
+    legendSidebar.classList.remove('open');
     if (searchContainer) {
         searchContainer.style.display = 'none';
     }
-
+    
     // Gestisco l'apertura/chiusura del pannello federate
-    federateSidebar.classList.toggle('open');
     if (federateSidebar.classList.contains('open')) {
-        federateBtn.classList.add('active');
-    } else {
+        // Se è aperto, lo chiudo
+        federateSidebar.classList.remove('open');
+        expandedSidebar.classList.remove('open');
         federateBtn.classList.remove('active');
+    } else {
+        // Se è chiuso, lo apro
+        federateSidebar.classList.add('open');
+        expandedSidebar.classList.add('open');
+        federateBtn.classList.add('active');
     }
 }
 
@@ -1803,17 +1810,35 @@ function resetMap() {
     // Reset del campo di ricerca
     const searchInput = document.getElementById('start-point');
     searchInput.value = '';
-
+    
+    // Chiudi tutti i pannelli laterali
+    const federateSidebar = document.getElementById('federateSidebar');
+    const legendSidebar = document.getElementById('legendSidebar');
+    const expandedSidebar = document.getElementById('expandedSidebar');
+    const searchContainer = document.getElementById('searchContainer');
+    
+    federateSidebar.classList.remove('open');
+    legendSidebar.classList.remove('open');
+    expandedSidebar.classList.remove('open');
+    if (searchContainer) {
+        searchContainer.style.display = 'none';
+    }
+    
+    // Rimuovi le classi active dai pulsanti
+    document.querySelectorAll('.sidebar button').forEach(button => {
+        button.classList.remove('active');
+    });
+    
     // Rimuovi il controllo del percorso se presente
     if (routingControl) {
         map.removeControl(routingControl);
         routingControl = null;
     }
-
+    
     // Reset della vista della mappa
     const center = [41.732522, 12.271879];
     map.setView(center, 14);
-
+    
     // Reset del municipio selezionato
     if (selectedMunicipio) {
         if (currentBorder) {
@@ -1822,17 +1847,17 @@ function resetMap() {
         }
         selectedMunicipio = null;
     }
-
+    
     // Reset dell'evidenziazione nella legenda
     const allItems = document.querySelectorAll('.legend-item');
     allItems.forEach(item => item.classList.remove('highlighted'));
-
+    
     // Nascondi i risultati della ricerca
     const searchResults = document.getElementById('search-results');
     if (searchResults) {
         searchResults.style.display = 'none';
     }
-
+    
     // Reset del municipio X allo stile originale
     if (municipioLayers[10]) {
         municipioLayers[10].setStyle({
