@@ -1800,17 +1800,17 @@ function resetMap() {
     // Reset del campo di ricerca
     const searchInput = document.getElementById('start-point');
     searchInput.value = '';
-    
+
     // Rimuovi il controllo del percorso se presente
     if (routingControl) {
         map.removeControl(routingControl);
         routingControl = null;
     }
-    
+
     // Reset della vista della mappa
     const center = [41.732522, 12.271879];
     map.setView(center, 14);
-    
+
     // Reset del municipio selezionato
     if (selectedMunicipio) {
         if (currentBorder) {
@@ -1819,17 +1819,17 @@ function resetMap() {
         }
         selectedMunicipio = null;
     }
-    
+
     // Reset dell'evidenziazione nella legenda
     const allItems = document.querySelectorAll('.legend-item');
     allItems.forEach(item => item.classList.remove('highlighted'));
-    
+
     // Nascondi i risultati della ricerca
     const searchResults = document.getElementById('search-results');
     if (searchResults) {
         searchResults.style.display = 'none';
     }
-    
+
     // Reset del municipio X allo stile originale
     if (municipioLayers[10]) {
         municipioLayers[10].setStyle({
@@ -1840,7 +1840,6 @@ function resetMap() {
         });
     }
 }
-
         
 function zoomToSystemLibraries(systemName) {
     // Verifica se ci sono marker delle biblioteche federate
