@@ -1018,22 +1018,22 @@ function selectLibrary(library) {
 function toggleFederateSidebar() {
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
+    const legendSidebar = document.getElementById('legendSidebar');
     const expandedSidebar = document.getElementById('expandedSidebar');
-    const searchContainer = document.getElementById('searchContainer');
 
-    // Rimuovo la classe active da tutti i pulsanti
+    // Rimuovi la classe active da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
         button.classList.remove('active');
     });
 
-    // Chiudo il pannello di ricerca se aperto
+    // Chiudi gli altri pannelli
+    legendSidebar.classList.remove('open');
     expandedSidebar.classList.remove('open');
-    if (searchContainer) {
-        searchContainer.style.display = 'none';
-    }
 
-    // Gestisco l'apertura/chiusura del pannello federate
+    // Gestisci l'apertura/chiusura del pannello federate
     federateSidebar.classList.toggle('open');
+    
+    // Gestisci lo stato attivo del pulsante
     if (federateSidebar.classList.contains('open')) {
         federateBtn.classList.add('active');
     } else {
