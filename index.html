@@ -709,23 +709,7 @@ body, html {
     content: '−';
 }
 
-button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-button[onclick="searchRoute()"] {
-    background-color: var(--primary);
-    color: #fff;
-}
-
-button[onclick="resetMap()"] {
-    background-color: #ccc;
-    color: #000;
-}        
+        
     </style>
 </head>
 <body>
@@ -766,20 +750,20 @@ button[onclick="resetMap()"] {
     <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
     <!-- Aggiungi questa linea -->
 <div class="search-container" id="searchContainer">
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
-            <img src="home.svg" alt="Biblioteca Home" class="icon">
-        </a>
-        <div class="search-input-wrapper" style="flex: 1;">
-            <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-            <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
-        </div>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
+      <img src="home.svg" alt="Biblioteca Home" class="icon">
+    </a>
+    <div class="search-input-wrapper" style="flex: 1;">
+      <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+      <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
     </div>
-    <div id="library-suggestions" class="custom-datalist"></div>
-    <div style="display: flex; gap: 10px;">
-        <button onclick="searchRoute()">Cerca</button>
-        <button onclick="resetMap()" style="background-color: #ccc; color: #000;">Reset</button>
-    </div>
+  </div>
+<div id="library-suggestions" class="custom-datalist"></div>
+  <div style="display: flex; gap: 10px;">
+    <button onclick="searchRoute()" style="flex: 1;">Cerca</button>
+    <button onclick="resetMap()" style="flex: 1; background-color: #808080;">Reset</button>
+  </div>
 </div>
 
 
@@ -876,58 +860,7 @@ const municipalityColors = {
     15: "#000000"  // Nero
 };
 
-function resetMap() {
-    // Chiudi tutti i popup aperti
-    map.eachLayer(layer => {
-        if (layer instanceof L.Marker) {
-            layer.closePopup();
-        }
-    });
 
-    // Rimuovi tutte le aree municipali evidenziate
-    if (currentBorder) {
-        map.removeLayer(currentBorder);
-        currentBorder = null;
-    }
-
-    // Rimuovi l'evidenziazione dalla legenda
-    const allItems = document.querySelectorAll('.legend-item');
-    allItems.forEach(item => item.classList.remove('highlighted'));
-
-    // Nascondi il riquadro dei risultati di ricerca
-    const resultsContainer = document.getElementById('search-results');
-    if (resultsContainer) {
-        resultsContainer.style.display = 'none';
-    }
-
-    // Resetta il campo di ricerca
-    const searchInput = document.getElementById('start-point');
-    searchInput.value = '';
-
-    // Rimuovi il percorso di routing se presente
-    if (routingControl) {
-        map.removeControl(routingControl);
-        routingControl = null;
-    }
-
-    // Resetta il municipio selezionato
-    selectedMunicipio = null;
-
-    // Ripristina la vista iniziale della mappa
-    map.setView([41.732522, 12.271879], 14);
-
-    // Se il pannello di ricerca è aperto, chiudilo
-    const expandedSidebar = document.getElementById('expandedSidebar');
-    if (expandedSidebar.classList.contains('open')) {
-        expandedSidebar.classList.remove('open');
-    }
-
-    // Rimuovi l'evidenziazione dai pulsanti della sidebar
-    const searchBtn = document.getElementById('searchBtn');
-    if (searchBtn) {
-        searchBtn.classList.remove('active');
-    }
-}
 
               // Funzione per convertire numeri in numeri romani
         function romanize(num) {
@@ -1864,6 +1797,67 @@ function toggleFederatedLibraries() {
     }
 }
 
+function resetMap() {
+    // Rimuovi il routing control se presente
+    if (routingControl) {
+        map.removeControl(routingControl);
+        routingControl = null;
+    }
+
+    // Rimuovi il bordo del municipio evidenziato
+    if (currentBorder) {
+        map.removeLayer(currentBorder);
+        currentBorder = null;
+    }
+
+    // Resetta l'highlight della legenda
+    const allItems = document.querySelectorAll('.legend-item');
+    allItems.forEach(item => item.classList.remove('highlighted'));
+
+    // Rimuovi l'highlight corrente se presente
+    if (currentHighlight) {
+        map.removeLayer(currentHighlight);
+        currentHighlight = null;
+    }
+
+    // Resetta il municipio selezionato
+    selectedMunicipio = null;
+
+    // Chiudi tutti i popup aperti
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            layer.closePopup();
+        }
+    });
+
+    // Nascondi il riquadro dei risultati della ricerca
+    const resultsContainer = document.getElementById('search-results');
+    if (resultsContainer) {
+        resultsContainer.style.display = 'none';
+    }
+
+    // Pulisci il campo di ricerca
+    const searchInput = document.getElementById('start-point');
+    if (searchInput) {
+        searchInput.value = '';
+        toggleClearButton(); // Nascondi il pulsante "x"
+    }
+
+    // Centra la mappa sulla posizione iniziale
+    map.setView([41.732522, 12.271879], 14);
+
+    // Se il municipio X è invisibile, rendilo visibile con lo stile originale
+    if (municipioLayers[10]) {
+        municipioLayers[10].setStyle({
+            color: municipalityColors[10],
+            weight: 3,
+            opacity: 0.65,
+            fillOpacity: 0
+        });
+    }
+}
+
+        
 function zoomToSystemLibraries(systemName) {
     // Verifica se ci sono marker delle biblioteche federate
     if (!window.federatedMarkers) {
