@@ -1888,31 +1888,25 @@ function zoomToSystemLibraries(systemName) {
     console.log(message);
 }
 
- function resettaTutto() {
-    // Inserisci qui la logica per resettare l'applicazione
+function resettaTutto() {
+    // Resetta il campo di input dell'indirizzo
+    document.getElementById('campoIndirizzo').value = '';
 
-    // Esempio di azioni da eseguire per il reset (da adattare al tuo codice specifico):
+    // Chiudi tutti i popup
+    chiudiTuttiIPopup();
 
-    // 1. Resetta i campi di input del pannello di ricerca (se presenti)
-    // Esempio: se hai un campo input con id="campoIndirizzo", puoi resettarlo così:
-    // document.getElementById('campoIndirizzo').value = '';
+    // Rimuovi le evidenziazioni dalla mappa (ipotizzando che 'mappa' sia l'id dell'elemento mappa)
+    let mappaElement = document.getElementById('mappa');
+    if (mappaElement) {
+        rimuoviEvidenziazioniMappa(mappaElement); // Passa l'elemento mappa alla funzione
+    }
 
-    // 2. Chiudi eventuali popup aperti
-    chiudiPopup(); // Assumendo che tu abbia una funzione chiudiPopup() nel tuo codice
+    // Svuota l'area dei risultati di ricerca (rimuove anche la scheda municipio se è dentro)
+    document.getElementById('risultatiRicerca').innerHTML = '';
 
-    // 3. Rimuovi le aree municipali evidenziate sulla mappa
-    rimuoviEvidenziazioniMappa(); // Assumendo che tu abbia una funzione rimuoviEvidenziazioniMappa()
-
-    // 4. Rimuovi la scheda municipio dai risultati di ricerca
-    rimuoviSchedaMunicipio(); // Assumendo che tu abbia una funzione rimuoviSchedaMunicipio()
-
-    // 5. Resetta altri elementi o variabili del tuo stato dell'applicazione
-    // ... (aggiungi qui altre azioni di reset necessarie per la tua app)
-
-
-    console.log('Funzione resettaTutto() eseguita'); // Per debug, puoi rimuoverlo in seguito
-    alert('Reset completato!'); // Facoltativo: mostra un messaggio all'utente
-}       
+    console.log('Funzione resettaTutto() eseguita');
+    alert('Reset completato!');
+}     
     </script>
 </body>
 </html>
