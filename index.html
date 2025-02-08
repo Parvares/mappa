@@ -709,6 +709,23 @@ body, html {
     content: '−';
 }
 
+.bottone-grigio {
+    background-color: #d3d3d3; /* Grigio chiaro */
+    color: #000; /* Nero per il testo */
+    border: 1px solid #808080; /* Bordo grigio */
+    padding: 10px 20px; /* Spaziatura interna */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px; /* Bordi arrotondati, opzionale */
+}
+
+.bottone-grigio:hover {
+    background-color: #c0c0c0; /* Grigio leggermente più scuro al passaggio del mouse */
+}
+
         
     </style>
 </head>
@@ -1870,7 +1887,32 @@ function zoomToSystemLibraries(systemName) {
     const message = `Trovate ${count} biblioteche del sistema ${systemName}`;
     console.log(message);
 }
-        
+
+ function resettaTutto() {
+    // Inserisci qui la logica per resettare l'applicazione
+
+    // Esempio di azioni da eseguire per il reset (da adattare al tuo codice specifico):
+
+    // 1. Resetta i campi di input del pannello di ricerca (se presenti)
+    // Esempio: se hai un campo input con id="campoIndirizzo", puoi resettarlo così:
+    // document.getElementById('campoIndirizzo').value = '';
+
+    // 2. Chiudi eventuali popup aperti
+    chiudiPopup(); // Assumendo che tu abbia una funzione chiudiPopup() nel tuo codice
+
+    // 3. Rimuovi le aree municipali evidenziate sulla mappa
+    rimuoviEvidenziazioniMappa(); // Assumendo che tu abbia una funzione rimuoviEvidenziazioniMappa()
+
+    // 4. Rimuovi la scheda municipio dai risultati di ricerca
+    rimuoviSchedaMunicipio(); // Assumendo che tu abbia una funzione rimuoviSchedaMunicipio()
+
+    // 5. Resetta altri elementi o variabili del tuo stato dell'applicazione
+    // ... (aggiungi qui altre azioni di reset necessarie per la tua app)
+
+
+    console.log('Funzione resettaTutto() eseguita'); // Per debug, puoi rimuoverlo in seguito
+    alert('Reset completato!'); // Facoltativo: mostra un messaggio all'utente
+}       
     </script>
 </body>
 </html>
