@@ -1018,22 +1018,26 @@ function selectLibrary(library) {
 function toggleFederateSidebar() {
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
-    const legendSidebar = document.getElementById('legendSidebar');
     const expandedSidebar = document.getElementById('expandedSidebar');
+    const legendSidebar = document.getElementById('legendSidebar');
+    const searchContainer = document.getElementById('searchContainer');
 
-    // Rimuovi la classe active da tutti i pulsanti
+    // Chiudi gli altri pannelli se sono aperti
+    expandedSidebar.classList.remove('open');
+    legendSidebar.classList.remove('open');
+    if (searchContainer) {
+        searchContainer.style.display = 'none';
+    }
+
+    // Rimuovi la classe 'active' da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
         button.classList.remove('active');
     });
 
-    // Chiudi gli altri pannelli
-    legendSidebar.classList.remove('open');
-    expandedSidebar.classList.remove('open');
-
-    // Gestisci l'apertura/chiusura del pannello federate
+    // Apri o chiudi il pannello delle biblioteche federate
     federateSidebar.classList.toggle('open');
-    
-    // Gestisci lo stato attivo del pulsante
+
+    // Aggiungi o rimuovi la classe 'active' al pulsante delle biblioteche federate
     if (federateSidebar.classList.contains('open')) {
         federateBtn.classList.add('active');
     } else {
