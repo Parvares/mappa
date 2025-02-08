@@ -376,7 +376,7 @@
  ],
   "federate": [
     {
-      "name": "Biblioteca di Area di Scienze Economiche Pierangelo Garegnani - Roma Tre",
+      "name": "Biblioteca di Area di Scienze Economiche Pierangelo Garegnani. Roma Tre",
       "coords": [41.85150676716081, 12.480466910074682],
       "address": "Via Silvio d’Amico 77",
       "libraryType": "Universitaria",
@@ -385,7 +385,7 @@
     },
 
 {
-      "name": "Biblioteca di Area Giuridica - Roma Tre",
+      "name": "Biblioteca di Area Giuridica. Roma Tre",
       "coords": [41.8626340292021, 12.478881169316743],
       "address": "Via Ostiense 161",
       "libraryType": "Universitaria",
@@ -393,7 +393,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-giuridica/"
     },
     {
-      "name": "Biblioteca di Area delle Arti, Sezione Spettacolo Lino Miccichè - Roma Tre",
+      "name": "Biblioteca di Area delle Arti, Sezione Spettacolo Lino Miccichè. Roma Tre",
       "coords": [41.863902555913526, 12.479250900000002],
       "address": "Via Ostiense, 139",
       "libraryType": "Universitaria",
@@ -401,7 +401,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-spettacolo-lino-micciche/"
     },
  {
-      "name": "Biblioteca Di Area Delle Arti. Sezione Architettura Enrico Mattiello - Roma Tre",
+      "name": "Biblioteca Di Area Delle Arti. Sezione Architettura Enrico Mattiello. Roma Tre",
       "coords": [41.877220792161, 12.471950255822966],
       "address": "Largo Giovanni Battista Marzi, 10",
       "libraryType": "Universitaria",
@@ -409,7 +409,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-architettura-enrico-mattiello/"
     },
  {
-      "name": "Biblioteca Di Area Delle Arti. Sezione Storia Dell'arte Luigi Grassi. Università Degli Studi - Roma Tre",
+      "name": "Biblioteca Di Area Delle Arti. Sezione Storia Dell'arte Luigi Grassi. Università Degli Studi. Roma Tre",
       "coords": [41.903753865609126, 12.4964298],
       "address": "Piazza della Repubblica, 10",
       "libraryType": "Universitaria",
@@ -417,7 +417,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-delle-arti/sedi-e-orari/sezione-storia-dellarte-luigi-grassi/"
     },
     {
-      "name": "Biblioteca di Area di Scienze della Formazione Angelo Broccoli - Roma Tre",
+      "name": "Biblioteca di Area di Scienze della Formazione Angelo Broccoli. Roma Tre",
       "coords": [41.90161421063957, 12.50515373216587],
       "address": "via del Castro Pretorio 20",
       "libraryType": "Universitaria",
@@ -426,7 +426,7 @@
     },
     
     {
-      "name": "Biblioteca di Area Umanistica Giorgio Petrocchi - Roma Tre",
+      "name": "Biblioteca di Area Umanistica Giorgio Petrocchi. Roma Tre",
       "coords": [41.850838769205595, 12.475275696580892],
       "address": "Via Ostiense, 236",
       "libraryType": "Universitaria",
@@ -434,7 +434,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-umanistica-giorgio-petrocchi/"
     },
     {
-      "name": "Biblioteca di Area Umanistica Giorgio Petrocchi. Sezione Biblioteca Guillaume Apollinaire - Roma Tre",
+      "name": "Biblioteca di Area Umanistica Giorgio Petrocchi. Sezione Biblioteca Guillaume Apollinaire. Roma Tre",
       "coords": [41.852190215505324, 12.474100667745525],
       "address": "Via del Valco di San Paolo 19",
       "libraryType": "Universitaria",
@@ -442,7 +442,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-umanistica-giorgio-petrocchi/sedi-e-orari/sezione-biblioteca-guillaume-apollinaire/"
     },
     {
-      "name": "Biblioteca Di Area Di Studi Politici Pietro Grilli Di Cortona - Roma Tre",
+      "name": "Biblioteca Di Area Di Studi Politici Pietro Grilli Di Cortona. Roma Tre",
       "coords": [41.8521292652553, 12.479293277543649],
       "address": "Via Gabriello Chiabrera, 199",
       "libraryType": "Universitaria",
@@ -450,7 +450,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-di-studi-politici-pietro-grilli-di-cortona/"
     },
     {
-      "name": "Biblioteca di Area Scientifica – Biblioteca di Area Tecnologica. Sede Centrale- Roma Tre",
+      "name": "Biblioteca di Area Scientifica – Biblioteca di Area Tecnologica. Sede Centrale. Roma Tre",
       "coords": [41.85565548539767, 12.469811368145308],
       "address": "Via della Vasca Navale, 79/81",
       "libraryType": "Universitaria",
@@ -458,7 +458,7 @@
       "url": "https://sba.uniroma3.it/biblioteche/biblioteca-di-area-scientifica-biblioteca-di-area-tecnologica/sedi-e-orari/"
     },
     {
-      "name": "Biblioteca di Area Scientifica – Biblioteca di Area Tecnologica. Sede delle Torri - Roma Tre",
+      "name": "Biblioteca di Area Scientifica – Biblioteca di Area Tecnologica. Sede delle Torri. Roma Tre",
       "coords": [41.85541449043049, 12.463283738910294],
       "address": " Lungotevere Dante 376",
       "libraryType": "Universitaria",
@@ -467,7 +467,7 @@
     },
 
 {
-      "name": "Biblioteca Hub Culturale Moby Dick - Roma Tre",
+      "name": "Biblioteca Hub Culturale Moby Dick. Roma Tre",
       "coords": [41.86325005078215, 12.48547130822748],
       "address": "via Edgardo Ferrati 3a",
       "libraryType": "Universitaria",
