@@ -1019,25 +1019,21 @@ function toggleFederateSidebar() {
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
     const expandedSidebar = document.getElementById('expandedSidebar');
-    const legendSidebar = document.getElementById('legendSidebar');
     const searchContainer = document.getElementById('searchContainer');
 
-    // Chiudi gli altri pannelli se sono aperti
-    expandedSidebar.classList.remove('open');
-    legendSidebar.classList.remove('open');
-    if (searchContainer) {
-        searchContainer.style.display = 'none';
-    }
-
-    // Rimuovi la classe 'active' da tutti i pulsanti
+    // Rimuovo la classe active da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
         button.classList.remove('active');
     });
 
-    // Apri o chiudi il pannello delle biblioteche federate
-    federateSidebar.classList.toggle('open');
+    // Chiudo il pannello di ricerca se aperto
+    expandedSidebar.classList.remove('open');
+    if (searchContainer) {
+        searchContainer.style.display = 'none';
+    }
 
-    // Aggiungi o rimuovi la classe 'active' al pulsante delle biblioteche federate
+    // Gestisco l'apertura/chiusura del pannello federate
+    federateSidebar.classList.toggle('open');
     if (federateSidebar.classList.contains('open')) {
         federateBtn.classList.add('active');
     } else {
@@ -1801,46 +1797,37 @@ function toggleFederatedLibraries() {
 }
 
 function resetMap() {
-    console.log('Iniziando il reset della mappa...');
-    
     // Reset del campo di ricerca
     const searchInput = document.getElementById('start-point');
     searchInput.value = '';
-    console.log('Campo di ricerca resettato');
     
     // Rimuovi il controllo del percorso se presente
     if (routingControl) {
         map.removeControl(routingControl);
         routingControl = null;
-        console.log('Percorso rimosso dalla mappa');
     }
     
     // Reset della vista della mappa
     const center = [41.732522, 12.271879];
     map.setView(center, 14);
-    console.log('Vista della mappa resettata al centro');
     
     // Reset del municipio selezionato
     if (selectedMunicipio) {
         if (currentBorder) {
             map.removeLayer(currentBorder);
             currentBorder = null;
-            console.log('Bordo del municipio rimosso');
         }
         selectedMunicipio = null;
-        console.log('Selezione municipio resettata');
     }
     
     // Reset dell'evidenziazione nella legenda
     const allItems = document.querySelectorAll('.legend-item');
     allItems.forEach(item => item.classList.remove('highlighted'));
-    console.log('Evidenziazione della legenda resettata');
     
     // Nascondi i risultati della ricerca
     const searchResults = document.getElementById('search-results');
     if (searchResults) {
         searchResults.style.display = 'none';
-        console.log('Risultati della ricerca nascosti');
     }
     
     // Reset del municipio X allo stile originale
@@ -1851,10 +1838,7 @@ function resetMap() {
             opacity: 0.65,
             fillOpacity: 0
         });
-        console.log('Stile del municipio X resettato');
     }
-    
-    console.log('Reset completato con successo');
 }
 
         
