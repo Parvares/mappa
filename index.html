@@ -262,102 +262,33 @@ body, html {
 }
 
 .legend-item {
-    position: relative;
-    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;   /* Padding bilanciato */
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid transparent;
-    margin-bottom: 6px;
+    cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255,255,255,0.7);
+    border: 1px solid transparent;
+    position: relative;
+    padding-right: 30px !important;
 }
 
+.legend-item span {
+    width: 18px;         /* Dimensione icona bilanciata */
+    height: 18px;
+    margin-right: 10px;  /* Margin bilanciato */
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+        
+
 .legend-item:hover {
-    background: rgba(241, 242, 246, 0.6);
+    background: rgba(241, 242, 246,0.6);
     transform: translateX(3px);
     border-color: #dfe4ea;
 }
 
-.legend-item-header {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    cursor: pointer;
-}
-
-.legend-item span {
-    width: 18px;
-    height: 18px;
-    margin-right: 10px;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    flex-shrink: 0;
-}
-
-.legend-item .text {
-    flex: 1;
-    font-size: 13px;
-    color: #4a5568;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-}
-
-/* Nuovo stile per il pulsante di espansione */
-.expand-button {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    z-index: 2;
-}
-
-.expand-button:hover {
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.expand-button svg {
-    width: 14px;
-    height: 14px;
-    transition: transform 0.2s ease;
-}
-
-.legend-item.expanded .expand-button svg {
-    transform: rotate(180deg);
-}
-
-.libraries-list {
-    display: none;
-    margin-top: 10px;
-    margin-left: 28px;
-    padding-top: 8px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.libraries-list.expanded {
-    display: block;
-}
-
-.library-item-legend {
-    padding: 6px 0;
-    color: #666;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.library-item-legend:hover {
-    color: #000;
-    padding-left: 8px;
-}
-        
 .legend-item.highlighted {
     background: #f8f9fa;
     box-shadow: 0 3px 15px rgba(0,0,0,0.1);
@@ -370,7 +301,13 @@ body, html {
     transform: scale(1.1);
 }
 
-
+.legend-item .text {
+    font-size: 13px;
+    color: #4a5568;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-right: 20px;
+}
 
   .legend-item.disabled {
             opacity: 0.5;
@@ -776,23 +713,7 @@ body, html {
     <div class="legend-container">
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
         <div class="legend-grid">
-            <!-- Municipio I -->
-            <div class="legend-item">
-                <div class="legend-item-header">
-                    <span style="background: #6a3f3a"></span>
-                    <div class="text">Municipio I</div>
-                    <button class="expand-button" aria-label="Espandi lista biblioteche" onclick="toggleLibraryList(this)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="libraries-list" style="display: none;">
-                    <div class="library-item-legend">Biblioteca Centrale Ragazzi</div>
-                    <div class="library-item-legend">Biblioteca Rispoli</div>
-                    <div class="library-item-legend">Biblioteca Casa della Memoria</div>
-                </div>
-            </div>
+            <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
         </div>
     </div>
 </div>
@@ -1680,22 +1601,30 @@ window.handleLegendHover = async function(municipioNumber) {
             };
 
             // Funzione per gestire il click sulla legenda
-window.handleLegendClick = async function(municipioNumber, event) {
-    // Se il click proviene dal pulsante di espansione, gestisci solo l'espansione
-    if (event.target.closest('.expand-button')) {
-        event.stopPropagation();
-        const legendItem = document.querySelector(`.legend-item[data-municipio="${municipioNumber}"]`);
-        const librariesList = legendItem.querySelector('.libraries-list');
-        legendItem.classList.toggle('expanded');
-        librariesList.classList.toggle('expanded');
-        return;
-    }
+ window.handleLegendClick = async function(municipioNumber) {
+                const allItems = document.querySelectorAll('.legend-item');
+                allItems.forEach(item => item.classList.remove('highlighted'));
 
-    // Se il click proviene da una biblioteca, gestisci solo la selezione della biblioteca
-    if (event.target.closest('.library-item-legend')) {
-        event.stopPropagation();
-        return;
-    }
+                // Se clicchiamo sullo stesso municipio già selezionato
+                if (selectedMunicipio === municipioNumber) {
+                    if (currentBorder) {
+                        map.removeLayer(currentBorder);
+                        currentBorder = null;
+                    }
+                    
+                    // Se era il municipio X, ripristina lo stile default ma mantienilo visibile
+                    if (municipioNumber === 10) {
+                        municipioLayers[10].setStyle({
+                            color: municipalityColors[10],
+                            weight: 3,
+                            opacity: 0.65,
+                            fillOpacity: 0
+                        });
+                    }
+                    
+                    selectedMunicipio = null;
+                    return;
+                }
 
                 // Carica il GeoJSON se non è già stato caricato
                 if (!municipioLayers[municipioNumber]) {
