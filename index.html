@@ -708,7 +708,15 @@ body, html {
 .legend-item.expanded .expand-button::after {
     content: '−';
 }
+.search-container button.reset-btn {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+}
 
+.search-container button.reset-btn:hover {
+  background-color: #e0e0e0;
+}
         
     </style>
 </head>
@@ -749,20 +757,23 @@ body, html {
 <div class="sidebar-expanded" id="expandedSidebar">
     <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
     <!-- Aggiungi questa linea -->
-    <div class="search-container" id="searchContainer">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
-                <img src="home.svg" alt="Biblioteca Home" class="icon">
-            </a>
-            <div class="search-input-wrapper" style="flex: 1;">
-                <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-                <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
-            </div>
-        </div>
-        <div id="library-suggestions" class="custom-datalist"></div>
-        <button onclick="searchRoute()">Trova Percorso</button>
+<!-- Cerca questo blocco nel codice -->
+<div class="search-container" id="searchContainer">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
+      <img src="home.svg" alt="Biblioteca Home" class="icon">
+    </a>
+    <div class="search-input-wrapper" style="flex: 1;">
+      <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+      <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
     </div>
-    <div id="search-results"></div>
+  </div>
+  <div id="library-suggestions" class="custom-datalist"></div>
+  <!-- Modifica questa parte -->
+  <div style="display: flex; gap: 10px; margin-top: 10px;">
+    <button onclick="searchRoute()" style="flex: 1;">Cerca</button>
+    <button onclick="resetMap()" style="flex: 1; background-color: #gray; color: black;">Reset</button>
+  </div>
 </div>
 
 
@@ -1796,6 +1807,57 @@ function toggleFederatedLibraries() {
     }
 }
 
+
+function resetMap() {
+  // Chiude tutti i popup aperti
+  map.closePopup();
+  
+  // Rimuove il confine del municipio evidenziato
+  if (currentBorder) {
+    map.removeLayer(currentBorder);
+    currentBorder = null;
+  }
+  
+  // Rimuove l'evidenziazione dalla legenda
+  const allLegendItems = document.querySelectorAll('.legend-item');
+  allLegendItems.forEach(item => {
+    item.classList.remove('highlighted');
+  });
+  
+  // Resetta il campo di ricerca
+  const searchInput = document.getElementById('start-point');
+  searchInput.value = '';
+  
+  // Nasconde il pulsante X di reset del campo
+  const clearButton = document.getElementById('clear-search');
+  clearButton.style.display = 'none';
+  
+  // Nasconde i risultati della ricerca
+  const searchResults = document.getElementById('search-results');
+  searchResults.style.display = 'none';
+  
+  // Rimuove il routing control se presente
+  if (routingControl) {
+    map.removeControl(routingControl);
+    routingControl = null;
+  }
+  
+  // Resetta la selezione del municipio
+  selectedMunicipio = null;
+  
+  // Resetta la vista della mappa al municipio X
+  if (municipioLayers[10]) {
+    municipioLayers[10].setStyle({
+      color: municipalityColors[10],
+      weight: 3,
+      opacity: 0.65,
+      fillOpacity: 0
+    });
+    map.fitBounds(municipioLayers[10].getBounds());
+  }
+}
+
+        
 function zoomToSystemLibraries(systemName) {
     // Verifica se ci sono marker delle biblioteche federate
     if (!window.federatedMarkers) {
