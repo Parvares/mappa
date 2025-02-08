@@ -749,20 +749,20 @@ body, html {
 <div class="sidebar-expanded" id="expandedSidebar">
     <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
     <!-- Aggiungi questa linea -->
-<div class="search-container" id="searchContainer">
-  <div style="display: flex; align-items: center; gap: 10px;">
-    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
-      <img src="home.svg" alt="Biblioteca Home" class="icon">
-    </a>
-    <div class="search-input-wrapper" style="flex: 1;">
-      <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-      <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+    <div class="search-container" id="searchContainer">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
+                <img src="home.svg" alt="Biblioteca Home" class="icon">
+            </a>
+            <div class="search-input-wrapper" style="flex: 1;">
+                <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+                <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+            </div>
+        </div>
+        <div id="library-suggestions" class="custom-datalist"></div>
+        <button onclick="searchRoute()">Trova Percorso</button>
     </div>
-  </div>
-  <div id="library-suggestions" class="custom-datalist"></div>
-<div style="display: flex; gap: 10px;">
-  <button onclick="searchRoute()" style="flex: 1;">Cerca</button>
-  <button onclick="resetMap()" style="flex: 1; background-color: #6B7280;">Reset</button>
+    <div id="search-results"></div>
 </div>
 
 
@@ -1016,38 +1016,28 @@ function selectLibrary(library) {
 
 // Funzione per aprire/chiudere il pannello delle biblioteche federate
 function toggleFederateSidebar() {
-    console.log("toggleFederateSidebar chiamata");
-    
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
-    const legendSidebar = document.getElementById('legendSidebar');
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
-    
-    console.log("Stato attuale del pannello federate:", federateSidebar.classList.contains('open'));
-    
+
     // Rimuovo la classe active da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
         button.classList.remove('active');
     });
-    
-    // Chiudo tutti gli altri pannelli
-    legendSidebar.classList.remove('open');
+
+    // Chiudo il pannello di ricerca se aperto
+    expandedSidebar.classList.remove('open');
     if (searchContainer) {
         searchContainer.style.display = 'none';
     }
-    
+
     // Gestisco l'apertura/chiusura del pannello federate
+    federateSidebar.classList.toggle('open');
     if (federateSidebar.classList.contains('open')) {
-        // Se è aperto, lo chiudo
-        federateSidebar.classList.remove('open');
-        expandedSidebar.classList.remove('open');
-        federateBtn.classList.remove('active');
-    } else {
-        // Se è chiuso, lo apro
-        federateSidebar.classList.add('open');
-        expandedSidebar.classList.add('open');
         federateBtn.classList.add('active');
+    } else {
+        federateBtn.classList.remove('active');
     }
 }
 
@@ -1806,69 +1796,6 @@ function toggleFederatedLibraries() {
     }
 }
 
-function resetMap() {
-    // Reset del campo di ricerca
-    const searchInput = document.getElementById('start-point');
-    searchInput.value = '';
-    
-    // Chiudi tutti i pannelli laterali
-    const federateSidebar = document.getElementById('federateSidebar');
-    const legendSidebar = document.getElementById('legendSidebar');
-    const expandedSidebar = document.getElementById('expandedSidebar');
-    const searchContainer = document.getElementById('searchContainer');
-    
-    federateSidebar.classList.remove('open');
-    legendSidebar.classList.remove('open');
-    expandedSidebar.classList.remove('open');
-    if (searchContainer) {
-        searchContainer.style.display = 'none';
-    }
-    
-    // Rimuovi le classi active dai pulsanti
-    document.querySelectorAll('.sidebar button').forEach(button => {
-        button.classList.remove('active');
-    });
-    
-    // Rimuovi il controllo del percorso se presente
-    if (routingControl) {
-        map.removeControl(routingControl);
-        routingControl = null;
-    }
-    
-    // Reset della vista della mappa
-    const center = [41.732522, 12.271879];
-    map.setView(center, 14);
-    
-    // Reset del municipio selezionato
-    if (selectedMunicipio) {
-        if (currentBorder) {
-            map.removeLayer(currentBorder);
-            currentBorder = null;
-        }
-        selectedMunicipio = null;
-    }
-    
-    // Reset dell'evidenziazione nella legenda
-    const allItems = document.querySelectorAll('.legend-item');
-    allItems.forEach(item => item.classList.remove('highlighted'));
-    
-    // Nascondi i risultati della ricerca
-    const searchResults = document.getElementById('search-results');
-    if (searchResults) {
-        searchResults.style.display = 'none';
-    }
-    
-    // Reset del municipio X allo stile originale
-    if (municipioLayers[10]) {
-        municipioLayers[10].setStyle({
-            color: municipalityColors[10],
-            weight: 3,
-            opacity: 0.65,
-            fillOpacity: 0
-        });
-    }
-}
-        
 function zoomToSystemLibraries(systemName) {
     // Verifica se ci sono marker delle biblioteche federate
     if (!window.federatedMarkers) {
