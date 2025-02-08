@@ -132,16 +132,6 @@ body, html {
     transition: width 0.3s ease;
 }
 
-.sidebar-expanded#federateSidebar {
-    z-index: 999;
-    transition: width 0.3s ease;
-}
-
-.sidebar-expanded#federateSidebar.open {
-    width: 400px;
-    padding: 20px;
-    box-sizing: border-box;
-}
         
 .sidebar-expanded.open {
     width: 400px;
@@ -779,7 +769,7 @@ body, html {
 <!-- Nuovo pannello per le biblioteche federate -->
 <div class="sidebar-expanded" id="federateSidebar">
     <div class="sidebar-close-icon" onclick="toggleFederateSidebar()"></div>
-    <div class="federate-container">
+<div class="federate-container">
     <h4>Biblioteche Federate</h4>
     <div class="legend-grid">
         <div class="legend-item" onclick="zoomToSystemLibraries('CASTELLI ROMANI')">
@@ -1028,26 +1018,22 @@ function selectLibrary(library) {
 function toggleFederateSidebar() {
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
-    const legendSidebar = document.getElementById('legendSidebar');
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
 
-    // Rimuovi la classe active da tutti i pulsanti
+    // Rimuovo la classe active da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
         button.classList.remove('active');
     });
 
-    // Chiudi gli altri pannelli
-    legendSidebar.classList.remove('open');
+    // Chiudo il pannello di ricerca se aperto
     expandedSidebar.classList.remove('open');
     if (searchContainer) {
         searchContainer.style.display = 'none';
     }
 
-    // Gestisci l'apertura/chiusura del pannello federate
+    // Gestisco l'apertura/chiusura del pannello federate
     federateSidebar.classList.toggle('open');
-    
-    // Aggiorna lo stato del pulsante
     if (federateSidebar.classList.contains('open')) {
         federateBtn.classList.add('active');
     } else {
@@ -1814,36 +1800,17 @@ function resetMap() {
     // Reset del campo di ricerca
     const searchInput = document.getElementById('start-point');
     searchInput.value = '';
-
-    // Reset dei pannelli laterali
-    const federateSidebar = document.getElementById('federateSidebar');
-    const legendSidebar = document.getElementById('legendSidebar');
-    const expandedSidebar = document.getElementById('expandedSidebar');
-    const searchContainer = document.getElementById('searchContainer');
-
-    // Chiudi tutti i pannelli
-    federateSidebar.classList.remove('open');
-    legendSidebar.classList.remove('open');
-    expandedSidebar.classList.remove('open');
-    if (searchContainer) {
-        searchContainer.style.display = 'none';
-    }
-
-    // Rimuovi la classe active da tutti i pulsanti
-    document.querySelectorAll('.sidebar button').forEach(button => {
-        button.classList.remove('active');
-    });
-
+    
     // Rimuovi il controllo del percorso se presente
     if (routingControl) {
         map.removeControl(routingControl);
         routingControl = null;
     }
-
+    
     // Reset della vista della mappa
     const center = [41.732522, 12.271879];
     map.setView(center, 14);
-
+    
     // Reset del municipio selezionato
     if (selectedMunicipio) {
         if (currentBorder) {
@@ -1852,17 +1819,17 @@ function resetMap() {
         }
         selectedMunicipio = null;
     }
-
+    
     // Reset dell'evidenziazione nella legenda
     const allItems = document.querySelectorAll('.legend-item');
     allItems.forEach(item => item.classList.remove('highlighted'));
-
+    
     // Nascondi i risultati della ricerca
     const searchResults = document.getElementById('search-results');
     if (searchResults) {
         searchResults.style.display = 'none';
     }
-
+    
     // Reset del municipio X allo stile originale
     if (municipioLayers[10]) {
         municipioLayers[10].setStyle({
