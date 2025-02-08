@@ -186,30 +186,17 @@ body, html {
             font-size: 14px;
             outline: none; /* Rimuove il bordo predefinito */
         }
-.search-container button {
-    padding: 8px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    color: white;
-    transition: background-color 0.3s ease;
-}
-
-.search-container button:first-of-type {
-    background-color: var(--primary);
-}
-
-.search-container button:last-of-type {
-    background-color: #6c757d;
-}
-
-.search-container button:hover {
-    opacity: 0.9;
-}
-
-
-        
+        .search-container button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            background-color: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
 .search-container .icon {
     width: 24px;
@@ -722,7 +709,23 @@ body, html {
     content: '−';
 }
 
-        
+button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button[onclick="searchRoute()"] {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+button[onclick="resetMap()"] {
+    background-color: #ccc;
+    color: #000;
+}        
     </style>
 </head>
 <body>
@@ -763,20 +766,20 @@ body, html {
     <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
     <!-- Aggiungi questa linea -->
 <div class="search-container" id="searchContainer">
-  <div style="display: flex; align-items: center; gap: 10px;">
-    <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
-      <img src="home.svg" alt="Biblioteca Home" class="icon">
-    </a>
-    <div class="search-input-wrapper" style="flex: 1;">
-      <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-      <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
+            <img src="home.svg" alt="Biblioteca Home" class="icon">
+        </a>
+        <div class="search-input-wrapper" style="flex: 1;">
+            <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+            <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+        </div>
     </div>
-  </div>
-  <div id="library-suggestions" class="custom-datalist"></div>
-  <div style="display: flex; gap: 10px; margin-top: 10px;">
-    <button onclick="searchRoute()" style="flex: 1;">Trova Percorso</button>
-    <button onclick="resetMap()" style="flex: 1; background-color: #6c757d;">Reset</button>
-  </div>
+    <div id="library-suggestions" class="custom-datalist"></div>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="searchRoute()">Cerca</button>
+        <button onclick="resetMap()" style="background-color: #ccc; color: #000;">Reset</button>
+    </div>
 </div>
 
 
@@ -873,7 +876,58 @@ const municipalityColors = {
     15: "#000000"  // Nero
 };
 
+function resetMap() {
+    // Chiudi tutti i popup aperti
+    map.eachLayer(layer => {
+        if (layer instanceof L.Marker) {
+            layer.closePopup();
+        }
+    });
 
+    // Rimuovi tutte le aree municipali evidenziate
+    if (currentBorder) {
+        map.removeLayer(currentBorder);
+        currentBorder = null;
+    }
+
+    // Rimuovi l'evidenziazione dalla legenda
+    const allItems = document.querySelectorAll('.legend-item');
+    allItems.forEach(item => item.classList.remove('highlighted'));
+
+    // Nascondi il riquadro dei risultati di ricerca
+    const resultsContainer = document.getElementById('search-results');
+    if (resultsContainer) {
+        resultsContainer.style.display = 'none';
+    }
+
+    // Resetta il campo di ricerca
+    const searchInput = document.getElementById('start-point');
+    searchInput.value = '';
+
+    // Rimuovi il percorso di routing se presente
+    if (routingControl) {
+        map.removeControl(routingControl);
+        routingControl = null;
+    }
+
+    // Resetta il municipio selezionato
+    selectedMunicipio = null;
+
+    // Ripristina la vista iniziale della mappa
+    map.setView([41.732522, 12.271879], 14);
+
+    // Se il pannello di ricerca è aperto, chiudilo
+    const expandedSidebar = document.getElementById('expandedSidebar');
+    if (expandedSidebar.classList.contains('open')) {
+        expandedSidebar.classList.remove('open');
+    }
+
+    // Rimuovi l'evidenziazione dai pulsanti della sidebar
+    const searchBtn = document.getElementById('searchBtn');
+    if (searchBtn) {
+        searchBtn.classList.remove('active');
+    }
+}
 
               // Funzione per convertire numeri in numeri romani
         function romanize(num) {
@@ -893,67 +947,6 @@ let romeLibrariesVisible = true;
 let federatedLibrariesVisible = false;
 let removedRomeLibraries = [];
 let removedFederatedLibraries = [];
-
-
-function resetMap() {
-    // Chiudi tutti i popup aperti
-    map.closePopup();
-    
-    // Rimuovi il routing control se presente
-    if (routingControl) {
-        map.removeControl(routingControl);
-        routingControl = null;
-    }
-    
-    // Rimuovi il bordo del municipio evidenziato
-    if (currentBorder) {
-        map.removeLayer(currentBorder);
-        currentBorder = null;
-    }
-    
-    // Rimuovi l'highlight corrente
-    if (currentHighlight) {
-        map.removeLayer(currentHighlight);
-        currentHighlight = null;
-    }
-    
-    // Resetta la selezione del municipio
-    selectedMunicipio = null;
-    
-    // Rimuovi l'evidenziazione dalla legenda
-    const allLegendItems = document.querySelectorAll('.legend-item');
-    allLegendItems.forEach(item => {
-        item.classList.remove('highlighted');
-    });
-    
-    // Pulisci il campo di ricerca
-    const searchInput = document.getElementById('start-point');
-    if (searchInput) {
-        searchInput.value = '';
-        toggleClearButton();
-    }
-    
-    // Nascondi i risultati della ricerca
-    const searchResults = document.getElementById('search-results');
-    if (searchResults) {
-        searchResults.style.display = 'none';
-        searchResults.innerHTML = '';
-    }
-    
-    // Ripristina lo stile del Municipio X se presente
-    if (municipioLayers[10]) {
-        municipioLayers[10].setStyle({
-            color: municipalityColors[10],
-            weight: 3,
-            opacity: 0.65,
-            fillOpacity: 0
-        });
-    }
-    
-    // Centra la mappa sulla posizione iniziale
-    const initialCenter = [41.732522, 12.271879];
-    map.setView(initialCenter, 14);
-}        
 
       // Funzione per aprire/chiudere la seconda barra laterale
         function toggleExpandedSidebar() {
