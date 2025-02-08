@@ -1016,10 +1016,15 @@ function selectLibrary(library) {
 
 // Funzione per aprire/chiudere il pannello delle biblioteche federate
 function toggleFederateSidebar() {
+    console.log("Funzione toggleFederateSidebar chiamata");
+    
     const federateSidebar = document.getElementById('federateSidebar');
     const federateBtn = document.getElementById('federateBtn');
+    const legendSidebar = document.getElementById('legendSidebar');
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
+
+    console.log("Stato iniziale pannello federate:", federateSidebar.classList.contains('open'));
 
     // Rimuovo la classe active da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
@@ -1797,6 +1802,8 @@ function toggleFederatedLibraries() {
 }
 
 function resetMap() {
+    console.log("Funzione resetMap chiamata");
+    
     // Reset del campo di ricerca
     const searchInput = document.getElementById('start-point');
     searchInput.value = '';
@@ -1805,11 +1812,13 @@ function resetMap() {
     if (routingControl) {
         map.removeControl(routingControl);
         routingControl = null;
+        console.log("Controllo percorso rimosso");
     }
 
     // Reset della vista della mappa
     const center = [41.732522, 12.271879];
     map.setView(center, 14);
+    console.log("Vista mappa resettata");
 
     // Reset del municipio selezionato
     if (selectedMunicipio) {
@@ -1818,6 +1827,7 @@ function resetMap() {
             currentBorder = null;
         }
         selectedMunicipio = null;
+        console.log("Municipio selezionato resettato");
     }
 
     // Reset dell'evidenziazione nella legenda
@@ -1838,7 +1848,11 @@ function resetMap() {
             opacity: 0.65,
             fillOpacity: 0
         });
+        console.log("Stile municipio X resettato");
     }
+
+    // Non chiudere i pannelli laterali qui
+    console.log("Reset completato");
 }
 
         
