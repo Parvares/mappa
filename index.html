@@ -132,7 +132,16 @@ body, html {
     transition: width 0.3s ease;
 }
 
+.sidebar-expanded#federateSidebar {
+    z-index: 999;
+    transition: width 0.3s ease;
+}
 
+.sidebar-expanded#federateSidebar.open {
+    width: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+}
         
 .sidebar-expanded.open {
     width: 400px;
