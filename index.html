@@ -738,27 +738,26 @@ body, html {
 
 
 .reset-button {
-    width: 32px; /* Dimensione fissa più piccola */
-    background-color: #a00b2b; /* Rosso meno acceso */
-    border: 2px solid #ffffff; /* Bordo bianco per contrasto */
-    border-radius: 50%;
-    padding: 4px; /* Riduce il riempimento da 8px */
+    background: none; /* Rimuove il colore di sfondo */
+    border: none; /* Rimuove il bordo */
+    padding: 0; /* Rimuove il padding */
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: transform 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .reset-button:hover {
-    background-color: #ff1a1a; /* Colore più chiaro al passaggio del mouse */
-    transform: scale(1.1); /* Ingrandisce leggermente il pulsante */
+    transform: scale(1.1); /* Effetto leggero al passaggio del mouse */
 }
 
 .reset-button img {
     width: 20px;
     height: 20px;
+    filter: invert(1); /* Se l'icona è nera, la rende bianca per visibilità */
 }
+
     </style>
 </head>
 <body>
