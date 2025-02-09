@@ -759,14 +759,15 @@ body, html {
 
 
 <!-- Terzo pannello laterale espanso: legenda municipi -->
-<div class="sidebar-expanded" id="legendSidebar">
-    <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
-    <div class="legend-container">
-        <h4>Mappa Biblioteche di Roma per Municipio</h4>
-        <div class="legend-grid">
-            <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
-        </div>
+<div class="legend-container">
+    <h4>Mappa Biblioteche di Roma per Municipio</h4>
+    <div class="legend-grid">
+        <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
     </div>
+    <!-- Aggiungi il pulsante Reset qui -->
+    <button onclick="resetLegend()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
+        Reset
+    </button>
 </div>
     
 
@@ -2038,6 +2039,47 @@ function resetMap() {
         toggleFederatedLibraries(); // Questa funzione inverte lo stato delle biblioteche federate
     }
 }
+
+function resetLegend() {
+    // Chiude tutti i popup aperti
+    map.closePopup();
+
+    // Rimuove il bordo del municipio evidenziato
+    if (currentBorder) {
+        map.removeLayer(currentBorder);
+        currentBorder = null;
+    }
+
+    // Resetta l'evidenziazione nella legenda
+    const allLegendItems = document.querySelectorAll('.legend-item');
+    allLegendItems.forEach(item => {
+        item.classList.remove('highlighted');
+    });
+
+    // Resetta la selezione del municipio
+    selectedMunicipio = null;
+
+    // Richiude i municipi espansi
+    const expandedItems = document.querySelectorAll('.legend-item.expanded');
+    expandedItems.forEach(item => {
+        item.classList.remove('expanded');
+        const librariesList = item.querySelector('.libraries-list');
+        if (librariesList) {
+            librariesList.classList.remove('expanded');
+        }
+    });
+
+    // Se il municipio 10 è visibile, ripristina il suo stile originale
+    if (municipioLayers[10]) {
+        municipioLayers[10].setStyle({
+            color: municipalityColors[10],
+            weight: 3,
+            opacity: 0.65,
+            fillOpacity: 0
+        });
+    }
+}
+        
         
     </script>
 </body>
