@@ -734,7 +734,12 @@ body, html {
     background-color: #ffcc00;  /* Colore di evidenziazione #ffeb3b; */
     font-weight: bold;
     border: 2px solid #fbc02d;
-}        
+}
+
+.undo-icon {
+    filter: invert(17%) sepia(74%) saturate(300%) hue-rotate(-10deg) brightness(90%) contrast(100%);
+}
+        
     </style>
 </head>
 <body>
@@ -764,9 +769,10 @@ body, html {
     <div class="legend-container">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
     <h4 style="margin: 0;">Mappa Biblioteche di Roma per Municipio</h4>
-    <button onclick="resetLegend()" style="background: none; border: none; cursor: pointer; padding: 5px;">
-        <img src="undo.svg" alt="Reset" style="width: 20px; height: 20px;">
-    </button>
+<button onclick="resetLegend()" style="background: none; border: none; cursor: pointer; padding: 5px;">
+    <img src="undo.svg" alt="Reset" class="undo-icon" style="width: 20px; height: 20px;">
+</button>
+
 </div>
         <div class="legend-grid">
             <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
