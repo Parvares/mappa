@@ -955,6 +955,7 @@ function toggleLegendSidebar() {
         legendBtn.classList.add('active');
     } else {
         legendBtn.classList.remove('active');
+        resetMap(); // Aggiungi questa linea per resettare la mappa quando il pannello viene chiuso
     }
 }
 
