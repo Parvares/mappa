@@ -761,15 +761,11 @@ body, html {
 <!-- Terzo pannello laterale espanso: legenda municipi -->
 <div class="sidebar-expanded" id="legendSidebar">
     <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
-<div class="legend-container">
-    <div style="display: flex; align-items: center; justify-content: space-between;">
+    <div class="legend-container">
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
-        <button onclick="resetLegend()" style="background: none; border: none; cursor: pointer;">
-            <img src="undo.svg" alt="Reset" style="width: 24px; height: 24px;">
-        </button>
-    </div>
-    <div class="legend-grid">
-        <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
+        <div class="legend-grid">
+            <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
+        </div>
     </div>
 </div>
     
@@ -1665,37 +1661,35 @@ fetch('municipio10.geojson')
 // Modifica questa parte nel codice JavaScript dove viene popolata la legenda
 const legendContainer = document.querySelector('.legend-container .legend-grid');
 if (legendContainer) {
-    legendContainer.innerHTML = `
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-            <h4>Mappa Biblioteche di Roma per Municipio</h4>
-            <button onclick="resetLegend()" style="background: none; border: none; cursor: pointer;">
-                <img src="undo.svg" alt="Reset" style="width: 24px; height: 24px;">
-            </button>
+    legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => {
+const municipioLibraries = window.libraryData.libraries
+  .filter(lib => lib.municipality === parseInt(num))
+  .map(lib => `<div class="library-item-legend" onclick="selectLibrary('${lib.name}', ${lib.coords[0]}, ${lib.coords[1]}, ${lib.municipality})">${lib.name}</div>`)
+  .join('');
+        
+return `
+    <div class="legend-item" data-municipio="${num}">
+        <div class="legend-item-header" onclick="handleMunicipioClick(${num}, event)">
+            <span style="background: ${color}"></span>
+            <div class="text">Municipio ${romanize(parseInt(num))}</div>
         </div>
-        <div class="legend-grid">
-            ${Object.entries(municipalityColors).map(([num, color]) => {
-                const municipioLibraries = window.libraryData.libraries
-                    .filter(lib => lib.municipality === parseInt(num))
-                    .map(lib => `<div class="library-item-legend" onclick="selectLibrary('${lib.name}', ${lib.coords[0]}, ${lib.coords[1]}, ${lib.municipality})">${lib.name}</div>`)
-                    .join('');
-
-                return `
-                    <div class="legend-item" data-municipio="${num}">
-                        <div class="legend-item-header" onclick="handleMunicipioClick(${num}, event)">
-                            <span style="background: ${color}"></span>
-                            <div class="text">Municipio ${romanize(parseInt(num))}</div>
-                        </div>
-                        <button class="expand-button" onclick="toggleLibrariesList(${num}, event)"></button>
-                        <div class="libraries-list">
-                            ${municipioLibraries}
-                            <div class="municipio-zone">Zona: ${municipalityZones[num]}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('')}
+        <button class="expand-button" onclick="toggleLibrariesList(${num}, event)"></button>
+        <div class="libraries-list">
+            ${municipioLibraries}
+            <div class="municipio-zone">Zona: ${municipalityZones[num]}</div>
         </div>
-    `;
+    </div>
+`;
+    }).join('');
 }
+// Aggiungi il pulsante di reset
+legendContainer.innerHTML += `
+    <div style="margin-top: 20px; text-align: center;">
+        <button onclick="resetLegend()" style="padding: 8px 16px; background-color: #808080; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Reset
+        </button>
+    </div>
+`;
 
 
 
