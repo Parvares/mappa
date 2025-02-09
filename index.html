@@ -761,11 +761,15 @@ body, html {
 <!-- Terzo pannello laterale espanso: legenda municipi -->
 <div class="sidebar-expanded" id="legendSidebar">
     <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
-    <div class="legend-container">
+<div class="legend-container">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
-        <div class="legend-grid">
-            <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
-        </div>
+        <button onclick="resetLegend()" style="background: none; border: none; cursor: pointer;">
+            <img src="undo.svg" alt="Reset" style="width: 24px; height: 24px;">
+        </button>
+    </div>
+    <div class="legend-grid">
+        <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
     </div>
 </div>
     
