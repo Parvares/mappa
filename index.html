@@ -755,8 +755,15 @@ body, html {
 .reset-button img {
     width: 20px;
     height: 20px;
-    filter: invert(1); /* Se l'icona è nera, la rende bianca per visibilità */
+    filter: none; /* Nessuna inversione di colore */
+    fill: var(--primary); /* Se l'SVG supporta il fill */
 }
+
+/* Se l'icona è un SVG inline e non un file esterno */
+.reset-button svg path {
+    fill: var(--primary);
+}
+
 
     </style>
 </head>
