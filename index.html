@@ -736,9 +736,7 @@ body, html {
     border: 2px solid #fbc02d;
 }
 
-.undo-icon {
-    filter: invert(17%) sepia(74%) saturate(300%) hue-rotate(-10deg) brightness(90%) contrast(100%);
-}
+
         
     </style>
 </head>
@@ -767,12 +765,11 @@ body, html {
 <div class="sidebar-expanded" id="legendSidebar">
     <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
     <div class="legend-container">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
     <h4 style="margin: 0;">Mappa Biblioteche di Roma per Municipio</h4>
-<button onclick="resetLegend()" style="background: none; border: none; cursor: pointer; padding: 5px;">
-    <img src="undo.svg" alt="Reset" class="undo-icon" style="width: 20px; height: 20px;">
-</button>
-
+    <button onclick="resetLegend()" style="background: none; border: none; cursor: pointer; padding: 5px;">
+        <img src="undo.svg" alt="Reset" style="width: 20px; height: 20px; filter: invert(11%) sepia(82%) saturate(4468%) hue-rotate(334deg) brightness(91%) contrast(97%);">
+    </button>
 </div>
         <div class="legend-grid">
             <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
@@ -781,7 +778,6 @@ body, html {
 </div>
     
 
-<!-- Seconda barra laterale (espansione) -->
 <!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
   <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
