@@ -1068,33 +1068,38 @@ function selectFederatedLibrary(library) {
 
         
 function showMunicipioAndLibraries(municipioNumber, libraries) {
+    const searchTerm = document.getElementById('start-point').value.toLowerCase();
     const resultsContainer = document.getElementById('search-results');
-
+    
     // Svuota il contenuto precedente
     resultsContainer.innerHTML = '';
-
+    
     // Aggiungi il titolo del municipio
     const municipioDiv = document.createElement('div');
     municipioDiv.className = 'municipio-title';
     municipioDiv.textContent = `Municipio ${romanize(municipioNumber)}`;
     resultsContainer.appendChild(municipioDiv);
-
+    
     // Aggiungi le biblioteche del municipio
     libraries.forEach(library => {
         const libraryDiv = document.createElement('div');
         libraryDiv.className = 'library-item';
+        // Aggiungi la classe 'highlighted' se questa è la biblioteca cercata
+        if (library.name.toLowerCase().includes(searchTerm)) {
+            libraryDiv.classList.add('highlighted');
+        }
         libraryDiv.textContent = library.name;
         libraryDiv.onclick = () => selectLibrary(library.name, library.coords[0], library.coords[1], library.municipality);
         resultsContainer.appendChild(libraryDiv);
     });
-
+    
     // Mostra il riquadro dei risultati solo se ci sono biblioteche
     if (libraries.length > 0) {
         resultsContainer.style.display = 'block';
     } else {
         resultsContainer.style.display = 'none';
     }
-
+    
     // Evidenzia il municipio sulla mappa
     loadAndShowBorder(municipioNumber, map);
     highlightLegendItem(municipioNumber);
@@ -1230,6 +1235,18 @@ function clearSearchField() {
     toggleClearButton();
 }
 
+// Aggiungi questo stile CSS
+const style = document.createElement('style');
+style.textContent = `
+    .library-item.highlighted {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+`;
+document.head.appendChild(style);
+
+
+        
 // Funzione per mostrare/nascondere il pulsante "x"
 function toggleClearButton() {
     const searchInput = document.getElementById('start-point');
