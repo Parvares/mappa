@@ -1217,7 +1217,7 @@ function toggleSearch() {
                     const municipioLibraries = data.libraries.filter(lib => 
                         lib.municipality === foundLibrary.municipality
                     );
-                    showMunicipioAndLibraries(foundLibrary.municipality, municipioLibraries);
+                    showMunicipioAndLibraries(foundLibrary.municipality, municipioLibraries, searchTerm);
                     return;
                 }
             } catch (error) {
