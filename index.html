@@ -930,6 +930,7 @@ let removedFederatedLibraries = [];
         }
 
 // Add this new function for legend toggle
+document.addEventListener("DOMContentLoaded", function() {
 function toggleLegendSidebar() {
     const legendSidebar = document.getElementById('legendSidebar');
     const legendBtn = document.getElementById('legendBtn');
@@ -958,10 +959,9 @@ function toggleLegendSidebar() {
     }
 }
 
-// Modifica la funzione toggleLegend esistente per chiamare toggleLegendSidebar
-function toggleLegend() {
-    toggleLegendSidebar();
-}
+    // Esponi la funzione all'ambito globale
+    window.toggleLegendSidebar = toggleLegendSidebar;
+});
 
 
 // Funzione per cercare una biblioteca e aprire il popup corrispondente
