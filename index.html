@@ -1179,7 +1179,7 @@ function toggleSearch() {
     const expandedSidebar = document.getElementById('expandedSidebar');
     const searchContainer = document.getElementById('searchContainer');
     const federateSidebar = document.getElementById('federateSidebar');
-    const federateBtn = document.getElementById('federateBtn');
+    const legendSidebar = document.getElementById('legendSidebar');
 
     // Rimuovo la classe active da tutti i pulsanti eccetto searchBtn
     document.querySelectorAll('.sidebar button').forEach(button => {
@@ -1188,9 +1188,9 @@ function toggleSearch() {
         }
     });
 
-    // Chiudo il pannello federate se aperto
+    // Chiudo gli altri pannelli laterali
     federateSidebar.classList.remove('open');
-    federateBtn.classList.remove('active');
+    legendSidebar.classList.remove('open');
 
     // Verifico se il pannello di ricerca è già aperto
     const isSearchOpen = expandedSidebar.classList.contains('open');
@@ -1204,33 +1204,6 @@ function toggleSearch() {
         // Se il pannello di ricerca è chiuso, lo apro
         expandedSidebar.classList.add('open');
         searchBtn.classList.add('active');
-
-        const startPoint = document.getElementById('start-point');
-        startPoint.placeholder = "Cerca biblioteca o indirizzo...";
-
-        const searchButton = searchContainer.querySelector('button');
-        searchButton.textContent = "Cerca";
-        searchButton.onclick = async function() {
-            const searchQuery = startPoint.value.toLowerCase();
-            try {
-                const response = await fetch('libraries.json');
-                const data = await response.json();
-                const foundLibrary = data.libraries.find(lib => 
-                    lib.name.toLowerCase().includes(searchQuery)
-                );
-                if (foundLibrary) {
-                    const municipioLibraries = data.libraries.filter(lib => 
-                        lib.municipality === foundLibrary.municipality
-                    );
-                    showMunicipioAndLibraries(foundLibrary.municipality, municipioLibraries);
-                    return;
-                }
-            } catch (error) {
-                console.error('Errore nella ricerca della biblioteca:', error);
-            }
-            searchRoute();
-        };
-
         searchContainer.style.display = 'block';
     }
 }
