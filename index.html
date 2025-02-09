@@ -1020,13 +1020,13 @@ function showFederatedLibraries(libraries) {
     resultsContainer.appendChild(systemDiv);
 
     // Aggiungi le biblioteche del sistema
-    libraries.forEach(library => {
-        const libraryDiv = document.createElement('div');
-        libraryDiv.className = 'library-item';
-        libraryDiv.textContent = library.name;
-        libraryDiv.onclick = () => selectFederatedLibrary(library);
-        resultsContainer.appendChild(libraryDiv);
-    });
+libraries.forEach(library => {
+    const libraryDiv = document.createElement('div');
+    libraryDiv.className = 'library-item';
+    libraryDiv.textContent = library.name;
+    libraryDiv.onclick = () => selectLibrary(library.name, library.coords[0], library.coords[1], library.municipality);
+    resultsContainer.appendChild(libraryDiv);
+});
 
     // Mostra il riquadro dei risultati
     if (libraries.length > 0) {
