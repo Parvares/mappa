@@ -1114,10 +1114,11 @@ function selectLibrary(name, lat, lng, municipalityNumber) {
     let foundMarker = null;
     
     // Cerca il marker corrispondente alla biblioteca
+    
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker) {
             const pos = layer.getLatLng();
-            if (pos.lat === lat && pos.lng === lng) {
+            if (pos.lat === library.coords[0] && pos.lng === library.coords[1]) {
                 foundMarker = layer;
             }
         }
