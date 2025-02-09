@@ -767,33 +767,29 @@ body, html {
     
 
 <!-- Seconda barra laterale (espansione) -->
+<!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
-    <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
-
-    <!-- Contenitore della ricerca -->
-    <div class="search-container" id="searchContainer">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" 
-               title="Vai alla Biblioteca Elsa Morante">
-                <img src="home.svg" alt="Biblioteca Home" class="icon">
-            </a>
-            <div class="search-input-wrapper" style="flex: 1;">
-                <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-                <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
-            </div>
-        </div>
-
-        <div id="library-suggestions" class="custom-datalist"></div>
-
-        <!-- Contenitore pulsanti -->
-<div style="display: flex; gap: 10px; margin-top: 10px;">
-  <button onclick="searchRoute()" style="flex: 1; background-color: var(--primary);">Cerca</button>
-  <button onclick="resetMap()" class="reset-btn">Reset</button>
+  <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
+  <!-- Contenitore della ricerca -->
+  <div class="search-container" id="searchContainer">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
+        <img src="home.svg" alt="Biblioteca Home" class="icon">
+      </a>
+      <div class="search-input-wrapper" style="flex: 1;">
+        <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
+        <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+      </div>
+    </div>
+    <div id="library-suggestions" class="custom-datalist"></div>
+    <!-- Contenitore pulsanti -->
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+      <button onclick="searchRoute()" style="flex: 1; background-color: var(--primary);">Cerca</button>
+      <button onclick="resetMap()" class="reset-btn">Reset</button>
+    </div>
+    <div id="search-results"></div>
+  </div>
 </div>
-
-        <div id="search-results"></div>
-    </div> <!-- Chiusura corretta del div "search-container" -->
-</div> <!-- Chiusura corretta del div "sidebar-expanded" -->
 
 
 <!-- Nuovo pannello per le biblioteche federate -->
