@@ -792,15 +792,13 @@ body, html {
 <div class="sidebar-expanded" id="legendSidebar">
     <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
     <div class="legend-container">
-        <h4>Mappa Biblioteche di Roma</h4>
-        <div class="legend-grid">
+            <div class="legend-grid">
             <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
         </div>
     </div>
 </div>
     
 
-<!-- Seconda barra laterale (espansione) -->
 <!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
   <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
@@ -1693,7 +1691,6 @@ const legendContainer = document.querySelector('.legend-container .legend-grid')
 if (legendContainer) {
     legendContainer.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h4>Mappa Biblioteche di Roma</h4>
             <button class="reset-button" onclick="resetLegend()" title="Reset">
                 <img src="undo.svg" alt="Reset" style="width: 20px; height: 20px;">
             </button>
