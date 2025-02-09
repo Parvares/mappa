@@ -730,7 +730,11 @@ body, html {
     margin-top: 10px;
     font-style: italic;
 }
-        
+.highlighted-library {
+    background-color: #ffeb3b; /* Colore di evidenziazione */
+    font-weight: bold;
+    border: 2px solid #fbc02d;
+}        
     </style>
 </head>
 <body>
@@ -968,26 +972,15 @@ async function searchLibrary() {
     try {
         const response = await fetch('libraries.json');
         const data = await response.json();
-        
-        // Cerca tra tutte le biblioteche (Roma e federate)
-        const foundRomeLibrary = data.libraries.find(library => 
-            library.name.toLowerCase().includes(searchTerm)
-        );
-        const foundFederatedLibrary = data.federate.find(library => 
-            library.name.toLowerCase().includes(searchTerm)
-        );
+
+        const foundRomeLibrary = data.libraries.find(library => library.name.toLowerCase().includes(searchTerm));
+        const foundFederatedLibrary = data.federate.find(library => library.name.toLowerCase().includes(searchTerm));
 
         if (foundRomeLibrary) {
-            // Logica esistente per le biblioteche di Roma
-            const librariesInMunicipio = data.libraries.filter(library => 
-                library.municipality === foundRomeLibrary.municipality
-            );
-            showMunicipioAndLibraries(foundRomeLibrary.municipality, librariesInMunicipio);
+            const librariesInMunicipio = data.libraries.filter(library => library.municipality === foundRomeLibrary.municipality);
+            showMunicipioAndLibraries(foundRomeLibrary.municipality, librariesInMunicipio, foundRomeLibrary.name); // Passa il nome della biblioteca cercata
         } else if (foundFederatedLibrary) {
-            // Nuova logica per le biblioteche federate
-            const federatedSystem = data.federate.filter(library => 
-                library.system === foundFederatedLibrary.system
-            );
+            const federatedSystem = data.federate.filter(library => library.system === foundFederatedLibrary.system);
             showFederatedLibraries(federatedSystem);
         } else {
             alert('Biblioteca non trovata. Riprova.');
@@ -1067,35 +1060,32 @@ function selectFederatedLibrary(library) {
 }        
 
         
-function showMunicipioAndLibraries(municipioNumber, libraries) {
+function showMunicipioAndLibraries(municipioNumber, libraries, searchedLibraryName = null) {
     const resultsContainer = document.getElementById('search-results');
-
-    // Svuota il contenuto precedente
     resultsContainer.innerHTML = '';
 
-    // Aggiungi il titolo del municipio
     const municipioDiv = document.createElement('div');
     municipioDiv.className = 'municipio-title';
     municipioDiv.textContent = `Municipio ${romanize(municipioNumber)}`;
     resultsContainer.appendChild(municipioDiv);
 
-    // Aggiungi le biblioteche del municipio
     libraries.forEach(library => {
         const libraryDiv = document.createElement('div');
         libraryDiv.className = 'library-item';
+        if (searchedLibraryName && library.name === searchedLibraryName) {
+            libraryDiv.classList.add('highlighted-library'); // Aggiungi una classe per evidenziare
+        }
         libraryDiv.textContent = library.name;
         libraryDiv.onclick = () => selectLibrary(library.name, library.coords[0], library.coords[1], library.municipality);
         resultsContainer.appendChild(libraryDiv);
     });
 
-    // Mostra il riquadro dei risultati solo se ci sono biblioteche
     if (libraries.length > 0) {
         resultsContainer.style.display = 'block';
     } else {
         resultsContainer.style.display = 'none';
     }
 
-    // Evidenzia il municipio sulla mappa
     loadAndShowBorder(municipioNumber, map);
     highlightLegendItem(municipioNumber);
     selectedMunicipio = municipioNumber;
