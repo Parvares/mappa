@@ -735,7 +735,17 @@ body, html {
     font-weight: bold;
     border: 2px solid #fbc02d;
 }
+.reset-button:hover {
+    transform: scale(1.1);
+}
 
+.reset-button:hover .reset-icon {
+    filter: invert(58%) sepia(15%) saturate(1700%) hue-rotate(182deg) brightness(75%) contrast(87%);
+}
+
+.reset-button:active {
+    transform: scale(0.95);
+}
 
         
     </style>
@@ -767,8 +777,8 @@ body, html {
     <div class="legend-container">
 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
     <h4 style="margin: 0;">Mappa Biblioteche di Roma per Municipio</h4>
-    <button onclick="resetLegend()" style="background: none; border: none; cursor: pointer; padding: 5px;">
-        <img src="undo.svg" alt="Reset" style="width: 20px; height: 20px; filter: invert(58%) sepia(15%) saturate(1700%) hue-rotate(182deg) brightness(96%) contrast(87%);">
+    <button onclick="resetLegend()" class="reset-button" style="background: none; border: none; cursor: pointer; padding: 5px; transition: transform 0.2s ease;">
+        <img src="undo.svg" alt="Reset" class="reset-icon" style="width: 20px; height: 20px; filter: invert(58%) sepia(15%) saturate(1700%) hue-rotate(182deg) brightness(96%) contrast(87%); transition: all 0.2s ease;">
     </button>
 </div>
         <div class="legend-grid">
