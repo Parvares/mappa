@@ -1024,17 +1024,15 @@ libraries.forEach(library => {
     const libraryDiv = document.createElement('div');
     libraryDiv.className = 'library-item';
     libraryDiv.textContent = library.name;
-    libraryDiv.onclick = () => selectLibrary(library.name, library.coords[0], library.coords[1], library.municipality);
+    libraryDiv.onclick = () => {
+        if (library && Array.isArray(library.coords)) {
+            selectLibrary(library.name, library.coords[0], library.coords[1], library.municipality);
+        } else {
+            console.error('Dati biblioteca non validi:', library);
+        }
+    };
     resultsContainer.appendChild(libraryDiv);
 });
-
-    // Mostra il riquadro dei risultati
-    if (libraries.length > 0) {
-        resultsContainer.style.display = 'block';
-    } else {
-        resultsContainer.style.display = 'none';
-    }
-}
 
 function selectFederatedLibrary(library) {
     let foundMarker = null;
@@ -1111,14 +1109,19 @@ function showMunicipioAndLibraries(municipioNumber, libraries) {
 }
 
 function selectLibrary(name, lat, lng, municipalityNumber) {
+    // Verifica che i parametri siano validi
+    if (!name || lat === undefined || lng === undefined || !municipalityNumber) {
+        console.error('Parametri mancanti per selectLibrary:', { name, lat, lng, municipalityNumber });
+        return;
+    }
+
     let foundMarker = null;
     
     // Cerca il marker corrispondente alla biblioteca
-    
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker) {
             const pos = layer.getLatLng();
-            if (pos.lat === library.coords[0] && pos.lng === library.coords[1]) {
+            if (pos && Math.abs(pos.lat - lat) < 0.0001 && Math.abs(pos.lng - lng) < 0.0001) {
                 foundMarker = layer;
             }
         }
@@ -1134,10 +1137,10 @@ function selectLibrary(name, lat, lng, municipalityNumber) {
         highlightLegendItem(municipalityNumber);
         selectedMunicipio = municipalityNumber;
     } else {
-        console.log('Marker not found for library:', name);
+        console.warn('Marker non trovato per la biblioteca:', name);
     }
 
-    // Nascondi il riquadro dei risultati se presente
+    // Nascondi il riquadro dei risultati
     const resultsContainer = document.getElementById('search-results');
     if (resultsContainer) {
         resultsContainer.style.display = 'none';
@@ -1677,9 +1680,12 @@ const legendContainer = document.querySelector('.legend-container .legend-grid')
 if (legendContainer) {
     legendContainer.innerHTML = Object.entries(municipalityColors).map(([num, color]) => {
 const municipioLibraries = window.libraryData.libraries
-  .filter(lib => lib.municipality === parseInt(num))
-  .map(lib => `<div class="library-item-legend" onclick="selectLibrary('${lib.name}', ${lib.coords[0]}, ${lib.coords[1]}, ${lib.municipality})">${lib.name}</div>`)
-  .join('');
+    .filter(lib => lib.municipality === parseInt(num))
+    .map(lib => {
+        const safeCoords = Array.isArray(lib.coords) ? lib.coords : [0, 0];
+        return `<div class="library-item-legend" onclick="selectLibrary('${lib.name}', ${safeCoords[0]}, ${safeCoords[1]}, ${lib.municipality})">${lib.name}</div>`;
+    })
+    .join('');
         
 return `
     <div class="legend-item" data-municipio="${num}">
