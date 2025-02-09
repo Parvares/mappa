@@ -767,7 +767,6 @@ body, html {
     
 
 <!-- Seconda barra laterale (espansione) -->
-<!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
   <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
   <!-- Contenitore della ricerca -->
@@ -781,7 +780,8 @@ body, html {
         <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
       </div>
     </div>
-    <div id="library-suggestions" class="custom-datalist"></div>
+    <!-- Replace the div with a datalist element -->
+    <datalist id="library-suggestions"></datalist>
     <!-- Contenitore pulsanti -->
     <div style="display: flex; gap: 10px; margin-top: 10px;">
       <button onclick="searchRoute()" style="flex: 1; background-color: var(--primary);">Cerca</button>
@@ -790,7 +790,6 @@ body, html {
     <div id="search-results"></div>
   </div>
 </div>
-
 
 <!-- Nuovo pannello per le biblioteche federate -->
 <div class="sidebar-expanded" id="federateSidebar">
