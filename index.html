@@ -764,7 +764,7 @@ body, html {
     <div class="legend-container">
         <h4>Mappa Biblioteche di Roma per Municipio</h4>
         <div class="legend-grid">
-            <!-- Contenuto della legenda -->
+            <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
         </div>
     </div>
 </div>
@@ -930,7 +930,6 @@ let removedFederatedLibraries = [];
         }
 
 // Add this new function for legend toggle
-document.addEventListener("DOMContentLoaded", function() {
 function toggleLegendSidebar() {
     const legendSidebar = document.getElementById('legendSidebar');
     const legendBtn = document.getElementById('legendBtn');
@@ -959,9 +958,10 @@ function toggleLegendSidebar() {
     }
 }
 
-    // Esponi la funzione all'ambito globale
-    window.toggleLegendSidebar = toggleLegendSidebar;
-});
+// Modifica la funzione toggleLegend esistente per chiamare toggleLegendSidebar
+function toggleLegend() {
+    toggleLegendSidebar();
+}
 
 
 // Funzione per cercare una biblioteca e aprire il popup corrispondente
@@ -2038,47 +2038,6 @@ function resetMap() {
         toggleFederatedLibraries(); // Questa funzione inverte lo stato delle biblioteche federate
     }
 }
-
-function resetLegend() {
-    // Chiude tutti i popup aperti
-    map.closePopup();
-
-    // Rimuove il bordo del municipio evidenziato
-    if (currentBorder) {
-        map.removeLayer(currentBorder);
-        currentBorder = null;
-    }
-
-    // Resetta l'evidenziazione nella legenda
-    const allLegendItems = document.querySelectorAll('.legend-item');
-    allLegendItems.forEach(item => {
-        item.classList.remove('highlighted');
-    });
-
-    // Resetta la selezione del municipio
-    selectedMunicipio = null;
-
-    // Richiude i municipi espansi
-    const expandedItems = document.querySelectorAll('.legend-item.expanded');
-    expandedItems.forEach(item => {
-        item.classList.remove('expanded');
-        const librariesList = item.querySelector('.libraries-list');
-        if (librariesList) {
-            librariesList.classList.remove('expanded');
-        }
-    });
-
-    // Se il municipio 10 è visibile, ripristina il suo stile originale
-    if (municipioLayers[10]) {
-        municipioLayers[10].setStyle({
-            color: municipalityColors[10],
-            weight: 3,
-            opacity: 0.65,
-            fillOpacity: 0
-        });
-    }
-}
-        
         
     </script>
 </body>
