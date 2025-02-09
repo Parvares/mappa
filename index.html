@@ -120,6 +120,7 @@ body, html {
 
         /* Seconda barra laterale (espansione) */
     .sidebar-expanded {
+    font-size: 16px; /* Dimensione base del testo aumentata */
     overflow-y: auto;
     position: absolute;
     top: 0;
@@ -131,7 +132,25 @@ body, html {
     z-index: 999;
     transition: width 0.3s ease;
 }
+        
+/* Titoli nei pannelli */
+.sidebar-expanded h4 {
+    font-size: 17px;
+    margin-bottom: 15px;
+}
 
+/* Tutti gli elementi nelle liste */
+.sidebar-expanded .legend-grid .legend-item,
+.sidebar-expanded .federate-container .legend-item {
+    font-size: 16px;
+}
+
+/* Lista delle biblioteche */
+.sidebar-expanded .library-item,
+.sidebar-expanded .libraries-list .library-item-legend {
+    font-size: 15px;
+    padding: 8px 10px;
+}
         
 .sidebar-expanded.open {
     width: 400px;
