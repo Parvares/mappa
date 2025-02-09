@@ -730,11 +730,7 @@ body, html {
     margin-top: 10px;
     font-style: italic;
 }
-.highlighted-library {
-    background-color: #ffeb3b; /* Colore di sfondo giallo per evidenziare */
-    font-weight: bold; /* Testo in grassetto */
-    border: 2px solid #fbc02d; /* Bordo arancione */
-}        
+        
     </style>
 </head>
 <body>
@@ -770,6 +766,7 @@ body, html {
 </div>
     
 
+<!-- Seconda barra laterale (espansione) -->
 <!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
   <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
@@ -1070,8 +1067,9 @@ function selectFederatedLibrary(library) {
 }        
 
         
-function showMunicipioAndLibraries(municipioNumber, libraries, searchTerm) {
+function showMunicipioAndLibraries(municipioNumber, libraries) {
     const resultsContainer = document.getElementById('search-results');
+
     // Svuota il contenuto precedente
     resultsContainer.innerHTML = '';
 
@@ -1085,12 +1083,6 @@ function showMunicipioAndLibraries(municipioNumber, libraries, searchTerm) {
     libraries.forEach(library => {
         const libraryDiv = document.createElement('div');
         libraryDiv.className = 'library-item';
-
-        // Se il nome della biblioteca corrisponde al termine di ricerca, aggiungi una classe CSS per evidenziarla
-        if (library.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-            libraryDiv.classList.add('highlighted-library');
-        }
-
         libraryDiv.textContent = library.name;
         libraryDiv.onclick = () => selectLibrary(library.name, library.coords[0], library.coords[1], library.municipality);
         resultsContainer.appendChild(libraryDiv);
@@ -1217,7 +1209,7 @@ function toggleSearch() {
                     const municipioLibraries = data.libraries.filter(lib => 
                         lib.municipality === foundLibrary.municipality
                     );
-                    showMunicipioAndLibraries(foundLibrary.municipality, municipioLibraries, searchTerm);
+                    showMunicipioAndLibraries(foundLibrary.municipality, municipioLibraries);
                     return;
                 }
             } catch (error) {
