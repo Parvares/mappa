@@ -1078,8 +1078,6 @@ function selectFederatedLibrary(library) {
         
 function showMunicipioAndLibraries(municipioNumber, libraries) {
     const resultsContainer = document.getElementById('search-results');
-    
-    // Svuota il contenuto precedente
     resultsContainer.innerHTML = '';
 
     // Aggiungi il titolo del municipio
@@ -1093,11 +1091,11 @@ function showMunicipioAndLibraries(municipioNumber, libraries) {
         const libraryDiv = document.createElement('div');
         libraryDiv.className = 'library-item';
         libraryDiv.textContent = library.name;
-        libraryDiv.onclick = () => selectLibrary(library);
+        libraryDiv.onclick = () => selectLibrary(library.name, library.coords[0], library.coords[1], library.municipality);
         resultsContainer.appendChild(libraryDiv);
     });
 
-    // Mostra il riquadro dei risultati solo se ci sono biblioteche
+    // Mostra il riquadro dei risultati
     if (libraries.length > 0) {
         resultsContainer.style.display = 'block';
     } else {
@@ -1112,7 +1110,7 @@ function showMunicipioAndLibraries(municipioNumber, libraries) {
 
 function selectLibrary(name, lat, lng, municipalityNumber) {
     let foundMarker = null;
-    
+
     // Cerca il marker corrispondente alla biblioteca
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker) {
@@ -1127,7 +1125,7 @@ function selectLibrary(name, lat, lng, municipalityNumber) {
         // Apri il popup e centra la mappa sul marker
         foundMarker.openPopup();
         map.setView(foundMarker.getLatLng(), 14);
-        
+
         // Evidenzia il municipio corrispondente
         loadAndShowBorder(municipalityNumber, map);
         highlightLegendItem(municipalityNumber);
@@ -1403,16 +1401,16 @@ try {
     // Popola il datalist con i nomi delle biblioteche
 const customDatalist = document.getElementById('library-suggestions');
     // Aggiungi sia le biblioteche normali che quelle federate al datalist
-    [...data.libraries, ...data.federate].forEach(library => {
-        const option = document.createElement('div');
-        option.textContent = library.name;
-        option.onclick = () => {
-            document.getElementById('start-point').value = library.name;
-            customDatalist.style.display = 'none';
-            searchLibrary();
-        };
-        customDatalist.appendChild(option);
-    });
+[...data.libraries, ...data.federate].forEach(library => {
+    const option = document.createElement('div');
+    option.textContent = library.name;
+    option.onclick = () => {
+        document.getElementById('start-point').value = library.name;
+        customDatalist.style.display = 'none';
+        selectLibrary(library.name, library.coords[0], library.coords[1], library.municipality);
+    };
+    customDatalist.appendChild(option);
+});
 
 // Mostra/nascondi il menu personalizzato quando il campo di ricerca è focalizzato
 document.getElementById('start-point').addEventListener('focus', () => {
