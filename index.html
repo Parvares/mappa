@@ -142,8 +142,8 @@ body, html {
 
 .sidebar-close-icon {
     position: absolute;
-    right: 10px;
-    top: 108px;
+    right: 8px;
+    top: 8px;
     cursor: pointer;
     opacity: 0.8;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -156,7 +156,6 @@ body, html {
     border-radius: 50%;
     background: url('x.svg') center center no-repeat;
     background-size: 14px;
-    z-index: 1001; /* Assicurati che sia sopra gli altri elementi */
 }
 
 .sidebar-close-icon:hover {
@@ -174,7 +173,6 @@ body, html {
 .search-container {
     position: relative; /* Permette di posizionare il riquadro dei risultati relativamente a questo contenitore */
     padding: 20px;
-    padding-top: 40px; /* Aggiungi questa riga */
     display: none;
 }
         .sidebar-expanded.open .search-container {
@@ -803,7 +801,7 @@ body, html {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     position: fixed;
-    top: 20px;
+    top: 10px;
     left: 10px;
     z-index: 1001;
     cursor: pointer;
