@@ -750,7 +750,7 @@ body, html {
     transform: scale(0.95);
 }
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
   .sidebar-expanded {
     position: fixed;
     bottom: 0;
@@ -782,6 +782,10 @@ body, html {
   }
 }
         .drag-handle {
+  display: none;
+}
+
+.drag-handle {
   display: none;
 }
 
@@ -2183,7 +2187,39 @@ function resetLegend() {
       }
     });
   });
-});       
+}); 
+
+document.addEventListener('DOMContentLoaded', function() {
+  const panels = document.querySelectorAll('.sidebar-expanded');
+  
+  panels.forEach(panel => {
+    let startY;
+    let startTransform;
+    
+    panel.addEventListener('touchstart', e => {
+      startY = e.touches[0].clientY;
+      startTransform = panel.getBoundingClientRect().top;
+    });
+    
+    panel.addEventListener('touchmove', e => {
+      if (!panel.classList.contains('open')) return;
+      const deltaY = e.touches[0].clientY - startY;
+      const newTransform = Math.max(0, Math.min(deltaY, window.innerHeight/2));
+      panel.style.transform = `translateY(${newTransform}px)`;
+      e.preventDefault();
+    });
+    
+    panel.addEventListener('touchend', e => {
+      const deltaY = e.changedTouches[0].clientY - startY;
+      if (deltaY > window.innerHeight/4) {
+        panel.classList.remove('open');
+      } else {
+        panel.style.transform = '';
+      }
+    });
+  });
+});
+        
     </script>
 </body>
 </html>
