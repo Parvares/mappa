@@ -876,6 +876,23 @@ body, html {
     top: 15px;
   }
 }        
+
+/* Aggiungi questo stile per la barra di swipe */
+.swipe-handle {
+    width: 40px;
+    height: 4px;
+    background-color: #ccc;
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.swipe-handle:hover {
+    background-color: #999;
+}
         
     </style>
 </head>
@@ -925,6 +942,7 @@ body, html {
 
 <!-- Terzo pannello laterale espanso: legenda municipi -->
 <div class="sidebar-expanded" id="legendSidebar">
+    <div class="swipe-handle"></div> <!-- Aggiungi questa riga -->
     <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
     <div class="legend-container">
 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
@@ -942,6 +960,7 @@ body, html {
 
 <!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
+  <div class="swipe-handle"></div> <!-- Aggiungi questa riga -->
   <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
   <!-- Contenitore della ricerca -->
   <div class="search-container" id="searchContainer">
