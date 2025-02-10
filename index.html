@@ -854,7 +854,12 @@ body, html {
         display: flex;
     }
 }
-        
+/* Nascondi il controllo dello zoom su dispositivi mobili */
+@media (max-width: 768px) {
+    .custom-zoom-control {
+        display: none !important;
+    }
+}        
     </style>
 </head>
 <body>
@@ -1458,9 +1463,10 @@ document.addEventListener("DOMContentLoaded", async function() {
     });
     
     zoomControl.addTo(map);
-    
+
     // Add custom CSS to the zoom control container after it's added to the map
     const zoomContainer = zoomControl.getContainer();
+    zoomContainer.classList.add('custom-zoom-control');
     zoomContainer.style.marginTop = '22px';
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
