@@ -787,12 +787,102 @@ body, html {
         max-height: calc(100% - 120px); /* Altezza massima per i risultati */
         overflow-y: auto;
     }
-}        
+} 
+
+/* Stili per il menu hamburger */
+.hamburger-menu {
+    display: none; /* Nascosto di default */
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1001;
+    cursor: pointer;
+}
+
+.hamburger-icon {
+    width: 24px;
+    height: 3px;
+    background-color: var(--primary);
+    border-radius: 2px;
+}
+
+/* Stili per il menu mobile */
+.mobile-menu {
+    display: none; /* Nascosto di default */
+    flex-direction: column;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 60px;
+    left: 10px;
+    z-index: 1001;
+}
+
+.mobile-menu button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.mobile-menu button img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Nascondi la barra laterale fissa su mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+        
     </style>
 </head>
 <body>
 
+<!-- Menu Hamburger per mobile -->
+<div class="hamburger-menu" onclick="toggleMobileMenu()">
+    <div class="hamburger-icon"></div>
+    <div class="hamburger-icon"></div>
+    <div class="hamburger-icon"></div>
+</div>
 
+<!-- Menu Mobile (nascosto di default) -->
+<div class="mobile-menu" id="mobileMenu">
+    <button onclick="toggleSearch()" data-tooltip="Cerca biblioteca o indirizzo">
+        <img src="search-icon.svg" alt="Cerca biblioteca o indirizzo">
+        <span>Cerca</span>
+    </button>
+    <button onclick="toggleLegendSidebar()" data-tooltip="Mostra/Nascondi legenda">
+        <img src="legend-icon.svg" alt="Mostra/Nascondi legenda">
+        <span>Legenda</span>
+    </button>
+    <button onclick="toggleFederateSidebar()" data-tooltip="Biblioteche federate">
+        <img src="federate-icon.svg" alt="Biblioteche federate">
+        <span>Federate</span>
+    </button>
+</div>
+
+    
     
     <!-- Barra laterale fissa -->
 <div class=sidebar>
@@ -2164,6 +2254,23 @@ function resetLegend() {
         document.querySelectorAll('.sidebar-close-icon').forEach(icon => {
     icon.addEventListener('click', closeAllSidebars);
 });
+
+ // Funzione per aprire/chiudere il menu mobile
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenu.style.display === 'flex') {
+        mobileMenu.style.display = 'none';
+    } else {
+        mobileMenu.style.display = 'flex';
+    }
+}
+
+// Chiudi il menu mobile quando si clicca su un pulsante
+document.querySelectorAll('.mobile-menu button').forEach(button => {
+    button.addEventListener('click', () => {
+        document.getElementById('mobileMenu').style.display = 'none';
+    });
+});       
     </script>
 </body>
 </html>
