@@ -778,9 +778,14 @@ body, html {
     }
 
     .search-container {
-        padding-top: 70px; /* <-- Aumenta il valore se necessario */
         padding: 10px;
     }
+
+@media (max-width: 768px) {
+    .search-container > div {
+        margin-top: 50px; /* Sposta solo il contenuto interno */
+    }
+}
 
     .search-input-wrapper {
         width: 100%;
