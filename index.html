@@ -2293,7 +2293,30 @@ document.querySelectorAll('.mobile-menu button').forEach(button => {
     button.addEventListener('click', () => {
         document.getElementById('mobileMenu').style.display = 'none';
     });
-});       
+});
+
+ // Aggiungi questa funzione per gestire lo swipe
+function setupSwipeGesture() {
+    let startY = 0;
+
+    document.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        const currentY = e.touches[0].clientY;
+        const deltaY = currentY - startY;
+
+        // Se l'utente sta facendo swipe verso il basso (deltaY positivo)
+        if (deltaY > 50) { // 50 è la soglia per considerare il movimento come swipe
+            closeAllSidebars();
+        }
+    });
+}
+
+// Chiama la funzione per impostare il listener dello swipe
+setupSwipeGesture();
+        
     </script>
 </body>
 </html>
