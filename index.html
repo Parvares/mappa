@@ -121,6 +121,7 @@ body, html {
         /* Seconda barra laterale (espansione) */
     .sidebar-expanded {
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Scroll fluido su iOS */
     position: absolute;
     top: 0;
     left: 60px;
@@ -750,7 +751,71 @@ body, html {
     transform: scale(0.95);
 }
 
-        
+ @media (max-width: 768px) {
+    .sidebar-expanded {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50vh; /* Apre il pannello a metà schermo */
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        z-index: 1001;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-expanded.open {
+        transform: translateY(0);
+    }
+
+    .sidebar-close-icon {
+        top: 10px;
+        right: 10px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        padding: 5px;
+    }
+
+    .search-container {
+        padding: 15px;
+    }
+
+    #search-results {
+        max-height: calc(50vh - 150px);
+        margin: 10px 0;
+    }
+
+    .sidebar {
+        width: 50px;
+    }
+
+    .sidebar button img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .sidebar button {
+        margin-bottom: 15px;
+    }
+}
+ .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    .overlay.active {
+        display: block;
+    }
+}       
     </style>
 </head>
 <body>
@@ -950,34 +1015,43 @@ let removedFederatedLibraries = [];
         }
 
 // Add this new function for legend toggle
-function toggleLegendSidebar() {
-    const legendSidebar = document.getElementById('legendSidebar');
-    const legendBtn = document.getElementById('legendBtn');
+function toggleExpandedSidebar() {
     const expandedSidebar = document.getElementById('expandedSidebar');
+    const searchBtn = document.getElementById('searchBtn');
+    const legendSidebar = document.getElementById('legendSidebar');
     const federateSidebar = document.getElementById('federateSidebar');
-    const searchContainer = document.getElementById('searchContainer');
+    const overlay = document.getElementById('overlay');
 
-    // Rimuovo la classe active da tutti i pulsanti
+    // Chiudi gli altri pannelli se aperti
+    legendSidebar.classList.remove('open');
+    federateSidebar.classList.remove('open');
+
+    // Rimuovi la classe active da tutti i pulsanti
     document.querySelectorAll('.sidebar button').forEach(button => {
         button.classList.remove('active');
     });
 
-    // Chiudo gli altri pannelli
-    expandedSidebar.classList.remove('open');
-    federateSidebar.classList.remove('open');
-    if (searchContainer) {
-        searchContainer.style.display = 'none';
+    // Apri/chiudi il pannello di ricerca
+    expandedSidebar.classList.toggle('open');
+
+    // Aggiungi/rimuovi la classe active al pulsante di ricerca
+    if (expandedSidebar.classList.contains('open')) {
+        searchBtn.classList.add('active');
+        overlay.classList.add('active');
+    } else {
+        searchBtn.classList.remove('active');
+        overlay.classList.remove('active');
     }
 
-    // Gestisco l'apertura/chiusura del pannello legenda
-    legendSidebar.classList.toggle('open');
-    if (legendSidebar.classList.contains('open')) {
-        legendBtn.classList.add('active');
-    } else {
-        legendBtn.classList.remove('active');
+    // Se il pannello è aperto, focalizza il campo di ricerca
+    if (expandedSidebar.classList.contains('open')) {
+        document.getElementById('start-point').focus();
     }
 }
-
+document.getElementById('overlay').addEventListener('click', () => {
+    toggleExpandedSidebar();
+});
+        
 // Modifica la funzione toggleLegend esistente per chiamare toggleLegendSidebar
 function toggleLegend() {
     toggleLegendSidebar();
