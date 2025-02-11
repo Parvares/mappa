@@ -798,7 +798,6 @@ body, html {
 } 
 
 /* Stili per il menu hamburger */
-/* Stili per il menu hamburger */
 .hamburger-menu {
     display: none; /* Nascosto di default */
     width: 40px;
@@ -816,9 +815,14 @@ body, html {
     justify-content: center;
 }
 
-.hamburger-menu img {
+.menu-icon {
     width: 24px;
     height: 24px;
+}
+@media (min-width: 769px) {
+    .hamburger-menu {
+        display: none; /* Nascondi il menu hamburger nella versione desktop */
+    }
 }
 
 /* Stili per il menu mobile */
@@ -882,7 +886,7 @@ body, html {
 
 <!-- Menu Hamburger per mobile -->
 <div class="hamburger-menu" onclick="toggleMobileMenu()">
-    <img src="menu.svg" alt="Menu">
+    <img src="menu.svg" alt="Menu" class="menu-icon">
 </div>
 
 <!-- Menu Mobile (nascosto di default) -->
@@ -891,7 +895,7 @@ body, html {
         <img src="search-icon.svg" alt="Cerca biblioteca o indirizzo">
         <span>Cerca biblioteca</span>
     </button>
-    <button onclick="toggleLegendSidebar()" data-tooltip="Biblioteche di Roma">
+    <button onclick="toggleLegendSidebar()" data-tooltip="Mostra/Nascondi legenda">
         <img src="coliseum-svgrepo.svg" alt="Mostra/Nascondi legenda">
         <span>Biblioteche di Roma</span>
     </button>
