@@ -876,23 +876,6 @@ body, html {
     top: 15px;
   }
 }        
-
-/* Aggiungi questo stile per la barra di swipe */
-.swipe-handle {
-    width: 40px;
-    height: 4px;
-    background-color: #ccc;
-    border-radius: 2px;
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
-}
-
-.swipe-handle:hover {
-    background-color: #999;
-}
         
     </style>
 </head>
@@ -942,7 +925,6 @@ body, html {
 
 <!-- Terzo pannello laterale espanso: legenda municipi -->
 <div class="sidebar-expanded" id="legendSidebar">
-    <div class="swipe-handle"></div> <!-- Aggiungi questa riga -->
     <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
     <div class="legend-container">
 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
@@ -960,7 +942,6 @@ body, html {
 
 <!-- Seconda barra laterale (espansione) -->
 <div class="sidebar-expanded" id="expandedSidebar">
-  <div class="swipe-handle"></div> <!-- Aggiungi questa riga -->
   <div class="sidebar-close-icon" onclick="toggleExpandedSidebar()"></div>
   <!-- Contenitore della ricerca -->
   <div class="search-container" id="searchContainer">
@@ -986,7 +967,6 @@ body, html {
 
 <!-- Nuovo pannello per le biblioteche federate -->
 <div class="sidebar-expanded" id="federateSidebar">
-    <div class="swipe-handle"></div> <!-- Aggiungi questa riga -->
     <div class="sidebar-close-icon" onclick="toggleFederateSidebar()"></div>
 <div class="federate-container">
     <h4>Biblioteche Federate</h4>
@@ -2313,44 +2293,7 @@ document.querySelectorAll('.mobile-menu button').forEach(button => {
     button.addEventListener('click', () => {
         document.getElementById('mobileMenu').style.display = 'none';
     });
-});
-
- // Aggiungi questa funzione per gestire lo swipe
-// Aggiungi questa funzione per gestire lo swipe
-// Aggiungi questa funzione per gestire lo swipe
-function setupSwipeGesture() {
-    let startY = 0;
-    let isSwiping = false;
-
-    // Seleziona la barra di swipe
-    const swipeHandle = document.querySelector('.swipe-handle');
-
-    swipeHandle.addEventListener('touchstart', (e) => {
-        startY = e.touches[0].clientY;
-        isSwiping = true; // Inizia lo swipe solo se parte dalla barra
-    });
-
-    document.addEventListener('touchmove', (e) => {
-        if (!isSwiping) return; // Se non è partito dalla barra, ignora
-
-        const currentY = e.touches[0].clientY;
-        const deltaY = currentY - startY;
-
-        // Se l'utente sta facendo swipe verso il basso (deltaY positivo)
-        if (deltaY > 50) { // 50 è la soglia per considerare il movimento come swipe
-            closeAllSidebars();
-            isSwiping = false; // Resetta lo stato dello swipe
-        }
-    });
-
-    document.addEventListener('touchend', () => {
-        isSwiping = false; // Resetta lo stato dello swipe quando il tocco termina
-    });
-}
-
-// Chiama la funzione per impostare il listener dello swipe
-setupSwipeGesture();
-        
+});       
     </script>
 </body>
 </html>
