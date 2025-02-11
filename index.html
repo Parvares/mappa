@@ -798,7 +798,6 @@ body, html {
 } 
 
 /* Stili per il menu hamburger */
-/* Stili per il menu hamburger */
 .hamburger-menu {
     display: none; /* Nascosto di default */
     width: 40px;
@@ -816,9 +815,11 @@ body, html {
     justify-content: center;
 }
 
-.hamburger-menu img {
-    width: 24px;
-    height: 24px;
+/* Mostra il menu hamburger solo su schermi piccoli */
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: flex; /* Mostra il menu hamburger */
+    }
 }
 
 /* Stili per il menu mobile */
@@ -857,9 +858,7 @@ body, html {
         display: none;
     }
 
-    .hamburger-menu {
-        display: flex;
-    }
+    
 }
 /* Nascondi il controllo dello zoom su dispositivi mobili */
 @media (max-width: 768px) {
