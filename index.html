@@ -800,24 +800,26 @@ body, html {
 /* Stili per il menu hamburger */
 .hamburger-menu {
     display: none; /* Nascosto di default */
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     width: 40px;
     height: 40px;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     position: fixed;
-    top: 15px;
+    top: 15px; /* <-- Modificato */
     left: 10px;
     z-index: 1001;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.hamburger-menu img {
+.hamburger-icon {
     width: 24px;
-    height: 24px;
+    height: 3px;
+    background-color: var(--primary);
+    border-radius: 2px;
 }
 
 /* Stili per il menu mobile */
@@ -881,7 +883,9 @@ body, html {
 
 <!-- Menu Hamburger per mobile -->
 <div class="hamburger-menu" onclick="toggleMobileMenu()">
-    <img src="menu.svg" alt="Menu">
+    <div class="hamburger-icon"></div>
+    <div class="hamburger-icon"></div>
+    <div class="hamburger-icon"></div>
 </div>
 
 <!-- Menu Mobile (nascosto di default) -->
@@ -903,36 +907,19 @@ body, html {
     
     
     <!-- Barra laterale fissa -->
-<!-- Barra laterale fissa -->
-<div class="sidebar">
-  <button id="searchBtn" onclick="toggleSearch()" data-tooltip="Cerca biblioteca o indirizzo">
-    <img src="search-icon.svg" alt="Cerca biblioteca o indirizzo">
-  </button>
-  
-  <!-- Pulsante Biblioteche di Roma Capitale -->
-  <button id="legendBtn" onclick="toggleLegendSidebar()" data-tooltip="Mostra/Nascondi legenda">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="24" height="24">
-      <g transform="translate(20,5)">
-        <path d="M5 10 v30 h50 v-30" fill="none" stroke="#333" stroke-width="2"/>
-        <path d="M5 15 h50" stroke="#333" stroke-width="1"/>
-        <path d="M10 10 v30 M20 10 v30 M30 10 v30 M40 10 v30 M50 10 v30" stroke="#333" stroke-width="1"/>
-        <path d="M5 5 q25,-5 50,0" fill="none" stroke="#333" stroke-width="2"/>
-      </g>
-    </svg>
-  </button>
+<div class=sidebar>
 
-  <!-- Pulsante Biblioteche Provincia -->
-  <button id="federateBtn" onclick="toggleFederateSidebar()" data-tooltip="Biblioteche federate">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="24" height="24">
-      <g transform="translate(120,5)">
-        <path d="M5 5 h40 l-20,40 z" fill="none" stroke="#333" stroke-width="2"/>
-        <circle cx="10" cy="10" r="3" fill="#333"/>
-        <circle cx="40" cy="10" r="3" fill="#333"/>
-        <circle cx="25" cy="40" r="3" fill="#333"/>
-        <circle cx="25" cy="20" r="3" fill="#333"/>
-      </g>
-    </svg>
-  </button>
+<button id=searchBtn onclick=toggleSearch() data-tooltip="Cerca biblioteca o indirizzo">
+<img src=search-icon.svg alt="Cerca biblioteca o indirizzo">
+</button>
+<button id="legendBtn" onclick="toggleLegendSidebar()" data-tooltip="Mostra/Nascondi legenda">
+    <img src="legend-icon.svg" alt="Mostra/Nascondi legenda">
+</button>
+
+ <!-- Nuovo bottone con icona federate-icon.svg -->
+    <button id="federateBtn" onclick="toggleFederateSidebar()" data-tooltip="Biblioteche federate">
+        <img src="federate-icon.svg" alt="Biblioteche federate">
+    </button>   
 </div>
 
 
