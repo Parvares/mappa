@@ -837,6 +837,13 @@ body, html {
     z-index: 1001;
 }
 
+/* Mostra il menu mobile solo su schermi piccoli */
+@media (max-width: 768px) {
+    .mobile-menu {
+        display: flex; /* Mostra il menu mobile */
+    }
+}
+        
 .mobile-menu button {
     display: flex;
     align-items: center;
