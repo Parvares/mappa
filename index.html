@@ -164,7 +164,27 @@ body, html {
     transform: scale(1.08);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
+@media (max-width: 768px) {
+    /* Stili per uniformare le dimensioni e l'allineamento delle icone */
+    .sidebar-close-icon, .reset-button img {
+        width: 24px; /* Uniforma la larghezza */
+        height: 24px; /* Uniforma l'altezza */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
+    /* Stile specifico per l'icona di chiusura (x.svg) */
+    .sidebar-close-icon {
+        background-size: 16px; /* Riduci leggermente la dimensione dell'icona */
+    }
+
+    /* Stile specifico per l'icona di reset (undo-phosphoricons.svg) */
+    .reset-button img {
+        filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+        transition: all 0.2s ease;
+    }
+}
 
 
         
