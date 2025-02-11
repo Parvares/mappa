@@ -2316,21 +2316,34 @@ document.querySelectorAll('.mobile-menu button').forEach(button => {
 });
 
  // Aggiungi questa funzione per gestire lo swipe
+// Aggiungi questa funzione per gestire lo swipe
 function setupSwipeGesture() {
     let startY = 0;
+    let isSwiping = false;
 
-    document.addEventListener('touchstart', (e) => {
+    // Seleziona la barra di swipe
+    const swipeHandle = document.querySelector('.swipe-handle');
+
+    swipeHandle.addEventListener('touchstart', (e) => {
         startY = e.touches[0].clientY;
+        isSwiping = true; // Inizia lo swipe solo se parte dalla barra
     });
 
     document.addEventListener('touchmove', (e) => {
+        if (!isSwiping) return; // Se non è partito dalla barra, ignora
+
         const currentY = e.touches[0].clientY;
         const deltaY = currentY - startY;
 
         // Se l'utente sta facendo swipe verso il basso (deltaY positivo)
         if (deltaY > 50) { // 50 è la soglia per considerare il movimento come swipe
             closeAllSidebars();
+            isSwiping = false; // Resetta lo stato dello swipe
         }
+    });
+
+    document.addEventListener('touchend', () => {
+        isSwiping = false; // Resetta lo stato dello swipe quando il tocco termina
     });
 }
 
