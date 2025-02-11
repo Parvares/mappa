@@ -881,14 +881,18 @@ body, html {
 }        
 
  /* Stili per il titolo fisso */
-.legend-header, .federate-header {
-  position: sticky;
-  top: 0;
-  background: rgba(255, 255, 255, 0.95);
-  z-index: 1000;
-  padding: 10px;
-  border-bottom: 1px solid #e0e0e0;
-}
+
+.header-container {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}        
 
 /* Stili per il contenuto scorrevole */
 .legend-content, .federate-content {
@@ -944,12 +948,17 @@ body, html {
 <div class="sidebar-expanded" id="legendSidebar">
   <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
   <div class="legend-container">
-    <div class="legend-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-      <h4 style="margin: 0;">Biblioteche di Roma</h4>
-      <button onclick="resetLegend()" class="reset-button" style="background: none; border: none; cursor: pointer; padding: 5px; transition: transform 0.2s ease;">
-        <img src="undo-phosphoricons.svg" alt="Reset" class="reset-icon" style="width: 20px; height: 20px; filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%); transition: all 0.2s ease;">
-      </button>
+      
+<div class="header-container">
+    <h4 style="margin: 0;">Biblioteche di Roma</h4>
+    <div>
+        <button onclick="resetLegend()" class="reset-button" style="background: none; border: none; cursor: pointer; padding: 5px; transition: transform 0.2s ease;">
+            <img src="undo-phosphoricons.svg" alt="Reset" class="reset-icon" style="width: 20px; height: 20px; filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%); transition: all 0.2s ease;">
+        </button>
+        <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
     </div>
+</div>
+      
     <div class="legend-content">
       <div class="legend-grid">
         <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
@@ -988,9 +997,10 @@ body, html {
 <div class="sidebar-expanded" id="federateSidebar">
   <div class="sidebar-close-icon" onclick="toggleFederateSidebar()"></div>
   <div class="federate-container">
-    <div class="federate-header">
-      <h4>Biblioteche Federate</h4>
-    </div>
+    
+<div class="header-container">
+    <h4>Biblioteche Federate</h4>
+    <div>
     <div class="federate-content">
       <div class="legend-grid">
         <div class="legend-item" onclick="zoomToSystemLibraries('CASTELLI ROMANI')">
@@ -1036,15 +1046,11 @@ body, html {
 
 
 
-
-      <button id="toggleFederatedLibraries" onclick="toggleFederatedLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
-        Mostra Biblioteche Federate
-      </button>
-      <button id="toggleRomeLibraries" onclick="toggleRomeLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
-        Rimuovi Biblioteche di Roma
-      </button>
-            
-            
+<button onclick="resetLegend()" class="reset-button" style="background: none; border: none; cursor: pointer; padding: 5px; transition: transform 0.2s ease;">
+            <img src="undo-phosphoricons.svg" alt="Reset" class="reset-icon" style="width: 20px; height: 20px; filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%); transition: all 0.2s ease;">
+        </button>           
+<div class="sidebar-close-icon" onclick="toggleFederateSidebar()"></div>        
+    
         </div>
     </div>
 
