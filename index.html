@@ -157,7 +157,15 @@ body, html {
     background: url('x.svg') center center no-repeat;
     background-size: 14px;
 }
-
+@media (max-width: 768px) {
+    .sidebar-close-icon {
+        width: 20px;  /* Uguale alla dimensione dell'icona reset */
+        height: 20px;
+        top: 15px;    /* Allinea verticalmente con l'icona reset */
+        right: 15px;
+        background-size: 16px;  /* Aumenta dimensione dell'icona X */
+    }
+}
 .sidebar-close-icon:hover {
     opacity: 1;
     background-color: rgba(0, 0, 0, 0.05);
@@ -938,11 +946,34 @@ body, html {
 } 
 
 @media (max-width: 768px) {
-  .reset-button {
-    position: absolute;
-    right: 50px; /* <-- Modificato (aumenta il valore per spostarlo più a sinistra) */
-    top: 15px;
-  }
+    .reset-button {
+        padding: 0;  /* Rimuove il padding extra */
+        position: absolute;
+        top: 15px;   /* Allinea verticalmente con la X */
+        left: 15px;  /* Sposta sul lato sinistro */
+    }
+
+    .reset-icon {
+        width: 20px;  /* Mantiene la stessa dimensione */
+        height: 20px;
+    }
+}
+@media (max-width: 768px) {
+    .legend-container > div:first-child,
+    .federate-container h4 {
+        height: 50px;  /* Altezza fissa per il contenitore dell'header */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;  /* Per il posizionamento assoluto delle icone */
+    }
+
+    .legend-container h4,
+    .federate-container h4 {
+        margin: 0;
+        padding: 0;
+        line-height: 50px;  /* Centra verticalmente il testo */
+    }
 }        
         
     </style>
