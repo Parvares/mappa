@@ -879,6 +879,23 @@ body, html {
     top: 15px;
   }
 }        
+
+/* Stili per il titolo fisso */
+.legend-header, .federate-header {
+  position: sticky;
+  top: 0;
+  background-color: #f4f7f0; /* Colore di sfondo del pannello */
+  z-index: 1000; /* Assicura che il titolo sia sopra il contenuto */
+  padding: 10px 0; /* Aggiungi un po' di padding */
+  border-bottom: 1px solid #ddd; /* Linea di separazione */
+}
+
+/* Stili per il contenuto scorrevole */
+.legend-content, .federate-content {
+  max-height: calc(100vh - 150px); /* Altezza massima con spazio per il titolo */
+  overflow-y: auto; /* Abilita lo scroll */
+  padding-top: 10px; /* Spazio sopra il contenuto */
+}
         
     </style>
 </head>
@@ -925,20 +942,18 @@ body, html {
 
 
 <!-- Terzo pannello laterale espanso: legenda municipi -->
-<div class="sidebar-expanded" id="legendSidebar">
-    <div class="sidebar-close-icon" onclick="toggleLegendSidebar()"></div>
-    <div class="legend-container">
-<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+<div class="legend-container">
+  <div class="legend-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
     <h4 style="margin: 0;">Biblioteche di Roma</h4>
-   <button onclick="resetLegend()" class="reset-button" style="background: none; border: none; cursor: pointer; padding: 5px; transition: transform 0.2s ease;">
-    <img src="undo-phosphoricons.svg" alt="Reset" class="reset-icon" style="width: 20px; height: 20px; filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%); transition: all 0.2s ease;">
-</button>
-
-</div>
-        <div class="legend-grid">
-            <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
-        </div>
+    <button onclick="resetLegend()" class="reset-button" style="background: none; border: none; cursor: pointer; padding: 5px; transition: transform 0.2s ease;">
+      <img src="undo-phosphoricons.svg" alt="Reset" class="reset-icon" style="width: 20px; height: 20px; filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%); transition: all 0.2s ease;">
+    </button>
+  </div>
+  <div class="legend-content">
+    <div class="legend-grid">
+      <!-- Il contenuto della legenda verrà popolato dinamicamente dal JavaScript -->
     </div>
+  </div>
 </div>
     
 
@@ -1013,13 +1028,12 @@ body, html {
 
 
 
-<button id="toggleFederatedLibraries" onclick="toggleFederatedLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
-    Mostra Biblioteche Federate
-</button>
-            
-            <button id="toggleRomeLibraries" onclick="toggleRomeLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
-    Rimuovi Biblioteche di Roma
-</button>
+    <button id="toggleFederatedLibraries" onclick="toggleFederatedLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
+      Mostra Biblioteche Federate
+    </button>
+    <button id="toggleRomeLibraries" onclick="toggleRomeLibraries()" style="width: 100%; margin-top: 15px; padding: 8px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">
+      Rimuovi Biblioteche di Roma
+    </button>
 
             
             
