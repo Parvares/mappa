@@ -2398,6 +2398,13 @@ function findNearestLibrary() {
         async (position) => {
             const userLat = position.coords.latitude;
             const userLng = position.coords.longitude;
+            const accuracy = position.coords.accuracy; // Precisione in metri
+
+            // Mostra un avviso se la precisione è troppo bassa
+            if (accuracy > 100) { // Soglia di precisione (100 metri)
+                alert("La tua posizione non è abbastanza precisa. Assicurati di essere all'aperto e di avere una buona connessione GPS.");
+                return;
+            }
 
             // Aggiungi un marker per la posizione dell'utente
             const userIcon = L.icon({
@@ -2441,7 +2448,10 @@ function findNearestLibrary() {
                 map.fitBounds(bounds, { padding: [50, 50] });
 
                 // Aggiungi una linea tra la posizione dell'utente e la biblioteca più vicina
-                const line = L.polyline([ [userLat, userLng], nearestLibrary.coords ], {
+                const line = L.polyline([
+                    [userLat, userLng],
+                    nearestLibrary.coords
+                ], {
                     color: '#0000FF',
                     weight: 3,
                     opacity: 0.7,
@@ -2452,7 +2462,7 @@ function findNearestLibrary() {
                 const closeBtn = document.createElement('button');
                 closeBtn.innerHTML = '✕';
                 closeBtn.className = 'routing-close-btn';
-                closeBtn.onclick = function() {
+                closeBtn.onclick = function () {
                     map.removeLayer(line);
                     map.removeLayer(userMarker);
                     map.removeLayer(nearestMarker);
@@ -2470,6 +2480,11 @@ function findNearestLibrary() {
         (error) => {
             alert("Impossibile ottenere la posizione corrente. Assicurati di aver concesso l'accesso alla geolocalizzazione.");
             console.error("Errore di geolocalizzazione:", error);
+        },
+        {
+            enableHighAccuracy: true, // Forza l'uso del GPS ad alta precisione
+            timeout: 10000, // Timeout dopo 10 secondi
+            maximumAge: 0 // Non utilizzare posizioni memorizzate nella cache
         }
     );
 }
