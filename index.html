@@ -944,29 +944,7 @@ body, html {
     top: 15px;
   }
 }        
-.routing-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 24px;
-    height: 24px;
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 14px;
-    z-index: 1000;
-    transition: background-color 0.3s;
-}
-
-.routing-close-btn:hover {
-    background-color: rgba(255, 26, 26, 0.8);
-}        
+        
     </style>
 </head>
 <body>
@@ -995,19 +973,19 @@ body, html {
     
     
     <!-- Barra laterale fissa -->
-<div class="sidebar">
-    <button id="searchBtn" onclick="toggleSearch()" data-tooltip="Cerca biblioteca o indirizzo">
-        <img src="search-icon.svg" alt="Cerca biblioteca o indirizzo">
-    </button>
-    <button id="legendBtn" onclick="toggleLegendSidebar()" data-tooltip="Biblioteche di Roma">
-        <img src="coliseum-svgrepo.svg" alt="Biblioteche di Roma">
-    </button>
+<div class=sidebar>
+
+<button id=searchBtn onclick=toggleSearch() data-tooltip="Cerca biblioteca o indirizzo">
+<img src=search-icon.svg alt="Cerca biblioteca o indirizzo">
+</button>
+<button id="legendBtn" onclick="toggleLegendSidebar()" data-tooltip="Biblioteche di Roma">
+    <img src="coliseum-svgrepo.svg" alt="Biblioteche di Roma">
+</button>
+
+ <!-- Nuovo bottone con icona federate-icon.svg -->
     <button id="federateBtn" onclick="toggleFederateSidebar()" data-tooltip="Biblioteche federate">
         <img src="federate-icon.svg" alt="Biblioteche federate">
-    </button>
-    <button id="geolocationBtn" onclick="findNearestLibrary()" data-tooltip="Trova la biblioteca più vicina">
-        <img src="geolocation-phosphoricons.svg" alt="Trova la biblioteca più vicina">
-    </button>
+    </button>   
 </div>
 
 
@@ -2387,108 +2365,6 @@ document.querySelectorAll('.mobile-menu button').forEach(button => {
         document.getElementById('mobileMenu').style.display = 'none';
     });
 });       
-
-function findNearestLibrary() {
-    if (!navigator.geolocation) {
-        alert("La geolocalizzazione non è supportata dal tuo browser.");
-        return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-        async (position) => {
-            const userLat = position.coords.latitude;
-            const userLng = position.coords.longitude;
-            const accuracy = position.coords.accuracy; // Precisione in metri
-
-            // Mostra un avviso se la precisione è troppo bassa
-            if (accuracy > 100) { // Soglia di precisione (100 metri)
-                alert("La tua posizione non è abbastanza precisa. Assicurati di essere all'aperto e di avere una buona connessione GPS.");
-                return;
-            }
-
-            // Aggiungi un marker per la posizione dell'utente
-            const userIcon = L.icon({
-                iconUrl: 'geolocation-phosphoricons.svg',
-                iconSize: [32, 32],
-                iconAnchor: [16, 32],
-                popupAnchor: [0, -32]
-            });
-
-            const userMarker = L.marker([userLat, userLng], { icon: userIcon })
-                .addTo(map)
-                .bindPopup("Sei qui")
-                .openPopup();
-
-            // Calcola la distanza da tutte le biblioteche
-            let nearestLibrary = null;
-            let minDistance = Infinity;
-
-            window.libraryData.libraries.forEach(library => {
-                const libraryLat = library.coords[0];
-                const libraryLng = library.coords[1];
-                const distance = Math.sqrt(
-                    Math.pow(libraryLat - userLat, 2) + Math.pow(libraryLng - userLng, 2)
-                );
-
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    nearestLibrary = library;
-                }
-            });
-
-            if (nearestLibrary) {
-                // Mostra la biblioteca più vicina
-                const nearestMarker = L.marker(nearestLibrary.coords)
-                    .addTo(map)
-                    .bindPopup(`<b>${nearestLibrary.name}</b><br>${nearestLibrary.address}`)
-                    .openPopup();
-
-                // Centra la mappa sulla posizione dell'utente e sulla biblioteca più vicina
-                const bounds = L.latLngBounds([userLat, userLng], nearestLibrary.coords);
-                map.fitBounds(bounds, { padding: [50, 50] });
-
-                // Aggiungi una linea tra la posizione dell'utente e la biblioteca più vicina
-                const line = L.polyline([
-                    [userLat, userLng],
-                    nearestLibrary.coords
-                ], {
-                    color: '#0000FF',
-                    weight: 3,
-                    opacity: 0.7,
-                    dashArray: '10, 10'
-                }).addTo(map);
-
-                // Aggiungi un pulsante per rimuovere la linea e i marker
-                const closeBtn = document.createElement('button');
-                closeBtn.innerHTML = '✕';
-                closeBtn.className = 'routing-close-btn';
-                closeBtn.onclick = function () {
-                    map.removeLayer(line);
-                    map.removeLayer(userMarker);
-                    map.removeLayer(nearestMarker);
-                };
-
-                // Aggiungi il pulsante alla mappa
-                const container = document.querySelector('.leaflet-routing-container');
-                if (container) {
-                    container.appendChild(closeBtn);
-                }
-            } else {
-                alert("Nessuna biblioteca trovata nelle vicinanze.");
-            }
-        },
-        (error) => {
-            alert("Impossibile ottenere la posizione corrente. Assicurati di aver concesso l'accesso alla geolocalizzazione.");
-            console.error("Errore di geolocalizzazione:", error);
-        },
-        {
-            enableHighAccuracy: true, // Forza l'uso del GPS ad alta precisione
-            timeout: 10000, // Timeout dopo 10 secondi
-            maximumAge: 0 // Non utilizzare posizioni memorizzate nella cache
-        }
-    );
-}
-        
     </script>
 </body>
 </html>
