@@ -1040,12 +1040,12 @@ body, html {
       <a href="https://www.bibliotechediroma.it/opac/library/Biblioteca%20Elsa%20Morante/RMBO2" title="Vai alla Biblioteca Elsa Morante">
         <img src="home.svg" alt="Biblioteca Home" class="icon">
       </a>
-      <div class="search-input-wrapper" style="flex: 1;">
-        <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions">
-        <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
-      </div>
-    </div>
-    <div id="library-suggestions" class="custom-datalist"></div>
+<div class="search-input-wrapper" style="flex: 1;">
+    <input id="start-point" placeholder="Inserisci punto di partenza" list="library-suggestions-list">
+    <span id="clear-search" class="clear-search-btn" onclick="clearSearchField()">✕</span>
+</div>
+<datalist id="library-suggestions-list"></datalist>
+<div id="library-suggestions" class="custom-datalist"></div>
     <!-- Contenitore pulsanti -->
     <div style="display: flex; gap: 10px; margin-top: 10px;">
       <button onclick="searchRoute()" style="flex: 1; background-color: var(--primary);">Cerca</button>
@@ -1660,16 +1660,23 @@ try {
     // Popola il datalist con i nomi delle biblioteche
 const customDatalist = document.getElementById('library-suggestions');
     // Aggiungi sia le biblioteche normali che quelle federate al datalist
-    [...data.libraries, ...data.federate].forEach(library => {
-        const option = document.createElement('div');
-        option.textContent = library.name;
-        option.onclick = () => {
-            document.getElementById('start-point').value = library.name;
-            customDatalist.style.display = 'none';
-            searchLibrary();
-        };
-        customDatalist.appendChild(option);
-    });
+const datalist = document.getElementById('library-suggestions-list');
+[...data.libraries, ...data.federate].forEach(library => {
+    // Crea opzione per il datalist HTML nativo
+    const option = document.createElement('option');
+    option.value = library.name;
+    datalist.appendChild(option);
+    
+    // Crea elemento per il custom datalist
+    const customOption = document.createElement('div');
+    customOption.textContent = library.name;
+    customOption.onclick = () => {
+        document.getElementById('start-point').value = library.name;
+        customDatalist.style.display = 'none';
+        searchLibrary();
+    };
+    customDatalist.appendChild(customOption);
+});
 
 // Mostra/nascondi il menu personalizzato quando il campo di ricerca è focalizzato
 document.getElementById('start-point').addEventListener('focus', () => {
