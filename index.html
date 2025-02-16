@@ -237,14 +237,15 @@ body, html {
   border-bottom: 1px solid #eee;
   width: 100%;
   box-sizing: border-box;
+  margin: 0; /* Assicuriamoci che non ci siano margini */
 }
 
 /* Stile per il contenuto scrollabile */
 .legend-grid {
   flex: 1;
   overflow-y: auto;
-  padding: 10px 20px 15px; /* Riduciamo il padding superiore */
-  margin-top: 0; /* Assicuriamoci che non ci sia margin */
+  padding: 0 20px 15px; /* Rimuovi completamente il padding superiore */
+  margin-top: 0;
 }
 
 @media (max-width: 768px) {
