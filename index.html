@@ -46,22 +46,20 @@ body, html {
 
         
 /* Barra laterale fissa */
-    .sidebar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 60px;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 40px; /* Manteniamo lo spazio in alto */
-      padding-bottom: 80px; /* Aggiungiamo spazio in basso per il titolo */
-      position: relative; /* Per permettere il posizionamento assoluto del titolo */
-    }
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px; /* Riduci questo valore (era 20px) */
+}
 
 .sidebar button {
     background: transparent;
@@ -986,26 +984,7 @@ body, html {
   border: none;
   cursor: pointer;
   padding: 5px;
-}
-
- /* Stile per il titolo nella sidebar */
-    .sidebar-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #333;
-      text-align: center;
-      padding: 10px 5px;
-      writing-mode: vertical-rl; /* Testo verticale, leggibile dal basso verso l'alto */
-      transform: rotate(180deg); /* Ruota per leggibilità */
-      letter-spacing: 1px;
-      white-space: nowrap;
-      position: absolute; /* Posizionamento assoluto */
-      bottom: 20px; /* Spostato in basso */
-      left: 0;
-      right: 0;
-      margin: auto;
-    }
-        
+}        
     </style>
 </head>
 <body>
@@ -1040,7 +1019,7 @@ body, html {
     
     <!-- Barra laterale fissa -->
 <div class=sidebar>
-<div class="sidebar-title">Biblioteche di Roma</div>
+
 <button id=searchBtn onclick=toggleSearch() data-tooltip="Cerca biblioteca o indirizzo">
 <img src=search-icon.svg alt="Cerca biblioteca o indirizzo">
 </button>
