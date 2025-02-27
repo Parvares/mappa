@@ -984,42 +984,7 @@ body, html {
   border: none;
   cursor: pointer;
   padding: 5px;
-}
-
-/* Stile per il titolo nella sidebar */
-.sidebar-title {
-  writing-mode: vertical-lr;
-  transform: rotate(180deg);
-  text-align: center;
-  padding: 20px 0;
-  font-size: 14px; /* Dimensione del testo aumentata */
-  font-weight: bold;
-  color: #333;
-  position: absolute;
-  bottom: 20px; /* Posizionamento dal fondo */
-  width: 60px; /* Larghezza completa della sidebar */
-  left: 0;
-  right: 0;
-  margin: 0 auto; /* Centro orizzontale */
-}
-
-/* Manteniamo lo stile originale della sidebar ma assicuriamoci che ci sia spazio per il titolo */
-.sidebar {
-  padding-bottom: 200px; /* Spazio nella parte inferiore per il titolo */
-}
-
-/* Versione mobile */
-@media (max-width: 768px) {
-  .mobile-menu-title {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-top: 15px;
-    text-align: center;
-    width: 100%;
-  }
-}
-        
+}        
     </style>
 </head>
 <body>
@@ -1065,13 +1030,7 @@ body, html {
  <!-- Nuovo bottone con icona federate-icon.svg -->
     <button id="federateBtn" onclick="toggleFederateSidebar()" data-tooltip="Biblioteche federate">
         <img src="federate-icon.svg" alt="Biblioteche federate">
-    </button> 
-
- <!-- Titolo posizionato sotto i pulsanti -->
-  <div class="sidebar-title">
-    Biblioteche di Roma e federate aderenti al PIM
-  </div>
-    
+    </button>   
 </div>
 
 
