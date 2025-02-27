@@ -986,35 +986,42 @@ body, html {
   padding: 5px;
 }
 
-  /* Aggiungi questi stili per il titolo */
-.map-title {
+  .map-title {
         position: absolute;
-        top: 20px;
-        left: 80px; /* Sposta il titolo più a sinistra */
-        z-index: 1000;
-        background-color: rgba(255, 255, 255, 0.95); /* Sfondo più trasparente */
-        padding: 10px 20px;
-        border: 1px solid rgba(0, 0, 0, 0.1); /* Bordo sottile */
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra più leggera */
-        font-size: 18px;
-        font-weight: 700;
-        color: #333;
-        text-align: left; /* Allinea il testo a sinistra */
-        max-width: 300px; /* Riduci la larghezza del titolo */
-        margin-left: 10px; /* Aggiungi un margine sinistro */
+        top: 10px;
+        left: 70px; /* Spazio per la sidebar fissa a 60px */
+        right: 10px;
+        z-index: 999;
+        background-color: rgba(255, 255, 255, 0.85);
+        padding: 8px 15px;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--primary);
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+            /* Titolo su mobile */
+    @media (max-width: 768px) {
+        .map-title {
+            left: 60px; /* Spazio per il menu hamburger */
+            font-size: 14px;
+            padding: 6px 10px;
+            top: 15px;
+        }
     }
         
     </style>
 </head>
 <body>
-
-  <!-- Titolo della mappa -->
-  <div class="map-title">
-    Mappa delle biblioteche di Roma e delle biblioteche federate che partecipano al PIM
-  </div>
     
-<!-- Menu Hamburger per mobile -->
+<!-- Titolo della mappa -->
+    <div class="map-title">Mappa delle biblioteche di Roma e delle biblioteche federate che partecipano al PIM</div>
+    
+    <!-- Menu Hamburger per mobile -->
 <div class="hamburger-menu" onclick="toggleMobileMenu()">
     <img src="menu.svg" alt="Menu" class="menu-icon">
 </div>
