@@ -47,19 +47,19 @@ body, html {
         
 /* Barra laterale fissa */
 .sidebar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 60px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 40px; /* Pulsanti abbassati */
-  padding-bottom: 0; /* Rimuoviamo padding-bottom dalla sidebar per controllare tutto dal titolo */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 64px; /* Aumentato leggermente da 60px a 64px */
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 0;
 }
 
 /* Contenitore per i pulsanti */
@@ -1006,10 +1006,10 @@ body, html {
     letter-spacing: 1px;
     white-space: nowrap;
     margin-top: auto;
-    margin-bottom: 70px; /* Aumentato da 20px a 40px */
+    margin-bottom: 80px; /* Aumentato da 70px per avere più spazio in basso */
     padding-top: 5px;
-    max-height: 150px;
-    overflow: hidden;
+    max-height: 180px; /* Aumentato da 150px per accomodare il testo più grande */
+    overflow: visible; /* Cambiato da hidden a visible per mostrare l'intero testo */
 }
         
     </style>
