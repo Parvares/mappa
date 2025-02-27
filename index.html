@@ -58,8 +58,14 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 40px;
-  justify-content: space-between; /* Spinge il contenuto verso l'alto e il basso */
+  padding-top: 20px; /* Ridotto da 40px per dare più spazio al titolo */
+}
+
+/* Contenitore per i pulsanti */
+.sidebar-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sidebar button {
@@ -987,7 +993,7 @@ body, html {
   padding: 5px;
 }
 
-/* Stile per il titolo nella sidebar */
+/* Spingiamo il titolo in fondo */
 .sidebar-title {
   font-size: 14px;
   font-weight: 600;
@@ -997,7 +1003,8 @@ body, html {
   transform: rotate(180deg); /* Ruota per leggibilità dal basso verso l'alto */
   letter-spacing: 1px;
   white-space: nowrap;
-  padding-bottom: 10px; /* Distanza dal fondo */
+  margin-top: auto; /* Spinge il titolo in fondo */
+  padding-bottom: 15px; /* Distanza dal fondo */
 }
         
     </style>
