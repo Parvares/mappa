@@ -984,11 +984,34 @@ body, html {
   border: none;
   cursor: pointer;
   padding: 5px;
-}        
+}
+
+  /* Aggiungi questi stili per il titolo */
+  .map-title {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+        
     </style>
 </head>
 <body>
 
+  <!-- Titolo della mappa -->
+  <div class="map-title">
+    Mappa delle biblioteche di Roma e delle biblioteche federate che partecipano al PIM
+  </div>
+    
 <!-- Menu Hamburger per mobile -->
 <div class="hamburger-menu" onclick="toggleMobileMenu()">
     <img src="menu.svg" alt="Menu" class="menu-icon">
