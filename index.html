@@ -50,8 +50,7 @@ body, html {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100vh; /* Altezza pari alla viewport */
-    overflow-y: auto; /* Permette lo scroll se il contenuto è troppo lungo */
+    height: 100%;
     width: 60px;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -985,16 +984,6 @@ body, html {
   border: none;
   cursor: pointer;
   padding: 5px;
-}
-
-.sidebar-title {
-  margin-top: auto; /* Spinge il titolo verso il basso */
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
-  color: #333;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-top: 1px solid #ccc; /* Aggiunge una linea sopra il titolo */
 }        
     </style>
 </head>
@@ -1041,12 +1030,7 @@ body, html {
  <!-- Nuovo bottone con icona federate-icon.svg -->
     <button id="federateBtn" onclick="toggleFederateSidebar()" data-tooltip="Biblioteche federate">
         <img src="federate-icon.svg" alt="Biblioteche federate">
-    </button>
- <!-- Titolo in basso -->
-  <div class="sidebar-title">
-    Biblioteche di Roma
-  </div>
-    
+    </button>   
 </div>
 
 
