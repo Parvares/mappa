@@ -47,19 +47,19 @@ body, html {
         
 /* Barra laterale fissa */
 .sidebar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 64px; /* Aumentato leggermente da 60px a 64px */
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px; /* Pulsanti abbassati */
+  padding-bottom: 0; /* Rimuoviamo padding-bottom dalla sidebar per controllare tutto dal titolo */
 }
 
 /* Contenitore per i pulsanti */
@@ -997,7 +997,7 @@ body, html {
 
 /* Titolo della sidebar */
 .sidebar-title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     color: #333;
     text-align: center;
@@ -1006,11 +1006,10 @@ body, html {
     letter-spacing: 1px;
     white-space: nowrap;
     margin-top: auto;
-    margin-bottom: 75px; /* Leggermente aumentato per dare più spazio in basso */
+    margin-bottom: 70px; /* Aumentato da 20px a 40px */
     padding-top: 5px;
-    padding-right: 3px; /* Aggiunto un piccolo padding destro per distanziare il testo dal bordo */
-    max-height: 160px; /* Leggermente aumentato */
-    overflow: visible; /* Cambiato da hidden a visible per mostrare l'intero testo */
+    max-height: 150px;
+    overflow: hidden;
 }
         
     </style>
