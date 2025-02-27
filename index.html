@@ -58,7 +58,7 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px; /* Ridotto da 40px per dare più spazio al titolo */
+  padding-top: 40px; /* Aumentato da 20px a 40px per abbassare i pulsanti */
 }
 
 /* Contenitore per i pulsanti */
@@ -68,14 +68,15 @@ body, html {
   align-items: center;
 }
 
+/* Stili esistenti per i pulsanti */
 .sidebar button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 20px;
-    margin-top: 5px;
-    position: relative;
-    transition: background-color 0.3s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  position: relative;
+  transition: background-color 0.3s ease;
 }
 
 /* Effetto hover sui pulsanti */
@@ -993,7 +994,7 @@ body, html {
   padding: 5px;
 }
 
-/* Spingiamo il titolo in fondo */
+/* Spingiamo il titolo in fondo, ma con meno spazio dal basso */
 .sidebar-title {
   font-size: 14px;
   font-weight: 600;
@@ -1004,7 +1005,7 @@ body, html {
   letter-spacing: 1px;
   white-space: nowrap;
   margin-top: auto; /* Spinge il titolo in fondo */
-  padding-bottom: 15px; /* Distanza dal fondo */
+  padding-bottom: 5px; /* Ridotto da 15px a 5px per alzare il titolo */
 }
         
     </style>
