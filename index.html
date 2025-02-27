@@ -52,8 +52,9 @@ body, html {
     left: 0;
     height: 100%;
     width: 60px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -65,21 +66,26 @@ body, html {
     background: transparent;
     border: none;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    border-radius: 4px;
     margin-top: 5px;
     position: relative;
-    transition: background-color 0.3s ease;
+    padding: 8px;
+    transition: all 0.2s ease;
+    
 }
 
 /* Effetto hover sui pulsanti */
 .sidebar button:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Cambia colore di sfondo al passaggio del mouse */
+    background-color: rgba(0, 0, 0, 0.05); /* Cambia colore di sfondo al passaggio del mouse */
+    transform: translateX(2px);
     border-radius: 5px; /* Arrotonda gli angoli */
 }
 
 /* Add new styles for active button state */
 .sidebar button.active {
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(188, 11, 54, 0.1); /* Usa il colore primario con bassa opacità */
+    border-left: 3px solid var(--primary);
     border-radius: 5px;
 }
 
