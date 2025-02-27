@@ -986,46 +986,79 @@ body, html {
   padding: 5px;
 }
         
-/* Stile per il titolo */
-.header-title {
+/* Stile per il titolo creativo */
+.creative-title {
   position: absolute;
-  top: 10px;
-  left: 70px; /* Spazio per allinearlo accanto alla sidebar di 60px */
+  top: 20px;
+  left: 70px; /* Spazio per la sidebar di 60px */
   z-index: 1001; /* Sopra la mappa e la sidebar */
-  background: rgba(255, 255, 255, 0.9); /* Sfondo simile alla sidebar */
-  padding: 10px 15px;
-  border-radius: 5px;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Ombra coerente con la sidebar */
+  display: flex;
+  align-items: center;
+  perspective: 1000px; /* Per un leggero effetto 3D */
 }
 
-.header-title h1 {
+.title-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #bc0b36 0%, #f4f7f0 100%); /* Gradiente con colore primario */
+  border-radius: 10px 10px 0 10px; /* Angolo inferiore destro smussato */
+  transform: rotate(-2deg); /* Leggera inclinazione per un tocco giocoso */
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: -1; /* Sotto il testo */
+}
+
+.creative-title h1 {
   margin: 0;
-  font-family: 'Segoe UI', system-ui, sans-serif; /* Font coerente con il design */
-  font-size: 18px; /* Dimensione leggibile ma non invadente */
-  font-weight: 700; /* Font spesso (bold) */
-  color: #333; /* Colore testo scuro per contrasto */
-  letter-spacing: 0.02em; /* Spaziatura leggera per eleganza */
+  padding: 12px 20px;
+  font-family: 'Georgia', serif; /* Font elegante con un tocco classico */
+  font-size: 22px; /* Dimensione maggiore per risaltare */
+  font-weight: 700; /* Font spesso */
+  color: #fff; /* Testo bianco per contrasto sul gradiente */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Ombra leggera per leggibilità */
+  transform: rotate(1deg); /* Controbilancia l'inclinazione dello sfondo */
+  position: relative;
+}
+
+.creative-title h1 span {
+  display: block;
+  font-size: 14px; /* Testo più piccolo per la seconda parte */
+  font-weight: 400; /* Meno bold per differenziare */
+  color: #f4f7f0; /* Colore chiaro per un tocco morbido */
+  margin-top: 5px;
+}
+
+/* Effetto hover per un tocco interattivo */
+.creative-title:hover .title-background {
+  transform: rotate(0deg) scale(1.05); /* Raddrizza e ingrandisce leggermente */
+  transition: transform 0.3s ease;
 }
 
 /* Media query per mobile */
 @media (max-width: 768px) {
-  .header-title {
-    left: 60px; /* Sposta accanto all'hamburger menu */
+  .creative-title {
+    left: 60px; /* Allinea con l'hamburger menu */
     top: 15px;
-    padding: 5px 10px; /* Riduci padding su mobile */
   }
-  .header-title h1 {
-    font-size: 14px; /* Riduci dimensione su mobile */
+  .creative-title h1 {
+    font-size: 16px; /* Riduci su mobile */
+    padding: 8px 12px;
   }
-}        
+  .creative-title h1 span {
+    font-size: 12px;
+  }
+}      
     </style>
 </head>
     
 <body>
     
- <!-- Titolo -->
-  <div class="header-title">
-    <h1>Biblioteche di Roma e delle biblioteche federate che partecipano al PIM</h1>
+  <!-- Titolo creativo -->
+  <div class="creative-title">
+    <div class="title-background"></div>
+    <h1>Biblioteche di Roma <span>e delle biblioteche federate che partecipano al PIM</span></h1>
   </div>
     
 <!-- Menu Hamburger per mobile -->
