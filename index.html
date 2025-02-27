@@ -986,17 +986,27 @@ body, html {
   padding: 5px;
 }
 
+/* Stile per il contenitore del titolo */
+.sidebar-title-wrapper {
+  position: absolute;
+  bottom: 10px; /* Distanza dal fondo della sidebar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 /* Stile per il titolo nella sidebar */
 .sidebar-title {
   font-size: 14px;
   font-weight: 600;
   color: #333;
   text-align: center;
-  padding: 10px 5px;
-  writing-mode: vertical-rl; /* Testo verticale, leggibile dal basso verso l'alto */
-  transform: rotate(180deg); /* Ruota per leggibilità */
+  writing-mode: vertical-rl; /* Testo verticale */
+  transform: rotate(180deg); /* Ruota per leggibilità dal basso verso l'alto */
   letter-spacing: 1px;
   white-space: nowrap;
+  padding: 5px;
 }
         
     </style>
