@@ -986,33 +986,38 @@ body, html {
   padding: 5px;
 }
 
-  .map-title {
-        position: absolute;
-        top: 10px;
-        left: 70px; /* Spazio per la sidebar fissa a 60px */
-        right: 10px;
-        z-index: 999;
-        background-color: rgba(255, 255, 255, 0.85);
-        padding: 8px 15px;
-        border-radius: 6px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-        font-family: 'Segoe UI', system-ui, sans-serif;
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--primary);
-        transition: all 0.3s ease;
-        text-align: center;
-    }
+/* Stile modificato per il titolo della mappa */
+.map-title {
+  position: absolute;
+  top: 10px;
+  left: 70px; /* Mantiene lo spazio per la sidebar */
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 0.7); /* Ridotta l'opacità */
+  padding: 6px 12px; /* Ridotto il padding */
+  border-radius: 4px; /* Bordi meno arrotondati */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Ombra più sottile */
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px; /* Dimensione del testo ridotta */
+  font-weight: 500; /* Peso del font meno pesante */
+  color: #555; /* Colore più neutro invece di var(--primary) */
+  transition: all 0.3s ease;
+  max-width: calc(100% - 150px); /* Limita la larghezza massima */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Aggiunge ellipsis se il testo è troppo lungo */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Bordo sottile */
+}
 
-            /* Titolo su mobile */
-    @media (max-width: 768px) {
-        .map-title {
-            left: 60px; /* Spazio per il menu hamburger */
-            font-size: 14px;
-            padding: 6px 10px;
-            top: 15px;
-        }
-    }
+/* Versione mobile del titolo */
+@media (max-width: 768px) {
+  .map-title {
+    left: 60px;
+    font-size: 12px; /* Ridotto ancora di più su mobile */
+    padding: 4px 8px; /* Padding ancora più piccolo */
+    top: 15px;
+    max-width: calc(100% - 120px); /* Adattato per mobile */
+  }
+}
         
     </style>
 </head>
