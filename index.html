@@ -991,21 +991,21 @@ body, html {
   writing-mode: vertical-lr;
   transform: rotate(180deg);
   text-align: center;
-  padding: 10px 0;
-  font-size: 12px;
-  color: #333;
+  padding: 20px 0;
+  font-size: 14px; /* Dimensione del testo aumentata */
   font-weight: bold;
-  margin-bottom: 20px;
-  height: auto;
-  width: 60px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  color: #333;
+  position: absolute;
+  bottom: 20px; /* Posizionamento dal fondo */
+  width: 60px; /* Larghezza completa della sidebar */
+  left: 0;
+  right: 0;
+  margin: 0 auto; /* Centro orizzontale */
 }
 
-/* Aggiusta la posizione dei pulsanti per lasciare spazio al titolo */
+/* Manteniamo lo stile originale della sidebar ma assicuriamoci che ci sia spazio per il titolo */
 .sidebar {
-  padding-top: 150px; /* Aumenta questo valore per lasciare spazio al titolo */
+  padding-bottom: 200px; /* Spazio nella parte inferiore per il titolo */
 }
 
 /* Versione mobile */
@@ -1014,12 +1014,11 @@ body, html {
     font-size: 14px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 10px;
+    margin-top: 15px;
     text-align: center;
     width: 100%;
   }
 }
-
         
     </style>
 </head>
@@ -1055,9 +1054,7 @@ body, html {
     
     <!-- Barra laterale fissa -->
 <div class=sidebar>
-<div class="sidebar-title" style="writing-mode: vertical-lr; transform: rotate(180deg); text-align: center; padding: 10px 0; font-size: 12px; color: #333; font-weight: bold; margin-bottom: 20px;">
-    Biblioteche di Roma e federate aderenti al PIM
-  </div>
+
 <button id=searchBtn onclick=toggleSearch() data-tooltip="Cerca biblioteca o indirizzo">
 <img src=search-icon.svg alt="Cerca biblioteca o indirizzo">
 </button>
@@ -1068,7 +1065,13 @@ body, html {
  <!-- Nuovo bottone con icona federate-icon.svg -->
     <button id="federateBtn" onclick="toggleFederateSidebar()" data-tooltip="Biblioteche federate">
         <img src="federate-icon.svg" alt="Biblioteche federate">
-    </button>   
+    </button> 
+
+ <!-- Titolo posizionato sotto i pulsanti -->
+  <div class="sidebar-title">
+    Biblioteche di Roma e federate aderenti al PIM
+  </div>
+    
 </div>
 
 
