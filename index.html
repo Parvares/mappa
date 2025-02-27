@@ -984,11 +984,50 @@ body, html {
   border: none;
   cursor: pointer;
   padding: 5px;
+}
+        
+/* Stile per il titolo */
+.header-title {
+  position: absolute;
+  top: 10px;
+  left: 70px; /* Spazio per allinearlo accanto alla sidebar di 60px */
+  z-index: 1001; /* Sopra la mappa e la sidebar */
+  background: rgba(255, 255, 255, 0.9); /* Sfondo simile alla sidebar */
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Ombra coerente con la sidebar */
+}
+
+.header-title h1 {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif; /* Font coerente con il design */
+  font-size: 18px; /* Dimensione leggibile ma non invadente */
+  font-weight: 700; /* Font spesso (bold) */
+  color: #333; /* Colore testo scuro per contrasto */
+  letter-spacing: 0.02em; /* Spaziatura leggera per eleganza */
+}
+
+/* Media query per mobile */
+@media (max-width: 768px) {
+  .header-title {
+    left: 60px; /* Sposta accanto all'hamburger menu */
+    top: 15px;
+    padding: 5px 10px; /* Riduci padding su mobile */
+  }
+  .header-title h1 {
+    font-size: 14px; /* Riduci dimensione su mobile */
+  }
 }        
     </style>
 </head>
+    
 <body>
-
+    
+ <!-- Titolo -->
+  <div class="header-title">
+    <h1>Biblioteche di Roma e delle biblioteche federate che partecipano al PIM</h1>
+  </div>
+    
 <!-- Menu Hamburger per mobile -->
 <div class="hamburger-menu" onclick="toggleMobileMenu()">
     <img src="menu.svg" alt="Menu" class="menu-icon">
