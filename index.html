@@ -52,9 +52,8 @@ body, html {
     left: 0;
     height: 100%;
     width: 60px;
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -66,26 +65,21 @@ body, html {
     background: transparent;
     border: none;
     cursor: pointer;
-    margin-bottom: 15px;
-    border-radius: 4px;
+    margin-bottom: 20px;
     margin-top: 5px;
     position: relative;
-    padding: 8px;
-    transition: all 0.2s ease;
-    
+    transition: background-color 0.3s ease;
 }
 
 /* Effetto hover sui pulsanti */
 .sidebar button:hover {
-    background-color: rgba(0, 0, 0, 0.05); /* Cambia colore di sfondo al passaggio del mouse */
-    transform: translateX(2px);
+    background-color: rgba(0, 0, 0, 0.1); /* Cambia colore di sfondo al passaggio del mouse */
     border-radius: 5px; /* Arrotonda gli angoli */
 }
 
 /* Add new styles for active button state */
 .sidebar button.active {
-    background-color: rgba(188, 11, 54, 0.1); /* Usa il colore primario con bassa opacità */
-    border-left: 3px solid var(--primary);
+    background-color: rgba(0,0,0,0.1);
     border-radius: 5px;
 }
 
@@ -990,49 +984,12 @@ body, html {
   border: none;
   cursor: pointer;
   padding: 5px;
-}
-
-/* Stile modificato per il titolo della mappa */
-.map-title {
-  position: absolute;
-  top: 10px;
-  left: 70px; /* Mantiene lo spazio per la sidebar */
-  z-index: 999;
-  background-color: rgba(255, 255, 255, 0.7); /* Ridotta l'opacità */
-  padding: 6px 12px; /* Ridotto il padding */
-  border-radius: 4px; /* Bordi meno arrotondati */
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Ombra più sottile */
-  font-family: 'Segoe UI', system-ui, sans-serif;
-  font-size: 14px; /* Dimensione del testo ridotta */
-  font-weight: 500; /* Peso del font meno pesante */
-  color: #555; /* Colore più neutro invece di var(--primary) */
-  transition: all 0.3s ease;
-  max-width: calc(100% - 150px); /* Limita la larghezza massima */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; /* Aggiunge ellipsis se il testo è troppo lungo */
-  border: 1px solid rgba(0, 0, 0, 0.05); /* Bordo sottile */
-}
-
-/* Versione mobile del titolo */
-@media (max-width: 768px) {
-  .map-title {
-    left: 60px;
-    font-size: 12px; /* Ridotto ancora di più su mobile */
-    padding: 4px 8px; /* Padding ancora più piccolo */
-    top: 15px;
-    max-width: calc(100% - 120px); /* Adattato per mobile */
-  }
-}
-        
+}        
     </style>
 </head>
 <body>
-    
-<!-- Titolo della mappa -->
-    <div class="map-title">Mappa delle biblioteche di Roma e delle biblioteche federate che partecipano al PIM</div>
-    
-    <!-- Menu Hamburger per mobile -->
+
+<!-- Menu Hamburger per mobile -->
 <div class="hamburger-menu" onclick="toggleMobileMenu()">
     <img src="menu.svg" alt="Menu" class="menu-icon">
 </div>
