@@ -995,6 +995,7 @@ body, html {
   padding: 5px;
 }
 
+/* Modificare lo stile del titolo della sidebar per posizionarlo in basso */
 .sidebar-title {
     font-size: 14px;
     font-weight: 600;
@@ -1004,10 +1005,10 @@ body, html {
     transform: rotate(180deg); /* Ruota per leggibilità dal basso verso l'alto */
     letter-spacing: 1px;
     white-space: nowrap;
-    margin-top: 5px; /* Riduci ulteriormente il margine superiore */
-    margin-bottom: 20px; /* Aumenta il margine inferiore per bilanciare */
-    padding-top: 5px; /* Riduci ulteriormente il padding superiore */
-    max-height: 150px; /* Limita l'altezza massima per evitare che superi lo spazio disponibile */
+    margin-top: auto; /* Questo sposta l'elemento alla fine del contenitore flex */
+    margin-bottom: 20px; /* Mantiene un po' di spazio dal fondo */
+    padding-top: 5px;
+    max-height: 150px; /* Limita l'altezza massima */
     overflow: hidden; /* Nasconde eventuali parti eccedenti */
 }
         
