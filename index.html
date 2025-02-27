@@ -992,38 +992,54 @@ body, html {
   top: 15px;
   left: 70px; /* Spazio per la sidebar di 60px */
   z-index: 1001; /* Sopra la mappa e la sidebar */
-  background: #fff; /* Sfondo bianco per massima leggibilità */
+  background: #fff; /* Sfondo bianco per leggibilità */
   padding: 12px 20px;
-  border-radius: 8px; /* Bordi arrotondati per un aspetto moderno */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ombra sottile per profondità */
-  border-left: 4px solid #bc0b36; /* Banda laterale rossa per richiamo istituzionale */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #bc0b36;
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Transizione fluida */
 }
 
 /* Stile del testo */
 .institutional-title h1 {
   margin: 0;
-  font-family: 'Arial', 'Segoe UI', sans-serif; /* Font pulito e professionale */
-  font-size: 20px; /* Dimensione leggibile */
-  font-weight: 600; /* Spesso ma non eccessivo */
-  color: #333; /* Grigio scuro per contrasto e sobrietà */
-  line-height: 1.3; /* Spaziatura per leggibilità */
+  font-family: 'Arial', 'Segoe UI', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.3;
 }
 
-/* Suddivisione in due righe per chiarezza */
+/* Suddivisione in due righe */
 .institutional-title h1::after {
   content: "e delle biblioteche federate aderenti al PIM";
   display: block;
-  font-size: 16px; /* Leggermente più piccolo per gerarchia */
-  font-weight: 400; /* Meno spesso per differenziare */
-  color: #555; /* Tonalità più chiara per la parte secondaria */
+  font-size: 16px;
+  font-weight: 400;
+  color: #555;
 }
 
-/* Media query per mobile */
+/* Quando un pannello espanso si apre, sposta il titolo */
+.sidebar-expanded.open ~ .institutional-title {
+  transform: translateX(460px); /* Sposta a destra della sidebar espansa (60px + 400px) */
+  opacity: 0.5; /* Opacità ridotta per indicare che è in secondo piano */
+}
+
+/* Opzione alternativa: nascondi completamente il titolo */
+@media (max-width: 768px) {
+  .sidebar-expanded.open ~ .institutional-title {
+    transform: translateX(0); /* Su mobile non spostare, ma nascondere */
+    opacity: 0; /* Nascondi completamente */
+    pointer-events: none; /* Evita interazioni mentre è nascosto */
+  }
+}
+
+/* Media query per mobile (base) */
 @media (max-width: 768px) {
   .institutional-title {
-    left: 60px; /* Allinea con l'hamburger menu */
+    left: 60px;
     top: 10px;
-    padding: 8px 12px; /* Riduci padding su mobile */
+    padding: 8px 12px;
   }
   .institutional-title h1 {
     font-size: 16px;
@@ -1031,14 +1047,14 @@ body, html {
   .institutional-title h1::after {
     font-size: 12px;
   }
-}    
+} 
     </style>
 </head>
     
 <body>
     
- <!-- Titolo istituzionale -->
-  <div class="institutional-title">
+  <!-- Titolo istituzionale -->
+  <div class="institutional-title" id="main-title">
     <h1>Biblioteche di Roma e delle biblioteche federate aderenti al PIM</h1>
   </div>
     
