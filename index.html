@@ -984,7 +984,20 @@ body, html {
   border: none;
   cursor: pointer;
   padding: 5px;
-}        
+}
+
+ /* Stile per il titolo nella sidebar */
+.sidebar-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  padding: 10px 5px;
+  writing-mode: vertical-rl; /* Testo verticale, leggibile dal basso verso l'alto */
+  transform: rotate(180deg); /* Ruota per leggibilità */
+  letter-spacing: 1px;
+  white-space: nowrap;
+}       
     </style>
 </head>
 <body>
@@ -1019,7 +1032,7 @@ body, html {
     
     <!-- Barra laterale fissa -->
 <div class=sidebar>
-
+<div class="sidebar-title">Biblioteche di Roma</div>
 <button id=searchBtn onclick=toggleSearch() data-tooltip="Cerca biblioteca o indirizzo">
 <img src=search-icon.svg alt="Cerca biblioteca o indirizzo">
 </button>
