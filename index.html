@@ -984,7 +984,21 @@ body, html {
   border: none;
   cursor: pointer;
   padding: 5px;
-}        
+}
+
+/* Stile per il titolo nella sidebar */
+.sidebar-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  padding: 10px 5px;
+  writing-mode: vertical-rl; /* Testo verticale, leggibile dal basso verso l'alto */
+  transform: rotate(180deg); /* Ruota per leggibilità */
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+        
     </style>
 </head>
 <body>
@@ -1030,7 +1044,8 @@ body, html {
  <!-- Nuovo bottone con icona federate-icon.svg -->
     <button id="federateBtn" onclick="toggleFederateSidebar()" data-tooltip="Biblioteche federate">
         <img src="federate-icon.svg" alt="Biblioteche federate">
-    </button>   
+    </button>
+    <div class="sidebar-title">Biblioteche di Roma</div>
 </div>
 
 
