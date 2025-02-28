@@ -8,6 +8,37 @@
     <meta name="robots" content="index, follow">
     <meta name="GOOGLEBOT" content="index, follow, NOODP">
     <meta name="author" content="Biblioteca Elsa Morante">
+    <!-- Open Graph per Facebook e WhatsApp -->
+<meta property="og:title" content="Mappa delle Biblioteche di Roma">
+<meta property="og:description" content="Scopri tutte le biblioteche di Roma e della città metropolitana.">
+<meta property="og:image" content="https://bibliotecamorante.github.io/mappa/map-preview.png">
+<meta property="og:url" content="https://bibliotecamorante.github.io/mappa/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mappa delle Biblioteche di Roma">
+<meta name="twitter:description" content="Scopri tutte le biblioteche di Roma e della città metropolitana.">
+<meta name="twitter:image" content="https://bibliotecamorante.github.io/mappa/map-preview.png">
+<meta name="twitter:site" content="@bibliotecaElsaMorante">
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Mappa delle Biblioteche di Roma",
+    "url": "https://bibliotecamorante.github.io/mappa/",
+    "description": "Trova tutte le biblioteche di Roma e della città metropolitana con questa mappa interattiva.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Biblioteca Elsa Morante",
+      "url": "https://bibliotecamorante.github.io/"
+    }
+  }
+  </script>
+
+    
     
     <title>Mappa Biblioteche di Roma</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
@@ -1049,10 +1080,11 @@ body, html {
 </div>
 
     
+<!-- Titolo nascosto per SEO -->
+<h1 style="position: absolute; left: -9999px;">Mappa delle Biblioteche di Roma e della Città Metropolitana</h1>
     
     <!-- Barra laterale fissa -->
 <div class=sidebar>
-
 <button id=searchBtn onclick=toggleSearch() data-tooltip="Cerca biblioteca o indirizzo">
 <img src=search-icon.svg alt="Cerca biblioteca o indirizzo">
 </button>
@@ -1210,8 +1242,8 @@ const municipalityZones = {
     1: "Centro storico / Testaccio / Esquilino / Trastevere",
     2: "Salario / Flaminio / Tiburtino",
     3: "Monte Sacro",
-    4: "Pietralata / San Basilio / Tiburtino Sud",
-    5: "Tor Sapienza / Quadraro / Torpignattara",
+    4: "San Basilio / Pietralata",
+    5: "Tor Sapienza / Quadraro / Pigneto",
     6: "Borghesiana / Tor Bella Monaca",
     7: "Romanina / Don Bosco / Appio Latino",
     8: "Ostiense / Grottaperfetta",
